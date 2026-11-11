@@ -258,6 +258,14 @@ del.fxd{color:#ff9a9d;opacity:.85;text-decoration-thickness:2px;padding:0 3px}
 .lw{position:relative;max-width:min(100%,900px);margin:0 auto 16px}.lw img{width:100%;display:block;border-radius:14px}
 .lw.ed{max-width:640px;margin:0 0 10px;cursor:crosshair}
 .mk{position:absolute;transform:translate(-50%,-50%);width:26px;height:26px;border-radius:50%;background:var(--pri);color:#fff;display:grid;place-items:center;font-weight:800;font-size:13px;pointer-events:none}
+.tmtabs{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 8px}.tmtab{font:inherit;font-weight:800;font-size:15px;border:2px solid var(--line);border-bottom:5px solid var(--c);background:var(--card);color:var(--ink);border-radius:14px;padding:10px 20px;cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;gap:2px;transition:.15s}.tmtab small{font-weight:600;color:var(--mut);font-size:12px}.tmtab.on{background:color-mix(in srgb,var(--c) 18%,var(--card));border-color:var(--c);transform:translateY(-2px)}
+.dwarn{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 12px;padding:10px 14px;border-radius:12px;border:2px solid #ffb020;background:color-mix(in srgb,#ffb020 16%,var(--card));font-weight:700;font-size:14px}
+.dwarn.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,var(--card));font-weight:600}
+.dwarn span{flex:1;min-width:200px}.dwarn .b{padding:6px 14px;font-size:13px}
+.bkrg{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 10px;font-size:14px;color:var(--mut)}
+.bkrg input{width:64px}.bkrg .b{padding:6px 12px;font-size:13px}
+.balopt{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:2px solid var(--line);border-radius:12px;margin:8px 0;cursor:pointer}
+.balopt input{margin-top:3px;accent-color:var(--pri)}.balopt small{display:block;color:var(--mut);font-weight:500}
 .sp{position:absolute;transform:translate(-50%,-50%);min-width:34px;min-height:34px;padding:2px 10px;border-radius:99px;border:2px dashed var(--yel);background:rgba(16,26,58,.78);color:#fff;font:inherit;font-weight:800;font-size:clamp(12px,1.6vw,18px);cursor:pointer}
 .sp.f{border-style:solid;background:var(--pri)}.sp.hl{animation:pop 1s infinite}
 .sp.ok{background:var(--ok);border-color:#7ef0a4}.sp.bad{background:var(--bad);border-color:#ff9a9d}
@@ -887,6 +895,51 @@ function parsePassage(t){
 }
 
 /* ---------- Giao diện chỉnh sửa từng câu ---------- */
+let ATM=0,QNUM=null;
+const duelOn=l=>!!(l&&l.tm&&T(l)==='mc'&&l.tm.n===2&&l.tm.mode==='duel');
+function normDuel(l){if(!duelOn(l))return;l.questions.forEach((q,i)=>{if(q.ti!==0&&q.ti!==1)q.ti=i%2});if(ATM!==1)ATM=0}
+const dlTot=(l,k)=>l.questions.filter(q=>q.ti===k).reduce((a,q)=>a+clampP(q.p),0);
+function dwarnHTML(l){
+ const nm=k=>esc(l.tm.names[k]||'Đội '+(k+1)),a=dlTot(l,0),b=dlTot(l,1),n0=l.questions.filter(q=>q.ti===0).length,n1=l.questions.filter(q=>q.ti===1).length;
+ if(!n0&&!n1)return '';
+ if(a===b)return `<div class="dwarn ok" id="dwarn"><span>✅ Hai đội đang cân bằng điểm · ${nm(0)}: ${a} điểm, ${nm(1)}: ${b} điểm.</span></div>`;
+ return `<div class="dwarn" id="dwarn"><span>⚠ Lệch điểm giữa hai đội · ${nm(0)}: ${a} điểm, ${nm(1)}: ${b} điểm (lệch ${Math.abs(a-b)}). Mỗi đội có bộ câu riêng nên tổng điểm dễ chênh nhau.</span>${n0&&n1?'<button class="b p" data-act="balance">⚖ Cân bằng điểm</button>':''}</div>`;
+}
+/* chia lại điểm cho nhóm câu hỏi arr sao cho tổng đúng bằng target (giữ tỉ lệ, mỗi câu 1–100) */
+function spreadPts(arr,target){
+ const n=arr.length,sum=arr.reduce((s,q)=>s+clampP(q.p),0);
+ if(!n||target<n||target>100*n)return false;
+ const raw=arr.map(q=>clampP(q.p)*target/sum),v=raw.map(x=>Math.min(100,Math.max(1,Math.floor(x))));
+ let d=target-v.reduce((a,b)=>a+b,0);
+ const ord=raw.map((x,i)=>[x-Math.floor(x),i]).sort((a,b)=>b[0]-a[0]).map(x=>x[1]);
+ for(let g=0;d!==0&&g<1000;g++){let ch=false;for(const i of(d>0?ord:ord.slice().reverse())){if(d===0)break;if(d>0&&v[i]<100){v[i]++;d--;ch=true}else if(d<0&&v[i]>1){v[i]--;d++;ch=true}}if(!ch)break}
+ if(d!==0)return false;
+ arr.forEach((q,i)=>q.p=v[i]);return true;
+}
+function balanceModal(l){
+ if(!duelOn(l))return;normDuel(l);
+ const raw=k=>l.tm.names[k]||'Đội '+(k+1),nm=k=>esc(raw(k)),t=[0,1].map(k=>dlTot(l,k)),g=[0,1].map(k=>l.questions.filter(q=>q.ti===k));
+ if(!g[0].length||!g[1].length)return toast('Mỗi đội cần có ít nhất 1 câu hỏi để cân bằng điểm');
+ if(t[0]===t[1])return toast('Hai đội đang bằng điểm rồi');
+ const hi=t[0]>t[1]?0:1,lo=1-hi;
+ M={cb:()=>{},apply:()=>{
+  const r=document.querySelector('#modal input[name="bal"]:checked'),up=!r||r.value==='up',tg=up?lo:hi,ref=up?t[hi]:t[lo];
+  if(!spreadPts(g[tg],ref)){toast(`Không chia được: ${raw(tg)} có ${g[tg].length} câu, mỗi câu phải từ 1 đến 100 điểm`);return}
+  g[tg].forEach(q=>q.pset=1);save();closeModal();render();
+  toast(`Đã cân bằng: ${raw(tg)} còn ${ref} điểm, bằng ${raw(1-tg)}`);
+ }};
+ $('#modal').innerHTML=`<div class="mb"><h3>⚖ Cân bằng điểm hai đội</h3><p>${nm(0)}: ${t[0]} điểm · ${nm(1)}: ${t[1]} điểm. Điểm từng câu của đội được chỉnh sẽ co giãn theo tỉ lệ hiện tại, tổng khớp đúng với đội còn lại.</p><label class="balopt"><input type="radio" name="bal" value="up" checked><span><b>Nâng ${nm(lo)} lên ${t[hi]} điểm</b><small>Giữ nguyên điểm của ${nm(hi)}</small></span></label><label class="balopt"><input type="radio" name="bal" value="down"><span><b>Hạ ${nm(hi)} xuống ${t[lo]} điểm</b><small>Giữ nguyên điểm của ${nm(lo)}</small></span></label><div class="mr"><button class="b g" data-m="x">Huỷ</button><button class="b p" data-m="apply">Cân bằng</button></div></div>`;
+ $('#modal').hidden=false;
+}
+function qList(l){
+ const none=`<div class="empty">Bài tập chưa có câu hỏi. Hãy tải file lên hoặc thêm thủ công.</div>`;
+ QNUM=null;
+ if(!duelOn(l))return l.questions.length?l.questions.map((q,i)=>qEdit(l,q,i)).join(''):none;
+ normDuel(l);fixTm(l);
+ const ix=l.questions.map((_,i)=>i).filter(i=>l.questions[i].ti===ATM);QNUM={};ix.forEach((i,n)=>QNUM[i]=n+1);
+ const nm=k=>esc(l.tm.names[k]||'Đội '+(k+1));
+ const tabs=`<div class="tmtabs">`+[0,1].map(k=>{const qs=l.questions.filter(q=>q.ti===k);return `<button class="tmtab${ATM===k?' on':''}" style="--c:${TMC[k]}" data-act="tmtab" data-k="${k}">${TME[k]} ${nm(k)}<small>${qs.length} câu · ${qs.reduce((a,q)=>a+clampP(q.p),0)} điểm</small></button>`}).join('')+`</div><p class="sub" style="font-size:13px;margin:0 0 10px">Đang soạn bộ câu hỏi của <b>${nm(ATM)}</b>. Thêm câu hỏi, dán văn bản hay tải file lên đều được lưu vào đội này.</p>`;
+ return tabs+dwarnHTML(l)+(ix.length?ix.map(i=>qEdit(l,l.questions[i],i)).join(''):`<div class="empty">${nm(ATM)} chưa có câu hỏi. Hãy tải file lên hoặc thêm thủ công.</div>`)}
 function qEdit(l,q,i){
  const t=T(l);let warn='',body='';
  const lbl=x=>`<div class="lbl">${x}</div>`;
@@ -941,7 +994,7 @@ function qEdit(l,q,i){
   if(t==='passage')body=`<div class="pt" style="margin-bottom:8px">Chỗ trống số <input type="number" min="1" data-f="n" data-i="${i}" value="${esc(q.n||'')}"></div>`+body;
   if(i===0||l.questions[i-1].pid!==q.pid)pre=`<div class="qc"><div class="qh"><span>📄 Đoạn văn</span><button class="ib" style="background:var(--bg)" title="Xoá đoạn văn và các câu của nó" data-act="delpass" data-pid="${esc(q.pid)}">🗑</button></div><textarea rows="9" data-f="pt" data-pid="${esc(q.pid)}" placeholder="Dán đoạn văn vào đây. Đánh dấu chỗ trống bằng (1) ______, (2) ______ …">${esc((l.passages||{})[q.pid]||'')}</textarea></div>`;
  }
- return `${pre}<div class="qc"><div class="qh"><span>Câu ${i+1}${warn}</span><span style="display:flex;gap:12px;align-items:center"><span class="pt">Điểm <input type="number" min="1" max="100" step="1" value="${clampP(q.p)}" data-f="p" data-i="${i}"></span><button class="ib" style="background:var(--bg)" title="Xoá câu" data-act="delq" data-i="${i}">🗑</button></span></div>${body}</div>`;
+ return `${pre}<div class="qc"><div class="qh"><span>Câu ${QNUM&&QNUM[i]?QNUM[i]:i+1}${warn}</span><span style="display:flex;gap:12px;align-items:center"><span class="pt">Điểm <input type="number" min="1" max="100" step="1" value="${clampP(q.p)}" data-f="p" data-i="${i}"></span><button class="ib" style="background:var(--bg)" title="Xoá câu" data-act="delq" data-i="${i}">🗑</button></span></div>${body}</div>`;
 }
 
 /* ---------- Thêm bài học + chọn dạng bài ---------- */
@@ -1000,7 +1053,7 @@ function render(){
   <div class="head"><div><h1>${esc(l.name)}</h1><p class="sub" style="margin:4px 0 0">${tyLbl(l)} · ${l.questions.length} câu hỏi, tổng <b id="tot">${l.questions.reduce((s,q)=>s+clampP(q.p),0)}</b> điểm. Chỉnh sửa tự do trước khi trình chiếu.</p></div>${playBtns(l)}</div>
   ${l.g?'':tmCfg(l)}<div class="drop" id="drop">Kéo thả file <b>.txt</b> hoặc <b>.docx</b> vào đây để tạo câu hỏi tự động</div>
   <div class="bar">${l.g?'':tzBtn(l)}${T(l)==='guess'?'<button class="b g" data-act="imgbulk">🖼 Tải nhiều hình (tên file = đáp án)</button>':''}<button class="b g" data-act="upload">📂 Tải file lên</button><button class="b g" data-act="paste">📋 Dán văn bản</button>${['passage','tfng'].includes(T(l))?'<button class="b g" data-act="addpass">+ Thêm đoạn văn</button>':''}<button class="b g" data-act="addq">+ Thêm câu hỏi</button>${l.questions.length?'<button class="b g" data-act="bulk">🎯 Đặt điểm hàng loạt</button>':''}${l.questions.length?'<button class="b g" data-act="clearq">🗑 Xoá tất cả</button>':''}</div>`+
-  (l.questions.length?l.questions.map((q,i)=>qEdit(l,q,i)).join(''):`<div class="empty">Bài tập chưa có câu hỏi. Hãy tải file lên hoặc thêm thủ công.</div>`)+
+  qList(l)+
   `<p class="sub" style="font-size:13px">${HINT[T(l)]}</p>`;
  }
  $('#app').innerHTML=h;if(l&&['label','guess'].includes(T(l)))document.querySelectorAll('#app #drop,#app [data-act="upload"],#app [data-act="paste"]').forEach(x=>x.remove());
@@ -1016,7 +1069,7 @@ function unitModal(u){
 /* ---------- Thao tác ---------- */
 document.addEventListener('click',e=>{
  const mb=e.target.closest('[data-m]');
- if(mb){if(mb.dataset.m==='ok')modalOk();else if(mb.dataset.m==='alt'){const o=M;closeModal();o&&o.alt&&o.alt.cb()}else closeModal();return}
+ if(mb){if(mb.dataset.m==='range'||mb.dataset.m==='unset'){M&&M[mb.dataset.m]&&M[mb.dataset.m]();return}if(mb.dataset.m==='apply'){M&&M.apply&&M.apply();return}if(mb.dataset.m==='ok')modalOk();else if(mb.dataset.m==='alt'){const o=M;closeModal();o&&o.alt&&o.alt.cb()}else closeModal();return}
  if(e.target.id==='modal'){closeModal();return}
  const pb=e.target.closest('[data-p]');if(pb&&P){pAct(pb.dataset.p,+pb.dataset.k);return}
  const el=e.target.closest('#app [data-act]');if(!el)return;
@@ -1037,8 +1090,9 @@ document.addEventListener('click',e=>{
  else if(a==='del-l'){const x=c.lessons.find(z=>z.id===id);modal({t:'Xoá bài tập?',msg:`Bài tập “${x.name}” và các câu hỏi sẽ bị xoá.`,ok:'Xoá bài tập',danger:1,cb:()=>{clearResume(id);c.lessons=c.lessons.filter(z=>z.id!==id);save();render()}})}
  else if(a==='upload')$('#file').click();
  else if(a==='paste')modal({t:'Dán văn bản câu hỏi',f:'area',ph:PH[T(l)],ok:'Tạo câu hỏi',cb:addParsed});
- else if(a==='addq'){l.questions.push(newQ(l));save();render();const t=document.querySelectorAll('[data-f="q"]');t[t.length-1].focus()}
+ else if(a==='addq'){const nq=newQ(l);if(duelOn(l))nq.ti=ATM;l.questions.push(nq);save();render();const t=document.querySelectorAll('[data-f="q"]');t[t.length-1].focus()}
  else if(a==='bulk')bulkModal(l);
+ else if(a==='balance')balanceModal(l);
  else if(a==='addpass'){l.passages=l.passages||{};const pid=uid();l.passages[pid]='';l.questions.push(T(l)==='tfng'?{q:'',a:-1,p:1,pid}:{q:'',o:['','','',''],a:-1,p:1,pid,n:'1'});save();render();const tt=document.querySelectorAll('[data-f="pt"]');tt[tt.length-1].focus()}
  else if(a==='delpass'){const pid=el.dataset.pid;modal({t:'Xoá đoạn văn?',msg:'Đoạn văn và tất cả câu hỏi thuộc đoạn này sẽ bị xoá.',ok:'Xoá đoạn',danger:1,cb:()=>{l.questions=l.questions.filter(x=>x.pid!==pid);delete l.passages[pid];save();render()}})}
  else if(a==='addpair'){l.questions[i].pairs.push(['','']);save();render()}
@@ -1046,13 +1100,14 @@ document.addEventListener('click',e=>{
  else if(a==='tm0'){delete l.tm;save();render()}
  else if(a==='tm1'){l.tm=l.tm||{n:2,names:[]};fixTm(l);save();render()}
  else if(a==='tmd0'){delete l.tm.mode;save();render()}
- else if(a==='tmd1'){l.tm.mode='duel';save();render()}
+ else if(a==='tmd1'){l.tm.mode='duel';ATM=0;normDuel(l);save();render()}
+ else if(a==='tmtab'){ATM=+el.dataset.k===1?1:0;render()}
  else if(a==='tmn'){l.tm.n=+el.dataset.k;fixTm(l);save();render()}
  else if(a==='imgup'){IMGI=i;$('#imgf').click()}
  else if(a==='imgpt'){const r=el.getBoundingClientRect(),q=l.questions[i];(q.pts=q.pts||[]).push({x:Math.round((e.clientX-r.left)/r.width*1000)/10,y:Math.round((e.clientY-r.top)/r.height*1000)/10,t:''});save();render();const tt=document.querySelectorAll('[data-f="lt"]');tt[tt.length-1].focus()}
  else if(a==='delpt'){l.questions[i].pts.splice(+el.dataset.k,1);save();render()}
  else if(a==='delq'){l.questions.splice(i,1);save();render()}
- else if(a==='clearq')modal({t:'Xoá tất cả câu hỏi?',ok:'Xoá hết',danger:1,cb:()=>{l.questions=[];save();render()}});
+ else if(a==='clearq'){const du=duelOn(l),tn=du?(l.tm.names[ATM]||'Đội '+(ATM+1)):'';modal({t:du?`Xoá tất cả câu hỏi của ${tn}?`:'Xoá tất cả câu hỏi?',msg:du?'Chỉ xoá câu hỏi của đội đang chọn, đội còn lại giữ nguyên.':'',ok:'Xoá hết',danger:1,cb:()=>{l.questions=du?l.questions.filter(q=>q.ti!==ATM):[];save();render()}})}
  else if(a==='tz')tzModal(l);
  else if(a==='imgbulk')$('#imgm').click();
  else if(a==='gset')gSetModal(l);
@@ -1064,7 +1119,8 @@ document.addEventListener('input',e=>{
  if(t.dataset.f==='tname'){if(l.tm){l.tm.names[+t.dataset.k]=t.value;save()}return}
  if(t.dataset.f==='pt'){(l.passages=l.passages||{})[t.dataset.pid]=t.value;save();return}
  const q=l.questions[+t.dataset.i];if(!q)return;
- if(t.dataset.f==='p'){q.p=clampP(t.value);const e=$('#tot');if(e)e.textContent=l.questions.reduce((s,x)=>s+clampP(x.p),0)}else if(t.dataset.f==='q')q.q=t.value;else if(t.dataset.f==='a')q.a=t.value;else if(t.dataset.f==='n')q.n=t.value;else if(t.dataset.f==='pl')q.pairs[+t.dataset.k][0]=t.value;else if(t.dataset.f==='pr')q.pairs[+t.dataset.k][1]=t.value;else if(t.dataset.f==='lt')q.pts[+t.dataset.k].t=t.value;else q.o[+t.dataset.k]=t.value;
+ if(t.dataset.f==='p'){q.p=clampP(t.value);q.pset=1;const e=$('#tot');if(e)e.textContent=l.questions.reduce((s,x)=>s+clampP(x.p),0);
+  if(duelOn(l)){const w=$('#dwarn');if(w)w.outerHTML=dwarnHTML(l);document.querySelectorAll('.tmtab small').forEach((sm,k)=>{sm.textContent=`${l.questions.filter(x=>x.ti===k).length} câu · ${dlTot(l,k)} điểm`})}}else if(t.dataset.f==='q')q.q=t.value;else if(t.dataset.f==='a')q.a=t.value;else if(t.dataset.f==='n')q.n=t.value;else if(t.dataset.f==='pl')q.pairs[+t.dataset.k][0]=t.value;else if(t.dataset.f==='pr')q.pairs[+t.dataset.k][1]=t.value;else if(t.dataset.f==='lt')q.pts[+t.dataset.k].t=t.value;else q.o[+t.dataset.k]=t.value;
  save();
 });
 document.addEventListener('change',e=>{
@@ -1082,16 +1138,37 @@ document.addEventListener('change',e=>{
  else if(t.dataset.act==='setans'){const l=curL();l.questions[+t.dataset.i].a=+t.dataset.k;save();render()}
 });
 function bulkModal(l){
- M={cb:()=>{const p=clampP($('#bp').value);let n=0;document.querySelectorAll('#modal .bk input[value]:checked').forEach(c=>{if(c.id!=='ball'){l.questions[+c.value].p=p;n++}});save();render();toast(`Đã đặt ${p} điểm cho ${n} câu`)},chk:()=>{if(document.querySelector('#modal .bk input[value]:checked'))return true;toast('Hãy chọn ít nhất một câu');return false}};
- $('#modal').innerHTML=`<div class="mb"><h3>Đặt điểm hàng loạt</h3><p>Chọn các câu cần đổi điểm rồi nhập số điểm từ 1 đến 100.</p><div class="pt" style="margin-bottom:10px">Điểm cho các câu đã chọn <input id="bp" type="number" min="1" max="100" value="1"></div><label class="bk"><input type="checkbox" id="ball" checked><b>Chọn tất cả</b></label><div class="bklist">`+l.questions.map((q,i)=>`<label class="bk"><input type="checkbox" value="${i}" checked><span>Câu ${i+1}. ${esc(q.q||(q.n?'Chỗ trống ('+q.n+')':'(trống)'))}</span><em>${clampP(q.p)} điểm</em></label>`).join('')+`</div><div class="mr"><button class="b g" data-m="x">Huỷ</button><button class="b p" data-m="ok">Áp dụng</button></div></div>`;
- $('#modal').hidden=false;$('#bp').focus();
+ const du=duelOn(l);let ix=l.questions.map((_,i)=>i);
+ if(du){normDuel(l);ix=ix.filter(i=>l.questions[i].ti===ATM)}
+ const tn=du?esc(l.tm.names[ATM]||'Đội '+(ATM+1)):'';
+ const pick=(fn,msg)=>{let c=0,first=null;document.querySelectorAll('#modal .bklist .bk input[value]').forEach((x,n)=>{const on=fn(n+1,l.questions[+x.value]);x.checked=on;if(on){c++;if(!first)first=x}});const ba=$('#ball');if(ba)ba.checked=false;if(first)first.closest('.bk').scrollIntoView({block:'nearest'});toast(msg(c))};
+ M={cb:()=>{},range:()=>{
+  const a=parseInt($('#bfrom').value,10),b=parseInt($('#bto').value,10),N=ix.length;
+  if(isNaN(a)||isNaN(b)){toast('Hãy nhập số câu bắt đầu và kết thúc');return}
+  const lo=Math.max(1,Math.min(a,b)),hi=Math.min(N,Math.max(a,b));
+  if(lo>N){toast(`Bài chỉ có ${N} câu`);return}
+  pick(n=>n>=lo&&n<=hi,c=>`Đã chọn câu ${lo} đến câu ${hi} (${c} câu). Nhập điểm rồi bấm Lưu điểm.`)
+ },unset:()=>{
+  pick((n,q)=>clampP(q.p)<=1&&!q.pset,c=>c?`Đã chọn ${c} câu chưa đặt điểm. Nhập điểm rồi bấm Lưu điểm.`:'Tất cả các câu đã được đặt điểm')
+ },apply:()=>{
+  const inp=$('#bp'),raw=inp.value;
+  if(raw===''||isNaN(+raw)){toast('Hãy nhập số điểm từ 1 đến 100');inp.focus();return}
+  const cs=[...document.querySelectorAll('#modal .bk input[value]:checked')].filter(c=>c.id!=='ball');
+  if(!cs.length){toast('Hãy chọn ít nhất một câu');return}
+  const p=clampP(raw);
+  cs.forEach(c=>{const qq=l.questions[+c.value];qq.p=p;qq.pset=1;const em=c.closest('.bk').querySelector('em');if(em)em.textContent=p+' điểm';c.checked=false});
+  const ba=$('#ball');if(ba)ba.checked=false;
+  inp.value=p;save();render();inp.focus();inp.select();
+  toast(`Đã lưu ${p} điểm cho ${cs.length} câu. Chọn tiếp các câu khác hoặc bấm Đóng.`)}};
+ $('#modal').innerHTML=`<div class="mb"><h3>Đặt điểm hàng loạt${du?' · '+tn:''}</h3><p>Chọn các câu cần đổi điểm (tick từng câu, chọn theo khoảng hoặc chọn các câu chưa đặt điểm), nhập số điểm từ 1 đến 100 rồi bấm Lưu điểm. Hộp thoại giữ nguyên để bạn nhập tiếp cho các câu khác.</p><div class="pt" style="margin-bottom:10px">Điểm cho các câu đã chọn <input id="bp" type="number" min="1" max="100" value="1"></div><div class="bkrg">Chọn từ câu <input id="bfrom" type="number" min="1" max="${ix.length}" value="1"> đến câu <input id="bto" type="number" min="1" max="${ix.length}" value="${ix.length}"><button class="b g" data-m="range">Chọn khoảng</button><button class="b g" data-m="unset" title="Các câu còn ở mức 1 điểm mặc định và chưa được chỉnh">Chọn câu chưa đặt điểm</button></div><label class="bk"><input type="checkbox" id="ball" checked><b>Chọn tất cả</b></label><div class="bklist">`+ix.map((i,n)=>{const q=l.questions[i];return `<label class="bk"><input type="checkbox" value="${i}" checked><span>Câu ${n+1}. ${esc(q.q||(q.n?'Chỗ trống ('+q.n+')':'(trống)'))}</span><em>${clampP(q.p)} điểm</em></label>`}).join('')+`</div><div class="mr"><button class="b g" data-m="x">Đóng</button><button class="b p" data-m="apply">Lưu điểm</button></div></div>`;
+ $('#modal').hidden=false;$('#bp').focus();$('#bp').select();
 }
 function addParsed(t){
  const l=curL(),tt=T(l);let qs;
  if(tt==='mc'||tt==='passage'||tt==='dictmc')t=t.replace(/\*\*([^*\n]+?)\*\*/g,FM+'$1'+FE);
  if(tt==='passage'||tt==='tfng'){const r=(tt==='tfng'?parseTFNG:parsePassage)(t);qs=r.qs;if(qs.length)l.passages=Object.assign(l.passages||{},r.passages)}else qs=parseBy(t,tt);
  if(!qs.length)return toast('Chưa nhận diện được nội dung. Xem mẹo định dạng ở cuối trang.');
- l.questions.push(...qs);save();render();
+ if(duelOn(l)){normDuel(l);qs.forEach(q=>q.ti=ATM)}l.questions.push(...qs);save();render();
  const an=typeof qs[0].a==='number'?qs.filter(q=>q.a>=0).length:-1;
  toast(`Đã tạo ${qs.length} câu hỏi`+(an<0?'':an===qs.length?', đã tự nhận đủ đáp án':`, tự nhận được đáp án ${an}/${qs.length} câu. Câu còn lại hãy chọn đáp án thủ công`));
 }
@@ -1197,9 +1274,9 @@ let OM='drag';let PL=false;try{PL=localStorage.getItem('quizpres')==='light'}cat
 function stFor(t,q){
  const sh=q=>{const o=q._w.map((_,k)=>k);let r=shuf(o),g=0;while(g++<9&&o.length>1&&r.every((k,j)=>q._w[k]===q._w[j]))r=shuf(o);return r};
  if(t==='memory')return{cards:shuf(q.pairs.flatMap((p,k)=>[{k,t:p[0]},{k,t:p[1]}])),open:[],done:[],miss:0,fin:false};
- if(t==='cat')return{pool:shuf(q.pairs.map((_,k)=>k)),put:{},sel:null,fin:false,ok:false};
+ if(t==='cat')return{pool:shuf(q.pairs.map((_,k)=>k)),put:{},lock:{},miss:{},fl:[],sel:null,fin:false,ok:false};
  if(t==='label')return{pool:shuf(q.pts.map((_,k)=>k)),put:{},lock:{},miss:{},fl:[],sel:null,fin:false,ok:false};
- if(t==='bank')return{pool:shuf(q._bk.map((_,k)=>k)),put:{},sel:null,vals:[],fin:false,ok:false};
+ if(t==='bank')return{pool:shuf(q._bk.map((_,k)=>k)),put:{},lock:{},miss:{},fl:[],sel:null,vals:[],fin:false,ok:false};
  return t==='match'?{ord:shuf(q.pairs.map((_,k)=>k)),m:[],sel:null,miss:0,fin:false}:t==='order'?(()=>{const pl=sh(q);return {pool:pl,ord0:pl.slice(),ch:[],val:'',fin:false,ok:false}})():{val:t==='fix'?q.q:'',vals:[],fin:false,ok:false,sel:[],fx:{}};
 }
 /* ---------- Đấu theo đội ---------- */
@@ -1208,7 +1285,7 @@ function fixTm(l){if(!l.tm)return;l.tm.n=Math.min(5,Math.max(2,+l.tm.n||2));l.tm
 function tmCfg(l){
  const on=!!l.tm;
  let h=`<div class="tmcfg"><b>⚔ Chế độ</b><div class="seg"><button class="${on?'':'on'}" data-act="tm0">Mặc định</button><button class="${on?'on':''}" data-act="tm1">Đấu theo đội</button></div>`;
- if(on){fixTm(l);h+=`<span class="pt">Số đội</span><div class="seg">${[2,3,4,5].map(n=>`<button class="${l.tm.n===n?'on':''}" data-act="tmn" data-k="${n}">${n}</button>`).join('')}</div>`+(T(l)==='mc'&&l.tm.n===2?`<span class="pt">Cách chơi</span><div class="seg"><button class="${l.tm.mode==='duel'?'':'on'}" data-act="tmd0">Theo lượt</button><button class="${l.tm.mode==='duel'?'on':''}" data-act="tmd1">Làm cùng lúc</button></div>`:'')+[...Array(l.tm.n)].map((_,k)=>`<input type="text" data-f="tname" data-k="${k}" value="${esc(l.tm.names[k])}" placeholder="Đội ${k+1}" title="Tên đội ${k+1}" style="border-bottom:3px solid ${TMC[k]}">`).join('')+`<em style="flex-basis:100%;font-style:normal;color:var(--mut);font-size:12px">${l.tm.n===2?'2 đội: thanh kéo co, trả lời đúng kéo về phía mình, sai thì bị kéo ngược lại.':'Từ 3 đội: mỗi đội một thanh tiến độ, đúng thì lên, sai thì xuống.'} ${l.tm.n===2&&T(l)==='mc'&&l.tm.mode==='duel'?'Làm cùng lúc: hai bên hiển thị hai câu khác nhau, đội 1 bấm phím A B C D, đội 2 bấm phím 1 2 3 4 (chỉ dùng bàn phím, không bấm chuột).':'Các đội lần lượt trả lời từng câu.'}${T(l)==='flash'?' Flashcard chưa hỗ trợ, vẫn chơi như mặc định.':''}</em>`}
+ if(on){fixTm(l);h+=`<span class="pt">Số đội</span><div class="seg">${[2,3,4,5].map(n=>`<button class="${l.tm.n===n?'on':''}" data-act="tmn" data-k="${n}">${n}</button>`).join('')}</div>`+(T(l)==='mc'&&l.tm.n===2?`<span class="pt">Cách chơi</span><div class="seg"><button class="${l.tm.mode==='duel'?'':'on'}" data-act="tmd0">Theo lượt</button><button class="${l.tm.mode==='duel'?'on':''}" data-act="tmd1">Làm cùng lúc</button></div>`:'')+[...Array(l.tm.n)].map((_,k)=>`<input type="text" data-f="tname" data-k="${k}" value="${esc(l.tm.names[k])}" placeholder="Đội ${k+1}" title="Tên đội ${k+1}" style="border-bottom:3px solid ${TMC[k]}">`).join('')+`<em style="flex-basis:100%;font-style:normal;color:var(--mut);font-size:12px">${l.tm.n===2?'2 đội: thanh kéo co, trả lời đúng kéo về phía mình, sai thì bị kéo ngược lại.':'Từ 3 đội: mỗi đội một thanh tiến độ, đúng thì lên, sai thì xuống.'} ${l.tm.n===2&&T(l)==='mc'&&l.tm.mode==='duel'?'Làm cùng lúc: mỗi đội có bộ câu hỏi riêng (chuyển tab đội bên dưới để soạn), đội 1 bấm phím A B C D, đội 2 bấm phím 1 2 3 4 (chỉ dùng bàn phím, không bấm chuột).':'Các đội lần lượt trả lời từng câu.'}${T(l)==='flash'?' Flashcard chưa hỗ trợ, vẫn chơi như mặc định.':''}</em>`}
  return h+'</div>';
 }
 const stkLv=s=>s>=10?4:s>=7?3:s>=5?2:s>=3?1:0;
@@ -1265,7 +1342,7 @@ function tmResult(){
 }
 /* ---------- Đấu đôi: làm cùng lúc (bàn phím) ---------- */
 let DLT=[0,0];
-function initDuel(){DLT.forEach(clearTimeout);DLT=[0,0];const list=[[],[]];P.qs.forEach((_,i)=>list[i%2].push(i));P.duel={list,pos:[0,0],ans:[{},{}],fx:null,adv:null}}
+function initDuel(){DLT.forEach(clearTimeout);DLT=[0,0];const list=[[],[]];P.qs.forEach((q,i)=>list[q.ti===1?1:q.ti===0?0:i%2].push(i));P.duel={list,pos:[0,0],ans:[{},{}],fx:null,adv:null}}
 function dlCalc(){const d=P.duel;return [0,1].map(t=>d.list[t].reduce((s,qi)=>{const a=d.ans[t][qi],q=P.qs[qi];if(a==null||q.a<0)return s;return r2(s+(a===q.a?clampP(q.p)+((d.bn&&d.bn[t]&&d.bn[t][qi])||0):-clampP(q.p)/2))},0))}
 const dlOk=()=>P.duel.list.reduce((s,l,t)=>s+l.filter(qi=>P.qs[qi].a>=0&&P.duel.ans[t][qi]===P.qs[qi].a).length,0);
 const dlPts=()=>P.duel.list.reduce((s,l,t)=>s+l.reduce((u,qi)=>u+(P.qs[qi].a>=0&&P.duel.ans[t][qi]===P.qs[qi].a?clampP(P.qs[qi].p):0),0),0);
@@ -1339,7 +1416,7 @@ function initP(t,qs,dir){
 }
 function play(l,fresh){
  if(!fresh){const r=getResume(l);if(r){P=r.p;P.lid=l.id;P.sig=r.sig;if(P.tz){P.tlast=Date.now();tzLoop()}openPres();drawP(false);return}}
- const t=T(l);let qs;
+ const t=T(l);let qs;normDuel(l);
  if(t==='passage')qs=l.questions.filter(q=>q.o.filter(x=>x.trim()).length>=2).map(q=>({...q,_pt:(l.passages||{})[q.pid]||''}));
  else if(t==='tfng')qs=l.questions.filter(q=>q.q.trim()).map(q=>({...q,o:['True','False','Not Given'],lab:['T','F','NG'],_pt:(l.passages||{})[q.pid]||''}));
  else if(t==='order')qs=l.questions.map(q=>{const k=fxKeys(q),alts=k.length?k:[String(q.q||'').trim()];return {...q,_alts:alts,_w:alts[0].split(/\s+/),_old:!k.length}}).filter(q=>q._w.length>=2&&q._w[0]);
@@ -1361,7 +1438,7 @@ function play(l,fresh){
  else qs=l.questions.filter(q=>q.q.trim()&&String(q.a||'').trim());
  if(!qs.length)return toast(t==='mc'||t==='passage'?'Cần ít nhất một câu hỏi có từ 2 đáp án':t==='match'?'Cần ít nhất một câu nối có từ 2 cặp':t==='fill'?'Cần ít nhất một câu có chỗ trống (___) và đáp án':'Cần ít nhất một câu có đủ đề và đáp án');
  if(t==='vocab'||t==='flash')qs=qs.map(q=>({...q,rev:l.dir==='vi-en'||(l.dir!=='en-vi'&&Math.random()<.5)}));
- initP(['passage','tfng','dictmc','odd','tf'].includes(t)?'mc':t==='scramble'||t==='dialog'?'order':t,qs,l.dir);P.pass=t==='passage'||t==='tfng';P.lid=l.id;P.sig=sigOf(l);if(l.tm&&t!=='flash'){fixTm(l);P.tm={n:l.tm.n,names:l.tm.names.slice(0,l.tm.n),qp:{},last:null};if(t==='mc'&&l.tm.n===2&&l.tm.mode==='duel'){if(qs.length>=2)initDuel();else toast('Cần ít nhất 2 câu để thi cùng lúc, đang chơi theo lượt')}}
+ initP(['passage','tfng','dictmc','odd','tf'].includes(t)?'mc':t==='scramble'||t==='dialog'?'order':t,qs,l.dir);P.pass=t==='passage'||t==='tfng';P.lid=l.id;P.sig=sigOf(l);if(l.tm&&t!=='flash'){fixTm(l);P.tm={n:l.tm.n,names:l.tm.names.slice(0,l.tm.n),qp:{},last:null};if(t==='mc'&&l.tm.n===2&&l.tm.mode==='duel'){if(qs.some(q=>q.ti===0)&&qs.some(q=>q.ti===1))initDuel();else toast('Mỗi đội cần ít nhất 1 câu hỏi hợp lệ để thi cùng lúc, đang chơi theo lượt')}}
  P.tz=tzCfg(l,t);if(P.tz)tzInit();
  openPres();drawP(true);
 }
@@ -1394,7 +1471,8 @@ function bodyX(q,anim){
  const s=P.st[P.i],rev=s.fin||P.show[P.i],t=P.t;
  const c=`<div class="pw sl${anim?' in':''}"><span class="ptag">${fmt(ptsQ(P.i))} điểm</span>`;
  const SELF='<div style="margin-top:14px"><button class="b g" data-p="self" style="background:rgba(255,255,255,.12);color:#fff;border:0">Cách trả lời của mình cũng đúng ✓</button></div>';
- const CHK=`<div style="margin-top:16px"><button class="b y" data-p="lcheck" ${s.pool&&s.pool.length?'disabled':''}>✓ Kiểm tra</button></div>`;
+ const CHKN=t==='cat'?q.pairs.length:t==='bank'?q._f.ans.length:0;
+ const CHK=`<div style="margin-top:16px"><button class="b y" data-p="lcheck" ${[...Array(CHKN).keys()].some(j=>s.put[j]!=null&&!(s.lock&&s.lock[j]))?'':'disabled'}>✓ Kiểm tra</button></div><p class="note">Có thể bấm Kiểm tra bất cứ lúc nào để chấm ngay các mục đã đặt: mục đúng được giữ lại, mục sai quay về khung (mục đó không được tính điểm).</p>`;
  const tl=(k,txt,p)=>`<button class="wd${s.sel===k?' sel':''}" data-p="${p}" data-k="${k}" draggable="true">${esc(txt)}</button>`;
  const got=()=>s.got!=null?`<p class="note">${s.ok?'Chính xác!':'Chưa hoàn toàn đúng.'} +${fmt(s.got)}/${fmt(ptsQ(P.i))} điểm</p>`:'';
  if(t==='dict'){
@@ -1426,7 +1504,7 @@ function bodyX(q,anim){
  }
  if(t==='cat'){
   const loc=k=>rev&&!s.sub?q._ci[k]:s.put[k],all=q.pairs.map((_,k)=>k);
-  const tile=k=>`<button class="wd${s.sel===k?' sel':''}${rev&&s.sub?(s.res[k]?' okk':' bad'):''}" ${rev?'tabindex="-1" style="pointer-events:none"':`data-p="ct" data-k="${k}" draggable="true"`}>${esc(q.pairs[k][0])}</button>`;
+  const tile=k=>{const lk=!rev&&s.lock&&s.lock[k],fl=!rev&&s.fl&&s.fl.includes(k);return `<button class="wd${s.sel===k?' sel':''}${rev&&s.sub?(s.res[k]?' okk':' bad'):lk?' okk':fl?' bad':''}" ${rev||lk?'tabindex="-1" style="pointer-events:none"':`data-p="ct" data-k="${k}" draggable="true"`}>${esc(q.pairs[k][0])}</button>`};
   return c+`<h2>${esc(q.q||'Phân loại các mục vào đúng nhóm')}</h2><p class="lab">Kéo thả (hoặc bấm mục rồi bấm nhóm). Bấm mục đã đặt để trả về.</p><div class="cgrid">`+q._c.map((nm,j)=>`<div class="cz" data-p="cb" data-k="${j}" data-cz="${j}"><h3>${esc(nm)}</h3>${all.filter(k=>loc(k)===j).map(tile).join('')}</div>`).join('')+`</div>`+(rev?'':`<div class="wpool">${s.pool.map(tile).join('')}</div>${CHK}`)+got()+'</div>';
  }
  if(t==='label'){
@@ -1436,7 +1514,7 @@ function bodyX(q,anim){
  if(t==='bank'){
   const f=q._f,n=f.ans.length,bk=q._bk;
   let h=c+`<p class="lab">Chọn từ trong ngân hàng rồi bấm vào chỗ trống (hoặc kéo thả)</p><div class="cloze">`;
-  f.segs.forEach((sg,k)=>{h+=esc(sg);if(k<n){const w=rev&&!s.sub?k:s.put[k];h+=`<button class="bb${w!=null?' f':''}${rev?(s.sub?(s.res[k]?' ok':' bad'):' ok'):s.sel!=null&&w==null?' hl':''}" ${rev?'tabindex="-1" style="pointer-events:none"':`data-p="bs" data-k="${k}" data-cz="${k}"`}>${w!=null?esc(bk[w]):'&nbsp;'}</button>`}});
+  f.segs.forEach((sg,k)=>{h+=esc(sg);if(k<n){const w=rev&&!s.sub?k:s.put[k],lk=!rev&&s.lock&&s.lock[k],fl=!rev&&s.fl&&s.fl.includes(k);h+=`<button class="bb${w!=null?' f':''}${rev?(s.sub?(s.res[k]?' ok':' bad'):' ok'):lk?' ok':fl?' bad':s.sel!=null&&w==null?' hl':''}" ${rev||lk?'tabindex="-1" style="pointer-events:none"':`data-p="bs" data-k="${k}" data-cz="${k}"`}>${w!=null?esc(bk[w]):'&nbsp;'}</button>`}});
   h+='</div>';
   if(!rev)h+=`<div class="wpool">${s.pool.map(k=>tl(k,bk[k],'bt')).join('')}</div>${CHK}`;
   h+=got();if(s.sub&&!s.ok)h+=SELF;
@@ -1782,7 +1860,9 @@ function pAct(a,k){
   const i=P.i;
   if(P.t==='mc'){(P.el[i]=P.el[i]||[]).push(P.ans[i]);P.ans[i]=null}
   else{addSc(-(s.got||0));P.st[i]=stFor(P.t,q)}
-  if(P.t==='mc')P.rt[i]++;drawP(false);
+  if(P.t==='mc')P.rt[i]++;
+   if(P.tz&&P.tz.q&&P.tt&&P.tt[i]){P.tt[i]={left:P.tz.q,live:false,paid:false,to:false};if(P.bn)delete P.bn[i];P.tlast=Date.now()}
+   drawP(false);
  }
  else if(a==='self'){
   if(s.sub&&!s.ok){const av=ptsQ(P.i);s.ok=true;s.self=true;s.fin=true;addSc(av-(s.got||0));s.got=av;drawP(false)}
@@ -1827,8 +1907,8 @@ function pAct(a,k){
   }
   drawP(false);
  }
- else if(a==='ct'){if(P.t!=='cat'||s.fin||P.show[P.i])return;if(s.put[k]!=null){delete s.put[k];s.pool.push(k);s.sel=null}else s.sel=s.sel===k?null:k;drawP(false)}
- else if(a==='cb'){if(P.t!=='cat'||s.fin||P.show[P.i]||s.sel==null)return;const x=s.sel,ix=s.pool.indexOf(x);if(ix>=0)s.pool.splice(ix,1);s.put[x]=k;s.sel=null;drawP(false)}
+ else if(a==='ct'){if(P.t!=='cat'||s.fin||P.show[P.i])return;if(s.lock&&s.lock[k])return;s.fl=[];if(s.put[k]!=null){delete s.put[k];s.pool.push(k);s.sel=null}else s.sel=s.sel===k?null:k;drawP(false)}
+ else if(a==='cb'){if(P.t!=='cat'||s.fin||P.show[P.i]||s.sel==null)return;s.fl=[];const x=s.sel,ix=s.pool.indexOf(x);if(ix>=0)s.pool.splice(ix,1);s.put[x]=k;s.sel=null;drawP(false)}
  else if(a==='lt'||a==='bt'){if(!['label','bank'].includes(P.t)||s.fin||P.show[P.i])return;s.fl=[];s.sel=s.sel===k?null:k;drawP(false)}
  else if(a==='sp'||a==='bs'){
   if(!['label','bank'].includes(P.t)||s.fin||P.show[P.i])return;
@@ -1840,22 +1920,20 @@ function pAct(a,k){
  }
  else if(a==='lcheck'){
   if(!['cat','label','bank'].includes(P.t)||s.fin)return;
-  if(P.t!=='label'&&s.pool.length)return;
   let res;
-  if(P.t==='label'){
+  if(P.t==='label'||P.t==='cat'||P.t==='bank'){
    s.lock=s.lock||{};s.miss=s.miss||{};
-   const n=q.pts.length,all=[...Array(n).keys()],pend=all.filter(j=>s.put[j]!=null&&!s.lock[j]);
+   const lb=P.t==='label',ct=P.t==='cat',nm=lb?'nhãn':ct?'mục':'từ';
+   const n=lb?q.pts.length:ct?q.pairs.length:q._f.ans.length,all=[...Array(n).keys()],pend=all.filter(j=>s.put[j]!=null&&!s.lock[j]);
    if(!pend.length)return;
-   const okf=j=>norm(q.pts[s.put[j]].t)===norm(q.pts[j].t);
-   if(all.every(j=>s.put[j]!=null))res=all.map(j=>!s.miss[j]&&(s.lock[j]||okf(j)));
+   const okf=j=>lb?norm(q.pts[s.put[j]].t)===norm(q.pts[j].t):ct?s.put[j]===q._ci[j]:q._f.ans[j].some(x=>eqAns(x,q._bk[s.put[j]]));
+   if(all.every(j=>s.put[j]!=null)){res=all.map(j=>!s.miss[j]&&(s.lock[j]||okf(j)));if(P.t==='bank')s.vals=q._f.ans.map((_,k)=>q._bk[s.put[k]]||'')}
    else{
     s.fl=[];let w=0;
-    pend.forEach(j=>{if(okf(j))s.lock[j]=true;else{w++;s.miss[j]=true;s.fl.push(j);s.pool.push(s.put[j]);delete s.put[j]}});
-    toast(w?`Đúng ${pend.length-w}, sai ${w}. Nhãn sai đã quay về khung, hãy thử lại.`:`Đúng ${pend.length}/${pend.length} nhãn vừa gắn!`);
+    pend.forEach(j=>{if(okf(j))s.lock[j]=true;else{w++;s.miss[j]=true;s.fl.push(j);s.pool.push(ct?j:s.put[j]);delete s.put[j]}});
+    toast(w?`Đúng ${pend.length-w}, sai ${w}. ${nm[0].toUpperCase()+nm.slice(1)} sai đã quay về khung, hãy thử lại.`:`Đúng ${pend.length}/${pend.length} ${nm} vừa đặt!`);
     return drawP(false)}
   }
-  else if(P.t==='cat')res=q.pairs.map((_,j)=>s.put[j]===q._ci[j]);
-  else if(P.t==='bank'){res=q._f.ans.map((al,k)=>al.some(x=>eqAns(x,q._bk[s.put[k]])));s.vals=q._f.ans.map((_,k)=>q._bk[s.put[k]]||'')}
   else res=q.pts.map((p,k)=>norm(q.pts[s.put[k]].t)===norm(p.t));
   s.res=res;const c=res.filter(Boolean).length;s.fin=true;s.sub=true;s.ok=c===res.length;s.got=r2(ptsQ(P.i)*c/res.length);addSc(s.got);drawP(false);
  }
@@ -1887,7 +1965,7 @@ function pAct(a,k){
  else if(a==='review'){P.rv=true;P.show.fill(true);P.done=false;P.i=0;drawP(true)}
 }
 document.addEventListener('keydown',e=>{
- if(M){if(e.key==='Enter'&&e.target.id!=='mi'||e.key==='Enter'&&M.f==='line')modalOk();if(e.key==='Escape')closeModal();return}
+ if(M){if(e.key==='Enter'&&M.apply){e.preventDefault();M.apply();return}if(e.key==='Enter'&&e.target.id!=='mi'||e.key==='Enter'&&M.f==='line')modalOk();if(e.key==='Escape')closeModal();return}
  if(!P)return;const k=e.key.toLowerCase();if(P.duel){dlKey(k,e);return}
  if(/^(textarea|input)$/i.test(e.target.tagName)){
   if(k==='enter'&&!e.shiftKey){e.preventDefault();pAct('submit')}
