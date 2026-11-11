@@ -1198,7 +1198,7 @@ function stFor(t,q){
  const sh=q=>{const o=q._w.map((_,k)=>k);let r=shuf(o),g=0;while(g++<9&&o.length>1&&r.every((k,j)=>q._w[k]===q._w[j]))r=shuf(o);return r};
  if(t==='memory')return{cards:shuf(q.pairs.flatMap((p,k)=>[{k,t:p[0]},{k,t:p[1]}])),open:[],done:[],miss:0,fin:false};
  if(t==='cat')return{pool:shuf(q.pairs.map((_,k)=>k)),put:{},sel:null,fin:false,ok:false};
- if(t==='label')return{pool:shuf(q.pts.map((_,k)=>k)),put:{},sel:null,fin:false,ok:false};
+ if(t==='label')return{pool:shuf(q.pts.map((_,k)=>k)),put:{},lock:{},miss:{},fl:[],sel:null,fin:false,ok:false};
  if(t==='bank')return{pool:shuf(q._bk.map((_,k)=>k)),put:{},sel:null,vals:[],fin:false,ok:false};
  return t==='match'?{ord:shuf(q.pairs.map((_,k)=>k)),m:[],sel:null,miss:0,fin:false}:t==='order'?(()=>{const pl=sh(q);return {pool:pl,ord0:pl.slice(),ch:[],val:'',fin:false,ok:false}})():{val:t==='fix'?q.q:'',vals:[],fin:false,ok:false,sel:[],fx:{}};
 }
@@ -1431,7 +1431,7 @@ function bodyX(q,anim){
  }
  if(t==='label'){
   const pts=q.pts,at=j=>rev&&!s.sub?j:s.put[j];
-  return c+`<h2>${esc(q.q||'Gắn nhãn đúng vị trí trên hình')}</h2><div class="lw"><img src="${q.img}" alt="">`+pts.map((p,j)=>{const tk=at(j);return `<button class="sp${tk!=null?' f':''}${rev?(s.sub?(s.res[j]?' ok':' bad'):' ok'):s.sel!=null&&tk==null?' hl':''}" style="left:${p.x}%;top:${p.y}%${rev?';pointer-events:none':''}" ${rev?'tabindex="-1"':`data-p="sp" data-k="${j}" data-cz="${j}"`}>${tk!=null?esc(pts[tk].t):j+1}</button>`}).join('')+`</div>`+(rev?'':`<div class="wpool">${s.pool.map(k=>tl(k,pts[k].t,'lt')).join('')}</div>${CHK}`)+got()+'</div>';
+  return c+`<h2>${esc(q.q||'Gắn nhãn đúng vị trí trên hình')}</h2><div class="lw"><img src="${q.img}" alt="">`+pts.map((p,j)=>{const tk=at(j),lk=!rev&&s.lock&&s.lock[j],fl=!rev&&s.fl&&s.fl.includes(j);return `<button class="sp${tk!=null?' f':''}${rev?(s.sub?(s.res[j]?' ok':' bad'):' ok'):lk?' ok':fl?' bad':s.sel!=null&&tk==null?' hl':''}" style="left:${p.x}%;top:${p.y}%${rev||lk?';pointer-events:none':''}" ${rev||lk?'tabindex="-1"':`data-p="sp" data-k="${j}" data-cz="${j}"`}>${tk!=null?esc(pts[tk].t):j+1}</button>`}).join('')+`</div>`+(rev?'':`<div class="wpool">${s.pool.map(k=>tl(k,pts[k].t,'lt')).join('')}</div><div style="margin-top:16px"><button class="b y" data-p="lcheck" ${pts.some((_,j)=>s.put[j]!=null&&!(s.lock&&s.lock[j]))?'':'disabled'}>✓ Kiểm tra</button></div><p class="note">Có thể bấm Kiểm tra bất cứ lúc nào để chấm ngay các nhãn đã gắn: nhãn đúng được giữ lại, nhãn sai quay về khung (vị trí đó không được tính điểm).</p>`)+got()+'</div>';
  }
  if(t==='bank'){
   const f=q._f,n=f.ans.length,bk=q._bk;
@@ -1829,18 +1829,32 @@ function pAct(a,k){
  }
  else if(a==='ct'){if(P.t!=='cat'||s.fin||P.show[P.i])return;if(s.put[k]!=null){delete s.put[k];s.pool.push(k);s.sel=null}else s.sel=s.sel===k?null:k;drawP(false)}
  else if(a==='cb'){if(P.t!=='cat'||s.fin||P.show[P.i]||s.sel==null)return;const x=s.sel,ix=s.pool.indexOf(x);if(ix>=0)s.pool.splice(ix,1);s.put[x]=k;s.sel=null;drawP(false)}
- else if(a==='lt'||a==='bt'){if(!['label','bank'].includes(P.t)||s.fin||P.show[P.i])return;s.sel=s.sel===k?null:k;drawP(false)}
+ else if(a==='lt'||a==='bt'){if(!['label','bank'].includes(P.t)||s.fin||P.show[P.i])return;s.fl=[];s.sel=s.sel===k?null:k;drawP(false)}
  else if(a==='sp'||a==='bs'){
   if(!['label','bank'].includes(P.t)||s.fin||P.show[P.i])return;
+  if(s.lock&&s.lock[k])return;s.fl=[];
   const cur=s.put[k];
   if(s.sel==null){if(cur!=null){s.pool.push(cur);delete s.put[k]}return drawP(false)}
   const x=s.sel;s.sel=null;const ix=s.pool.indexOf(x);if(ix>=0)s.pool.splice(ix,1);else for(const j in s.put)if(s.put[j]===x)delete s.put[j];
   if(cur!=null)s.pool.push(cur);s.put[k]=x;drawP(false);
  }
  else if(a==='lcheck'){
-  if(!['cat','label','bank'].includes(P.t)||s.fin||s.pool.length)return;
+  if(!['cat','label','bank'].includes(P.t)||s.fin)return;
+  if(P.t!=='label'&&s.pool.length)return;
   let res;
-  if(P.t==='cat')res=q.pairs.map((_,j)=>s.put[j]===q._ci[j]);
+  if(P.t==='label'){
+   s.lock=s.lock||{};s.miss=s.miss||{};
+   const n=q.pts.length,all=[...Array(n).keys()],pend=all.filter(j=>s.put[j]!=null&&!s.lock[j]);
+   if(!pend.length)return;
+   const okf=j=>norm(q.pts[s.put[j]].t)===norm(q.pts[j].t);
+   if(all.every(j=>s.put[j]!=null))res=all.map(j=>!s.miss[j]&&(s.lock[j]||okf(j)));
+   else{
+    s.fl=[];let w=0;
+    pend.forEach(j=>{if(okf(j))s.lock[j]=true;else{w++;s.miss[j]=true;s.fl.push(j);s.pool.push(s.put[j]);delete s.put[j]}});
+    toast(w?`Đúng ${pend.length-w}, sai ${w}. Nhãn sai đã quay về khung, hãy thử lại.`:`Đúng ${pend.length}/${pend.length} nhãn vừa gắn!`);
+    return drawP(false)}
+  }
+  else if(P.t==='cat')res=q.pairs.map((_,j)=>s.put[j]===q._ci[j]);
   else if(P.t==='bank'){res=q._f.ans.map((al,k)=>al.some(x=>eqAns(x,q._bk[s.put[k]])));s.vals=q._f.ans.map((_,k)=>q._bk[s.put[k]]||'')}
   else res=q.pts.map((p,k)=>norm(q.pts[s.put[k]].t)===norm(p.t));
   s.res=res;const c=res.filter(Boolean).length;s.fin=true;s.sub=true;s.ok=c===res.length;s.got=r2(ptsQ(P.i)*c/res.length);addSc(s.got);drawP(false);
