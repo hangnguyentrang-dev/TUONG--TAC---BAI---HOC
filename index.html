@@ -2203,7 +2203,7 @@ function gQs(l){const t=T(l),out=[],qa=l.questions;
  return out}
 function gQ(){G.nq=1;G.wr=[];if(G.tz)G.tl=G.tz.q;const b=G.qs[G.qi++%G.qs.length];if(b.fix)return b;const ix=shuf(b.o.map((_,i)=>i));return{q:b.q,o:ix.map(i=>b.o[i]),a:ix.indexOf(b.a),p:b.p}}
 function gPlay(l,fresh){if(!fresh&&gResume(l))return;clearGame(l.id);const qs=gQs(l);if(qs.length<2)return toast('Cần ít nhất 2 câu hỏi hợp lệ (có đủ đề và đáp án đúng) để chơi');gClr();const s=gS(l);if(l.g==='arena')s.n=2;
- G={l,k:l.g,s,tz:l.g==='arena'?(c=>c&&c.q?c:null)(tzCfg(l,T(l))):null,tl:0,qs:shuf(qs),qi:0,sc:Array(s.n).fill(0),nm:Array.from({length:s.n},(_,i)=>(s.names[i]||'')||'Đội '+(i+1)),turn:0,out:Array(s.n).fill(0),round:1,lock:0,pick:null,hid:null,poll:null,end:null};
+ G={l,k:l.g,s,tz:l.g==='arena'?(c=>c&&c.q?c:null)(tzCfg(l,T(l))):null,tl:0,qs:l.g==='arena'?qs:shuf(qs),qi:0,sc:Array(s.n).fill(0),nm:Array.from({length:s.n},(_,i)=>(s.names[i]||'')||'Đội '+(i+1)),turn:0,out:Array(s.n).fill(0),round:1,lock:0,pick:null,hid:null,poll:null,end:null};
  const k=G.k;G.q=gQ();if(k==='arena'){G.sc=Array(2).fill(s.hp);G.st=[{},{}];G.log=[];G.ev=null;G.last=G.sc.slice();G.gf=aBox();if(G.tz)gI(arTick,200)}
  if(k==='grid'){G.cells=Array(25).fill(-1);G.sel=null}
  if(k==='bomb'){G.left=s.t;G.boom=0;gBombTick()}
