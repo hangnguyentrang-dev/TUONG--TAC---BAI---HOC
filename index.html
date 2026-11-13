@@ -291,7 +291,7 @@ del.fxd{color:#ff9a9d;opacity:.85;text-decoration-thickness:2px;padding:0 3px}
 .rvl{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;pointer-events:none;z-index:95}
 .rvc{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;max-width:300px;padding:18px 28px;border-radius:22px;border:4px solid var(--c);background:color-mix(in srgb,var(--c) 24%,var(--card));box-shadow:0 0 44px var(--c);animation:rvIn 2.8s both}.rvc span{font-size:clamp(60px,12vw,110px);line-height:1}.rvc b{font-size:clamp(20px,3vw,30px)}.rvc small{color:var(--mut);font-weight:600}
 @keyframes rvIn{0%{transform:scale(.2) rotate(-14deg);opacity:0}12%{transform:scale(1.25) rotate(4deg);opacity:1}20%,56%{transform:scale(1);opacity:1}88%{transform:translate(var(--tx,0px),var(--ty,-40px)) scale(.2) rotate(8deg);opacity:1}100%{transform:translate(var(--tx,0px),var(--ty,-40px)) scale(.08);opacity:0}}
-.evd .afx{animation-delay:2.2s}@keyframes rvLate{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}.evd .a7ct:has(.arv.on) .a7cs,.evd .arv.on .abf span{animation:rvLate .4s 2.4s both}
+.evd .afx{animation-delay:calc(var(--rp,0s) + 1s)}@keyframes rvLate{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}.evd .a7ct:has(.arv.on) .a7cs,.evd .arv.on .abf span{animation:rvLate .4s calc(var(--rp,0s) + 1.15s) both}
 .gqw{position:relative;margin-top:46px}.gqw.nogf{margin-top:0}
 .bgb{position:absolute;right:14px;top:-62px;z-index:4;font-size:clamp(64px,10vw,104px);line-height:1;pointer-events:none;filter:drop-shadow(0 6px 10px rgba(250,204,21,.65)) drop-shadow(0 0 18px #facc15);transform-origin:50% 100%;animation:bgbHop 1s infinite}
 @keyframes bgbHop{0%,100%{transform:translateY(0) rotate(0) scale(1,1)}12%{transform:translateY(0) scale(1.1,.88)}38%{transform:translateY(-20px) rotate(-10deg) scale(.96,1.06)}62%{transform:translateY(-20px) rotate(10deg) scale(.96,1.06)}86%{transform:translateY(0) scale(1.08,.9)}}
@@ -496,6 +496,7 @@ del.fxd{color:#ff9a9d;opacity:.85;text-decoration-thickness:2px;padding:0 3px}
 .gar.gshk{animation:gsh .3s}.gfl,.gmo,.gbl{transition:opacity .4s,border-color .15s}.gbl.bad{background:var(--bad)}.gbl.ok{background:var(--ok);transform:scale(1.15)}#gpt{font-size:1.15em}
 .gbs{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}.gbc{flex:1;max-width:220px;min-width:110px;text-align:center;padding:8px;border-radius:18px;border:2px solid transparent;transition:.25s}.gbs.n1 .gbc{max-width:300px}
 .gbc.on{border-color:var(--c);background:color-mix(in srgb,var(--c) 14%,var(--card))}.gbc small{color:var(--mut);font-weight:600}.gbc .ghp i{background:var(--c)}.gbc.dead{opacity:.45}.gbs .gbo{font-size:clamp(44px,8vw,72px)}.gbs.n1 .gbo{font-size:clamp(60px,12vw,100px)}
+.gfr{border-bottom:1px solid var(--line)}.gfp{display:flex;flex-wrap:wrap;gap:8px;padding:0 10px 8px 38px}.gfp label{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--mut)}.gfp input[type=number]{width:64px}.gft select{font-size:12px;padding:3px 6px;max-width:170px}.gfd{font-style:normal;color:var(--mut)}.cgf{border:2px dashed var(--line);border-radius:12px;padding:10px;margin-top:8px;display:grid;gap:8px}.cgf[hidden]{display:none}
 </style>
 <style>
 .stab{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}.stab button{font:inherit;font-weight:700;border:1px solid var(--line);background:var(--bg);color:var(--mut);border-radius:99px;padding:6px 14px;cursor:pointer}.stab button.on{background:var(--pri);color:#fff;border-color:var(--pri)}
@@ -545,7 +546,7 @@ del.fxd{color:#ff9a9d;opacity:.85;text-decoration-thickness:2px;padding:0 3px}
 .gboard.ar .gtm{flex-direction:row;align-items:center;gap:8px;min-width:0;padding:3px 14px;border-radius:12px}
 .gboard.ar .gte{font-size:22px}.gboard.ar .gtn{font-size:14px;max-width:9ch}.gboard.ar .gtv{font-size:22px;line-height:1.1}
 .gboard.ar .gtm.on{transform:scale(1.04)}
-#gm:has(.arn){gap:6px}
+#gm:has(.arn){gap:6px;overflow:hidden}
 .arn{margin:0 0 4px}
 .arn .arv svg{width:clamp(70px,11vw,112px)}
 .arn.a7 .a7bk{min-height:92px}
@@ -600,6 +601,93 @@ del.fxd{color:#ff9a9d;opacity:.85;text-decoration-thickness:2px;padding:0 3px}
 .gsk{margin-top:2px}
 .a7bf{display:flex;gap:1px;justify-content:center;flex-wrap:wrap;font-size:11px;line-height:1;min-height:0}
 .a7m .afx{font-size:34px;top:0}
+.rvl{display:block}
+.rvc.rvn{position:fixed;left:0;top:0;width:0;height:0;padding:0;border:0;background:none;box-shadow:none;max-width:none;animation:none;display:block}
+.rvc.rvn .rvj{position:fixed;left:0;top:0;width:78px;height:78px;margin:-39px 0 0 -39px;display:grid;place-items:center;border-radius:50%;font-size:44px;line-height:1;background:color-mix(in srgb,var(--c) 30%,var(--card));border:4px solid var(--c);box-shadow:0 0 28px var(--c);opacity:0;will-change:transform,opacity}
+.rvc.rvn .rvi{position:fixed;left:0;top:0;width:min(220px,44vw);display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;padding:10px 14px;border-radius:16px;border:3px solid var(--c);background:color-mix(in srgb,var(--c) 22%,var(--card));box-shadow:0 0 26px var(--c);opacity:0;will-change:transform,opacity}
+.rvc.rvn .rvi b{font-size:17px}.rvc.rvn .rvi small{font-size:13px}
+.cpe{background:color-mix(in srgb,var(--c) 10%,var(--card));border-radius:10px;padding:8px 10px;margin-top:2px}.cpe p{margin:3px 0 0;font-size:15px;font-weight:800;line-height:1.5;color:var(--ink)}.cpe i{font-style:normal;font-weight:900;font-size:1.12em;color:var(--c)}
+/* ===== Hiệu ứng trạng thái trên nhân vật ===== */
+.arv{--aw:clamp(70px,11vw,112px);--ow:var(--aw);--oh:calc(var(--aw)*1.34);--ot:30px;--ofs:clamp(30px,4.5vw,46px)}.a7m{--ow:58px;--oh:58px;--ot:0px;--ofs:24px}
+.ov1::before,.ov2::after{content:'';position:absolute;left:50%;top:var(--ot);width:var(--ow);height:var(--oh);transform:translateX(-50%);pointer-events:none;z-index:4;display:grid;place-items:center;font-size:var(--ofs);line-height:1}
+@keyframes ovSpin{to{transform:translateX(-50%) rotate(360deg)}}@keyframes ovShake{0%,100%{transform:translateX(-50%) rotate(-3deg)}50%{transform:translateX(-50%) rotate(3deg)}}@keyframes ovFloat{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-7px)}}@keyframes ovPulse{0%,100%{opacity:.55;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.07)}}@keyframes ovRise{0%{transform:translateX(-50%) translateY(14px);opacity:0}30%{opacity:.95}100%{transform:translateX(-50%) translateY(-18px);opacity:0}}@keyframes ovSweep{to{background-position:-200% 0}}@keyframes ovGhost{0%,100%{transform:translateX(0)}50%{transform:translateX(7px)}}
+/* Đóng băng */
+.ox-fz svg{filter:saturate(.35) brightness(1.2) hue-rotate(165deg) drop-shadow(0 0 10px #8fdcff)!important;animation:none!important}
+.ox-fz::before{background:radial-gradient(circle at 25% 20%,rgba(255,255,255,.85) 0 6%,transparent 7%),radial-gradient(circle at 70% 65%,rgba(255,255,255,.6) 0 5%,transparent 6%),linear-gradient(135deg,rgba(210,240,255,.6),rgba(110,180,255,.38));clip-path:polygon(10% 0,90% 0,100% 14%,95% 100%,5% 100%,0 14%);box-shadow:inset 0 0 24px rgba(255,255,255,.8);animation:ovPulse 1.6s ease-in-out infinite}
+/* Phong ấn / xiềng xích / làm yếu / ngưng đọng */
+.ox-seal::before{border:3px dashed #d4a017;border-radius:50%;box-shadow:0 0 14px #d4a017,inset 0 0 14px rgba(212,160,23,.5);animation:ovSpin 5s linear infinite}
+.ox-chain svg{filter:grayscale(.85) brightness(.85)!important}.ox-chain::before{content:'⛓️';font-size:calc(var(--ofs)*1.7);opacity:.85;animation:ovShake .5s ease-in-out infinite}
+.ox-wk::before{content:'🌀';align-items:start;animation:ovSpin 1.4s linear infinite}.ox-nd::before{content:'⏳';animation:ovFloat 1.2s ease-in-out infinite;opacity:.9}
+/* Khiên */
+.oy-sh::after{border-radius:50%;border:3px solid rgba(74,163,255,.85);background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.6),rgba(74,163,255,.16) 62%);box-shadow:0 0 16px rgba(74,163,255,.7);animation:ovPulse 1.5s ease-in-out infinite}
+/* Né đòn */
+.oy-dg svg{opacity:.62;filter:drop-shadow(-12px 0 5px rgba(103,232,249,.55)) drop-shadow(-24px 0 6px rgba(103,232,249,.28))!important;animation:ovGhost .9s ease-in-out infinite!important}.oy-dg::after{content:'💨';align-items:end;justify-items:start;opacity:.8;animation:ovFloat 1s ease-in-out infinite}
+/* Độc / thiêu đốt */
+.oy-po svg{filter:hue-rotate(75deg) saturate(1.5) drop-shadow(0 0 8px #7bd34a)!important}.oy-po::after{content:'🫧';align-items:end;animation:ovRise 1.5s ease-in infinite}
+/* Giáp */
+.oy-ar svg{filter:contrast(1.2) saturate(.7) drop-shadow(0 0 8px #9aa7b5)!important}.oy-ar::after{border:3px solid #9aa7b5;border-radius:14px;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.65) 50%,transparent 65%) 100% 0/300% 100%;animation:ovSweep 2s linear infinite}
+/* Phản đòn */
+.oy-rf::after{content:'🪞';align-items:center;justify-items:end;border-radius:50%;box-shadow:0 0 16px #8ee3f5,inset 0 0 12px rgba(142,227,245,.6);animation:ovPulse 1.2s ease-in-out infinite}
+/* Hồi sinh (phượng hoàng) */
+.oy-ph::after{content:'🦅';align-items:end;filter:drop-shadow(0 0 10px #ff9f1c);animation:ovPulse 1.4s ease-in-out infinite}
+/* Bom hẹn giờ */
+.oy-bomb::after{content:'💣';align-items:start;animation:ovPulse .5s ease-in-out infinite}
+/* Hồi theo lượt */
+.oy-rg::after{content:'✚';color:#22c55e;font-weight:900;text-shadow:0 0 8px #86efac;align-items:end;animation:ovRise 1.6s ease-out infinite}
+/* Buff đòn đánh kế tiếp */
+.oy-pw::after{border-radius:50%;background:radial-gradient(circle,transparent 52%,rgba(255,140,60,.5) 70%,transparent 74%);animation:ovPulse .9s ease-in-out infinite}
+/* Hồi máu / chấn động / mảnh vỡ */
+@keyframes healGlow{0%{filter:brightness(1)}40%{filter:brightness(1.4) drop-shadow(0 0 22px #22c55e) drop-shadow(0 0 8px #bbf7d0)}100%{filter:brightness(1)}}.arv.heal svg{animation:healGlow 1.1s ease-out!important}
+.arv.heal::after{content:'';position:absolute;left:50%;top:var(--ot);width:var(--ow);height:var(--oh);transform:translateX(-50%);border-radius:50%;border:3px solid #22c55e;pointer-events:none;opacity:0;animation:healRing 1.1s ease-out}@keyframes healRing{0%{opacity:.9;transform:translateX(-50%) scale(.4)}100%{opacity:0;transform:translateX(-50%) scale(1.5)}}
+@keyframes arShake{0%,100%{transform:none}15%{transform:translate(-7px,3px)}35%{transform:translate(8px,-3px)}55%{transform:translate(-5px,2px)}75%{transform:translate(4px,-2px)}}.arn.shk{animation:arShake .45s .3s}
+.shd{position:absolute;left:50%;top:42%;font-style:normal;font-size:22px;pointer-events:none;z-index:8;animation:shdFly .9s ease-out forwards}@keyframes shdFly{to{transform:translate(var(--x),calc(var(--y) + 90px)) rotate(var(--r));opacity:0}}
+/* Độ hiếm cao: vòng sáng cho biểu tượng quà */
+@keyframes rvRay{to{transform:rotate(360deg)}}
+.rvc.rvn[data-ra="3"] .rvj,.rvc.rvn[data-ra="4"] .rvj{box-shadow:0 0 44px var(--c),0 0 90px var(--c)}
+.rvc.rvn[data-ra="3"] .rvj::before,.rvc.rvn[data-ra="4"] .rvj::before{content:'';position:absolute;inset:-26px;border-radius:50%;background:repeating-conic-gradient(from 0deg,var(--c) 0 10deg,transparent 10deg 30deg);-webkit-mask:radial-gradient(circle,transparent 46%,#000 48%,transparent 72%);mask:radial-gradient(circle,transparent 46%,#000 48%,transparent 72%);opacity:.8;animation:rvRay 3s linear infinite}
+.rvc.rvn[data-ra="4"] .rvj::after{content:'✨';position:absolute;top:-18px;right:-14px;font-size:24px;animation:ovPulse 1s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.ov1::before,.ov2::after,.arn.shk,.shd,.rvj::before,.rvj::after{animation:none!important}}
+/* Thẻ quà khi nhận: tên nhỏ, mô tả lớn và đậm */
+.gsl .rvc.hold{max-width:min(92vw,400px);gap:6px;padding:14px 22px 18px}
+.gsl .rvc.hold b{font-size:clamp(14px,1.9vw,17px);font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:var(--mut);line-height:1.25}
+.gsl .rvc.hold .rar{margin:0;font-size:12px}
+.gsl .rvc.hold small{font-size:clamp(21px,3.4vw,29px);font-weight:900;line-height:1.3;color:var(--ink,var(--text,inherit));margin-top:4px}
+/* Hàng đội 7v7: hiệu ứng ôm sát avatar tròn, bao phủ đều */
+.a7m{--ow:54px;--oh:54px}
+.a7m.ov1::before,.a7m.ov2::after{border-radius:50%;clip-path:none;box-sizing:border-box}
+.a7m.oy-ar::after{border:3px solid #b6c2d0;background:conic-gradient(from 0deg,rgba(255,255,255,.55),rgba(148,163,184,.12) 25%,rgba(255,255,255,.55) 50%,rgba(148,163,184,.12) 75%,rgba(255,255,255,.55));-webkit-mask:radial-gradient(circle,transparent 62%,#000 64%);mask:radial-gradient(circle,transparent 62%,#000 64%);box-shadow:0 0 8px rgba(148,163,184,.8);animation:ovSpin 3.5s linear infinite}
+.a7m.oy-sh::after{border-width:2px}
+.a7m.oy-dg::after,.a7m.oy-po::after,.a7m.oy-ph::after,.a7m.oy-bomb::after,.a7m.oy-rg::after{border-radius:0}
+.a7m.oy-pw::after{background:radial-gradient(circle,transparent 58%,rgba(255,140,60,.55) 72%,transparent 76%)}
+.a7m.ox-fz::before{box-shadow:inset 0 0 12px rgba(255,255,255,.85)}
+/* Thanh nộ, combo, chiêu tối thượng, sự kiện */
+.rgb{position:relative;width:min(86%,260px);height:15px;border-radius:99px;background:rgba(0,0,0,.18);border:2px solid var(--line);overflow:hidden;margin-top:2px}
+.rgb i{display:block;height:100%;background:linear-gradient(90deg,#f59e0b,#ef4444);transition:width .5s}
+.rgb span{position:absolute;inset:0;display:grid;place-items:center;font-size:10px;font-weight:900;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.6);white-space:nowrap}
+.rgb.full{border-color:#facc15;animation:rgFull .8s ease-in-out infinite}@keyframes rgFull{0%,100%{box-shadow:0 0 0 rgba(250,204,21,0)}50%{box-shadow:0 0 14px #facc15}}
+.a7s .rgb span{font-size:9px}
+.cmbb{font-size:12px;font-weight:900;color:#ea580c;margin-top:2px;animation:ovPulse 1s ease-in-out infinite}
+.ult{position:fixed;left:0;right:0;z-index:97;pointer-events:none;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;color:#fff;text-shadow:0 3px 14px rgba(0,0,0,.7);opacity:0}
+.ult i{font-style:normal;line-height:1}.ult b{font-weight:900;letter-spacing:.04em}.ult small{font-weight:800;opacity:.95}
+.ult.big{top:0;bottom:0;justify-content:center;background:radial-gradient(circle at 50%,color-mix(in srgb,var(--c) 55%,transparent),rgba(0,0,0,.65) 75%);animation:ultBg 2s ease-out both}
+.ult.big i{font-size:clamp(80px,18vw,160px);animation:ultIc 2s cubic-bezier(.2,1.4,.4,1) both;filter:drop-shadow(0 0 30px var(--c))}
+.ult.big b{font-size:clamp(26px,7vw,64px);transform:skewX(-8deg);animation:ultTx 2s ease-out both;-webkit-text-stroke:2px var(--c)}
+.ult.big small{font-size:clamp(14px,2.6vw,24px);animation:ultTx 2s .1s ease-out both}
+.ult.big::before{content:'';position:absolute;left:-10%;right:-10%;top:50%;height:6px;background:linear-gradient(90deg,transparent,#fff,var(--c),transparent);transform:rotate(-12deg) scaleX(0);animation:ultSl 2s ease-out both}
+.ult.sm,.ult.ev{top:calc(70px + var(--n)*78px);flex-direction:row;justify-content:center;flex-wrap:wrap;gap:4px 12px;animation:ultSm 2.2s ease-out both}
+.ult.sm i,.ult.ev i{font-size:34px}.ult.sm b,.ult.ev b{font-size:clamp(20px,4vw,32px);padding:2px 14px;border-radius:99px;background:var(--c);color:#1a1a2e;text-shadow:none}.ult.sm small,.ult.ev small{flex-basis:100%;font-size:14px}
+.ult.ev{top:70px}
+@keyframes ultBg{0%{opacity:0}12%,70%{opacity:1}100%{opacity:0}}@keyframes ultIc{0%{transform:scale(.2) rotate(-40deg);opacity:0}20%{transform:scale(1.25) rotate(8deg);opacity:1}35%,100%{transform:scale(1) rotate(0)}}
+@keyframes ultTx{0%{transform:translateX(-120vw) skewX(-8deg)}22%{transform:translateX(0) skewX(-8deg)}100%{transform:translateX(0) skewX(-8deg)}}@keyframes ultSl{0%{transform:rotate(-12deg) scaleX(0)}15%{transform:rotate(-12deg) scaleX(1)}100%{transform:rotate(-12deg) scaleX(1);opacity:0}}
+@keyframes ultSm{0%{opacity:0;transform:translateY(-30px) scale(.7)}15%,75%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-10px)}}
+.evb{margin:4px auto;padding:3px 14px;border-radius:99px;font-weight:800;font-size:13px;text-align:center;background:color-mix(in srgb,var(--c) 30%,var(--card));border:2px solid var(--c);width:fit-content}
+.arn.ev-ice{box-shadow:inset 0 0 90px rgba(143,220,255,.55)}.a7s .a7bk{position:relative;padding-top:24px}
+.a7tl{position:absolute;top:0;left:0;right:0;text-align:center;font-size:11px;line-height:15px;font-weight:700;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
+#bloodrain{position:fixed;z-index:85;pointer-events:none;overflow:hidden;display:none;left:0;top:0;width:0;height:0}
+#bloodrain i{position:absolute;top:-70px;left:var(--x);width:var(--w);height:var(--h);border-radius:50% 50% 50% 50%/30% 30% 70% 70%;background:linear-gradient(to bottom,rgba(110,0,0,0),#9f1239 35%,#ef4444 85%,#fecaca);box-shadow:0 0 6px rgba(239,68,68,.55);opacity:.9;animation:brfall var(--d) linear var(--t) infinite}
+@keyframes brfall{from{transform:translate3d(0,0,0)}to{transform:translate3d(-2vw,calc(var(--H,500px) + 140px),0)}}
+@media (prefers-reduced-motion:reduce){#bloodrain i{animation-duration:3s}}.arn.ev-gold{box-shadow:inset 0 0 90px rgba(250,204,21,.5)}.arn.ev-gift{box-shadow:inset 0 0 90px rgba(34,197,94,.4)}
+@media (prefers-reduced-motion:reduce){.ult,.ult *,.rgb.full,.cmbb{animation-duration:.01s!important}}
 </style></head>
 <body>
 <div id="app"></div>
@@ -2168,7 +2256,7 @@ balloon:{n:'Bắn bóng bay',d:'Bắn trúng quả bóng mang đáp án đúng',
 mil:{n:'Ai là triệu phú',d:'Leo thang câu hỏi, có 3 quyền trợ giúp',p:[['m','Số bậc thang',5,15,10]]},
 boss:{n:'Đánh boss',d:'Mỗi đội một con boss, đội nào hạ boss trước thì thắng, sai thì mất tim',p:[['m','Máu của mỗi boss',5,40,12],['t','Số tim mỗi đội',1,5,3]]},
 tug:{n:'Kéo co',d:'Hai đội cùng trả lời, đúng thì kéo dây về phía mình; hết câu, đội nhiều điểm hơn thắng',p:[]},
-arena:{n:'Đối kháng',d:'2 đội đấu theo lượt, mỗi đội một nhân vật có thanh máu, trả lời đúng thì đánh đối phương và nhận quà ngẫu nhiên',p:[['hp','Máu mỗi nhân vật (1 máu = 1 điểm)',20,200,50],['gc','Tỉ lệ câu có hộp quà (%)',0,100,60]]}};
+arena:{n:'Đối kháng',d:'2 đội đấu theo lượt, mỗi đội một nhân vật có thanh máu, trả lời đúng thì đánh đối phương và nhận quà ngẫu nhiên',p:[['hp','Máu mỗi nhân vật (1 máu = 1 điểm)',20,200,50],['gc','Tỉ lệ câu có hộp quà (%)',0,100,60],['rgn','Nộ nhận mỗi câu đúng (%, 0 = tắt chiêu tối thượng)',0,100,25],['evp','Tỉ lệ có sự kiện ngẫu nhiên mỗi lượt (%, 0 = tắt)',0,100,20]]}};
 const GT=['mc','tf','odd','essay','vocab'],GC=['#e5484d','#3a5bff','#16a34a','#f59e0b','#9333ea'];
 let G=null,GTM=[],GP=null;
 const tyLbl=x=>x.g?`${tyIco('g_'+x.g).replace('class="ti"','class="ti" style="width:1em;height:1em;vertical-align:-2px"')} ${GAMES[x.g].n} · ${TYPES[T(x)].n}`:`${TYPES[T(x)].i} ${TYPES[T(x)].n}`;
@@ -2210,9 +2298,9 @@ function gList(){gShow(`<div class="mb wide"><h3>🎮 Tạo trò chơi</h3><p>Ch
 function gType(k){GP=k;gShow(`<div class="mb wide"><h3>${GAMES[k].n}</h3><input id="gname" placeholder="Tên trò chơi (có thể bỏ trống)"><p style="margin:14px 0 8px">Chọn dạng bài</p><div class="types">${(k==='tug'?['mc']:GT).map((t,j)=>`<label class="ty"><input type="radio" name="gtype" value="${t}" ${j?'':'checked'}><span><i>${tyIco(t)}</i><b>${TYPES[t].n}</b><em>${TYPES[t].d}</em></span></label>`).join('')}</div><div class="mr"><button class="b g" data-gm="games" style="margin-right:auto">← Trở lại</button><button class="b g" data-gm="x">Huỷ</button><button class="b p" data-gm="make">Tạo trò chơi</button></div></div>`);$('#gname').focus()}
 function gSetModal(l){const s=gS(l);gShow(`<div class="mb${l.g==='arena'?' wide':''}"><h3>⚙ ${GAMES[l.g].n}</h3>${l.g==='arena'?CTABS+'<div data-sp="g">'+modeSeg(s):''}<p>Số đội chơi</p><div class="seg">${(l.g==='boss'?[1,2,3,4,5]:l.g==='arena'?[2]:[2,3,4]).map(n=>`<label><input type="radio" name="gn" value="${n}" ${s.n===n?'checked':''}><span>${n} đội</span></label>`).join('')}</div>${[0,1,2,3,4].slice(0,l.g==='boss'?5:l.g==='arena'?2:4).map(i=>`<input class="gnm" placeholder="Đội ${i+1}" value="${esc(s.names[i]||'')}" style="margin-top:8px">`).join('')}${GAMES[l.g].p.map(p=>`<label class="pt" style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px">${p[1]}<input type="number" data-gp="${p[0]}" min="${p[2]}" max="${p[3]}" value="${s[p[0]]}"></label>`).join('')}${l.g==='arena'?'</div><div data-sp="q" hidden>'+arenaCfg(s)+'</div><div data-sp="c" hidden>'+clsCfg(s)+'</div>':''}<div class="mr"><button class="b g" data-gm="x">Huỷ</button><button class="b p" data-gm="save">Lưu</button></div></div>`);M={cb:()=>{}};window.GL=l;window.GCLS=(s.cls||[null,null]).slice();rtSum();clsSum()}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-ga],[data-gm]');if(!b)return;const c=curC(),a=b.dataset.ga||b.dataset.gm;
- if(a==='x')closeModal();else if(a==='choose')gChoose();else if(a==='rtreset'){document.querySelectorAll('#modal [data-rt]').forEach((x,k)=>x.value=RAR[k][2]);document.querySelectorAll('#modal [data-gfi]').forEach(x=>x.checked=true);document.querySelectorAll('#modal [data-gfr]').forEach((x,i)=>x.value=GR[i]);rtSum()}else if(a==='lesson'){closeModal();addLessonModal(c)}else if(a==='games')gList();else if(a==='pick')gType(b.dataset.k);
+ if(a==='x')closeModal();else if(a==='choose')gChoose();else if(a==='rtreset'){document.querySelectorAll('#modal [data-rt]').forEach((x,k)=>x.value=RAR[k][2]);gcCapture();window.GST.gf={};gfRedraw();rtSum()}else if(a==='cgnew'){const f=document.getElementById('cgform');f.hidden=!f.hidden;if(!f.hidden)cgFormDraw()}else if(a==='cgadd')cgAdd();else if(a==='cgdel'){gcCapture();const W=window.GST,j=+b.dataset.i-NB,n={};W.cg.splice(j,1);for(const k in W.gf){const x=+k;if(x!==NB+j)n[x>NB+j?x-1:x]=W.gf[k]}W.gf=n;gfRedraw()}else if(a==='lesson'){closeModal();addLessonModal(c)}else if(a==='games')gList();else if(a==='pick')gType(b.dataset.k);
  else if(a==='make'){const t=document.querySelector('#modal input[name=gtype]:checked').value,L={id:uid(),name:($('#gname').value||'').trim()||GAMES[GP].n,type:t,u:V.u,questions:[],g:GP,gs:{}};if(t==='vocab')L.dir='en-vi';if(GP==='tug'){L.type='mc';L.tm={n:2,names:[],mode:'duel'}}c.lessons.push(L);save();closeModal();render();toast('Đã tạo trò chơi '+GAMES[GP].n)}
- else if(a==='save'){const l=window.GL,s={n:+document.querySelector('#modal input[name=gn]:checked').value,names:[...document.querySelectorAll('#modal .gnm')].map(x=>x.value.trim())};document.querySelectorAll('#modal [data-gp]').forEach(x=>{const p=GAMES[l.g].p.find(q=>q[0]===x.dataset.gp);s[p[0]]=Math.min(p[3],Math.max(p[2],x.value===''||isNaN(+x.value)?p[4]:+x.value))});if(l.g==='arena'){s.rt=[...document.querySelectorAll('#modal [data-rt]')].map(x=>Math.min(100,Math.max(0,+x.value||0)));if(!s.rt.some(v=>v>0)){toast('Tỉ lệ độ hiếm cần lớn hơn 0');return}s.gf={};document.querySelectorAll('#modal [data-gfi]').forEach(x=>{s.gf[x.dataset.gfi]={on:x.checked?1:0,r:+document.querySelector(`#modal [data-gfr="${x.dataset.gfi}"]`).value}});if(!Object.values(s.gf).some(c=>c.on)){toast('Cần bật ít nhất 1 quà');return}}if(l.g==='arena')clsSave(s);l.gs=s;save();closeModal();toast('Đã lưu cài đặt trò chơi')}});
+ else if(a==='save'){const l=window.GL,s={n:+document.querySelector('#modal input[name=gn]:checked').value,names:[...document.querySelectorAll('#modal .gnm')].map(x=>x.value.trim())};document.querySelectorAll('#modal [data-gp]').forEach(x=>{const p=GAMES[l.g].p.find(q=>q[0]===x.dataset.gp);s[p[0]]=Math.min(p[3],Math.max(p[2],x.value===''||isNaN(+x.value)?p[4]:+x.value))});if(l.g==='arena'){s.rt=[...document.querySelectorAll('#modal [data-rt]')].map(x=>Math.min(100,Math.max(0,+x.value||0)));if(!s.rt.some(v=>v>0)){toast('Tỉ lệ độ hiếm cần lớn hơn 0');return}gcCapture();s.gf=window.GST.gf;s.cg=window.GST.cg;if(!Object.values(s.gf).some(c=>c.on)){toast('Cần bật ít nhất 1 quà');return}}if(l.g==='arena')clsSave(s);l.gs=s;save();closeModal();toast('Đã lưu cài đặt trò chơi')}});
 function gQs(l){const t=T(l),out=[],qa=l.questions;
  if(t==='tf')qa.forEach(q=>{if((q.q||'').trim()&&(q.a===0||q.a===1))out.push({q:q.q,o:['Đúng','Sai'],a:q.a,fix:1,p:clampP(q.p)})});
  else if(t==='mc'||t==='odd')qa.forEach(q=>{const o=(q.o||[]).map((x,i)=>[String(x||'').trim(),i]).filter(x=>x[0]),k=o.findIndex(x=>x[1]===q.a);if(o.length>=2&&k>=0&&(t==='odd'||(q.q||'').trim()))out.push({q:t==='odd'?'Chọn từ khác loại':q.q,o:o.map(x=>x[0]),a:k,p:clampP(q.p)})});
@@ -2228,12 +2316,12 @@ function gPlay(l,fresh){if(!fresh&&gResume(l))return;clearGame(l.id);const qs=gQ
  if(k==='mil'){G.rung=Array(s.n).fill(0);G.pz=[100,200,300,500,1000,2000,4000,8000,16000,32000,64000,125000,250000,500000,1000000].slice(15-s.m);G.ll=Array.from({length:s.n},()=>({}))}
  if(k==='boss'){G.hp=Array(s.n).fill(s.m);G.hr=Array(s.n).fill(s.t)}
  gFS();$('#gm').hidden=false;if(k==='arena'){G.cls=null;$('#gm').innerHTML='';if(s.mode==='7v7'){a7Setup(l,s,r=>{a7Init(r,s);gDraw()},gClose);return}clsPick(s.cls,gClose,r=>{G.cls=r;gDraw()});return}gDraw();if(['fall','whack','balloon'].includes(k))gArm()}
-const arMx=()=>G.gsel?G.gsel.max:G.tsel?G.tsel.max:G.tz.q;
+const arMx=()=>G.rsel?G.rsel.max:G.gsel?G.gsel.max:G.tsel?G.tsel.max:G.tz.q;
 function arPaint(){const w=document.getElementById('acdq');if(!w||!G.tz)return;const f=w.querySelector('.cdb i'),b=w.querySelector('b');if(f)f.style.width=Math.max(0,G.tl/(arMx()))*100+'%';if(b)b.textContent=cdFmt(G.tl);w.classList.remove('warn','low');const c=cdCls(G.tl,arMx()).trim();if(c)w.classList.add(c)}
-function arTick(){if(!G||G.k!=='arena'||!G.tz||G.end||G.lock||G.tpause||!(G.sd||G.cls))return;G.tl=Math.max(0,G.tl-.2);arPaint();if(G.tl<=0){if(G.gsel)gsPick(-1);else if(G.tsel)tgAuto();else gRes(-1,gArenaA)}}
+function arTick(){if(!G||G.k!=='arena'||!G.tz||G.end||G.lock||G.tpause||!(G.sd||G.cls))return;G.tl=Math.max(0,G.tl-.2);arPaint();if(G.tl<=0){if(G.rsel)rsOk();else if(G.gsel)gsPick(-1);else if(G.tsel)tgAuto();else gRes(-1,gArenaA)}}
 function gFS(){try{const e=document.documentElement;if(!document.fullscreenElement&&e.requestFullscreen)e.requestFullscreen().catch(()=>{})}catch(e){}}
-function gClose(){gPersist();gClr();G=null;GSN=null;$('#gm').hidden=true;if(document.fullscreenElement)document.exitFullscreen().catch(()=>{});render()}
-function gEnd(title,msg){G.end={title,msg};gClr();G.l.done=true;clearGame(G.l.id);save();gDraw()}
+function gClose(){gPersist();gClr();G=null;GSN=null;bloodSync();$('#gm').hidden=true;if(document.fullscreenElement)document.exitFullscreen().catch(()=>{});render()}
+function gEnd(title,msg){G.end={title,msg};bloodSync();gClr();G.l.done=true;clearGame(G.l.id);save();gDraw()}
 function gRes(i,cb){G.lock=1;G.pick=i;gDraw();gBn(i>=0&&i===G.q.a,i<0);gT(()=>{G.lock=0;G.pick=null;cb(i>=0&&i===G.q.a)},1100)}
 const GE=['🦊','🐼','🐯','🐸','🦁'];
 function gHead(){const mx=Math.max(...G.sc),uni=mx>0&&G.sc.filter(v=>v===mx).length===1;
@@ -2282,7 +2370,59 @@ const GF=[
 ['Phước Lành Thiên Thần','Cả đội','Tất cả thành viên hồi 15 HP và nhận khiên 10 HP ngay lập tức','👼','gl','#fff7ae'],
 ['Vương Miện Thống Nhất','Cả đội','Toàn đội +15% sát thương và +15% phòng thủ trong 3 lượt','🏅','bn','#facc15']];
 const TG0=28;
-const AOPP=[2,3,11,12,13,14,15],AST=[['hk','🔥'],['lt','⚡'],['ch','💥'],['crown','👑'],['sh','🛡️'],['ar','🪖'],['ab','🔮'],['ph','🦅'],['rf','🪞'],['dg','💨'],['pierce','🗡️'],['ls','🧛'],['en','🔋'],['po','☠️'],['fz','❄️'],['chain','⛓️'],['seal','🔒'],['nodmg','⏳'],['chaos','🌀'],['bomb','💣'],['vp','🧪'],['gs','🔰'],['bt','🐺'],['ts','🤝']];
+const GF0=GF.map(g=>g[2]),GKS=['m','add','dm','dm,tn','m','add','','pc,tn','ab','hp','pc','tn','_','tn','','pc','hp','hp','','','','hp','pc','_,hp','','','','tn','dm,tn','sh,tn','hp','hp,tn','dm,dg,tn','r,tn','hpp,tn','oh,ohm,tn','dm','dg,tn','hp,sh','dm,r,tn'].map(x=>x?x.split(','):[]);
+const GLB={m:['Hệ số',1,10],add:['Cộng thêm',0,50],dm:['Sát thương / %',1,100],hp:['HP',2,100],tn:['Số lượt',1,10],pc:['Phần trăm %',5,100],sh:['Khiên HP',0,100],ab:['Hấp thụ',1,100],dg:['Né %',1,60],r:['Giảm sát thương %',1,70],hpp:['% HP tối đa',1,100],oh:['+% mỗi đòn',1,20],ohm:['Tối đa %',1,60],n:['Số quà',1,5]};
+const GD=(i,k)=>+(GF0[i].match(/\d+/g)||[])[GKS[i].indexOf(k)];
+const gP=(i,k,s)=>{s=s||(G&&G.s);const v=s&&s.gf&&s.gf[i]&&s.gf[i].v&&s.gf[i].v[k];return v==null?GD(i,k):+v};
+const CGT=[
+{id:'atkx',name:'Cường hóa đòn đánh',cat:'Tấn công',ic:'✴️',fx:'sl',col:'#ff6a3d',df:{m:2},d:'Đòn đánh tiếp theo x{m} sát thương',f:p=>a=>{a.xm=p.m}},
+{id:'atka',name:'Cộng sát thương',cat:'Tấn công',ic:'⚔️',fx:'zp',col:'#ffd23f',df:{add:4},d:'Đòn đánh tiếp theo +{add} sát thương',f:p=>a=>{a.ex=(a.ex||0)+p.add}},
+{id:'dot',name:'Độc theo lượt',cat:'Tấn công',ic:'🧪',fx:'rs',col:'#7bd34a',opp:1,df:{dm:3,tn:3},d:'Đối thủ mất {dm} HP/lượt trong {tn} lượt',f:p=>(a,b)=>{b.vp=p.tn;b.vd=p.dm}},
+{id:'shld',name:'Lá chắn hấp thụ',cat:'Phòng thủ',ic:'🔰',fx:'rg',col:'#4aa3ff',df:{ab:10},d:'Hấp thụ tối đa {ab} sát thương',f:p=>a=>{a.ab=(a.ab||0)+p.ab}},
+{id:'arm',name:'Giáp giảm sát thương',cat:'Phòng thủ',ic:'🪖',fx:'rg',col:'#9aa7b5',df:{pc:40,tn:2},d:'Giảm {pc}% sát thương trong {tn} lượt',f:p=>a=>{a.ar=p.tn+1;a.arp=p.pc}},
+{id:'ref',name:'Phản đòn',cat:'Phòng thủ',ic:'🪞',fx:'sp',col:'#8ee3f5',df:{pc:70},d:'Phản lại {pc}% sát thương kế tiếp',f:p=>a=>{a.rf=p.pc}},
+{id:'rev',name:'Hồi sinh',cat:'Phòng thủ',ic:'🦅',fx:'rs',col:'#ff9f1c',df:{hp:15},d:'Hồi sinh với {hp} HP khi bị hạ gục',f:p=>a=>{a.ph=p.hp}},
+{id:'frz',name:'Đóng băng',cat:'Khống chế',ic:'❄️',fx:'gl',col:'#8fdcff',opp:1,df:{tn:1},d:'Đóng băng đối thủ trong {tn} lượt',f:p=>(a,b)=>{b.fz=p.tn}},
+{id:'sea',name:'Phong ấn',cat:'Khống chế',ic:'🔒',fx:'rg',col:'#d4a017',opp:1,df:{tn:3},d:'Khóa buff tấn công của đối thủ trong {tn} lượt',f:p=>(a,b)=>{b.seal=p.tn}},
+{id:'wk',name:'Làm yếu',cat:'Khống chế',ic:'🌀',fx:'sp',col:'#a855f7',opp:1,df:{pc:60},d:'Giảm {pc}% sát thương đòn đánh kế tiếp của đối thủ',f:p=>(a,b)=>{b.chaos=p.pc}},
+{id:'hl',name:'Hồi máu',cat:'Hồi phục',ic:'💊',fx:'rs',col:'#ef4444',df:{hp:12},d:'Hồi {hp} HP',f:p=>(a,b,t)=>aHeal(t,p.hp)},
+{id:'hlp',name:'Hồi theo %',cat:'Hồi phục',ic:'✨',fx:'gl',col:'#fde047',df:{hpp:30},d:'Hồi {hpp}% HP tối đa',f:p=>(a,b,t)=>aHeal(t,Math.round(G.s.hp*p.hpp/100))},
+{id:'ls',name:'Hút sinh lực',cat:'Đặc biệt',ic:'🧛',fx:'rs',col:'#be123c',df:{pc:75},d:'Đòn đánh tiếp theo: hồi HP bằng {pc}% sát thương gây ra',f:p=>a=>{a.ls=p.pc}},
+{id:'ex',name:'Quà bổ sung',cat:'Hỗ trợ',ic:'🍀',fx:'bn',col:'#16a34a',df:{n:2},d:'Nhận thêm {n} phần thưởng ngẫu nhiên',f:p=>(a,b,t,o,d)=>{for(let k=0;k<p.n;k++)aGive(t,aGift(),d)}},
+{id:'tb',name:'Buff toàn đội',cat:'Cả đội',ic:'🚩',fx:'bn',col:'#ef4444',df:{dm:20,r:10,tn:3},d:'Toàn đội +{dm}% sát thương và +{r}% phòng thủ trong {tn} lượt'},
+{id:'th',name:'Hồi máu toàn đội',cat:'Cả đội',ic:'🎶',fx:'gl',col:'#fde047',df:{hp:12,sh:0},d:'Tất cả thành viên hồi {hp} HP và nhận khiên {sh} HP ngay lập tức'},
+{id:'tr',name:'Hồi máu theo lượt',cat:'Cả đội',ic:'🌟',fx:'rs',col:'#facc15',df:{hp:6,tn:3},d:'Tất cả thành viên hồi {hp} HP sau mỗi lượt của đội, trong {tn} lượt'}];
+const gcv=c=>({...CGT.find(x=>x.id===c.tp).df,...(c.v||{})});
+const gdesc=(i,s)=>{s=s||(G&&G.s);if(i>=NB){const c=((s&&s.cg)||[])[i-NB];return c?CGT.find(x=>x.id===c.tp).d.replace(/\{(\w+)\}/g,(_,k)=>gcv(c)[k]):''}
+ let n=0;return GF0[i].replace(/\d+/g,x=>{const k=GKS[i][n++];return k&&k!=='_'?gP(i,k,s):x})};
+GF.forEach((g,i)=>Object.defineProperty(g,2,{get:()=>gdesc(i)}));
+const isTG=gi=>gi>=TG0&&(gi<40||GF[gi][1]==='Cả đội');
+let CGK='';
+function cgSync(s){const cg=(s&&s.cg)||[],k=JSON.stringify(cg);if(k===CGK)return;CGK=k;GF.length=NB;GR.length=NB;GFX.length=NB;IMM7.length=IMM0;AOPP.length=AOP0;
+ cg.forEach((c,j)=>{const T=CGT.find(x=>x.id===c.tp);if(!T)return;const i=NB+j;GF.push([c.n,T.cat,'',c.ic,T.fx,T.col]);Object.defineProperty(GF[i],2,{get:()=>gdesc(i)});GR.push(c.r||0);
+  GFX.push(T.cat==='Cả đội'?(a,b,t)=>aTeam(t,i):(...x)=>{const q=((G.s&&G.s.cg)||[])[i-NB];return CGT.find(y=>y.id===q.tp).f(gcv(q))(...x)});
+  if(T.cat==='Phòng thủ'||T.cat==='Hồi phục')IMM7.push(i);if(T.opp)AOPP.push(i)})}
+function aTeamC(t,gi){const c=G.s.cg[gi-NB],p=gcv(c);G.tm=G.tm||[{},{}];const m=G.tm[t];G.log.unshift(`👥 ${GF[gi][3]} ${GF[gi][0]} phát huy cho toàn đội ${tmN(t)}`);
+ if(c.tp==='th'){aTeamHeal(t,p.hp);if(p.sh>0)aTeamShield(t,p.sh)}
+ else{const id='c'+gi;TBD[id]={ic:c.ic,n:c.n,dm:p.dm,r:p.r,hf:p.hp,d:()=>GF[gi][2]};m[id]=Math.max(m[id]||0,p.tn)}}
+const defImmTxt=(i,res)=>{const m=document.querySelector('#modal input[name=gmode]:checked'),sq=!m||m.value==='7v7'||res;const v=IMMN.has(i)||(sq?IMM7.includes(i):(GF[i][1]==='Phòng thủ'||GF[i][1]==='Hồi phục'||i===26));return ' ('+(v?'ngay':'chờ lượt')+')'};
+const gfRows=()=>{const W=window.GST;cgSync(W);return GF.map((g,i)=>{const c=W.gf[i]||{},r=c.r!=null?c.r:GR[i],ks=i>=NB?Object.keys(gcv(W.cg[i-NB])):GKS[i].filter(k=>k!=='_');
+ return `<div class="gfr"><label class="bk"><input type="checkbox" data-gfi="${i}" ${c.on===0?'':'checked'}><span>${esc(g[3])} ${esc(g[0])}${i>=NB?' ⭐':''} · <i class="gfd">${esc(gdesc(i,W))}</i></span><select data-gfr="${i}">${RAR.map((x,k)=>`<option value="${k}" ${k===r?'selected':''}>${x[0]}</option>`).join('')}</select>${i>=NB?`<button class="ib" data-gm="cgdel" data-i="${i}" title="Xoá quà này">✕</button>`:''}</label>${!isTG(i)?`<div class="gfp gft"><label>🧍 Người đứng sân<select data-gia="${i}">${[['','Mặc định'+(defImmTxt(i,0))],['1','⚡ Có hiệu lực ngay'],['2','⏳ Chờ tới lượt']].map(o=>`<option value="${o[0]}" ${String(c.ia||'')===o[0]?'selected':''}>${o[1]}</option>`).join('')}</select></label><label>🪑 Người dự bị<select data-gib="${i}">${[['','Mặc định'+(defImmTxt(i,1))],['1','⚡ Có hiệu lực ngay'],['2','⏳ Chờ tới lượt']].map(o=>`<option value="${o[0]}" ${String(c.ib||'')===o[0]?'selected':''}>${o[1]}</option>`).join('')}</select></label></div>`:''}${ks.length?`<div class="gfp">${ks.map(k=>`<label>${GLB[k][0]}<input type="number" data-gpk="${i}.${k}" min="${GLB[k][1]}" max="${GLB[k][2]}" value="${i>=NB?gcv(W.cg[i-NB])[k]:gP(i,k,W)}"></label>`).join('')}</div>`:''}</div>`}).join('')};
+const gfRedraw=()=>{const e=document.getElementById('gflist');if(e)e.innerHTML=gfRows()};
+function gcCapture(){const W=window.GST;if(!W||!document.getElementById('gflist'))return;const gf={};
+ document.querySelectorAll('#gflist [data-gfi]').forEach(x=>{const i=+x.dataset.gfi,c={on:x.checked?1:0,r:+document.querySelector(`#gflist [data-gfr="${i}"]`).value},v={};{const sa=document.querySelector(`#gflist [data-gia="${i}"]`),sb=document.querySelector(`#gflist [data-gib="${i}"]`);if(sa&&+sa.value)c.ia=+sa.value;if(sb&&+sb.value)c.ib=+sb.value}
+  document.querySelectorAll(`#gflist [data-gpk^="${i}."]`).forEach(y=>{const k=y.dataset.gpk.split('.')[1],B=GLB[k],n=y.value===''||isNaN(+y.value)?(i>=NB?gcv(W.cg[i-NB])[k]:gP(i,k,W)):Math.round(+y.value);v[k]=Math.min(B[2],Math.max(B[1],n))});
+  if(i>=NB)W.cg[i-NB].v=v;else c.v=v;gf[i]=c});W.gf=gf}
+const cgT=()=>CGT.find(x=>x.id===document.getElementById('cgtp').value);
+function cgVals(T){const v={};document.querySelectorAll('#cgps [data-cpk]').forEach(y=>{const k=y.dataset.cpk,B=GLB[k],n=y.value===''||isNaN(+y.value)?T.df[k]:Math.round(+y.value);v[k]=Math.min(B[2],Math.max(B[1],n))});return v}
+function cgPrev(){const T=cgT(),v={...T.df,...cgVals(T)};document.getElementById('cgpv').textContent='Xem trước: '+T.d.replace(/\{(\w+)\}/g,(_,k)=>v[k])}
+function cgFormDraw(){const T=cgT();document.getElementById('cgps').innerHTML=Object.keys(T.df).map(k=>`<label>${GLB[k][0]}<input type="number" data-cpk="${k}" min="${GLB[k][1]}" max="${GLB[k][2]}" value="${T.df[k]}"></label>`).join('');document.getElementById('cgn').placeholder=T.name;document.getElementById('cgi').placeholder=T.ic;cgPrev()}
+function cgAdd(){const T=cgT(),W=window.GST;if(W.cg.length>=20)return toast('Tối đa 20 quà tự tạo');gcCapture();
+ W.cg.push({tp:T.id,n:(document.getElementById('cgn').value.trim()||T.name).slice(0,24),ic:Array.from(document.getElementById('cgi').value.trim()||T.ic).slice(0,2).join(''),r:+document.getElementById('cgr').value,v:cgVals(T)});
+ document.getElementById('cgn').value='';document.getElementById('cgi').value='';document.getElementById('cgform').hidden=true;gfRedraw();const l=document.getElementById('gflist');l.scrollTop=l.scrollHeight;toast('Đã thêm quà mới, nhớ bấm Lưu')}
+document.addEventListener('input',e=>{const x=e.target;if(!x.matches)return;if(x.matches('[data-gpk]')){gcCapture();const r=x.closest('.gfr').querySelector('.gfd');if(r)r.textContent=gdesc(+x.dataset.gpk.split('.')[0],window.GST)}else if(x.matches('#cgps input'))cgPrev()});
+document.addEventListener('change',e=>{if(e.target.id==='cgtp')cgFormDraw();else if(e.target.name==='gmode'&&document.getElementById('gflist')){gcCapture();gfRedraw()}});
+const AOPP=[2,3,5,11,12,13,14,15],AST=[['hk','🔥'],['xm','✴️'],['lt','⚡'],['ch','💥'],['crown','👑'],['sh','🛡️'],['ar','🪖'],['ab','🔮'],['ph','🦅'],['rf','🪞'],['dg','💨'],['pierce','🗡️'],['ls','🧛'],['en','🔋'],['po','☠️'],['fz','❄️'],['chain','⛓️'],['seal','🔒'],['nodmg','⏳'],['chaos','🌀'],['bomb','💣'],['vp','🧪'],['gs','🔰'],['ib','🤺'],['bt','🐺'],['ts','🤝']];
 const AV=[`<svg viewBox="0 0 120 160"><path d="M96 14l7 7-38 76-9-5z" fill="#dfe6ee" stroke="#64748b" stroke-width="2"/><rect x="52" y="92" width="24" height="7" rx="3" fill="#8d6e63" transform="rotate(-27 64 95)"/><rect x="38" y="70" width="42" height="56" rx="10" fill="#e5484d"/><rect x="40" y="126" width="15" height="28" rx="4" fill="#37474f"/><rect x="63" y="126" width="15" height="28" rx="4" fill="#37474f"/><circle cx="59" cy="52" r="22" fill="#ffd6a5"/><path d="M37 50a22 22 0 0 1 44 0v-5H37z" fill="#90a4ae"/><rect x="56" y="26" width="6" height="16" fill="#e5484d"/><circle cx="68" cy="54" r="3" fill="#16213e"/><path d="M18 76h24v28q-12 13-24 0z" fill="#3a5bff" stroke="#fff" stroke-width="2"/></svg>`,
 `<svg viewBox="0 0 120 160"><rect x="92" y="22" width="5" height="120" rx="2" fill="#8d6e63"/><circle cx="94" cy="20" r="11" fill="#7dd3fc" stroke="#fff" stroke-width="2"/><path d="M36 128l8-58h30l10 58z" fill="#7c3aed"/><rect x="42" y="128" width="40" height="8" rx="3" fill="#4c1d95"/><circle cx="60" cy="54" r="20" fill="#ffd6a5"/><path d="M34 46l26-40 26 40z" fill="#4c1d95"/><rect x="34" y="42" width="52" height="8" rx="3" fill="#a78bfa"/><circle cx="68" cy="56" r="3" fill="#16213e"/><path d="M52 68q8 18 16 0z" fill="#fff"/><rect x="78" y="80" width="18" height="8" rx="4" fill="#ffd6a5"/></svg>`];
 
@@ -2291,15 +2431,16 @@ const CLS=[
 {id:'mage',n:'Pháp sư',e:'Mage',w:'Trượng phép',pn:'Băng Thuật',c:'#7c3aed',ic:'🧙',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh ở câu đúng kế tiếp đóng băng đối thủ, khiến đối thủ mất {fz} lượt kế tiếp',p:[['need','Số câu đúng liên tiếp',1,10,3],['fz','Số lượt đóng băng',1,3,1]]},
 {id:'archer',n:'Cung thủ',e:'Archer',w:'Cung ma thuật',pn:'Xuyên Tâm Tiễn',c:'#16a34a',ic:'🏹',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh tiếp theo +{bonus} sát thương và bỏ qua {pen}% hiệu quả giáp',p:[['need','Số câu đúng liên tiếp',1,10,2],['bonus','Sát thương cộng thêm',1,50,5],['pen','% giáp bị bỏ qua',0,100,50]]},
 {id:'assassin',n:'Sát thủ',e:'Assassin',w:'Song đao',pn:'Ám Sát',c:'#475569',ic:'🗡️',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh tiếp theo có {ch}% cơ hội gây sát thương x{mult}',p:[['need','Số câu đúng liên tiếp',1,10,3],['ch','Cơ hội (%)',1,100,40],['mult','Hệ số sát thương',2,10,3]]},
-{id:'guardian',n:'Hộ vệ',e:'Guardian',w:'Đại khiên và kiếm',pn:'Thành Lũy',c:'#0ea5e9',ic:'🛡️',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Nhận khiên hấp thụ {sh} sát thương, cộng dồn tối đa {cap}',p:[['need','Số câu đúng liên tiếp',1,10,2],['sh','Khiên mỗi lần',1,50,8],['cap','Khiên tối đa',1,200,16]]},
+{id:'guardian',n:'Hộ vệ',e:'Guardian',w:'Đại khiên và kiếm',pn:'Bức Tường Kiên Cố',c:'#0ea5e9',ic:'🛡️',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Tạo lá chắn {sh} sát thương cho cả đội trong {tn} lượt. Lá chắn cộng dồn tối đa {cap} sát thương',p:[['need','Số câu đúng liên tiếp',1,10,2],['sh','Khiên mỗi lần',1,50,8],['cap','Khiên tối đa',1,200,16],['tn','Số lượt',1,10,2]]},
 {id:'berserker',n:'Cuồng chiến',e:'Berserker',w:'Rìu chiến',pn:'Cuồng Nộ',c:'#b91c1c',ic:'🪓',k:'r',cd:'Mỗi câu trả lời đúng liên tiếp',ef:'Đòn đánh kế tiếp được cộng {per} sát thương (cộng dồn theo chuỗi), tối đa +{cap}',p:[['per','Cộng mỗi câu đúng',1,20,2],['cap','Cộng tối đa',1,100,10]]},
-{id:'paladin',n:'Thánh kỵ sĩ',e:'Paladin',w:'Kiếm thánh',pn:'Thánh Ân',c:'#eab308',ic:'✨',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Hồi phục {hl} HP, không vượt quá HP tối đa',p:[['need','Số câu đúng liên tiếp',1,10,3],['hl','HP hồi phục',1,100,8]]},
+{id:'paladin',n:'Thánh kỵ sĩ',e:'Paladin',w:'Kiếm thánh',pn:'Thánh Ân',c:'#eab308',ic:'✨',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Hồi {hl} HP cho đồng đội có HP thấp nhất. Nếu cả đội đầy HP, hồi cho bản thân',p:[['need','Số câu đúng liên tiếp',1,10,3],['hl','HP hồi phục',1,100,8]]},
 {id:'plague',n:'Độc sư',e:'Plague Alchemist',w:'Song đao tẩm độc',pn:'Độc Chú',c:'#65a30d',ic:'🧪',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh tiếp theo khiến đối thủ mất {dm} HP mỗi lượt trong {tn} lượt',p:[['need','Số câu đúng liên tiếp',1,10,2],['dm','HP mất mỗi lượt',1,50,3],['tn','Số lượt',1,10,2]]},
-{id:'summoner',n:'Triệu hồi sư',e:'Summoner',w:'Trượng triệu hồi',pn:'Linh Thú',c:'#0891b2',ic:'🐺',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Triệu hồi linh thú gây thêm {dm} sát thương trong {hits} đòn đánh tiếp theo',p:[['need','Số câu đúng liên tiếp',1,10,3],['dm','Sát thương thêm',1,50,4],['hits','Số đòn đánh',1,10,2]]},
-{id:'chrono',n:'Thời không sư',e:'Chronomancer',w:'Quyền trượng thời gian',pn:'Nghịch Chuyển',c:'#4f46e5',ic:'⏳',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Hồi lại {hl} HP đã mất, không vượt quá HP tối đa',p:[['need','Số câu đúng liên tiếp',1,10,4],['hl','HP hồi phục',1,100,10]]}];
+{id:'summoner',n:'Triệu hồi sư',e:'Summoner',w:'Trượng triệu hồi',pn:'Linh Thú Hộ Chiến',c:'#0891b2',ic:'🐺',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Triệu hồi linh thú ban phước: {hits} đòn đánh tiếp theo của cả đội được cộng {dm} sát thương trong {tn} lượt',p:[['need','Số câu đúng liên tiếp',1,10,3],['dm','Sát thương thêm',1,50,3],['hits','Số đòn đánh',1,10,2],['tn','Số lượt',1,10,2]]},
+{id:'chrono',n:'Thời không sư',e:'Chronomancer',w:'Quyền trượng thời gian',pn:'Dòng Chảy Thời Gian',c:'#4f46e5',ic:'⏳',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Hồi {hl} HP cho đồng đội có HP thấp nhất, không vượt quá HP tối đa',p:[['need','Số câu đúng liên tiếp',1,10,4],['hl','HP hồi phục',1,100,10]]}];
 const clsDef=id=>CLS.find(c=>c.id===id);
 const clsVal=(s,id,k)=>{const v=s&&s.cl&&s.cl[id]&&s.cl[id][k];return v==null?clsDef(id).p.find(p=>p[0]===k)[4]:v};
 const clsFill=(t,s,id)=>t.replace(/\{(\w+)\}/g,(_,k)=>clsVal(s,id,k));
+const clsEff=(c,S)=>{const f=t=>clsFill(t,S,c.id).replace(/(\d+%?)/g,'<i>$1</i>');return f(c.cd)+' → '+f(c.ef)};
 const mkAv=(bd,hd,wp)=>`<svg viewBox="0 0 120 160">${wp}<rect x="38" y="70" width="42" height="56" rx="10" fill="${bd}"/><rect x="40" y="126" width="15" height="28" rx="4" fill="#37474f"/><rect x="63" y="126" width="15" height="28" rx="4" fill="#37474f"/><circle cx="59" cy="52" r="22" fill="#ffd6a5"/>${hd}<circle cx="68" cy="54" r="3" fill="#16213e"/></svg>`;
 const dag=(x,y,c)=>`<path d="M${x} ${y}l6 4-22 34-6-4z" fill="${c}" stroke="#475569" stroke-width="1.5"/>`;
 const AVX={
@@ -2314,9 +2455,9 @@ chrono:mkAv('#6d28d9','<path d="M34 46l26-40 26 40z" fill="#312e81"/>','<rect x=
 CLS.push(
 {id:'dknight',n:'Kỵ sĩ bóng đêm',e:'Dark Knight',w:'Đại kiếm hắc ám',pn:'Huyết Nguyệt',c:'#581c87',ic:'🌑',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh tiếp theo gây thêm sát thương bằng {pct}% HP đã mất của bản thân',p:[['need','Số câu đúng liên tiếp',1,10,3],['pct','% HP đã mất',1,200,20]]},
 {id:'storm',n:'Lôi thần',e:'Stormcaller',w:'Song pháp cầu sấm sét',pn:'Thiên Lôi',c:'#f59e0b',ic:'⛈️',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh tiếp theo gây thêm {add} sát thương và {ch}% cơ hội gây thêm {add2} sát thương',p:[['need','Số câu đúng liên tiếp',1,10,2],['add','Sát thương cộng thêm',1,50,3],['ch','Cơ hội (%)',1,100,50],['add2','Sát thương thêm khi may mắn',1,50,5]]},
-{id:'blade',n:'Kiếm vũ',e:'Blade Dancer',w:'Song kiếm',pn:'Vũ Điệu Tử Thần',c:'#0d9488',ic:'🤺',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Thực hiện {hits} nhát chém, mỗi nhát gây {pc}% sát thương cơ bản',p:[['need','Số câu đúng liên tiếp',1,10,4],['hits','Số nhát chém',2,10,3],['pc','% sát thương mỗi nhát',10,300,50]]},
-{id:'illus',n:'Ảo thuật gia',e:'Illusionist',w:'Trượng ảo ảnh',pn:'Ảo Ảnh Phân Thân',c:'#c026d3',ic:'🎭',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Tạo phân thân né hoàn toàn đòn tấn công tiếp theo của đối thủ',p:[['need','Số câu đúng liên tiếp',1,10,3]]},
-{id:'tact',n:'Chiến lược gia',e:'Tactician',w:'Trượng chỉ huy',pn:'Thiên Tài Chiến Thuật',c:'#1e40af',ic:'🎯',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Nhận 1 điểm chiến thuật. Đủ {pts} điểm sẽ được chọn một trong hai hiệu ứng: gây {dm} sát thương hoặc hồi {hl} HP',p:[['need','Số câu đúng liên tiếp',1,10,2],['pts','Điểm chiến thuật cần',1,10,3],['dm','Sát thương',1,100,10],['hl','HP hồi phục',1,100,10]]});
+{id:'blade',n:'Kiếm vũ',e:'Blade Dancer',w:'Song kiếm',pn:'Vũ Điệu Khích Lệ',c:'#0d9488',ic:'🤺',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Truyền cảm hứng: đòn đánh tiếp theo của mỗi thành viên trong đội gây thêm {dm} sát thương',p:[['need','Số câu đúng liên tiếp',1,10,3],['dm','Sát thương thêm',1,50,4]]},
+{id:'illus',n:'Ảo thuật gia',e:'Illusionist',w:'Trượng ảo ảnh',pn:'Ảo Ảnh Bảo Hộ',c:'#c026d3',ic:'🎭',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Tạo kết giới giúp toàn đội né hoàn toàn đòn tấn công tiếp theo của đối thủ trong {tn} lượt',p:[['need','Số câu đúng liên tiếp',1,10,3],['tn','Số lượt',1,10,2]]},
+{id:'tact',n:'Chiến lược gia',e:'Tactician',w:'Trượng chỉ huy',pn:'Thiên Tài Chiến Thuật',c:'#1e40af',ic:'🎯',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Nhận 1 điểm chiến thuật. Đủ {pts} điểm sẽ được chọn: cả đội gây thêm {dm} sát thương trong đòn đánh tiếp theo hoặc nhận lá chắn {sh} sát thương',p:[['need','Số câu đúng liên tiếp',1,10,2],['pts','Điểm chiến thuật cần',1,10,3],['dm','Sát thương cộng thêm',1,100,10],['sh','Lá chắn',1,100,10]]});
 Object.assign(AVX,{
 dknight:mkAv('#1f2937','<path d="M37 52a22 22 0 0 1 44 0v10H37z" fill="#111827"/><rect x="50" y="47" width="30" height="5" rx="2" fill="#ef4444"/><path d="M54 30q4-16 16-13q-7 6-4 15z" fill="#7f1d1d"/>','<path d="M98 8l9 9-40 86-11-6z" fill="#1e1b2e" stroke="#ef4444" stroke-width="2.5"/><rect x="48" y="94" width="32" height="8" rx="3" fill="#7f1d1d" transform="rotate(-27 64 98)"/>'),
 storm:mkAv('#2563eb','<path d="M37 50a22 22 0 0 1 44 0l-6-5-6 8-6-9-6 9-6-8-6 5z" fill="#fde047"/>','<circle cx="20" cy="84" r="12" fill="#fde047" stroke="#fff" stroke-width="2"/><path d="M23 75l-7 11h7l-5 9" stroke="#2563eb" stroke-width="2.5" fill="none" stroke-linejoin="round"/><circle cx="100" cy="84" r="12" fill="#fde047" stroke="#fff" stroke-width="2"/><path d="M103 75l-7 11h7l-5 9" stroke="#2563eb" stroke-width="2.5" fill="none" stroke-linejoin="round"/>'),
@@ -2326,13 +2467,13 @@ tact:mkAv('#1e40af','<path d="M37 48a22 22 0 0 1 44 0z" fill="#fbbf24"/><rect x=
 const clsAv=id=>id==='sword'?AV[0]:id==='mage'?AV[1]:AVX[id];
 const CTABS='<div class="stab"><button class="on" data-st="g">⚙ Chung</button><button data-st="q">🎁 Quà</button><button data-st="c">🧙 Nhân vật</button></div>';
 const cpS=()=>{const s={cl:{}};document.querySelectorAll('#modal [data-cp]').forEach(x=>{const[i,k]=x.dataset.cp.split('.');(s.cl[i]=s.cl[i]||{})[k]=+x.value||0});return s};
-function clsCfg(s){return `<div class="cpbar"><button class="b p" data-cl="pick">🧙 Chọn nhân vật cho hai đội</button><span id="clssum"></span><button class="b g" data-cl="reset">↺ Số mặc định</button></div><div class="clgrid">${CLS.map(c=>`<div class="clcard" style="--c:${c.c}"><div class="clh"><span>${c.ic}</span><div><b>${c.n} (${c.e})</b><em>${c.pn} · ${c.w}</em></div></div><p class="cld">${clsFill(c.cd+' → '+c.ef,s,c.id)}</p>${c.p.map(p=>`<label class="pt">${p[1]}<input type="number" data-cp="${c.id}.${p[0]}" data-def="${p[4]}" min="${p[2]}" max="${p[3]}" value="${clsVal(s,c.id,p[0])}"></label>`).join('')}</div>`).join('')}</div>`}
+function clsCfg(s){return `<div class="cpbar"><button class="b p" data-cl="pick">🧙 Chọn nhân vật cho hai đội</button><span id="clssum"></span><button class="b g" data-cl="reset">↺ Số mặc định</button></div><div class="clgrid">${CLS.map(c=>`<div class="clcard" style="--c:${c.c}"><div class="clh"><span>${c.ic}</span><div><b>${c.n} (${c.e})</b><em>${c.pn} · ${c.w}</em></div></div><p class="cld">${clsFill(c.cd+' → '+c.ef,s,c.id)}</p>${ULT[c.id]?`<p class="cld">⚡ <b>Chiêu nộ ${ULT[c.id][1]}:</b> ${clsFill(ULT[c.id][2],s,c.id).replace(/(\d+%?)/g,'<i>$1</i>')} <em>(thay thế nội tại ở đòn đó)</em></p>`:''}${c.p.map(p=>`<label class="pt">${p[1]}<input type="number" data-cp="${c.id}.${p[0]}" data-def="${p[4]}" min="${p[2]}" max="${p[3]}" value="${clsVal(s,c.id,p[0])}"></label>`).join('')}</div>`).join('')}</div>`}
 function clsSave(s){s.cl={};document.querySelectorAll('#modal [data-cp]').forEach(x=>{const[id,k]=x.dataset.cp.split('.'),p=clsDef(id).p.find(q=>q[0]===k);(s.cl[id]=s.cl[id]||{})[k]=Math.min(p[3],Math.max(p[2],x.value===''||isNaN(+x.value)?p[4]:Math.round(+x.value)))});const g=window.GCLS;s.cls=g&&g[0]&&g[1]&&g[0]!==g[1]?g.slice():null;const mr=document.querySelector('#modal input[name=gmode]:checked');s.mode=mr?mr.value:'1v1';s.t7=(window.GL.gs||{}).t7||null}
 function clsSum(){const e=document.getElementById('clssum'),g=window.GCLS||[];if(e)e.textContent=g[0]&&g[1]?`Đội 1: ${clsDef(g[0]).n} · Đội 2: ${clsDef(g[1]).n}`:'Chưa chọn (học sinh sẽ chọn khi bắt đầu trận)'}
 function clsPick(init,cancel,cb,go){const old=document.getElementById('cpk');if(old)old.remove();
  const el=document.createElement('div');el.id='cpk';document.body.appendChild(el);
  const ch=[init&&init[0]||null,init&&init[1]||null],S=G&&G.s?G.s:cpS(),nm=i=>G&&G.nm?G.nm[i]:((document.querySelectorAll('#modal .gnm')[i]||{}).value||'').trim()||'Đội '+(i+1);let at=ch[0]&&!ch[1]?1:0;
- const draw=()=>{el.innerHTML=`<div class="cpb"><div class="cpt"><h2>🧙 Chọn nhân vật</h2><div class="cps">${[0,1].map(i=>`<button class="cpsl${at===i?' on':''}" data-cpt="${i}" style="--c:${GC[i]}">${esc(nm(i))}: ${ch[i]?clsDef(ch[i]).ic+' '+clsDef(ch[i]).n:'— chưa chọn —'}</button>`).join('')}</div></div><p class="cph">Đang chọn cho <b>${esc(nm(at))}</b>. Hai đội không được chọn trùng nhân vật.</p><div class="cpg">${CLS.map(c=>{const by=ch.indexOf(c.id);return `<button class="cpc${by===at?' on':''}" data-cpk="${c.id}" style="--c:${c.c}" ${by>=0&&by!==at?'disabled':''}>${by>=0?`<i class="cptag" style="background:${GC[by]}">${esc(nm(by))}</i>`:''}<div class="cpa">${clsAv(c.id)}</div><b>${c.ic} ${c.n}</b><em>${c.e}</em><div class="cpr"><span>🗡 Vũ khí</span>${c.w}</div><div class="cpr"><span>✨ Nội tại</span><b>${c.pn}</b></div><div class="cpr"><span>⚡ Điều kiện kích hoạt</span>${clsFill(c.cd,S,c.id)}</div><div class="cpr"><span>💥 Hiệu ứng</span>${clsFill(c.ef,S,c.id)}</div></button>`}).join('')}</div><div class="cpf"><button class="b g" data-cpa="x">Huỷ</button><button class="b g" data-cpa="rand">🎲 Ngẫu nhiên</button><button class="b p" data-cpa="ok" ${ch[0]&&ch[1]?'':'disabled'}>${go||'⚔ Bắt đầu'}</button></div></div>`};
+ const draw=()=>{el.innerHTML=`<div class="cpb"><div class="cpt"><h2>🧙 Chọn nhân vật</h2><div class="cps">${[0,1].map(i=>`<button class="cpsl${at===i?' on':''}" data-cpt="${i}" style="--c:${GC[i]}">${esc(nm(i))}: ${ch[i]?clsDef(ch[i]).ic+' '+clsDef(ch[i]).n:'— chưa chọn —'}</button>`).join('')}</div></div><p class="cph">Đang chọn cho <b>${esc(nm(at))}</b>. Hai đội không được chọn trùng nhân vật.</p><div class="cpg">${CLS.map(c=>{const by=ch.indexOf(c.id);return `<button class="cpc${by===at?' on':''}" data-cpk="${c.id}" style="--c:${c.c}" ${by>=0&&by!==at?'disabled':''}>${by>=0?`<i class="cptag" style="background:${GC[by]}">${esc(nm(by))}</i>`:''}<div class="cpa">${clsAv(c.id)}</div><b>${c.ic} ${c.n}</b><em>${c.e}</em><div class="cpr"><span>✨ Nội tại</span><b>${c.pn}</b></div><div class="cpr cpe"><span>💥 Hiệu ứng</span><p>${clsEff(c,S)}</p></div></button>`}).join('')}</div><div class="cpf"><button class="b g" data-cpa="x">Huỷ</button><button class="b g" data-cpa="rand">🎲 Ngẫu nhiên</button><button class="b p" data-cpa="ok" ${ch[0]&&ch[1]?'':'disabled'}>${go||'⚔ Bắt đầu'}</button></div></div>`};
  el.onclick=e=>{const b=e.target.closest('[data-cpk],[data-cpt],[data-cpa]');if(!b||b.disabled)return;
   if(b.dataset.cpt!=null)at=+b.dataset.cpt;
   else if(b.dataset.cpk){ch[at]=b.dataset.cpk;if(!ch[1-at])at=1-at}
@@ -2344,7 +2485,7 @@ function clsPick(init,cancel,cb,go){const old=document.getElementById('cpk');if(
 document.addEventListener('click',e=>{const b=e.target.closest('[data-st]');if(b){document.querySelectorAll('#modal [data-st]').forEach(x=>x.classList.toggle('on',x===b));document.querySelectorAll('#modal [data-sp]').forEach(p=>p.hidden=p.dataset.sp!==b.dataset.st);return}
  const c=e.target.closest('[data-cl]');if(!c)return;if(c.dataset.cl==='pick')clsPick(window.GCLS,null,r=>{window.GCLS=r;clsSum()},'Lưu lựa chọn');else document.querySelectorAll('#modal [data-cp]').forEach(x=>x.value=x.dataset.def)});
 function clsAtk(t,a){const id=G.cls[t],c=clsDef(id),s=G.s,r={m:1,add:0,pen:0,inst:0},v=k=>clsVal(s,id,k),L=x=>G.log.unshift(x);
- if(c.k==='r'){r.add=a.seal>0?0:Math.min(v('cap'),v('per')*(a.cc||0));if(a.seal>0&&(a.cc||0)>0)L(`🔒 Phong Ấn khóa ${c.pn} của ${AN(t)}`);a.cc=(a.cc||0)+1;if(r.add)L(`${c.ic} ${AN(t)} Cuồng Nộ: +${r.add} sát thương`)}
+ if(G.ult0===t){G.log.unshift(`⚡ Chiêu tối thượng thay thế ${c.pn} ở đòn này`)}else if(c.k==='r'){r.add=a.seal>0?0:Math.min(v('cap'),v('per')*(a.cc||0));if(a.seal>0&&(a.cc||0)>0)L(`🔒 Phong Ấn khóa ${c.pn} của ${AN(t)}`);a.cc=(a.cc||0)+1;if(r.add)L(`${c.ic} ${AN(t)} Cuồng Nộ: +${r.add} sát thương`)}
  else if(c.k==='c'){if((a.cc||0)>=v('need')&&a.seal>0){L(`🔒 Phong Ấn khóa ${c.pn} của ${AN(t)}, vẫn giữ nguyên nội tại đã nạp`)}
   else if((a.cc||0)>=v('need')){r.trig=1;r.cc0=a.cc;a.cc=0;L(`${c.ic} ${AN(t)} kích hoạt ${c.pn}!`);
    if(id==='sword')r.m=v('mult');else if(id==='mage')r.fz=v('fz');else if(id==='archer'){r.add=v('bonus');r.pen=v('pen')/100}
@@ -2355,17 +2496,25 @@ function clsAtk(t,a){const id=G.cls[t],c=clsDef(id),s=G.s,r={m:1,add:0,pen:0,ins
    else r.vp=[v('tn'),v('dm')]}
   else{a.cc=(a.cc||0)+1;if(a.cc>=v('need'))L(`${c.ic} ${AN(t)} đã nạp đầy ${c.pn}, đòn kế tiếp sẽ kích hoạt!`)}}
  else{a.cc=(a.cc||0)+1;if(a.cc>=v('need')){a.cc=0;r.inst=1}}
- if(a.bt>0){r.add+=a.bd||4;a.bt--;L(`🐺 Linh thú cắn thêm ${a.bd||4} sát thương`)}
+ {const tm=G.tm&&G.tm[t];if(tm&&tm.sm&&tm.sm.hits>0){r.add+=tm.sm.dm;tm.sm.hits--;L(`🐺 Linh thú hộ chiến: +${tm.sm.dm} sát thương`)}
+  if(a.ib>0){r.add+=a.ib;L(`🤺 Vũ điệu khích lệ: ${AN(t)} +${a.ib} sát thương`);a.ib=0}
+  if(tm&&tm.tb>0){r.add+=tm.tb;L(`🎯 Chiến thuật: cả đội +${tm.tb} sát thương`);tm.tb=0}}
  return r}
 function clsPost(t,a,b,cx,tn){tn=tn||AN(1-t);const id=G.cls[t],c=clsDef(id),v=k=>clsVal(G.s,id,k),L=x=>G.log.unshift(x);
  if(cx.fz){b.fz=cx.fz;L(`❄ ${AN(t)} đóng băng ${tn}!`)}
  if(cx.vp){b.vp=cx.vp[0];b.vd=cx.vp[1];L(`🧪 ${tn} nhiễm độc: −${cx.vp[1]} HP/lượt trong ${cx.vp[0]} lượt`)}
  if(cx.inst){L(`${c.ic} ${AN(t)} kích hoạt ${c.pn}!`);
-  if(id==='guardian'){a.gs=Math.min(v('cap'),(a.gs||0)+v('sh'));L(`🔰 Khiên của ${AN(t)}: ${a.gs}/${v('cap')}`)}
-  else if(id==='paladin'||id==='chrono')aHeal(t,v('hl'));
-  else if(id==='illus'){a.dg=1;L(`🎭 ${AN(t)} tạo phân thân, sẽ né hoàn toàn đòn kế tiếp!`)}
+  if(id==='guardian'){aSts(t).forEach(x=>{x.gs=Math.min(v('cap'),(x.gs||0)+v('sh'));x.gsT=v('tn')+1});L(`🔰 ${c.pn}: cả đội nhận khiên ${v('sh')} (tối đa ${v('cap')}) trong ${v('tn')} lượt`)}
+  else if(id==='paladin'||id==='chrono')clsHealLow(t,v('hl'));
+  else if(id==='illus'){tmg(t).ill=v('tn');L(`🎭 ${AN(t)} tạo kết giới: toàn đội né hoàn toàn đòn đánh kế tiếp của đối thủ (trong ${v('tn')} lượt)`)}
    else if(id==='tact'){a.tp=(a.tp||0)+1;L(`🎯 ${AN(t)} nhận điểm chiến thuật ${a.tp}/${v('pts')}`);if(a.tp>=v('pts')){a.tp=0;G.tacP={t}}}
-   else{a.bt=v('hits');a.bd=v('dm')}}}
+   else if(id==='summoner'){tmg(t).sm={hits:v('hits'),dm:v('dm'),tn:v('tn')+1};L(`🐺 Linh thú ban phước: ${v('hits')} đòn tới của cả đội +${v('dm')} sát thương`)}
+   else if(id==='blade'){aSts(t).forEach(x=>{x.ib=v('dm')});L(`🤺 ${AN(t)} truyền cảm hứng: đòn đánh kế tiếp của mỗi thành viên +${v('dm')} sát thương`)}}}
+const tmg=t=>(G.tm=G.tm||[{},{}])[t];
+function clsHealLow(t,h){if(!G.sd){aHeal(t,h);return}
+ const f=G.fi[t];let bk=f,bh=G.sc[t];G.sd[t].forEach((m,k)=>{if(k===f||m.dead||m.hp<=0)return;if(m.hp<bh){bh=m.hp;bk=k}});
+ if(bh>=G.s.hp)bk=f;const sv=[G.gtt,G.gtk];G.gtt=t;G.gtk=bk===f?null:bk;try{aHeal(t,h)}finally{G.gtt=sv[0];G.gtk=sv[1]}
+ G.log.unshift(`💚 ${bk===f?AN(t):G.sd[t][bk].nm} được hồi ${h} HP`)}
 function clsTip(i){const id=G.cls[i],c=clsDef(id),S=G.s,e=G.st[i],cc=e.cc||0;let st;
  if(c.k==='r')st=`Chuỗi hiện tại: ${cc} (đòn kế tiếp +${Math.min(clsVal(S,id,'cap'),clsVal(S,id,'per')*cc)})`;
  else{const n=clsVal(S,id,'need');st=c.k==='c'&&cc>=n?'⚡ Đã sẵn sàng, kích hoạt ở câu đúng kế tiếp':`Chuỗi hiện tại: ${cc}/${n}`;if(id==='tact')st+=` · Điểm chiến thuật: ${e.tp||0}/${clsVal(S,id,'pts')}`}
@@ -2379,7 +2528,7 @@ function clsBadge0(i){const id=G.cls[i],c=clsDef(id),cc=G.st[i].cc||0;let x=`${c
 function modeSeg2(l){const m=(l.gs&&l.gs.mode)||'1v1';return `<div class="seg amd">${[['1v1','1 vs 1'],['7v7','7 vs 7']].map(x=>`<button class="${m===x[0]?'on':''}" data-act="amode" data-id="${l.id}" data-m="${x[0]}">${x[1]}</button>`).join('')}</div>`}
 function modeSeg(s){const m=s.mode||'1v1';return `<p>Chế độ đấu</p><div class="seg">${[['1v1','1 vs 1'],['7v7','7 vs 7']].map(x=>`<label><input type="radio" name="gmode" value="${x[0]}" ${m===x[0]?'checked':''}><span>${x[1]}</span></label>`).join('')}</div>`}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-act="amode"]');if(!b)return;const c=curC(),l=c&&c.lessons.find(x=>x.id===b.dataset.id);if(!l)return;l.gs=l.gs||{};l.gs.mode=b.dataset.m;save();render()});
-const clsBody=(c,S)=>`<div class="cpa">${clsAv(c.id)}</div><b>${c.ic} ${c.n}</b><em>${c.e}</em><div class="cpr"><span>🗡 Vũ khí</span>${c.w}</div><div class="cpr"><span>✨ Nội tại</span><b>${c.pn}</b></div><div class="cpr"><span>⚡ Điều kiện kích hoạt</span>${clsFill(c.cd,S,c.id)}</div><div class="cpr"><span>💥 Hiệu ứng</span>${clsFill(c.ef,S,c.id)}</div>`;
+const clsBody=(c,S)=>`<div class="cpa">${clsAv(c.id)}</div><b>${c.ic} ${c.n}</b><em>${c.e}</em><div class="cpr"><span>✨ Nội tại</span><b>${c.pn}</b></div><div class="cpr cpe"><span>💥 Hiệu ứng</span><p>${clsEff(c,S)}</p></div>`;
 function clsPick1(cur,S,cb){const old=document.getElementById('cpk');if(old)old.remove();const el=document.createElement('div');el.id='cpk';document.body.appendChild(el);
  el.innerHTML=`<div class="cpb"><div class="cpt"><h2>🧙 Chọn nhân vật</h2><button class="b g" data-p1="x">Đóng</button></div><p class="cph">Bấm vào thẻ để chọn. Ở chế độ 7 vs 7, các nhân vật được phép trùng class.</p><div class="cpg">${CLS.map(c=>`<button class="cpc${cur===c.id?' on':''}" data-p1="${c.id}" style="--c:${c.c}">${clsBody(c,S)}</button>`).join('')}</div></div>`;
  el.onclick=e=>{const b=e.target.closest('[data-p1]');if(!b)return;el.remove();if(b.dataset.p1!=='x')cb(b.dataset.p1)}}
@@ -2404,52 +2553,82 @@ function rot7(t){const sk=G.rep[t];G.rep=[0,0];if(sk)return;const n=nxt7(t,G.fi[
 function aChk7(){const w=[0,0];[0,1].forEach(i=>{G.sd[i].forEach((m,k)=>{if(k!==G.fi[i]&&!m.dead&&m.hp<=0){m.hp=0;m.dead=1;G.log.unshift(`💀 ${m.nm} (${G.tn[i]}) bị hạ gục!`)}});if(G.sc[i]>0)return;const T=G.sd[i],f=G.fi[i];T[f].hp=0;T[f].dead=1;G.log.unshift(`💀 ${T[f].nm} (${G.tn[i]}) bị hạ gục!`);const n=nxt7(i,f);if(n<0)w[i]=1;else{ld7(i,n);G.rep[i]=1}});
  if(!w[0]&&!w[1])return false;if(w[0]&&w[1])gEnd('🤝 Hòa!','Hai đội cùng bị hạ gục');else{const x=w[0]?1:0;gEnd('🏆 '+G.tn[x]+' thắng!','Hạ gục toàn bộ đội '+G.tn[1-x])}return true}
 const A7C=[
-['hk','🔥','Hỏa Kiếm',()=>'Đòn tới x2 sát thương',0],['lt','⚡','Lôi Điện',e=>`Đòn tới +${3*e.lt} sát thương`,0],['ch','💥','Chí Mạng',()=>'Đòn tới x3 sát thương',0],['ex','☄️','Thiên Thạch',e=>`Đòn tới +${e.ex} sát thương`,0],
-['crown','👑','Vương Miện',e=>`x2 sát thương cho ${e.crown} đòn tới`,0],['pierce','🗡️','Truy Sát',()=>'Đòn tới bỏ qua khiên và giáp',0],['ls','🧛','Hút Sinh Lực',()=>'Đòn tới: hồi HP bằng 50% sát thương gây ra',0],['en','🔋','Năng Lượng',()=>'Lần đúng tới nhận thêm 1 quà',0],
-['sh','🛡️','Khiên Ma Thuật',()=>'Chặn hoàn toàn 1 đòn đánh',0],['ar','🪖','Giáp Kiên Cố',e=>`Giảm 50% sát thương nhận, còn ${e.ar} lượt`,0],['ab','🔮','Kết Giới',e=>`Hấp thụ tối đa ${e.ab} sát thương nữa`,0],['ph','🦅','Phượng Hoàng',()=>'Hồi sinh với 10 HP khi bị hạ gục',0],
-['rf','🪞','Gương Phản Đòn',()=>'Phản 50% sát thương của đòn kế tiếp',0],['dg','💨','Dịch Chuyển',()=>'Né hoàn toàn đòn đánh kế tiếp',0],['gs','🔰','Thành Lũy',e=>`Khiên hấp thụ ${e.gs} sát thương`,0],['bt','🐺','Linh Thú',e=>`+${e.bd||4} sát thương cho ${e.bt} đòn tới`,0],
-['bomb','💣','Bom Hẹn Giờ',()=>'Sau lượt này nổ, mất 5 HP',1],['po','☠️','Độc Nhận',e=>`Mất 2 HP mỗi lượt, còn ${e.po} lượt`,1],['vp','🧪','Độc Chú',e=>`Mất ${e.vd||3} HP mỗi lượt, còn ${e.vp} lượt`,1],['fz','❄️','Băng Phong',e=>`Bị đóng băng, mất ${e.fz} lượt`,1],
-['chain','⛓️','Xiềng Xích',()=>'Quà nhận ở lượt này bị vô hiệu',1],['seal','🔒','Phong Ấn',e=>`Buff tấn công bị khóa, còn ${e.seal} lượt`,1],['nodmg','⏳','Ngưng Đọng',()=>'Không gây được sát thương ở lượt này',1],['chaos','🌀','Hỗn Loạn',()=>'Đòn kế tiếp chỉ gây 50% sát thương',1]];
+['hk','🔥','Hỏa Kiếm',()=>'Đòn tới x'+gP(0,'m')+' sát thương',0],['lt','⚡','Lôi Điện',e=>`Đòn tới +${gP(1,'add')*e.lt} sát thương`,0],['ch','💥','Chí Mạng',()=>'Đòn tới x'+gP(4,'m')+' sát thương',0],['ex','☄️','Thiên Thạch',e=>`Đòn tới +${e.ex} sát thương`,0],
+['xm','✴️','Cường Hóa',e=>`Đòn tới x${e.xm} sát thương`,0],['crown','👑','Vương Miện',e=>`x2 sát thương cho ${e.crown} đòn tới`,0],['pierce','🗡️','Truy Sát',()=>'Đòn tới bỏ qua khiên và giáp',0],['ls','🧛','Hút Sinh Lực',e=>'Đòn tới: hồi HP bằng '+(e.ls>1?e.ls:50)+'% sát thương gây ra',0],['en','🔋','Năng Lượng',()=>'Lần đúng tới nhận thêm 1 quà',0],
+['sh','🛡️','Khiên Ma Thuật',()=>'Chặn hoàn toàn 1 đòn đánh',0],['ar','🪖','Giáp Kiên Cố',e=>`Giảm ${e.arp||50}% sát thương nhận, còn ${e.ar} lượt`,0],['ab','🔮','Kết Giới',e=>`Hấp thụ tối đa ${e.ab} sát thương nữa`,0],['ph','🦅','Phượng Hoàng',e=>'Hồi sinh với '+(e.ph>1?e.ph:10)+' HP khi bị hạ gục',0],
+['rf','🪞','Gương Phản Đòn',e=>'Phản '+(e.rf>1?e.rf:50)+'% sát thương của đòn kế tiếp',0],['dg','💨','Dịch Chuyển',()=>'Né hoàn toàn đòn đánh kế tiếp',0],['gs','🔰','Bức Tường Kiên Cố',e=>`Khiên hấp thụ ${e.gs} sát thương`+(e.gsT>0?`, còn ${e.gsT} lượt`:''),0],['ib','🤺','Vũ Điệu Khích Lệ',e=>`Đòn đánh kế tiếp +${e.ib} sát thương`,0],['bt','🐺','Linh Thú',e=>`+${e.bd||4} sát thương cho ${e.bt} đòn tới`,0],
+['bomb','💣','Bom Hẹn Giờ',e=>'Sau lượt này nổ, mất '+(e.bomb>1?e.bomb:5)+' HP',1],['po','☠️','Độc Nhận',e=>`Mất ${e.pd||2} HP mỗi lượt, còn ${e.po} lượt`,1],['vp','🧪','Độc Chú',e=>`Mất ${e.vd||3} HP mỗi lượt, còn ${e.vp} lượt`,1],['fz','❄️','Băng Phong',e=>`Bị đóng băng, mất ${e.fz} lượt`,1],
+['chain','⛓️','Xiềng Xích',()=>'Quà nhận ở lượt này bị vô hiệu',1],['seal','🔒','Phong Ấn',e=>`Buff tấn công bị khóa, còn ${e.seal} lượt`,1],['nodmg','⏳','Ngưng Đọng',()=>'Không gây được sát thương ở lượt này',1],['chaos','🌀','Hỗn Loạn',e=>'Đòn kế tiếp bị giảm '+(e.chaos>1?e.chaos:50)+'% sát thương',1]];
+A7C.push(['lb','💠','Chặn Đòn Hạ Gục',()=>'Chặn một đòn đánh có thể hạ gục',0],['ang','👼','Giáp Thiên Thần',e=>`Khi HP dưới ${e.angp||20}% tự tạo khiên ${e.ang} HP`,0],['kn','📖','Sách Tri Thức',e=>`Trả lời đúng câu kế tiếp: +${e.kn} HP`,0],['vk','👑','Vương Miện Kẻ Thắng',()=>'Hạ gục đối thủ ở lượt kế tiếp: nhận thêm 1 quà',0],['lk','🍀','Túi May Mắn',e=>`+${e.lk}% tỷ lệ nhận quà`,0],['im','🧿','Miễn Nhiễm Khống Chế',e=>`Không bị khống chế, còn ${Math.max(1,e.im-1)} lượt`,0],['fzh','🧊','Đòn Đóng Băng',e=>`Đòn kế tiếp có ${e.fzh}% cơ hội đóng băng/choáng đối thủ khi trúng`,0],['rt','🔄','Chọn Lại Mục Tiêu',e=>`Còn ${e.rt} lần chọn lại mục tiêu`,0]);
+AST.push(['lb','💠'],['ang','👼'],['kn','📖'],['vk','👑'],['lk','🍀'],['im','🧿'],['fzh','🧊'],['rt','🔄']);
+/* Quà nhận ngay sau khi trả lời đúng ở lượt của chính mình: mốc "câu/lượt kế tiếp" phải bỏ qua lượt hiện tại */
+const gWait=()=>G&&G.ga&&G.gtk==null?1:0;
+function aAng(t,e,hp){if(e.ang>0&&hp>0&&hp<G.s.hp*(e.angp||20)/100){const v=e.ang;e.ab=(e.ab||0)+v;e.ang=0;G.log.unshift(`👼 HP xuống thấp, Giáp Thiên Thần tạo lá chắn ${v} HP`)}}
+function aScry(t){const o=1-t,e=G.st[o],L=A7C.filter(x=>e[x[0]]>0).map(x=>x[1]+' '+x[2]),q=(e.q||[]).map(gi=>GF[gi][3]+' '+GF[gi][0]),tx=`🔭 Kính Tiên Tri: ${AN(o)} (${Math.max(0,G.sc[o])}/${G.s.hp} HP) · hiệu ứng: ${L.length?L.join(', '):'không có'}${q.length?' · quà chờ: '+q.join(', '):''}`;G.log.unshift(tx);toast(tx)}
+function aGate(t){if(!G.sd){G.log.unshift('🌌 Cánh Cổng Không Gian: chế độ 1v1 không có hàng chờ');return}const f=G.fi[t],n=nxt7(t,f);if(n<0||n===f){G.log.unshift('🌌 Cánh Cổng Không Gian: không còn đồng đội để thay');return}G.log.unshift(`🌌 ${G.sd[t][f].nm} bị chuyển xuống cuối hàng chờ, ${G.sd[t][n].nm} ra sân`);ld7(t,n)}
+function rsOpen(t,ok){const T=G.sd[t],f=G.fi[t],slots=[];for(let n=1;n<T.length;n++){const k=(f+n)%T.length;if(!T[k].dead)slots.push(k)}
+ if(slots.length<2){G.log.unshift('♟ Bàn Cờ Vạn Quân: không đủ thành viên dự bị để sắp xếp');return gArenaP(ok)}
+ G.rsel={t,ok,slots,ord:slots.map(k=>T[k]),max:15};G.lock=0;if(G.tz)G.tl=G.rsel.max;gDraw()}
+function rsMove(i,d){const q=G.rsel;if(!q||G.lock||G.tpause)return;const j=i+d;if(j<0||j>=q.ord.length)return;[q.ord[i],q.ord[j]]=[q.ord[j],q.ord[i]];gDraw()}
+function rsOk(){const q=G.rsel;if(!q)return;G.rsel=null;const T=G.sd[q.t];q.slots.forEach((k,j)=>{T[k]=q.ord[j]});G.log.unshift(`♟ ${G.tn[q.t]} đã sắp xếp lại thứ tự hàng chờ`);G.lock=1;gArenaP(q.ok)}
+const rsPanel=q=>`<div class="gsl" style="--c:${GC[q.t]}"><div class="gst">♟ ${esc(G.tn[q.t])} sắp xếp lại hàng chờ (trên → dưới: ra sân trước → sau)</div>${G.tz?`<div class="acd gsac">${cdBar('acdq','⏱',G.tl,q.max,'Sắp xếp')}<button class="b g acdp" data-gg="tp">${G.tpause?'▶':'⏸'}</button></div>`:''}${q.ord.map((m,i)=>`<div style="display:flex;gap:10px;align-items:center;justify-content:center;margin:5px 0"><b>${i+1}.</b><span style="display:inline-block;width:44px">${clsAv(m.cls)}</span><b>${esc(m.nm)}</b><small>${Math.max(0,m.hp)}/${G.s.hp} HP</small><button class="b g" data-gg="rsu" data-i="${i}" ${i?'':'disabled'}>▲</button><button class="b g" data-gg="rsd" data-i="${i}" ${i<q.ord.length-1?'':'disabled'}>▼</button></div>`).join('')}<button class="b p gsk" data-gg="rsok">✔ Xác nhận thứ tự</button></div>`;
 function a7Cards(i){const e=G.st[i],id=G.cls[i],c=clsDef(id),cc=e.cc||0,s=G.s,out=[],need=c.k==='r'?0:clsVal(s,id,'need');
  A7C.forEach(x=>{if(e[x[0]]>0)out.push([x[4],x[1],x[2],x[3](e)])});
  tmCards(i).forEach(x=>out.push(x));
  (e.q||[]).forEach(gi=>out.push([0,GF[gi][3],GF[gi][0],(G.sd?'Chờ kích hoạt khi tới lượt người này lần sau: ':'Chờ kích hoạt lượt sau: ')+GF[gi][2]]));
  return !out.length?'':`<div class="a7cs">${out.map(x=>`<div class="a7c ${x[0]===2?'tm':x[0]?'neg':'pos'}"><b>${x[1]} ${esc(x[2])}</b><small>${esc(x[3])}</small></div>`).join('')}</div>`}
+function a7TeamLine(i){const m=G.tm&&G.tm[i],o=[],full=[],add=(ic,sh,fl)=>{o.push(ic+' '+sh);full.push(ic+' '+(fl||sh))};
+ if(m){for(const id in TBD){const v=m[id];if(!(v>0))continue;const d=TBD[id],p=[];
+   if(d.dm)p.push('+'+d.dm+'% sát thương');if(d.r)p.push('giảm '+d.r+'% sát thương nhận');if(d.dg)p.push(d.dg+'% né');if(d.hf)p.push('hồi '+d.hf+' HP/lượt');
+   if(!p.length)p.push(({sh:'khiên đội',ls:'hồi HP mỗi lượt',spr:'hồi HP mỗi lượt',oth:'+phòng thủ khi đồng đội bị đánh'})[id]||d.n);
+   add(d.ic,p.join(', ')+' ('+(id==='rag'&&m.ragw?'từ lượt kế':v+' lượt')+')',d.d())}
+  if(m.sm)add('🐺','+'+m.sm.dm+' sát thương × '+m.sm.hits+' đòn');
+  if(m.ill>0)add('🎭','né đòn '+m.ill+' lượt');
+  if(m.tb>0)add('🎯','+'+m.tb+' sát thương đòn kế')}
+ const ts=Math.max(0,...G.sd[i].filter(x=>!x.dead).map(x=>x.st.ts||0));if(ts>0&&!(m&&m.sh>0))add('🤝','khiên đội '+ts);
+ return o.length?`<div class="a7tl" title="${esc(full.join(' | '))}">${esc(o.join(' · '))}</div>`:''}
 function a7s(i,av){if(!G.sd){const cd=a7Cards(i);return `<div class="a7s s${i}" style="--c:${GC[i]}"><div class="a7ct">${i?av(i)+cd:cd+av(i)}</div></div>`}const T=G.sd[i],f=G.fi[i],sw=(G.swc||[])[i],nx0=nxt7(i,f),nx=nx0===f?-1:nx0,sl=G.tsel&&!G.end&&i===1-G.tsel.t,hm=G.hitm,
  bk=T.map((m,k)=>{if(k===f)return'';const pq=!m.dead&&m.st.q&&m.st.q.length?m.st.q:null,pk=sl&&!m.dead,hp=m.dead?0:Math.max(0,m.hp);
-  return `<div data-mk="${k}" class="a7m${m.dead?' dead':''}${k===nx?' nxt':''}${sw&&sw.from===k?' pin2':''}${pk?' pk':''}${hm&&hm.t===i&&hm.k===k?' hit':''}" title="${esc(m.nm)} · ${hp}/${G.s.hp} HP${pq?' · Quà chờ: '+esc(pq.map(g=>GF[g][0]).join(', ')):''}"${pk?` data-gg="tg" data-t="${i}" data-k="${k}"`:''}>${(G.evf||[]).filter(x=>x.t===i&&x.m===k).map(x=>`<b class="adm ${x.k}">${x.s}</b>`).join('')}${k===nx?'<em class="a7ar">▼</em>':''}${pq?`<u class="a7g">🎁${pq.length>1?`<sup>${pq.length}</sup>`:''}</u>`:''}${G.rkfx&&G.rkfx.t===i&&G.rkfx.k===k?`<span class="afx ${GF[G.rkfx.fx][4]}" style="--c:${GF[G.rkfx.fx][5]}">${GF[G.rkfx.fx][3]}</span>`:''}<div class="a7a">${m.dead?'<span>💀</span>':''}${clsAv(m.cls)}</div><div class="a7nm">${esc(m.nm)}</div><div class="a7h"><i style="width:${hp/G.s.hp*100}%"></i></div><div class="a7bf">${m.dead?'':AST.filter(x=>m.st[x[0]]>0).map(x=>`<span>${x[1]}</span>`).join('')}</div></div>`}).join(''),cd=a7Cards(i);
- return `<div class="a7s s${i}${G.tsel&&!G.end&&i===G.tsel.t?' off':''}" style="--c:${GC[i]}"><div class="a7bk">${bk}</div><div class="a7ct">${i?av(i)+cd:cd+av(i)}</div></div>`}
+  return `<div data-mk="${k}" class="a7m${m.dead?'':stc(m.st)}${m.dead?' dead':''}${k===nx?' nxt':''}${sw&&sw.from===k?' pin2':''}${pk?' pk':''}${hm&&hm.t===i&&hm.k===k?' hit':''}" title="${esc(m.nm)} · ${hp}/${G.s.hp} HP${pq?' · Quà chờ: '+esc(pq.map(g=>GF[g][0]).join(', ')):''}"${pk?` data-gg="tg" data-t="${i}" data-k="${k}"`:''}>${(G.evf||[]).filter(x=>x.t===i&&x.m===k).map(x=>`<b class="adm ${x.k}">${x.s}</b>`).join('')}${k===nx?'<em class="a7ar">▼</em>':''}${pq?`<u class="a7g">🎁${pq.length>1?`<sup>${pq.length}</sup>`:''}</u>`:''}${G.rkfx&&G.rkfx.t===i&&G.rkfx.k===k?`<span class="afx ${GF[G.rkfx.fx][4]}" style="--c:${GF[G.rkfx.fx][5]}">${GF[G.rkfx.fx][3]}</span>`:''}<div class="a7a">${m.dead?'<span>💀</span>':''}${clsAv(m.cls)}</div><div class="a7nm">${esc(m.nm)}</div><div class="a7h"><i style="width:${hp/G.s.hp*100}%"></i></div><div class="a7bf">${m.dead?'':AST.filter(x=>m.st[x[0]]>0).map(x=>`<span>${x[1]}</span>`).join('')}</div></div>`}).join(''),cd=a7Cards(i);
+ return `<div class="a7s s${i}" style="--c:${GC[i]}"><div class="a7bk">${a7TeamLine(i)}${bk}</div><div class="a7ct">${i?av(i)+cd:cd+av(i)}</div></div>`}
 const RAR=[['Thường','#9aa3af',40],['Hiếm','#3a8bff',30],['Sử thi','#a855f7',18],['Huyền thoại','#facc15',9],['Thần thoại','#ef4444',3]];
 const GR=[1,0,1,0,3,2,0,0,1,3,2,1,1,2,2,1,0,2,0,0,2,3,2,1,2,3,1,4,1,2,2,3,2,3,3,2,3,2,4,4];
 const aR=i=>{const c=G.s.gf&&G.s.gf[i];return c&&c.r!=null?c.r:GR[i]};
-function aGift(){const gf=G.s.gf||{},rt=G.s.rt||RAR.map(x=>x[2]),all=GF.map((_,i)=>i),on=all.filter(i=>!gf[i]||gf[i].on!==0),pool=on.length?on:all;
+function aGift(){cgSync(G.s);const gf=G.s.gf||{},rt=G.s.rt||RAR.map(x=>x[2]),all=GF.map((_,i)=>i),on=all.filter(i=>!gf[i]||gf[i].on!==0),pool=on.length?on:all;
  const w=RAR.map((_,k)=>pool.some(i=>aR(i)===k)?(+rt[k]||0):0),tot=w.reduce((x,y)=>x+y,0);let k=0;
  if(tot>0){let r=Math.random()*tot;for(;k<4;k++){if(r<w[k])break;r-=w[k]}}else k=aR(pool[0]);
  const p=pool.filter(i=>aR(i)===k);return(p.length?p:pool)[Math.random()*(p.length||pool.length)|0]}
-function arenaCfg(s){const rt=s.rt||RAR.map(x=>x[2]),gf=s.gf||{};
- return `<div class="lbl" style="margin-top:14px">Tỉ lệ xuất hiện quà theo độ hiếm (%)</div><div class="arrt">${RAR.map((r,k)=>`<label style="--c:${r[1]}"><b>${r[0]}</b><input type="number" min="0" max="100" data-rt value="${rt[k]}"></label>`).join('')}</div><p id="rtsum" style="font-size:13px;margin:4px 0"></p><div class="lbl">Danh sách quà (bỏ tick để loại khỏi trò chơi, chọn lại độ hiếm nếu muốn)</div><div class="bklist" style="max-height:230px">${GF.map((g,i)=>{const c=gf[i]||{},r=c.r!=null?c.r:GR[i];return `<label class="bk"><input type="checkbox" data-gfi="${i}" ${c.on===0?'':'checked'}><span>${g[3]} ${g[0]} · ${esc(g[2])}</span><select data-gfr="${i}">${RAR.map((x,k)=>`<option value="${k}" ${k===r?'selected':''}>${x[0]}</option>`).join('')}</select></label>`}).join('')}</div><button class="b g" data-gm="rtreset" style="margin-top:6px">↺ Đặt lại mặc định</button>`}
+function arenaCfg(s){const rt=s.rt||RAR.map(x=>x[2]);window.GST={gf:JSON.parse(JSON.stringify(s.gf||{})),cg:JSON.parse(JSON.stringify(s.cg||[]))};
+ return `<div class="lbl" style="margin-top:14px">Tỉ lệ xuất hiện quà theo độ hiếm (%)</div><div class="arrt">${RAR.map((r,k)=>`<label style="--c:${r[1]}"><b>${r[0]}</b><input type="number" min="0" max="100" data-rt value="${rt[k]}"></label>`).join('')}</div><p id="rtsum" style="font-size:13px;margin:4px 0"></p><div class="lbl">Danh sách quà: bỏ tick để loại, đổi độ hiếm, chỉnh thông số và lúc phát huy (ngay / chờ tới lượt) cho người đứng sân và người dự bị</div><div class="bklist" id="gflist" style="max-height:340px">${gfRows()}</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px"><button class="b p" data-gm="cgnew">＋ Thêm quà mới</button><button class="b g" data-gm="rtreset">↺ Đặt lại mặc định</button></div><div class="cgf" id="cgform" hidden><div class="lbl">Chọn loại quà (theo nhóm của trò chơi)</div><select id="cgtp">${CGT.map(t=>`<option value="${t.id}">${t.ic} ${t.cat} · ${t.name}</option>`).join('')}</select><div class="gfp" style="padding:0"><input id="cgn" maxlength="24" placeholder="Tên quà"><input id="cgi" maxlength="4" style="width:64px" placeholder="🎁"><select id="cgr">${RAR.map((x,k)=>`<option value="${k}">${x[0]}</option>`).join('')}</select></div><div id="cgps" class="gfp" style="padding:0"></div><p id="cgpv" class="note"></p><button class="b y" data-gm="cgadd">✓ Tạo quà</button></div>`}
 function rtSum(){const e=document.getElementById('rtsum');if(!e)return;const t=[...document.querySelectorAll('#modal [data-rt]')].reduce((a,x)=>a+(+x.value||0),0);e.textContent=`Tổng: ${t}%`+(t===100?'':t?' (khác 100% thì tự quy đổi theo tỉ lệ)':' (cần lớn hơn 0)')}
 document.addEventListener('input',e=>{if(e.target.matches&&e.target.matches('[data-rt]'))rtSum()});
 const AN=t=>G.nm[t];
 const mhp=(i,k)=>G.sd&&k!=null&&k!==G.fi[i]?G.sd[i][k].hp:G.sc[i];
 function aHurt(t,d,k){d=Math.max(0,Math.round(d));if(!d)return;if(k==null&&G.gtt===t&&G.gtk!=null)k=G.gtk;
- if(G.sd&&k!=null&&k!==G.fi[t]){const m=G.sd[t][k],e=m.st;m.hp-=d;e.lost=d;G.ev.f.push({t,m:k,s:'-'+d,k:''});if(m.hp<=0&&e.ph){m.hp=10;e.ph=0;G.log.unshift(`🦅 Phượng Hoàng hồi sinh ${m.nm} với 10 HP!`);G.ev.f.push({t,m:k,s:'+10',k:'h'})}return}
- const e=G.st[t];G.sc[t]-=d;e.lost=d;G.ev.f.push({t,s:'-'+d,k:''});if(G.sc[t]<=0&&e.ph){G.sc[t]=10;e.ph=0;G.log.unshift(`🦅 Phượng Hoàng hồi sinh ${AN(t)} với 10 HP!`);G.ev.f.push({t,s:'+10',k:'h'})}}
+ if(G.sd&&k!=null&&k!==G.fi[t]){const m=G.sd[t][k],e=m.st;m.hp-=d;e.lost=d;G.ev.f.push({t,m:k,s:'-'+d,k:''});if(m.hp<=0&&e.ph){const rv=e.ph>1?e.ph:10;m.hp=rv;e.ph=0;G.log.unshift(`🦅 Phượng Hoàng hồi sinh ${m.nm} với ${rv} HP!`);G.ev.f.push({t,m:k,s:'+'+rv,k:'h'})}aAng(t,e,m.hp);return}
+ const e=G.st[t];G.sc[t]-=d;e.lost=d;G.ev.f.push({t,s:'-'+d,k:''});if(G.sc[t]<=0&&e.ph){const rv=e.ph>1?e.ph:10;G.sc[t]=rv;e.ph=0;G.log.unshift(`🦅 Phượng Hoàng hồi sinh ${AN(t)} với ${rv} HP!`);G.ev.f.push({t,s:'+'+rv,k:'h'})}aAng(t,e,G.sc[t])}
 function aHeal(t,h){if(G.gtt===t&&G.gtk!=null){const m=G.sd[t][G.gtk],b0=m.hp;m.hp=Math.min(G.s.hp,b0+h);const g0=m.hp-b0;if(g0>0)G.ev.f.push({t,m:G.gtk,s:'+'+g0,k:'h'});return}const b=G.sc[t];G.sc[t]=Math.min(G.s.hp,b+h);const g=G.sc[t]-b;if(g>0)G.ev.f.push({t,s:'+'+g,k:'h'})}
-const GFX=[a=>{a.hk=1},a=>{a.lt=(a.lt||0)+1},(a,b)=>{b.bomb=1},(a,b)=>{b.po=2},a=>{a.ch=1},a=>{a.ex=(a.ex||0)+5},a=>{a.sh=1},a=>{a.ar=3},a=>{a.ab=8},a=>{a.ph=1},a=>{a.rf=1},
-(a,b)=>{b.fz=1},(a,b)=>{b.chain=1},(a,b)=>{b.seal=2},(a,b)=>{b.nodmg=1},(a,b)=>{b.chaos=1},(a,b,t)=>aHeal(t,8),(a,b,t)=>aHeal(t,15),a=>{a.en=1},(a,b,t,o,d)=>aGive(t,aGift(),d),
-a=>{['po','fz','chain','seal','nodmg','chaos','bomb'].forEach(k=>delete a[k])},(a,b,t)=>aHeal(t,Math.min(10,a.lost||0)),a=>{a.ls=1},
-(a,b,t,o,d)=>{if(Math.random()<.5)aHeal(t,1+Math.random()*10|0);else aGive(t,aGift(),d)},
+const GFX=[a=>{a.hk=1},a=>{a.lt=(a.lt||0)+1},(a,b)=>{b.bomb=gP(2,'dm')},(a,b)=>{b.po=gP(3,'tn');b.pd=gP(3,'dm')},a=>{a.ch=1},(a,b,t,o)=>{const d=gP(5,'add');aHurt(o,d);G.log.unshift(`☄️ Thiên Thạch rơi xuống ${AN(o)}, gây ${d} sát thương`)},a=>{a.sh=1},a=>{a.ar=gP(7,'tn')+1;a.arp=gP(7,'pc')},a=>{a.ab=gP(8,'ab')},a=>{a.ph=gP(9,'hp')},a=>{a.rf=gP(10,'pc')},
+(a,b)=>{b.fz=gP(11,'tn')},(a,b)=>{b.chain=1},(a,b)=>{b.seal=gP(13,'tn')},(a,b)=>{b.nodmg=1},(a,b)=>{b.chaos=gP(15,'pc')},(a,b,t)=>aHeal(t,gP(16,'hp')),(a,b,t)=>aHeal(t,gP(17,'hp')),a=>{a.en=1},(a,b,t,o,d)=>aGive(t,aGift(),d),
+a=>{['po','fz','chain','seal','nodmg','chaos','bomb'].forEach(k=>delete a[k])},(a,b,t)=>aHeal(t,Math.min(gP(21,'hp'),a.lost||0)),a=>{a.ls=gP(22,'pc')},
+(a,b,t,o,d)=>{if(Math.random()<.5)aHeal(t,1+Math.random()*gP(23,'hp')|0);else aGive(t,aGift(),d)},
 (a,b,t,o)=>{const r=1+Math.random()*6|0;G.log.unshift('🎲 Xúc xắc ra '+r);if(r===1)aHurt(t,3);else if(r===2)aHeal(t,5);else if(r===3)a.lt=(a.lt||0)+1;else if(r===4)aHurt(o,4);else if(r===5)a.sh=1;else a.ch=1},
-a=>{a.pierce=1},a=>{a.dg=1},a=>{a.crown=2},...Array.from({length:12},(_,j)=>(a,b,t)=>aTeam(t,TG0+j))];
+a=>{a.pierce=1},a=>{a.dg=1},a=>{a.crown=gP(27,'tn')},...Array.from({length:12},(_,j)=>(a,b,t)=>aTeam(t,TG0+j))];
 function aGive(t,gi,d){d=d||0;if(d>2)return;const gk=G.gtt===t?G.gtk:null,rm=gk!=null?G.sd[t][gk]:null,a=rm?rm.st:G.st[t],b=G.st[1-t],g=GF[gi],nm=rm?rm.nm:AN(t);
  if(d)(G.ev.rv=G.ev.rv||[]).push(gi);if(G.ev.fx<0){G.ev.fx=gi;G.ev.fxt=AOPP.includes(gi)?1-t:t}
  G.log.unshift(`✨ ${nm} kích hoạt ${g[3]} ${g[0]}: ${g[2]}`);GFX[gi](a,b,t,1-t,d+1)}
 /* Quà có hiệu lực NGAY ở chế độ 7v7 (kể cả khi tặng cho dự bị): phòng thủ, hồi phục, Hỗn Loạn, Đôi Cánh, Hút Sinh Lực, Dịch Chuyển */
 const IMM7=[6,7,8,9,10,15,16,17,20,22,26];
+/* Quà luôn có hiệu lực NGAY theo mặc định (cả 1v1 lẫn 7v7, cả người đứng sân lẫn dự bị): quà tác dụng lên đối thủ, quà tức thì, quà có mô tả "lượt kế/trong N lượt" cần bắt đầu tính ngay.
+   Vẫn đổi được bằng ô "Có hiệu lực ngay / Chờ tới lượt" trong phần chỉnh quà. */
+const IMMN=new Set([2,3,11,12,13,14,15,86,87,88,89,90,91,93,138,
+ 5,19,20,21,23,24,61,66,115,116,117,119,120,121,122,123,124,130,131,132,133,134,135,
+ 60,62,63,64,65,118,128,137,139,140,141]);
+/* Thời điểm phát huy của quà: ia = người đang đứng sân, ib = người dự bị. 1 = ngay, 2 = chờ tới lượt, trống = mặc định theo loại quà */
+function giftImm(gi,res){const c=(G&&G.s&&G.s.gf&&G.s.gf[gi])||{},o=res?c.ib:c.ia;if(o===1)return true;if(o===2)return false;if(IMMN.has(gi))return true;const g=GF[gi];return G.sd?IMM7.includes(gi):(g[1]==='Phòng thủ'||g[1]==='Hồi phục'||gi===26)}
 function aQueue(t,gi,k){const a=G.st[t],g=GF[gi];if(a.chain){G.log.unshift(`⛓ ${AN(t)} bị Xiềng Xích, quà ${g[0]} bị vô hiệu`);return}
  (G.ev.rv=G.ev.rv||[]).push(gi);
- const res=!!(G.sd&&k!=null&&k!==G.fi[t]),m=res?G.sd[t][k]:null,e=m?m.st:a,nm=m?m.nm:AN(t),imm=gi>=TG0||(G.sd?IMM7.includes(gi):(g[1]==='Phòng thủ'||gi===26));
+ const res=!!(G.sd&&k!=null&&k!==G.fi[t]),m=res?G.sd[t][k]:null,e=m?m.st:a,nm=m?m.nm:AN(t),imm=isTG(gi)||giftImm(gi,res);
  if(imm){G.gtt=t;G.gtk=res?k:null;try{aGive(t,gi,0)}finally{G.gtt=null;G.gtk=null}return}
  (e.q=e.q||[]).push(gi);G.log.unshift(`🎁 ${nm} nhận ${g[3]} ${g[0]}, ${G.sd?'sẽ phát huy khi tới lượt người này':'sẽ phát huy ở lượt sau'}`)}
 /* ---------- Quà hỗ trợ toàn đội ---------- */
@@ -2464,12 +2643,172 @@ const TBD={
  rag:{ic:'😡',n:'Cơn Thịnh Nộ Tập Thể',dm:25,d:()=>'+25% sát thương'},
  fog:{ic:'🌫️',n:'Màn Sương Bảo Hộ',dg:15,d:()=>'15% cơ hội né đòn'},
  crn:{ic:'🏅',n:'Vương Miện Thống Nhất',dm:15,r:15,d:()=>'+15% sát thương, +15% phòng thủ'}};
+const TBI={fl:28,sh:29,ls:31,sto:32,bar:33,spr:34,oth:35,rag:36,fog:37,crn:39};
+for(const id in TBI){const i=TBI[id],o=TBD[id];for(const k of ['dm','dg','r'])if(o[k]!=null)Object.defineProperty(o,k,{get:()=>gP(i,GKS[i].includes(k)?k:'dm')});o.d=()=>GF[i][2]}
+/* ===== Quà mới (102 quà): nạp vào game Đối kháng, tự có mặt trong phần chỉnh sửa ===== */
+const NG0=[
+['Phòng thủ',`Áo Choàng Hộ Mệnh|0|Giảm 5% sát thương nhận vào trong 2 lượt
+Nhẫn Bảo Vệ|0|Nhận thêm 5 HP khi bắt đầu lượt
+Giày Tốc Ảnh|1|Tăng 15% khả năng né đòn trong 2 lượt
+Mũ Sắt Cổ Đại|1|Giảm 10% sát thương từ đòn đánh tiếp theo
+Khiên Pha Lê|1|Tạo lá chắn hấp thụ 12 sát thương
+Giáp Rồng|2|Giảm 20% sát thương nhận vào trong 2 lượt
+Áo Choàng Bóng Đêm|2|Có 25% cơ hội né đòn trong 2 lượt
+Bùa Bất Tử|3|Chặn một đòn đánh có thể hạ gục nhân vật
+Giáp Thiên Thần|3|Khi HP dưới 20%, tự tạo lá chắn 15 HP
+Khiên Vĩnh Cửu|4|Tạo lá chắn 20 HP và giảm 15% sát thương trong 2 lượt`],
+['Hồi phục',`Bình Máu Nhỏ|0|Hồi 5 HP
+Bình Máu Lớn|1|Hồi 12 HP
+Thuốc Hồi Sinh Lực|1|Hồi 20% HP tối đa
+Trái Cây Thần Kỳ|2|Hồi 10 HP và xóa hiệu ứng độc
+Nước Suối Tiên|2|Hồi 5 HP sau mỗi lượt trong 2 lượt
+Hoa Bất Tử|3|Hồi 15 HP và xóa một hiệu ứng bất lợi
+Linh Dược Phượng Hoàng|3|Nếu bị hạ gục trong 2 lượt tiếp theo, hồi sinh với 15% HP
+Trái Tim Sinh Mệnh|4|Hồi 30% HP tối đa
+Bùa Thanh Tẩy|1|Xóa một hiệu ứng bất lợi bất kỳ
+Pha Lê Thanh Tẩy|2|Xóa độc, đóng băng và phong ấn cho nhân vật`],
+['Hỗ trợ',`Túi May Mắn|0|Tăng 10% tỷ lệ nhận quà trong 2 lượt
+Đồng Xu Vận May|0|Có 20% cơ hội nhận thêm một vật phẩm
+Kính Tiên Tri|1|Hiển thị thông tin hiệu ứng của đối thủ
+Sách Tri Thức|2|Nếu trả lời đúng câu tiếp theo, nhận thêm 5 HP
+La Bàn Định Mệnh|2|Cho phép chọn lại mục tiêu một lần
+Bùa Hộ Thân|3|Miễn nhiễm hiệu ứng khống chế trong 2 lượt
+Pha Lê Thời Gian|4|Kéo dài thêm 1 lượt hiệu lực của một buff đang có`],
+['Tấn công',`Dao Găm Sắc Bén|0|Đòn đánh tiếp theo +5 sát thương
+Kiếm Lửa|0|Đòn đánh tiếp theo +7 sát thương
+Phi Tiêu Độc|0|Gây 5 sát thương và độc trong 2 lượt
+Cung Xuyên Giáp|1|Đòn đánh tiếp theo bỏ qua 20% phòng thủ
+Rìu Chiến|1|Đòn đánh tiếp theo +12 sát thương
+Song Kiếm Bóng Đêm|1|Tấn công hai lần, mỗi lần gây 60% sát thương cơ bản
+Thương Sấm Sét|1|+10 sát thương, có 20% cơ hội làm choáng
+Trượng Thiên Thạch|2|Đòn đánh tiếp theo +15 sát thương
+Quả Cầu Lửa|2|+12 sát thương và thiêu đốt 3 HP trong 2 lượt
+Băng Kiếm|2|+8 sát thương và có 25% cơ hội đóng băng
+Lưỡi Hái Linh Hồn|2|Hồi HP bằng 30% sát thương gây ra
+Súng Plasma|2|Đòn đánh tiếp theo +18 sát thương
+Long Nha Kiếm|3|+20 sát thương và bỏ qua 25% phòng thủ
+Trượng Hủy Diệt|3|Đòn đánh tiếp theo +25 sát thương
+Song Long Thần Kiếm|3|Hai đòn liên tiếp, mỗi đòn +12 sát thương
+Hắc Long Thần Kiếm|4|+30 sát thương; nếu đối thủ có khiên, gây thêm 5 sát thương
+Tinh Thạch Diệt Thế|4|+25 sát thương và gây thêm 5 sát thương ở lượt kế tiếp
+Thần Thương Lôi Đình|4|+20 sát thương, bỏ qua 30% phòng thủ và có 30% cơ hội làm choáng
+Tử Thần Liêm|4|+15 sát thương; nếu hạ gục đối thủ, hồi 15 HP`],
+['Khống chế',`Bùa Suy Yếu|1|Giảm 15% sát thương của đối thủ trong 2 lượt
+Ấn Phong Ma|1|Khóa một hiệu ứng buff của đối thủ trong 1 lượt
+Độc Dược Hắc Ám|2|Đối thủ mất 5 HP sau mỗi lượt trong 2 lượt
+Xiềng Xích Linh Hồn|2|Đối thủ không thể né đòn trong lượt tiếp theo
+Lời Nguyền Câm Lặng|2|Đối thủ không thể sử dụng vật phẩm trong 1 lượt
+Bùa Tan Vỡ|3|Phá hủy 50% lá chắn hiện có của đối thủ
+Ấn Định Mệnh|3|Đòn đánh tiếp theo chắc chắn không bị né
+Lời Nguyền Hắc Long|4|Gây 10 sát thương và giảm 20% phòng thủ trong 3 lượt`],
+['Cả đội',`Trống Trận Liên Quân|2|Mỗi chuỗi 3 câu trả lời đúng liên tiếp của đội nhận 1 điểm thưởng chiến thuật (3 lượt)
+Huy Hiệu Tiếp Sức|2|Khi một thành viên bị hạ gục, người kế tiếp nhận thêm 5 HP
+Dây Chuyền Đồng Đội|1|Khi một thành viên nhận quà, có 15% cơ hội một đồng đội nhận thêm quà Common (3 lượt)
+Đại Cổ Chiến Thần|4|Mỗi khi đội trả lời đúng 3 câu liên tiếp, nhận một vật phẩm Rare ngẫu nhiên
+Đồng Hồ Đội Trưởng|1|Tăng 5 giây thời gian trả lời cho thành viên đội mình (3 lượt)
+Cuốn Sách Ghi Nhớ|1|Khi trả lời sai, đội được xem gợi ý ở câu hỏi kế tiếp (2 lượt)
+Bút Chì Vận May|2|Mỗi thành viên có một lần loại bỏ một phương án sai trong câu hỏi trắc nghiệm (3 lượt)
+Bản Nhạc Tập Trung|3|Mỗi thành viên được một lần bỏ qua câu hỏi mà không bị tính là trả lời sai
+Bản Đồ Chiến Thuật|2|Hiển thị HP của tất cả đối thủ (3 lượt)
+Mắt Thần Trinh Sát|2|Hiển thị vật phẩm đối thủ đang sở hữu (3 lượt)
+Trống Báo Hiệu|2|Thông báo khi đối thủ kích hoạt vật phẩm đặc biệt (3 lượt)
+Cờ Lệnh Chỉ Huy|2|Đội được chọn lại thứ tự xuất trận của thành viên dự bị
+Bản Đồ Mê Cung|3|Đội địch không thể xem trước thông tin lớp nhân vật tiếp theo của đội mình (2 lượt)
+Mật Lệnh Bí Mật|3|Che giấu hiệu ứng vật phẩm của đội mình khỏi giao diện đối thủ (3 lượt)
+Thẻ Định Danh|4|Đánh dấu một thành viên địch làm mục tiêu ưu tiên cho toàn đội (2 lượt)
+Đài Phun May Mắn|1|Mỗi lượt đội có 10% cơ hội nhận thêm một quà Common (3 lượt)
+Hộp Quà Đồng Hành|2|Khi một thành viên nhận quà, có 20% cơ hội tạo thêm một quà cùng độ hiếm cho đồng đội (2 lượt)
+Cây Ước Nguyện|2|Mỗi thành viên chọn một phần thưởng nhỏ từ hai lựa chọn ngẫu nhiên
+Kho Báu Liên Minh|3|Đội nhận 3 vật phẩm Common ngẫu nhiên để chia cho các thành viên
+Ngôi Sao Chiến Thắng|4|Khi đội chiến thắng, mỗi thành viên còn sống nhận một phần thưởng ngẫu nhiên
+Kho Tàng Vô Tận|4|Tạo kho chung gồm 3 vật phẩm để các thành viên lần lượt lựa chọn`],
+['Đặc biệt',`Đồng Hồ Đảo Ngược|3|Khôi phục HP về trạng thái đầu lượt trước; không hồi sinh nhân vật đã bị hạ gục
+Xúc Xắc Định Mệnh|2|Ngẫu nhiên hồi máu, tăng sát thương, tạo khiên hoặc nhận thêm quà
+Lá Bài Đổi Mệnh|3|Hoán đổi ngẫu nhiên một buff của mình với một buff của đối thủ
+Cánh Cổng Không Gian|2|Chuyển nhân vật hiện tại xuống cuối hàng chờ của đội
+Mảnh Vỡ Thời Gian|4|Làm mới thời gian hiệu lực của tất cả buff trên bản thân
+Ngôi Sao Ước Nguyện|3|Chọn một trong ba hiệu ứng ngẫu nhiên
+Bàn Tay Trộm Cắp|2|Đánh cắp ngẫu nhiên một buff của đối thủ
+Mặt Nạ Đánh Tráo|3|Sao chép một hiệu ứng buff đang có trên đối thủ
+Gương Sao Chép|3|Sao chép vật phẩm tiêu hao gần nhất đối thủ đã sử dụng
+Đồng Xu Trao Đổi|2|Đổi ngẫu nhiên một vật phẩm trong túi với đối thủ
+Trứng Rồng|2|Triệu hồi rồng con, gây thêm 5 sát thương trong 2 lượt
+Linh Hồn Hộ Vệ|2|Triệu hồi linh hồn hấp thụ 10 sát thương cho chủ nhân
+Sói Bóng Đêm|3|Đồng hành trong 3 lượt, mỗi lượt gây thêm 5 sát thương
+Thiên Thần Hộ Mệnh|3|Hấp thụ một đòn đánh có thể hạ gục chủ nhân
+Rồng Cổ Đại|4|Đồng hành trong 2 lượt, mỗi lượt gây thêm 12 sát thương
+Hộp Pandora|2|Nhận ngẫu nhiên một hiệu ứng có lợi hoặc bất lợi
+Chiếc Mũ Phù Thủy|1|Biến một vật phẩm trong túi thành vật phẩm ngẫu nhiên khác
+Chiếc Túi Bí Ẩn|1|Nhận ngẫu nhiên một vật phẩm Common đến Epic
+Rương Cổ Thần|3|Nhận ngẫu nhiên 2 vật phẩm Rare đến Legendary
+Hộp Thần Thoại|4|Có cơ hội nhận một vật phẩm Mythic
+Trái Tim Hỗn Mang|4|Ngẫu nhiên kích hoạt một hiệu ứng đặc biệt có lợi cho bản thân hoặc bất lợi cho đối thủ
+Bùa Hai Lượt|3|Được thực hiện hai lần hành động liên tiếp
+Vé Ưu Tiên|2|Được chọn hành động trước trong lượt kế tiếp
+Phong Ấn Vật Phẩm|3|Đối thủ không thể sử dụng vật phẩm trong 2 lượt
+Vương Miện Kẻ Thắng|4|Nếu đánh bại đối thủ ở lượt kế tiếp, nhận thêm một vật phẩm
+Chiếc Chuông Định Mệnh|4|Được chọn lại mục tiêu tấn công một lần
+Bàn Cờ Vạn Quân|4|Sắp xếp lại thứ tự toàn bộ thành viên chưa xuất trận một lần`]];
+const NGI={'Phòng thủ':['🛡️','rg','#4aa3ff'],'Hồi phục':['💚','rs','#ef4444'],'Hỗ trợ':['🍀','bn','#16a34a'],'Tấn công':['⚔️','sl','#ff6a3d'],'Khống chế':['🔮','sp','#a855f7'],'Cả đội':['🚩','bn','#facc15'],'Đặc biệt':['🎲','sp','#38bdf8']};
+const kyOf=s=>{const u={};return[...s.matchAll(/\d+(%?)/g)].map(m=>{const r=s.slice(m.index+m[0].length).trimStart();let k=m[1]?(r.startsWith('HP tối đa')?'hpp':'pc'):r.startsWith('lượt')?'tn':r.startsWith('HP')?'hp':r.startsWith('sát thương')?'dm':'_';if(k!=='_'){if(u[k])k='_';else u[k]=1}return k})};
+let IMM0=0,AOP0=0,NB=40;
+function nfx(i){return(a,b,t,o,d)=>{const s=gdesc(i),M=r=>{const x=s.match(r);return x?+x[1]:0},T=r=>r.test(s),tn=M(/(\d+) lượt/)||1,ch=M(/(\d+)% (?:cơ hội|khả năng)/)||100,rnd=ch>=100||Math.random()*100<ch;let u=0;
+ const hpp=M(/[Hh]ồi (\d+)% HP tối đa/),hp=T(/hạ gục đối thủ|[Nn]ếu trả lời đúng/)?0:M(/[Hh]ồi (\d+) HP/)||M(/nhận thêm (\d+) HP/);
+ if(T(/[Nn]ếu trả lời đúng/)&&M(/(\d+) HP/)){a.kn=M(/(\d+) HP/);a.knw=gWait();u=1}
+ if(hp&&T(/sau mỗi lượt|khi bắt đầu lượt/)){a.rh=hp;a.rg=T(/khi bắt đầu/)?9:tn;u=1}
+ else if(T(/[Hh]ồi sinh/)){const x=M(/(\d+)% HP/);a.ph=Math.max(2,x?Math.round(G.s.hp*x/100):10);if(T(/\d+ lượt/))a.pht=tn+1;u=1}
+ else{if(hpp){aHeal(t,Math.round(G.s.hp*hpp/100));u=1}if(hp){aHeal(t,hp);u=1}}
+ if(T(/[Mm]iễn nhiễm/)&&T(/khống chế/)){['fz','chain','seal','nodmg','chaos'].forEach(k=>delete a[k]);a.im=tn+1;u=1}else if(T(/[Xx]óa|[Mm]iễn nhiễm/)){['po','vp','fz','chain','seal','nodmg','chaos','bomb'].forEach(k=>delete a[k]);u=1}
+ const gv=M(/(?:chắn|[Kk]hiên|[Hh]ấp thụ)[^\d,]*(\d+) (?:HP|sát thương)/);if(gv&&!T(/[Pp]há hủy/)){const lw=M(/[Kk]hi HP dưới (\d+)%/);if(lw){a.ang=gv;a.angp=lw;aAng(t,a,mhp(t,G.gtk))}else a.ab=(a.ab||0)+gv;u=1}
+ if(T(/[Cc]hặn một đòn|[Hh]ấp thụ một đòn/)){if(T(/hạ gục/))a.lb=1;else a.sh=1;u=1}
+ const rd=M(/[Gg]iảm (\d+)% sát thương(?! của đối thủ)/);if(rd){a.ar=tn+1;a.arp=rd;u=1}
+ if(T(/không thể né|không bị né/)){a.ig=1;u=1}else if(T(/né/)){const c=M(/(\d+)% (?:khả năng|cơ hội) né/);if(c){a.dgp=c;a.dgt=tn+1}else a.dg=1;u=1}
+ let ex=M(/(?:\+|[Gg]ây (?:thêm )?)(\d+) sát thương/);
+ if(ex&&T(/[Đđ]ồng hành|[Tt]riệu hồi/)){tmg(t).sm={hits:tn,dm:ex,tn};u=1}
+ else if(ex){if(T(/mỗi đòn/))ex*=2;if(T(/khiên, gây thêm/)&&(b.ab||b.ts||b.gs||b.sh))ex+=M(/khiên, gây thêm (\d+)/);a.ex=(a.ex||0)+ex;u=1}
+ const bm=M(/gây thêm (\d+) sát thương ở lượt/);if(bm){b.bomb=bm;u=1}
+ if(T(/hai lần/)){a.xm=2*M(/(\d+)% sát thương cơ bản/)/100;u=1}
+ if(T(/bỏ qua \d+% phòng thủ/)){if(Math.random()*100<M(/bỏ qua (\d+)%/))a.pierce=1;u=1}
+ if(T(/giảm \d+% phòng thủ/)){b.ar=0;b.arp=0;u=1}
+ if(T(/bằng \d+% sát thương gây ra/)){a.ls=M(/bằng (\d+)%/);u=1}
+ if(!T(/[Xx]óa/)&&T(/thiêu đốt|mất \d+ HP|độc/)){b.vp=tn;b.vd=M(/(?:thiêu đốt|mất) (\d+) HP/)||2;u=1}
+ if(!T(/[Xx]óa/)&&T(/đóng băng|choáng/)){if(ex)a.fzh=ch;else if(rnd)b.fz=1;u=1}
+ const wk=M(/[Gg]iảm (\d+)% sát thương của đối thủ/);if(wk){b.chaos=wk;u=1}
+ if(T(/[Kk]hóa (?:một hiệu ứng )?buff/)){b.seal=tn;u=1}
+ if(T(/không thể sử dụng vật phẩm/)){b.chain=1;u=1}
+ if(T(/[Pp]há hủy \d+% lá chắn/)){const f=1-M(/(\d+)%/)/100;['ab','ts','gs'].forEach(k=>{if(b[k])b[k]=Math.round(b[k]*f)});u=1}
+ if(T(/tỷ lệ nhận quà/)){a.lk=M(/(\d+)%/)||10;a.lkn=tn+1;u=1}else if(T(/đánh bại đối thủ/)&&T(/vật phẩm/)){a.vk=1;a.vkw=gWait();u=1}else if(T(/[Nn]ếu/)&&T(/vật phẩm/)){a.en=1;u=1}
+ else if(M(/(\d+) vật phẩm/)||T(/[Nn]hận[^,;]*(?:vật phẩm|quà)/)){if(rnd){const n=M(/(\d+) vật phẩm/)||1;for(let k=0;k<n;k++){let g=aGift();if(T(/Mythic/)){const l=GF.map((_,j)=>j).filter(j=>aR(j)===4&&!isTG(j));g=l[Math.random()*l.length|0]}aGive(t,g,d)}}u=1}
+ if(T(/[Đđ]ánh cắp|[Ss]ao chép|[Hh]oán đổi/)){const ks=['ex','xm','hk','ch','ar','ab','sh','dg','ph','ls','crown','lt'].filter(k=>b[k]>0);if(ks.length){const k=ks[Math.random()*ks.length|0];a[k]=b[k];if(k==='ar')a.arp=b.arp;if(T(/[Đđ]ánh cắp|[Hh]oán đổi/))delete b[k]}u=1}
+ if(T(/[Kk]hôi phục HP/)){aHeal(t,a.lost||0);u=1}
+ if(T(/[Kk]éo dài|[Ll]àm mới/)){['ar','dgt','rg'].forEach(k=>{if(a[k]>0)a[k]++});u=1}
+ if(T(/hai lần hành động/)){a.xm=2;u=1}
+ if(T(/[Hh]iển thị thông tin hiệu ứng/)){aScry(t);u=1}
+ if(T(/chọn lại mục tiêu/)){a.rt=(a.rt||0)+1;u=1}
+ if(T(/xuống cuối hàng chờ/)){aGate(t);u=1}
+ if(T(/[Ss]ắp xếp lại thứ tự/)){(G.rq=G.rq||[]).push(t);u=1}
+ if(T(/chọn hành động trước/)){tmg(t).vt=1;u=1}
+ if(!u&&T(/[Hh]iển thị|chọn lại|[Cc]họn hành động|Chuyển nhân vật|[Ss]ắp xếp/)){G.log.unshift('ℹ️ Quà thông tin/chiến thuật: không đổi chỉ số');u=1}
+ if(!u)aGive(t,Math.random()*28|0,d)}}
+function aTeamN(t,gi){const s=gdesc(gi),M=r=>{const x=s.match(r);return x?+x[1]:0},g=GF[gi],iT=/sau mỗi lượt/.test(s),hp=M(/[Hh]ồi (\d+) HP/)||M(/nhận thêm (\d+) HP/),tn=M(/(\d+) lượt/)||(/[Tt]rong trận/.test(s)?9:0),dm=M(/\+(\d+)% sát thương/),r=M(/[Gg]iảm (\d+)% sát thương/),dg=M(/(\d+)% (?:cơ hội )?né/),sh=M(/khiên (\d+)/),n=M(/(\d+) vật phẩm/)||(/[Nn]hận[^,;]*(?:quà|phần thưởng|vật phẩm)/.test(s)?1:0),ch=M(/(\d+)% cơ hội/)||100;
+ G.log.unshift(`👥 ${g[3]} ${g[0]} phát huy cho toàn đội ${tmN(t)}`);let u=0;
+ if(tn&&(dm||r||dg||(iT&&hp))){const id='n'+gi;TBD[id]={ic:g[3],n:g[0],dm,r,dg,hf:iT?hp:0,d:()=>gdesc(gi)};tmg(t)[id]=Math.max(tmg(t)[id]||0,tn);u=1}
+ else if(hp){aTeamHeal(t,hp);u=1}
+ if(sh){aTeamShield(t,sh);u=1}
+ if(n&&Math.random()*100<ch){for(let k=0;k<n;k++)aGive(t,aGift(),1);u=1}
+ if(!u){aTeamShield(t,5);G.log.unshift('ℹ️ Quà thông tin/chiến thuật: đội nhận khiên 5 HP')}}
+NG0.forEach(([cat,txt])=>txt.split('\n').forEach(l=>{const[n,r,d]=l.split('|'),i=GF.length,I=NGI[cat];GF0.push(d);GKS.push(kyOf(d));GF.push([n,cat,'',I[0],I[1],I[2]]);Object.defineProperty(GF[i],2,{get:()=>gdesc(i)});GR.push(+r);
+ GFX.push(cat==='Cả đội'?(a,b,t)=>aTeam(t,i):nfx(i));if(cat==='Phòng thủ'||cat==='Hồi phục')IMM7.push(i);if(cat==='Khống chế')AOPP.push(i)}));
+NB=GF.length;IMM0=IMM7.length;AOP0=AOPP.length;AST.push(['dgp','🌫️'],['rg','💚']);
 const tmN=t=>G.sd?G.tn[t]:AN(t);
 const aSts=t=>G.sd?G.sd[t].filter(m=>!m.dead).map(m=>m.st):[G.st[t]];
 function aTP(t,k){const m=G.tm&&G.tm[t];if(!m)return 0;let s=0;for(const id in TBD){const d=TBD[id];if(m[id]>0&&d[k]&&!(id==='rag'&&m.ragw))s+=d[k]}return s}
 function tmCards(i){const m=G.tm&&G.tm[i];if(!m)return[];const o=[];
  for(const id in TBD){const v=m[id];if(!(v>0))continue;const d=TBD[id],w=id==='rag'&&m.ragw;
   o.push([2,d.ic,d.n+' · cả đội',d.d()+(w?' · có hiệu lực từ lượt kế tiếp':' · còn '+v+' lượt')])}
+ if(m.sm)o.push([2,'🐺','Linh Thú Hộ Chiến · cả đội',`${m.sm.hits} đòn đánh tới của cả đội +${m.sm.dm} sát thương, còn ${m.sm.tn} lượt`]);
+ if(m.ill>0)o.push([2,'🎭','Ảo Ảnh Bảo Hộ · cả đội',`Né hoàn toàn đòn đánh kế tiếp của đối thủ, còn ${m.ill} lượt`]);
+ if(m.tb>0)o.push([2,'🎯','Chiến Thuật · cả đội',`Đòn đánh kế tiếp của cả đội +${m.tb} sát thương`]);
  return o}
 function aTeamHeal(t,h){const sv=[G.gtt,G.gtk];G.gtt=null;G.gtk=null;
  try{if(!G.sd){if(G.sc[t]>0)aHeal(t,h)}
@@ -2477,101 +2816,183 @@ function aTeamHeal(t,h){const sv=[G.gtt,G.gtk];G.gtt=null;G.gtk=null;
  finally{G.gtt=sv[0];G.gtk=sv[1]}
  G.log.unshift(`💚 Toàn đội ${tmN(t)} hồi ${h} HP`)}
 function aTeamShield(t,v){aSts(t).forEach(x=>{x.ts=(x.ts||0)+v});G.log.unshift(`🤝 Toàn đội ${tmN(t)} nhận khiên ${v} HP mỗi người`)}
-function aTeam(t,gi){G.tm=G.tm||[{},{}];const m=G.tm[t],j=gi-TG0,set=(k,n)=>{m[k]=Math.max(m[k]||0,n)};
+function aTeam(t,gi){if(gi>=NB)return aTeamC(t,gi);if(gi>=40)return aTeamN(t,gi);G.tm=G.tm||[{},{}];const m=G.tm[t],j=gi-TG0,set=(k,n)=>{m[k]=Math.max(m[k]||0,n)};
  G.log.unshift(`👥 ${GF[gi][3]} ${GF[gi][0]} phát huy cho toàn đội ${tmN(t)}`);
  switch(j){
-  case 0:set('fl',3);break;
-  case 1:aTeamShield(t,10);set('sh',2);break;
-  case 2:aTeamHeal(t,8);break;
-  case 3:set('ls',3);break;
-  case 4:set('sto',2);break;
-  case 5:set('bar',3);break;
-  case 6:set('spr',3);break;
-  case 7:set('oth',2);break;
+  case 0:set('fl',gP(28,'tn'));break;
+  case 1:aTeamShield(t,gP(29,'sh'));set('sh',gP(29,'tn'));break;
+  case 2:aTeamHeal(t,gP(30,'hp'));break;
+  case 3:set('ls',gP(31,'tn'));break;
+  case 4:set('sto',gP(32,'tn'));break;
+  case 5:set('bar',gP(33,'tn'));break;
+  case 6:set('spr',gP(34,'tn'));break;
+  case 7:set('oth',gP(35,'tn'));break;
   case 8:if(!(m.rag>0)){m.rag=1;m.ragw=1}else if(!m.ragw)m.rag=2;break;
-  case 9:set('fog',3);break;
-  case 10:aTeamHeal(t,15);aTeamShield(t,10);break;
-  case 11:set('crn',3);break}}
+  case 9:set('fog',gP(37,'tn'));break;
+  case 10:aTeamHeal(t,gP(38,'hp'));aTeamShield(t,gP(38,'sh'));break;
+  case 11:set('crn',gP(39,'tn'));break}}
 function aOath(o,b){const m=G.tm&&G.tm[o];if(!m||!(m.oth>0))return;
- if(!G.sd){b.ohs=Math.min(30,(b.ohs||0)+5);return}
- G.sd[o].forEach(x=>{if(!x.dead&&x.st!==b)x.st.ohs=Math.min(30,(x.st.ohs||0)+5)})}
+ if(!G.sd){b.ohs=Math.min(gP(35,'ohm'),(b.ohs||0)+gP(35,'oh'));return}
+ G.sd[o].forEach(x=>{if(!x.dead&&x.st!==b)x.st.ohs=Math.min(gP(35,'ohm'),(x.st.ohs||0)+gP(35,'oh'))})}
 function aTick(t){const m=G.tm&&G.tm[t];if(!m)return;
- if(m.ls>0)aTeamHeal(t,5);
- if(m.spr>0)aTeamHeal(t,Math.max(1,Math.round(G.s.hp*.05)));
+ if(m.ls>0)aTeamHeal(t,gP(31,'hp'));
+ if(m.spr>0)aTeamHeal(t,Math.max(1,Math.round(G.s.hp*gP(34,'hpp')/100)));
+ for(const id in TBD){const d=TBD[id];if(d.hf&&m[id]>0)aTeamHeal(t,d.hf)}
  const ex=[];
  for(const id in TBD){if(!(m[id]>0))continue;if(id==='rag'&&m.ragw){m.ragw=0;continue}if(--m[id]<=0){m[id]=0;ex.push(id)}}
- if(ex.includes('sh'))aSts(t).forEach(x=>{x.ts=Math.max(0,(x.ts||0)-10)});
+ if(ex.includes('sh'))aSts(t).forEach(x=>{x.ts=Math.max(0,(x.ts||0)-gP(29,'sh'))});
  if(ex.includes('oth'))(G.sd?G.sd[t].map(x=>x.st):[G.st[t]]).forEach(x=>{x.ohs=0});
  ex.forEach(id=>G.log.unshift(`⌛ ${TBD[id].n} của ${tmN(t)} đã hết`))}
-function aBox(){return Math.random()*100<(G.s.gc==null?60:+G.s.gc)?aGift():-1}
+function aBox(){return Math.random()*100<(G.en&&G.en.id==='gift'?100:((G.s.gc==null?60:+G.s.gc)+((G.st&&G.st[G.turn]&&G.st[G.turn].lkn>0&&G.st[G.turn].lk)||0)))?aGift():-1}
 function aChk(){if(G.sd)return aChk7();const dd=[0,1].filter(i=>G.sc[i]<=0);if(!dd.length)return false;const w=dd.length===2?(G.sc[0]>=G.sc[1]?0:1):1-dd[0];gEnd('🏆 '+AN(w)+' thắng!','Hạ gục nhân vật của '+AN(1-w));return true}
-function aStart(){for(let g=0;g<3;g++){G.ev={f:[],atk:-1,hit:-1,fx:-1,fxt:0};if(G.rep)G.rep=[0,0];const t=G.turn,e=G.st[t];
- if(e.po>0){e.po--;aHurt(t,2);G.log.unshift(`☠ ${AN(t)} mất 2 HP vì độc`);if(aChk())return;if(G.st[t]!==e)continue}
+function aStart(){for(let g=0;g<3;g++){G.ev={f:[],atk:-1,hit:-1,fx:-1,fxt:0};if(G.rep)G.rep=[0,0];const t=G.turn,e=G.st[t];if(e.im>0)['fz','chain','seal','nodmg','chaos'].forEach(k=>{if(e[k]){delete e[k];G.log.unshift(`🧿 ${AN(t)} miễn nhiễm khống chế`)}});
+ if(e.rg>0){e.rg--;aHeal(t,e.rh||5)}if(e.po>0){e.po--;aHurt(t,e.pd||2);G.log.unshift(`☠ ${AN(t)} mất ${e.pd||2} HP vì độc`);if(aChk())return;if(G.st[t]!==e)continue}
  if(e.vp>0){e.vp--;aHurt(t,e.vd||3);G.log.unshift(`🧪 ${AN(t)} mất ${e.vd||3} HP vì Độc Chú`);if(aChk())return;if(G.st[t]!==e)continue}if(e.fz>0){e.fz--;G.log.unshift(`❄ ${AN(t)} bị đóng băng, mất lượt`);if(G.sd)rot7(t);G.turn=1-t;continue}if(e.q&&e.q.length){const q=e.q;e.q=[];q.forEach(gi=>aGive(t,gi,0));if(aChk())return}G.rep=[0,0];break}}
-const tacHTML=()=>{const t=G.tacP.t,id=G.cls[t],dm=clsVal(G.s,id,'dm'),hl=clsVal(G.s,id,'hl'),down=mhp(1-t,G.lk)<=0;return `<div class="tacp"><div class="tacb"><h3>🎯 Thiên Tài Chiến Thuật</h3><p>${esc(AN(t))} đủ điểm chiến thuật! Chọn một hiệu ứng:</p><div class="tacg"><button class="b p" data-gg="tac" data-v="atk" ${down?'disabled title="Mục tiêu đã bị hạ gục"':''}>⚔ Gây ${dm} sát thương</button><button class="b y" data-gg="tac" data-v="heal">💚 Hồi ${hl} HP</button></div></div></div>`};
-function tacDo(v){const P=G.tacP;if(!P)return;if(v==='atk'&&mhp(1-P.t,G.lk)<=0)return;G.tacP=null;const t=P.t,o=1-t,id=G.cls[t];G.ev={f:[],atk:-1,hit:-1,fx:-1,fxt:t};
- if(v==='atk'){const d=clsVal(G.s,id,'dm');G.ev.atk=t;G.ev.hit=o;G.ev.hm=G.lk;aHurt(o,d,G.lk);G.log.unshift(`🎯 ${AN(t)} chọn chiến thuật: gây ${d} sát thương!`)}
- else{const h=clsVal(G.s,id,'hl');aHeal(t,h);G.log.unshift(`🎯 ${AN(t)} chọn chiến thuật: hồi ${h} HP`)}
+const tacHTML=()=>{const t=G.tacP.t,id=G.cls[t],dm=clsVal(G.s,id,'dm'),hl=clsVal(G.s,id,'sh'),down=0;return `<div class="tacp"><div class="tacb"><h3>🎯 Thiên Tài Chiến Thuật</h3><p>${esc(AN(t))} đủ điểm chiến thuật! Chọn một hiệu ứng:</p><div class="tacg"><button class="b p" data-gg="tac" data-v="atk" ${down?'disabled title="Mục tiêu đã bị hạ gục"':''}>⚔ Cả đội +${dm} sát thương đòn kế tiếp</button><button class="b y" data-gg="tac" data-v="heal">🛡 Cả đội nhận lá chắn ${hl}</button></div></div></div>`};
+function tacDo(v){const P=G.tacP;if(!P)return;G.tacP=null;const t=P.t,o=1-t,id=G.cls[t];G.ev={f:[],atk:-1,hit:-1,fx:-1,fxt:t};
+ if(v==='atk'){const d=clsVal(G.s,id,'dm');tmg(t).tb=(tmg(t).tb||0)+d;G.log.unshift(`🎯 ${AN(t)} chọn chiến thuật: đòn đánh kế tiếp của cả đội +${d} sát thương!`)}
+ else{const h=clsVal(G.s,id,'sh');aSts(t).forEach(x=>{x.ab=(x.ab||0)+h});G.log.unshift(`🎯 ${AN(t)} chọn chiến thuật: cả đội nhận lá chắn ${h} sát thương`)}
  G.log=G.log.slice(0,8);gDraw();P.fin()}
 function gArenaA(ok){
- const t=G.turn,a=G.st[t];G.ev={f:[],atk:-1,hit:-1,fx:-1,fxt:t};
+ G.ga=1;const t=G.turn,a=G.st[t];G.ev={f:[],atk:-1,hit:-1,fx:-1,fxt:t};
  if(ok&&G.gf>=0){const gifts=[G.gf];if(a.en){a.en=0;gifts.push(aGift())}
   const mates=G.sd?G.sd[t].filter((m,k)=>k!==G.fi[t]&&!m.dead).length:0;
-  const pg=gifts.filter(g=>g<TG0),tg=gifts.filter(g=>g>=TG0);
+  const pg=gifts.filter(g=>!isTG(g)),tg=gifts.filter(isTG);
   if(!a.chain&&mates>0&&pg.length){
-   if(tg.length){tg.forEach(gi=>aQueue(t,gi));const n=Math.max(1,(G.ev.rv||[]).length),fx=G.ev.fx>=0;G.lock=1;gDraw();gT(()=>{G.lock=0;gsOpen(t,pg)},(fx?4400:3000)+450*(n-1));return}
+   if(tg.length){tg.forEach(gi=>aQueue(t,gi));const n=Math.max(1,(G.ev.rv||[]).length),fx=G.ev.fx>=0;G.lock=1;gDraw();gT(()=>{G.lock=0;gsOpen(t,pg)},rvT(fx,n));return}
    gsOpen(t,pg);return}
   gifts.forEach(gi=>aQueue(t,gi));
   const n=(G.ev.rv||[]).length;
-  if(n){const fx=G.ev.fx>=0;G.lock=1;gDraw();gT(()=>gArenaP(ok),(fx?4400:3000)+450*(n-1));return}}
+  if(n){const fx=G.ev.fx>=0;G.lock=1;gDraw();gT(()=>gArenaP(ok),rvT(fx,n));return}}
  gArenaP(ok)}
 /* ---------- Tặng quà cho đồng đội (7v7) ---------- */
 function gsOpen(t,list){G.gsel={t,list:list.slice(),max:10};G.lock=0;if(G.tz)G.tl=G.gsel.max;gDraw()}
 function gsPick(k){const q=G.gsel;if(!q||G.lock||G.end||G.tpause)return;const t=q.t,gi=q.list[0];let m=null;
  if(k>=0){m=G.sd[t][k];if(!m||m.dead||k===G.fi[t])return}
  const rest=q.list.slice(1);G.gsel=null;G.lock=1;G.ev={f:[],atk:-1,hit:-1,fx:-1,fxt:t,rk:k>=0?k:null};
+ {const pe=document.querySelector('#gm .gsl .rvc.hold span');if(pe){const r=pe.getBoundingClientRect();G.ev.from={x:r.left+r.width/2,y:r.top+r.height/2}}}
  if(m)G.log.unshift(`🎁 ${AN(t)} tặng ${GF[gi][3]} ${GF[gi][0]} cho ${m.nm}`);
  aQueue(t,gi,k>=0?k:null);
  const fx=G.ev.fx>=0,n=Math.max(1,(G.ev.rv||[]).length);G.log=G.log.slice(0,8);gDraw();
- gT(()=>{G.lock=0;if(rest.length)gsOpen(t,rest);else gArenaP(true)},(fx?4400:3000)+450*(n-1))}
-function gsPanel(q){const t=q.t,gi=q.list[0],g=GF[gi],r=RAR[aR(gi)],T=G.sd[t],f=G.fi[t],imm=IMM7.includes(gi),alive=T.filter(m=>!m.dead).length;
+ gT(()=>{G.lock=0;if(rest.length)gsOpen(t,rest);else gArenaP(true)},rvT(fx,n))}
+function gsPanel(q){const t=q.t,gi=q.list[0],g=GF[gi],r=RAR[aR(gi)],T=G.sd[t],f=G.fi[t],imm=giftImm(gi,true),immA=giftImm(gi,false),alive=T.filter(m=>!m.dead).length;
  const dist=k=>{let j=f;for(let n=1;n<=T.length;n++){j=nxt7(t,j);if(j===k)return n}return 0};
  const chips=T.map((m,k)=>{if(k===f||m.dead)return '';const hp=Math.max(0,m.hp),n=dist(k),full=hp>=G.s.hp&&(gi===16||gi===17),pq=m.st.q||[];
   return `<button class="gsc" data-gg="gv" data-k="${k}"><i class="gsn">${imm?'⚡ Có hiệu lực ngay':n===1?'⏭ Lượt kế':'⏳ Sau '+n+' lượt'}</i><div class="gsa">${clsAv(m.cls)}</div><b>${esc(m.nm)}</b><div class="a7h"><i style="width:${hp/G.s.hp*100}%"></i></div><small>${hp}/${G.s.hp} HP${full?' · đầy máu':''}</small>${pq.length?`<u>🎁${pq.length}</u>`:''}</button>`}).join('');
- return `<div class="gsl" style="--c:${GC[t]}"><div class="gst">🎁 ${esc(AN(t))} nhận quà${q.list.length>1?` (còn ${q.list.length} quà)`:''}! Tặng cho đồng đội hoặc giữ lại</div>${G.tz?`<div class="acd gsac">${cdBar('acdq','⏱',G.tl,q.max,'Chọn người nhận')}<button class="b g acdp" data-gg="tp" title="Tạm dừng / tiếp tục">${G.tpause?'▶':'⏸'}</button></div>`:''}<div class="rvc hold" style="--c:${r[1]}"><span>${g[3]}</span><b>${g[0]}</b><em class="rar">${r[0]}</em><small>${esc(g[2])}</small></div><p class="gsh">${imm?'⚡ Quà này có hiệu lực ngay khi nhận':'⏳ Quà này chỉ phát huy khi tới lượt của người nhận'}</p><div class="gsr">${chips}</div><button class="b p gsk" data-gg="gk">↩ Giữ lại cho ${esc(AN(t))}${imm?'':` (phát huy sau ${alive} lượt)`}</button></div>`}
+ return `<div class="gsl" style="--c:${GC[t]}"><div class="gst">🎁 ${esc(AN(t))} nhận quà${q.list.length>1?` (còn ${q.list.length} quà)`:''}! Tặng cho đồng đội hoặc giữ lại</div>${G.tz?`<div class="acd gsac">${cdBar('acdq','⏱',G.tl,q.max,'Chọn người nhận')}<button class="b g acdp" data-gg="tp" title="Tạm dừng / tiếp tục">${G.tpause?'▶':'⏸'}</button></div>`:''}<div class="rvc hold" style="--c:${r[1]}"><span>${g[3]}</span><b>${g[0]}</b><em class="rar">${r[0]}</em><small>${esc(g[2])}</small></div><p class="gsh">${imm?'⚡ Quà này có hiệu lực ngay khi nhận':'⏳ Quà này chỉ phát huy khi tới lượt của người nhận'}</p><div class="gsr">${chips}</div><button class="b p gsk" data-gg="gk">↩ Giữ lại cho ${esc(AN(t))}${immA?' (có hiệu lực ngay)':` (phát huy sau ${alive} lượt)`}</button></div>`}
 function gArenaP(ok){
+ if(G.rq&&G.rq.length&&G.sd&&!G.end)return rsOpen(G.rq.shift(),ok);
  if(!ok||!G.sd){G.tk=null;return gArenaB(ok)}
  const o=1-G.turn,al=G.sd[o].map((m,k)=>m.dead?-1:k).filter(k=>k>=0);
  if(al.length<2){G.tk=al.length?al[0]:G.fi[o];return gArenaB(ok)}
  G.tsel={t:G.turn,max:10};G.lock=0;if(G.tz)G.tl=G.tsel.max;gDraw()}
-function tgPick(t,k){const q=G.tsel;if(!q||G.lock||G.end||G.tpause||t!==1-q.t)return;const m=G.sd[t][k];if(!m||m.dead)return;G.tsel=null;G.tk=k;G.lock=1;gArenaB(true)}
-function tgAuto(){const q=G.tsel;if(!q)return;const o=1-q.t,f=G.fi[o];tgPick(o,G.sd[o][f]&&!G.sd[o][f].dead?f:G.sd[o].findIndex(m=>!m.dead))}
-const tgBanner=q=>`<div class="tgb" style="--c:${GC[1-q.t]}">🎯 <span>${esc(AN(q.t))} chọn đối thủ để tấn công: bấm vào một nhân vật bên đội ${esc(G.tn[1-q.t])}</span></div>`;
+function tgPick(t,k,force){const q=G.tsel;if(!q||G.lock||G.end||G.tpause||t!==1-q.t)return;const m=G.sd[t][k];if(!m||m.dead)return;if(!force){if(q.pre!=null)return;if(G.st[q.t].rt>0){q.pre=k;gDraw();return}}G.tsel=null;G.tk=k;G.lock=1;gArenaB(true)}
+function tgAuto(){const q=G.tsel;if(!q)return;const o=1-q.t,f=G.fi[o];tgPick(o,q.pre!=null?q.pre:(G.sd[o][f]&&!G.sd[o][f].dead?f:G.sd[o].findIndex(m=>!m.dead)),1)}
+const tgBanner=q=>q.pre!=null?`<div class="tgb" style="--c:${GC[1-q.t]}">🎯 <span>${esc(AN(q.t))} chọn <b>${esc(G.sd[1-q.t][q.pre].nm)}</b>. Xác nhận hay chọn lại?</span> <button class="b p" data-gg="tgok">⚔ Tấn công</button> <button class="b g" data-gg="tgre">🔄 Chọn lại (còn ${G.st[q.t].rt})</button></div>`:`<div class="tgb" style="--c:${GC[1-q.t]}">🎯 <span>${esc(AN(q.t))} chọn đối thủ để tấn công: bấm vào một nhân vật bên đội ${esc(G.tn[1-q.t])}</span></div>`;
 function gArenaB(ok){
- const t=G.turn,o=1-t,a=G.st[t],tk0=G.sd?(G.tk!=null&&G.sd[o][G.tk]&&!G.sd[o][G.tk].dead?G.tk:G.fi[o]):null,bm=G.sd?G.sd[o][tk0]:null,b=bm?bm.st:G.st[o],tn=bm?bm.nm:AN(o);G.tk=null;G.lk=tk0;G.ev={f:[],atk:-1,hit:-1,fx:-1,fxt:t};
- if(ok){let d=Math.max(1,Math.round(+G.q.p||1));const cx=clsAtk(t,a);
+ G.ga=0;const t=G.turn,o=1-t,a=G.st[t],tk0=G.sd?(G.tk!=null&&G.sd[o][G.tk]&&!G.sd[o][G.tk].dead?G.tk:G.fi[o]):null,bm=G.sd?G.sd[o][tk0]:null,b=bm?bm.st:G.st[o],tn=bm?bm.nm:AN(o);G.tk=null;G.lk=tk0;G.ev={f:[],atk:-1,hit:-1,fx:-1,fxt:t};
+ if(a.kn){if(a.knw)a.knw=0;else{const v=a.kn;a.kn=0;if(ok){aHeal(t,v);G.log.unshift(`📖 Sách Tri Thức: ${AN(t)} trả lời đúng, hồi ${v} HP`)}else G.log.unshift(`📖 Sách Tri Thức: ${AN(t)} trả lời sai, không được hồi HP`)}}
+ if(ok){rgPre(t,a,b,o);let d=Math.max(1,Math.round(+G.q.p||1));const cx=clsAtk(t,a);G.ult0=null;
   if(a.nodmg){d=0;G.log.unshift(`⏳ ${AN(t)} bị ngưng đọng, không gây được sát thương`)}
   else{let m=1,add=a.ex||0;a.ex=0;
    if(a.seal>0)G.log.unshift(`🔒 Phong Ấn: buff tấn công của ${AN(t)} bị khóa`);
-   else{if(a.hk){m*=2;a.hk=0}if(a.ch){m*=3;a.ch=0}if(a.crown>0){m*=2;a.crown--}if(a.lt){add+=3*a.lt;a.lt=0}}
-   if(a.chaos){m*=.5;a.chaos=0}
-   d=d*m*cx.m+add+cx.add;{const tp=aTP(t,'dm');if(tp)d*=1+tp/100}const pr=a.pierce;a.pierce=0;
-    const df=d=>{if(b.dg){b.dg=0;d=0;G.log.unshift(`💨 ${tn} né hoàn toàn đòn đánh!`)}else if(aTP(o,'dg')>0&&Math.random()*100<Math.min(60,aTP(o,'dg'))){d=0;G.log.unshift(`🌫 ${tn} né được đòn đánh nhờ hiệu ứng toàn đội!`)}else if(b.sh&&!pr){b.sh=0;d=0;G.log.unshift(`🛡 ${tn} chặn hoàn toàn đòn đánh!`)}else{const qq=1-cx.pen;{const R=Math.min(70,aTP(o,'r')+(G.tm&&G.tm[o]&&G.tm[o].oth>0?(b.ohs||0):0));if(R>0)d*=1-R/100}if(b.ar>0&&!pr)d*=1-.5*qq;if(b.ts>0&&!pr){const x=Math.min(b.ts,d*qq);b.ts-=x;d-=x}if(b.gs>0&&!pr){const x=Math.min(b.gs,d*qq);b.gs-=x;d-=x}if(b.ab>0&&!pr){const x=Math.min(b.ab,d*qq);b.ab-=x;d-=x}if(b.rf){b.rf=0;const r=Math.round(d*.5);d-=r;G.log.unshift(`🪞 ${tn} phản lại ${r} sát thương!`);aHurt(t,r)}}return d};
+   else{if(a.hk){m*=gP(0,'m');a.hk=0}if(a.ch){m*=gP(4,'m');a.ch=0}if(a.xm){m*=a.xm;a.xm=0}if(a.crown>0){m*=2;a.crown--}if(a.lt){add+=gP(1,'add')*a.lt;a.lt=0}}
+   if(a.chaos){m*=1-(a.chaos>1?a.chaos:50)/100;a.chaos=0}
+   d=d*m*cx.m+add+cx.add;d*=evM();{const tp=aTP(t,'dm');if(tp)d*=1+tp/100}const pr=a.pierce;a.pierce=0;
+    const df=d=>{if(!a.ig&&(b.dg||(b.dgp>0&&Math.random()*100<b.dgp))){b.dg=0;d=0;G.log.unshift(`💨 ${tn} né hoàn toàn đòn đánh!`)}else if(G.tm&&G.tm[o]&&G.tm[o].ill>0){G.tm[o].ill=0;d=0;G.log.unshift(`🎭 Ảo ảnh bảo hộ giúp ${tn} né hoàn toàn đòn đánh!`)}else if(aTP(o,'dg')>0&&Math.random()*100<Math.min(60,aTP(o,'dg'))){d=0;G.log.unshift(`🌫 ${tn} né được đòn đánh nhờ hiệu ứng toàn đội!`)}else if(b.sh&&!pr){b.sh=0;d=0;G.log.unshift(`🛡 ${tn} chặn hoàn toàn đòn đánh!`)}else{const qq=1-cx.pen;{const R=Math.min(70,aTP(o,'r')+(G.tm&&G.tm[o]&&G.tm[o].oth>0?(b.ohs||0):0));if(R>0)d*=1-R/100}if(b.ar>0&&!pr)d*=1-(b.arp||50)/100*qq;if(b.ts>0&&!pr){const x=Math.min(b.ts,d*qq);b.ts-=x;d-=x}if(b.gs>0&&!pr){const x=Math.min(b.gs,d*qq);b.gs-=x;d-=x}if(b.ab>0&&!pr){const x=Math.min(b.ab,d*qq);b.ab-=x;d-=x}if(b.rf){const r=Math.round(d*(b.rf>1?b.rf:50)/100);b.rf=0;d-=r;G.log.unshift(`🪞 ${tn} phản lại ${r} sát thương!`);aHurt(t,r)}if(b.lb&&mhp(o,tk0)>0&&Math.round(d)>=mhp(o,tk0)){b.lb=0;d=0;G.log.unshift(`💠 ${tn} được bảo hộ: đòn đánh có thể hạ gục bị chặn hoàn toàn!`)}}return d};
     if(cx.hits){const per=d*cx.hm;let tot=0;for(let k=0;k<cx.hits;k++)tot+=df(per);d=tot;G.log.unshift(`🤺 ${AN(t)} tung ${cx.hits} nhát chém!`)}else d=df(d)}
    d=Math.round(d);if(cx.trig&&!cx.miss&&d<=0){a.cc=cx.cc0;cx.fz=0;cx.vp=null;G.log.unshift(`🔄 Đòn bị vô hiệu, ${clsDef(G.cls[t]).pn} chưa bị tiêu hao`)}
-  if(d>0){G.ev.atk=t;G.ev.hit=o;G.ev.hm=tk0;aHurt(o,d,tk0);aOath(o,b);G.log.unshift(`⚔ ${AN(t)} đánh ${tn} ${d} sát thương`);if(a.ls){a.ls=0;aHeal(t,Math.round(d/2))}}
- clsPost(t,a,b,cx,tn)}else{{const cl=clsDef(G.cls[t]);if(cl&&cl.k==='c'&&(a.cc||0)>=clsVal(G.s,cl.id,'need'))G.log.unshift(`🛡 ${AN(t)} trả lời sai nhưng nội tại đã nạp đầy vẫn được giữ`);else{if(a.cc>0)G.log.unshift(`💔 ${AN(t)} trả lời sai, chuỗi nội tại về 0`);a.cc=0}}G.log.unshift(`✖ ${AN(t)} trả lời sai: không có quà, không gây sát thương`)}
- if(a.bomb){a.bomb=0;aHurt(t,5);G.log.unshift(`💣 Bom nổ! ${AN(t)} mất 5 HP`)}
- a.nodmg=0;a.chain=0;if(a.seal>0)a.seal--;aTick(t);(G.sd?G.sd[t].map(m=>m.st):[a]).forEach(x=>{if(x.ar>0)x.ar--});
- G.log=G.log.slice(0,8);G.lock=1;const ms=ok?2400:(G.ev&&G.ev.f&&G.ev.f.length?2300:900),fin=()=>gT(()=>{G.lock=0;if(aChk())return;const go=()=>{G.lock=0;if(G.sd)rot7(t);G.turn=o;aStart();if(G.end)return;G.q=gQ();G.gf=aBox();gDraw()};if(G.sd){const n=nxt7(t,G.fi[t]),el=document.querySelector('#gm .a7s.s'+t+' .arv');if(!(G.rep&&G.rep[t])&&n>=0&&n!==G.fi[t]&&el){el.classList.add('shr');G.lock=1;gT(go,430);return}}go()},ms);if(G.tacP){G.tacP.fin=fin;gDraw();return}gDraw();fin()}
-GV.arena=function(){const ev=G.ev||{f:[]};G.ev=null;const tp=G.tsel&&!G.end?G.tsel:null,gs=G.gsel&&!G.end?G.gsel:null;G.evf=ev.f;G.rkfx=ev.rk!=null&&ev.fx>=0&&ev.fxt===G.turn?{t:G.turn,k:ev.rk,fx:ev.fx}:null;G.hitm=ev.hit>=0&&G.sd&&ev.hm!=null&&ev.hm!==G.fi[ev.hit]?{t:ev.hit,k:ev.hm}:null;
+  if(d>0){G.ev.atk=t;G.ev.hit=o;G.ev.hm=tk0;aHurt(o,d,tk0);aOath(o,b);G.log.unshift(`⚔ ${AN(t)} đánh ${tn} ${d} sát thương`);if(G.en&&G.en.id==='blood')aHeal(t,Math.round(d*.3));if(G.en&&G.en.id==='ice'&&Math.random()<.25){b.fz=(b.fz||0)+1;G.log.unshift(`❄ Bão băng đóng băng ${tn}!`)}if(a.ls){const q=a.ls>1?a.ls:50;a.ls=0;aHeal(t,Math.round(d*q/100))}}
+  if(a.fzh){const c=a.fzh;a.fzh=0;if(d>0&&Math.random()*100<c){b.fz=(b.fz||0)+1;G.log.unshift(`❄ Đòn đánh trúng ${tn}: bị đóng băng/choáng!`)}}
+ clsPost(t,a,b,cx,tn)}else{{const cl=clsDef(G.cls[t]);if(cl&&cl.k==='c'&&(a.cc||0)>=clsVal(G.s,cl.id,'need'))G.log.unshift(`🛡 ${AN(t)} trả lời sai nhưng nội tại đã nạp đầy vẫn được giữ`);else{if(a.cc>0)G.log.unshift(`💔 ${AN(t)} trả lời sai, chuỗi nội tại về 0`);a.cc=0}}rgMiss(t);G.log.unshift(`✖ ${AN(t)} trả lời sai: không có quà, không gây sát thương`)}
+ if(a.vk){if(a.vkw)a.vkw=0;else{a.vk=0;if(ok&&mhp(o,tk0)<=0){G.log.unshift(`👑 ${AN(t)} hạ gục ${tn}: Vương Miện Kẻ Thắng thưởng thêm 1 quà!`);aQueue(t,aGift())}}}
+ if(a.bomb){const bd=a.bomb>1?a.bomb:5;a.bomb=0;aHurt(t,bd);G.log.unshift(`💣 Bom nổ! ${AN(t)} mất ${bd} HP`)}
+ evTick();a.nodmg=0;a.ig=0;a.chain=0;if(a.im>0)a.im--;if(a.lkn>0&&--a.lkn<=0)a.lk=0;if(a.pht>0&&--a.pht<=0&&a.ph){a.ph=0;G.log.unshift(`⌛ Hiệu lực hồi sinh của ${AN(t)} đã hết`)}if(a.seal>0)a.seal--;aTick(t);(G.sd?G.sd[t].map(m=>m.st):[a]).forEach(x=>{if(x.dgt>0&&--x.dgt<=0)x.dgp=0;if(x.ar>0)x.ar--;if(x.gsT>0&&--x.gsT<=0)x.gs=0});{const q=G.tm&&G.tm[t];if(q&&q.sm){q.sm.tn--;if(q.sm.tn<=0||q.sm.hits<=0)q.sm=null}const w=G.tm&&G.tm[o];if(w&&w.ill>0)w.ill--}
+ G.log=G.log.slice(0,8);G.lock=1;const ms=ok?2400:(G.ev&&G.ev.f&&G.ev.f.length?2300:900),fin=()=>gT(()=>{G.lock=0;if(aChk())return;const go=()=>{G.lock=0;if(G.sd)rot7(t);{const tt=G.tm&&G.tm[t];if(tt&&tt.vt){tt.vt=0;G.turn=t;G.log.unshift(`🎫 Vé Ưu Tiên: ${tmN(t)} hành động trước ở lượt kế tiếp`)}else G.turn=o}aStart();if(G.end)return;evRoll();G.q=gQ();G.gf=aBox();gDraw()};if(G.sd){const n=nxt7(t,G.fi[t]),el=document.querySelector('#gm .a7s.s'+t+' .arv');if(!(G.rep&&G.rep[t])&&n>=0&&n!==G.fi[t]&&el){el.classList.add('shr');G.lock=1;gT(go,430);return}}go()},ms);if(G.tacP){G.tacP.fin=fin;gDraw();return}gDraw();fin()}
+GV.arena=function(){bloodSync();const ev=G.ev||{f:[]};G.ev=null;const tp=G.tsel&&!G.end?G.tsel:null,gs=G.gsel&&!G.end?G.gsel:null,rs=G.rsel&&!G.end?G.rsel:null;G.evf=ev.f;G.rkfx=ev.rk!=null&&ev.fx>=0&&ev.fxt===G.turn?{t:G.turn,k:ev.rk,fx:ev.fx}:null;G.hitm=ev.hit>=0&&G.sd&&ev.hm!=null&&ev.hm!==G.fi[ev.hit]?{t:ev.hit,k:ev.hm}:null;
  const SW=G.sw||[null,null];G.sw=null;G.swc=SW;
  const tot=G.qs.length,qn=((G.qi-1)%tot)+1;
- const av=i=>{const e=G.st[i],g=ev.fx>=0&&ev.fxt===i&&!(ev.rk!=null&&ev.fxt===G.turn)?GF[ev.fx]:null;return `<div class="arv a${i}${G.turn===i&&!G.end?' on':''}${SW[i]?' pin':''}${ev.atk===i?' atk':''}${ev.hit===i&&(ev.hm==null||ev.hm===G.fi[i])?' hit':''}${tp&&i===1-tp.t?' pk':''}" style="--c:${GC[i]}"${tp&&i===1-tp.t?` data-gg="tg" data-t="${i}" data-k="${G.fi[i]}"`:''}>${ev.f.filter(x=>x.t===i&&x.m==null).map(x=>`<b class="adm ${x.k}">${x.s}</b>`).join('')}${g?`<span class="afx ${g[4]}" style="--c:${g[5]}">${g[3]}</span>`:''}<div class="abf">${(e.q||[]).map(gi=>`<span class="pq" title="Chờ kích hoạt ở lượt sau: ${GF[gi][0]}">${GF[gi][3]}</span>`).join('')}${AST.filter(x=>e[x[0]]>0).map(x=>`<span>${x[1]}</span>`).join('')}</div>${clsAv(G.cls[i])}<div class="hp"><i style="width:${Math.max(0,G.sc[i])/G.s.hp*100}%"></i></div><div class="anm">${esc(G.nm[i])}</div><small class="ahp">${Math.max(0,G.sc[i])}/${G.s.hp} HP</small><small class="acl" tabindex="0">${clsBadge(i)}<span class="acltip">${clsTip(i)}</span></small></div>`};
- const rv=(ev.rv||[]).map((gi,n)=>{const g=GF[gi],r=RAR[aR(gi)];return `<div class="rvc" data-rt="${G.turn}"${ev.rk!=null?` data-rk="${ev.rk}"`:''} style="--c:${r[1]};animation-delay:${n*.45}s"><span>${g[3]}</span><b>${g[0]}</b><em class="rar">${r[0]}</em><small>${esc(g[2])}</small></div>`}).join('');
- return `<div class="arn${G.sd?' a7':''}${rv?' evd':''}">${a7s(0,av)}<b>VS</b>${a7s(1,av)}</div>`+(rv?`<div class="rvl">${rv}</div>`:'')+(gs?gsPanel(gs):'')+(G.tz&&!gs?`<div class="acd">${cdBar('acdq','⏱',G.tl,tp?tp.max:G.tz.q,tp?'Chọn mục tiêu':'Thời gian')}<button class="b g acdp" data-gg="tp" title="Tạm dừng / tiếp tục">${G.tpause?'▶':'⏸'}</button></div>`:'')+`<div class="gqw${G.gf>=0&&!rv&&!tp&&!gs?'':' nogf'}">${G.gf>=0&&!rv&&!tp&&!gs?'<span class="bgb" aria-hidden="true">🎁</span>':''}${gQH(gTurn()+gNum('Câu '+qn+'/'+tot).replace('class="gnum"','class="gnum qn"')+gNum('Đúng = '+Math.max(1,Math.round(+G.q.p||1))+' điểm'),G.q.q)}</div>`+(tp?tgBanner(tp):gOpts())+`${G.tacP?tacHTML():''}<div class="alog">${G.log.slice(0,4).map(x=>`<p>${esc(x)}</p>`).join('')}</div>`};
-function gFly(){document.querySelectorAll('#gm .rvc[data-rt]').forEach(c=>{let a=null;if(c.dataset.rk!=null&&c.dataset.rk!=='')a=document.querySelector('#gm .a7s.s'+c.dataset.rt+' .a7m[data-mk="'+c.dataset.rk+'"] svg');a=a||document.querySelector('#gm .arv.a'+c.dataset.rt+' svg')||document.querySelector('#gm .arv.a'+c.dataset.rt);if(!a)return;const r=c.getBoundingClientRect(),q=a.getBoundingClientRect();c.style.setProperty('--tx',Math.round(q.left+q.width/2-(r.left+r.width/2))+'px');c.style.setProperty('--ty',Math.round(q.top+q.height/2-(r.top+r.height/2))+'px')})}
-function gDraw(){if(!G)return;G.fr=G.nq;G.nq=0;let h=gHead();
+ const av=i=>{const e=G.st[i],g=ev.fx>=0&&ev.fxt===i&&!(ev.rk!=null&&ev.fxt===G.turn)?GF[ev.fx]:null;return `<div class="arv a${i}${stc(e)}${ev.f.some(x=>x.t===i&&x.m==null&&x.k==='h')?' heal':''}${G.turn===i&&!G.end?' on':''}${SW[i]?' pin':''}${ev.atk===i?' atk':''}${ev.hit===i&&(ev.hm==null||ev.hm===G.fi[i])?' hit':''}${tp&&i===1-tp.t?' pk':''}" style="--c:${GC[i]}"${tp&&i===1-tp.t?` data-gg="tg" data-t="${i}" data-k="${G.fi[i]}"`:''}>${ev.f.filter(x=>x.t===i&&x.m==null).map(x=>`<b class="adm ${x.k}">${x.s}</b>`).join('')}${g?`<span class="afx ${g[4]}" style="--c:${g[5]}">${g[3]}</span>`:''}<div class="abf">${(e.q||[]).map(gi=>`<span class="pq" title="Chờ kích hoạt ở lượt sau: ${GF[gi][0]}">${GF[gi][3]}</span>`).join('')}${AST.filter(x=>e[x[0]]>0).map(x=>`<span>${x[1]}</span>`).join('')}</div>${clsAv(G.cls[i])}<div class="hp"><i style="width:${Math.max(0,G.sc[i])/G.s.hp*100}%"></i></div>${rgHTML(i)}<div class="anm">${esc(G.nm[i])}</div><small class="ahp">${Math.max(0,G.sc[i])}/${G.s.hp} HP</small><small class="acl" tabindex="0">${clsBadge(i)}<span class="acltip">${clsTip(i)}</span></small></div>`};
+ const rv=(ev.rv||[]).map((gi,n)=>{const g=GF[gi],r=RAR[aR(gi)];return `<div class="rvc rvn" data-ra="${aR(gi)}" data-rt="${G.turn}" data-n="${n}"${ev.rk!=null?` data-rk="${ev.rk}"`:''} style="--c:${r[1]}"><span class="rvj">${g[3]}</span><div class="rvi"><b>${g[0]}</b><em class="rar">${r[0]}</em><small>${esc(g[2])}</small></div></div>`}).join('');
+ return `<div class="arn${G.sd?' a7':''}${rv?' evd':''}${G.en?' ev-'+G.en.id:''}${ev.f.some(x=>x.k===''&&Math.abs(parseInt(x.s))>=15)?' shk':''}"${rv&&!ev.from?' style="--rp:.45s"':''}>${a7s(0,av)}<b>VS</b>${a7s(1,av)}</div>`+(rv?`<div class="rvl">${rv}</div>`:'')+(gs?gsPanel(gs):'')+(rs?rsPanel(rs):'')+(G.tz&&!gs&&!rs?`<div class="acd">${cdBar('acdq','⏱',G.tl,tp?tp.max:G.tz.q,tp?'Chọn mục tiêu':'Thời gian')}<button class="b g acdp" data-gg="tp" title="Tạm dừng / tiếp tục">${G.tpause?'▶':'⏸'}</button></div>`:'')+(G.en?`<div class="evb" style="--c:${EVD[G.en.id][3]}">${EVD[G.en.id][0]} ${EVD[G.en.id][1]} · còn ${G.en.left} lượt: ${EVD[G.en.id][2]}</div>`:'')+fxHTML()+`<div class="gqw${G.gf>=0&&!rv&&!tp&&!gs?'':' nogf'}">${G.gf>=0&&!rv&&!tp&&!gs?'<span class="bgb" aria-hidden="true">🎁</span>':''}${gQH(gTurn()+gNum('Câu '+qn+'/'+tot).replace('class="gnum"','class="gnum qn"')+gNum('Đúng = '+Math.max(1,Math.round(+G.q.p||1))+' điểm'),G.q.q)}</div>`+(tp?tgBanner(tp):gOpts())+`${G.tacP?tacHTML():''}`};
+/* ===== Thanh nộ + chiêu tối thượng, combo, sự kiện ngẫu nhiên ===== */
+const UL=(id,k)=>clsVal(G.s,id,k),ULP={
+sword:[['u_pc','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,300]],mage:[['u_fz','⚡ Chiêu nộ: số lượt đóng băng',1,5,2],['u_add','⚡ Chiêu nộ: sát thương thêm',0,100,8]],
+archer:[['u_pc','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,220]],assassin:[['u_pc','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,400]],
+guardian:[['u_sh','⚡ Chiêu nộ: khiên cả đội',1,100,15],['u_tn','⚡ Chiêu nộ: số lượt khiên',1,10,3],['u_add','⚡ Chiêu nộ: sát thương thêm',0,100,5]],berserker:[['u_pc','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,250],['u_ls','⚡ Chiêu nộ: % hút máu',0,100,50]],
+paladin:[['u_hl','⚡ Chiêu nộ: HP hồi cả đội',1,100,15],['u_add','⚡ Chiêu nộ: sát thương thêm',0,100,8]],plague:[['u_dm','⚡ Chiêu nộ: độc HP/lượt',1,50,5],['u_tn','⚡ Chiêu nộ: số lượt độc',1,10,4],['u_add','⚡ Chiêu nộ: sát thương thêm',0,100,5]],
+summoner:[['u_dm','⚡ Chiêu nộ: sát thương thêm/đòn',1,50,8],['u_hits','⚡ Chiêu nộ: số đòn',1,10,3],['u_tn','⚡ Chiêu nộ: số lượt',1,10,3],['u_add','⚡ Chiêu nộ: sát thương thêm',0,100,5]],
+chrono:[['u_hl','⚡ Chiêu nộ: HP hồi cả đội',1,100,10],['u_fz','⚡ Chiêu nộ: số lượt đối thủ mất',1,5,1]],dknight:[['u_pct','⚡ Chiêu nộ: % HP đã mất',1,300,80],['u_add','⚡ Chiêu nộ: sát thương thêm',0,100,8]],
+storm:[['u_add','⚡ Chiêu nộ: sát thương thêm',1,100,20],['u_fz','⚡ Chiêu nộ: số lượt choáng',0,5,1]],blade:[['u_dm','⚡ Chiêu nộ: sát thương thêm cả đội',1,50,10],['u_add','⚡ Chiêu nộ: sát thương thêm',0,100,8]],
+illus:[['u_tn','⚡ Chiêu nộ: số lượt né',1,10,2],['u_wk','⚡ Chiêu nộ: % giảm sát thương đối thủ',0,100,50]],tact:[['u_dm','⚡ Chiêu nộ: sát thương thêm cả đội',1,100,15],['u_sh','⚡ Chiêu nộ: khiên cả đội',0,100,10]]};
+CLS.forEach(c=>(ULP[c.id]||[]).forEach(p=>c.p.push(p)));
+const ULT={sword:['⚔️','KIẾM THÁNH TRẢM','Chém xuyên màn hình: x{u_pc}% sát thương, xuyên giáp','#e5484d',(a,b,t)=>{a.xm=(a.xm||1)*UL('sword','u_pc')/100;a.pierce=1}],
+mage:['🧊','BĂNG GIÁ VĨNH CỬU','Đóng băng đối thủ {u_fz} lượt, +{u_add} sát thương','#7dd3fc',(a,b)=>{b.fz=(b.fz||0)+UL('mage','u_fz');a.ex=(a.ex||0)+UL('mage','u_add')}],
+archer:['🏹','MƯA TÊN XUYÊN TÂM','x{u_pc}% sát thương, xuyên giáp','#16a34a',a=>{a.xm=(a.xm||1)*UL('archer','u_pc')/100;a.pierce=1}],
+assassin:['🗡️','ÁM SÁT TỬ THẦN','Chí mạng chắc chắn: x{u_pc}% sát thương','#94a3b8',a=>{a.xm=(a.xm||1)*UL('assassin','u_pc')/100}],
+guardian:['🛡️','THÀNH TRÌ BẤT DIỆT','Cả đội nhận khiên {u_sh} trong {u_tn} lượt, +{u_add} sát thương','#0ea5e9',(a,b,t)=>{const sh=UL('guardian','u_sh'),tn=UL('guardian','u_tn')+1;aSts(t).forEach(x=>{x.gs=(x.gs||0)+sh;x.gsT=Math.max(x.gsT||0,tn)});G.log.unshift(`🤝 Toàn đội ${tmN(t)} nhận khiên ${sh} HP mỗi người trong ${tn-1} lượt`);a.ex=(a.ex||0)+UL('guardian','u_add')}],
+berserker:['🪓','CUỒNG NỘ HUYẾT CHIẾN','x{u_pc}% sát thương, hút {u_ls}% máu','#b91c1c',a=>{a.xm=(a.xm||1)*UL('berserker','u_pc')/100;a.ls=UL('berserker','u_ls')||0}],
+paladin:['✨','THÁNH QUANG GIÁNG THẾ','Cả đội hồi {u_hl} HP, +{u_add} sát thương','#eab308',(a,b,t)=>{aTeamHeal(t,UL('paladin','u_hl'));a.ex=(a.ex||0)+UL('paladin','u_add')}],
+plague:['🧪','ĐẠI DỊCH HẮC ÁM','Độc {u_dm} HP/lượt trong {u_tn} lượt, +{u_add} sát thương','#65a30d',(a,b)=>{b.vp=UL('plague','u_tn');b.vd=UL('plague','u_dm');a.ex=(a.ex||0)+UL('plague','u_add')}],
+summoner:['🐺','BẦY THÚ HỘ CHIẾN','{u_hits} đòn tới của cả đội +{u_dm} sát thương, +{u_add} sát thương','#0891b2',(a,b,t)=>{tmg(t).sm={hits:UL('summoner','u_hits'),dm:UL('summoner','u_dm'),tn:UL('summoner','u_tn')};a.ex=(a.ex||0)+UL('summoner','u_add')}],
+chrono:['⏳','NGƯNG ĐỌNG THỜI GIAN','Cả đội hồi {u_hl} HP, đối thủ mất {u_fz} lượt','#4f46e5',(a,b,t)=>{aTeamHeal(t,UL('chrono','u_hl'));b.fz=(b.fz||0)+UL('chrono','u_fz')}],
+dknight:['🌑','HUYẾT NGUYỆT TRẢM','+{u_add} và {u_pct}% HP đã mất thành sát thương','#7e22ce',a=>{a.ex=(a.ex||0)+UL('dknight','u_add')+Math.round(Math.max(0,G.s.hp-G.sc[G.turn])*UL('dknight','u_pct')/100)}],
+storm:['⛈️','THIÊN LÔI GIÁNG THẾ','+{u_add} sát thương, choáng {u_fz} lượt','#f59e0b',(a,b)=>{a.ex=(a.ex||0)+UL('storm','u_add');b.fz=(b.fz||0)+UL('storm','u_fz')}],
+blade:['🤺','VŨ ĐIỆU SONG KIẾM','Cả đội +{u_dm} sát thương đòn tới, +{u_add} sát thương','#0d9488',(a,b,t)=>{tmg(t).tb=(tmg(t).tb||0)+UL('blade','u_dm');a.ex=(a.ex||0)+UL('blade','u_add')}],
+illus:['🎭','HUYỄN ẢNH BẤT KHẢ','Cả đội né {u_tn} lượt, đối thủ giảm {u_wk}% sát thương','#c026d3',(a,b,t)=>{tmg(t).ill=UL('illus','u_tn');b.chaos=UL('illus','u_wk')||0}],
+tact:['🎯','CHIẾN THUẬT TỐI THƯỢNG','Cả đội +{u_dm} sát thương, khiên {u_sh}','#1e40af',(a,b,t)=>{tmg(t).tb=(tmg(t).tb||0)+UL('tact','u_dm');if(UL('tact','u_sh'))aTeamShield(t,UL('tact','u_sh'))}]};
+const EVD={ice:['❄️','BÃO BĂNG','Mỗi đòn đánh có 25% cơ hội đóng băng đối thủ','#8fdcff'],blood:['🩸','MƯA MÁU','Mọi đòn đánh hút 30% sát thương thành HP','#ef4444'],gold:['✨','GIỜ VÀNG','Mọi đòn đánh gây x2 sát thương','#facc15'],gift:['🎁','MƯA QUÀ','Mọi câu hỏi đều có hộp quà','#22c55e']};
+const RGt=()=>(G.rg=G.rg||[0,0]),CBt=()=>(G.cb=G.cb||[0,0]),fxq=o=>(G.fxq=G.fxq||[]).push(o);
+function rgPre(t,a,b,o){const R=RGt(),C=CBt(),gain=G.s.rgn==null?25:+G.s.rgn,cid=G.cls&&G.cls[t];
+ if(gain>0&&R[t]>=100){const u=ULT[cid]||['💥','CHIÊU TỐI THƯỢNG','+15 sát thương','#f59e0b',a=>{a.ex=(a.ex||0)+15}];R[t]=0;u[4](a,b,t,o);fxq({k:'big',ic:u[0],tx:u[1],sub:ULT[cid]?clsFill(u[2],G.s,cid):u[2],c:u[3]});G.ult0=t;G.log.unshift(`💥 ${AN(t)} tung chiêu tối thượng ${u[1]}!`)}
+ if(gain>0)R[t]=Math.min(100,R[t]+gain);
+ C[t]++;const n=C[t];
+ if(n===3){aHeal(t,4);fxq({k:'sm',ic:'🔥',tx:'COMBO x3',sub:'Hồi 4 HP',c:'#fb923c'});G.log.unshift(`🔥 ${AN(t)} combo x3: hồi 4 HP`)}
+ else if(n===5){a.ab=(a.ab||0)+6;fxq({k:'sm',ic:'🔥',tx:'COMBO x5',sub:'Nhận khiên 6',c:'#f97316'});G.log.unshift(`🔥 ${AN(t)} combo x5: nhận khiên 6`)}
+ else if(n===7){C[t]=0;aGive(t,aGift(),1);fxq({k:'sm',ic:'🌟',tx:'COMBO x7',sub:'Nhận thêm 1 quà',c:'#facc15'});G.log.unshift(`🌟 ${AN(t)} combo x7: nhận thêm 1 quà`)}}
+function rgMiss(t){CBt()[t]=0}
+function evM(){return G.en&&G.en.id==='gold'?2:1}
+function evRoll(){const p=G.s.evp==null?20:+G.s.evp;G.ern=(G.ern||0)+1;if(G.en||p<=0||G.ern<3||(G.evcd||0)>0){if(G.evcd>0)G.evcd--;return}
+ if(Math.random()*100>=p)return;const id=Object.keys(EVD)[Math.random()*4|0],d=EVD[id];G.en={id,left:2};fxq({k:'ev',ic:d[0],tx:d[1],sub:d[3]?d[2]:d[2],c:d[3]});G.log.unshift(`${d[0]} Sự kiện ${d[1]}: ${d[2]} (2 lượt)`)}
+function bloodPos(){const el=document.getElementById('bloodrain'),a=document.querySelector('#gm .arn');if(!el)return;if(!a){el.style.display='none';return}const r=a.getBoundingClientRect();el.style.cssText+=`;display:block;left:${r.left}px;top:${r.top}px;width:${r.width}px;height:${r.height}px;--H:${r.height}px`}
+function bloodSync(){const on=!!(G&&G.k==='arena'&&G.en&&G.en.id==='blood'&&!G.end),el=document.getElementById('bloodrain');
+ if(!on){if(el)el.remove();return}
+ if(!el){const d=document.createElement('div');d.id='bloodrain';let h='',r=7;const rnd=()=>(r=(r*9301+49297)%233280)/233280;
+  for(let i=0;i<60;i++){const w=2+rnd()*3.5;h+=`<i style="--x:${(rnd()*100).toFixed(1)}%;--w:${w.toFixed(1)}px;--h:${(w*(7+rnd()*8)).toFixed(0)}px;--d:${(.55+rnd()*.7).toFixed(2)}s;--t:-${(rnd()*2).toFixed(2)}s"></i>`}
+  d.innerHTML=h;document.body.appendChild(d);if(!bloodSync.rs){bloodSync.rs=1;window.addEventListener('resize',bloodPos);window.addEventListener('scroll',bloodPos,true)}}
+ requestAnimationFrame(bloodPos)}
+function evTick(){if(!G.en)return;if(--G.en.left<=0){G.log.unshift(`⌛ Sự kiện ${EVD[G.en.id][1]} đã kết thúc`);G.en=null;G.evcd=2}}
+const rgHTML=i=>{const r=Math.min(100,RGt()[i]),c=CBt()[i];return `<div class="rgb${r>=100?' full':''}" title="Thanh nộ: đầy thì câu đúng kế tiếp tung chiêu tối thượng"><i style="width:${r}%"></i><span>${r>=100?'⚡ TỐI THƯỢNG SẴN SÀNG':'⚡ '+r+'%'}</span></div>${c>1?`<div class="cmbb">🔥 Combo x${c}</div>`:''}`};
+const fxHTML=()=>{const q=G.fxq||[];G.fxq=null;return q.map((x,n)=>`<div class="ult ${x.k}" style="--c:${x.c};--n:${n}"><i>${x.ic}</i><b>${x.tx}</b><small>${x.sub}</small></div>`).join('')};
+const stc=e=>{if(!e)return'';const L1=e.fz>0?'fz':e.seal>0?'seal':e.chain?'chain':e.chaos?'wk':e.nodmg?'nd':'',pw=e.hk||e.ch||e.xm||e.crown>0||e.lt||e.ex>0||e.pierce,
+ L2=(e.sh||e.ab>0||e.ts>0||e.gs>0)?'sh':(e.dg||e.dgp>0)?'dg':(e.po>0||e.vp>0)?'po':e.rf?'rf':e.ar>0?'ar':e.ph?'ph':e.bomb?'bomb':e.rg>0?'rg':pw?'pw':'';
+ return(L1?' ov1 ox-'+L1:'')+(L2?' ov2 oy-'+L2:'')};
+function stBrk(){const m=document.getElementById('gm');if(!m||!G||G.k!=='arena')return;const cur={};m.querySelectorAll('.arv').forEach(e=>{cur[e.classList.contains('a0')?0:1]=e.classList.contains('ox-fz')?'fz':e.classList.contains('oy-sh')?'sh':''});const pv=G.stp||{};
+ [0,1].forEach(i=>{if(pv[i]&&!cur[i]){const e=m.querySelector('.arv.a'+i);if(e)for(let k=0;k<9;k++)e.insertAdjacentHTML('beforeend',`<i class="shd" style="--x:${(Math.random()*120-60)|0}px;--y:${(Math.random()*-70-10)|0}px;--r:${(Math.random()*540-270)|0}deg">${pv[i]==='fz'?'🧊':'✨'}</i>`)}});G.stp=cur}
+{const o=GV.arena;GV.arena=function(){const h=o.apply(this,arguments);setTimeout(stBrk,0);return h}}
+const rvT=(fx,n)=>(fx?3700:3100)+450*(n-1)+(G.ev&&G.ev.from?0:450);
+function gFly(){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+ const W=innerWidth,H=innerHeight,ev=G.ev||{},f=ev.from,pre=f?0:420,J=640;
+ document.querySelectorAll('#gm .rvc.rvn').forEach(c=>{
+  const t=+c.dataset.rt,rk=c.dataset.rk,fld=rk==null||rk==='',n=+c.dataset.n,dl=n*450;
+  let m=null,a=null;if(!fld){m=document.querySelector('#gm .a7s.s'+t+' .a7m[data-mk="'+rk+'"]');a=m&&m.querySelector('.a7a')}
+  a=a||document.querySelector('#gm .arv.a'+t+' svg')||document.querySelector('#gm .arv.a'+t);if(!a)return;
+  const j=c.querySelector('.rvj'),inf=c.querySelector('.rvi'),q=a.getBoundingClientRect(),sx=f?f.x:W/2,sy=f?f.y:H*.4,
+   ex=q.left+q.width/2,ey=q.top+q.height*(fld?.3:.4),lift=Math.min(200,90+Math.abs(ex-sx)*.18+Math.abs(ey-sy)*.1),T=pre+J+560,K=[];
+  const P=(ms,x,y,u,v,o,r)=>K.push({offset:Math.min(1,ms/T),transform:`translate(${x}px,${y}px) rotate(${r||0}deg) scale(${u},${v})`,opacity:o});
+  if(pre){P(0,sx,sy,.4,.4,0);P(pre*.6,sx,sy,1.2,1.2,1);P(pre,sx,sy,1,1,1)}else if(n){P(0,sx,sy,.6,.6,0);P(30,sx,sy,1,1,1)}else P(0,sx,sy,1,1,1);
+  for(let i=1;i<=12;i++){const p=i/12,e=-(Math.cos(Math.PI*p)-1)/2,s2=1+.12*Math.sin(Math.PI*p);P(pre+J*p,sx+(ex-sx)*e,sy+(ey-sy)*e-4*lift*p*(1-p),s2,s2,1,(p-.5)*26)}
+  P(pre+J+90,ex,ey,1.3,.72,1);P(pre+J+200,ex,ey,.94,1.08,1);P(pre+J+300,ex,ey,1,1,1);P(T,ex,ey-8,1.5,1.5,0);
+  j.animate(K,{delay:dl,duration:T,fill:'both',easing:'linear'});
+  const hit=dl+pre+J;
+  if(fld){const av=a.closest('.arv')||a;av.animate([{transform:'none'},{transform:'scale(1.1)',offset:.35},{transform:'scale(.97)',offset:.7},{transform:'none'}],{delay:hit,duration:520,easing:'ease-out'})}
+  else if(m){a.animate([{transform:'none'},{transform:'scale(1.28)',offset:.4},{transform:'scale(.95)',offset:.7},{transform:'none'}],{delay:hit,duration:520,easing:'ease-out'});
+   const g=m.querySelector('.a7g');if(g)g.animate([{opacity:0,transform:'scale(.3)'},{opacity:1,transform:'scale(1.35)',offset:.6},{opacity:1,transform:'none'}],{delay:hit+120,duration:380,fill:'backwards'})}
+  if(fld&&inf){const sd=t===0?1:-1,w=inf.offsetWidth||220,IN=380,HD=1500,OT=380,TT=IN+HD+OT,off=-sd*64;
+   inf.style.left=(sd>0?Math.min(W-w-8,q.right+8):Math.max(8,q.left-8-w))+'px';inf.style.top=Math.max(8,Math.min(H-130,q.top+q.height*.04+n*92))+'px';
+   inf.animate([{offset:0,transform:`translateX(${off}px) scale(.88)`,opacity:0,easing:'cubic-bezier(.2,.9,.25,1.12)'},{offset:IN/TT,transform:'none',opacity:1},{offset:(IN+HD)/TT,transform:'none',opacity:1,easing:'ease-in'},{offset:1,transform:`translateX(${off}px) scale(.9)`,opacity:0}],{delay:hit-60,duration:TT,fill:'both'})}
+ })}
+function gDraw(){if(!G)return;if(G.s)cgSync(G.s);G.fr=G.nq;G.nq=0;let h=gHead();
  if(G.end){const r=(G.sd?G.tn:G.nm).map((n,i)=>[n,G.sd?G.sd[i].filter(m=>!m.dead).length:G.sc[i],i]).sort((a,b)=>b[1]-a[1]);h+=`<div class="gres"><div class="gtr">🏆</div><h2>${esc(G.end.title)}</h2><p>${esc(G.end.msg)}</p>${r.map((x,j)=>`<div class="grk" style="--c:${GC[x[2]]}"><span>${j+1}</span>${esc(x[0])}<b>${x[1]}</b></div>`).join('')}<div class="gl"><button class="b p" data-gg="re">↺ Chơi lại</button><button class="b g" data-gg="x">Đóng</button></div></div>`}
  else{G.pn='';const bd=GV[G.k]();h+=`<div class="gplay"><div class="gmain">${bd}</div>${G.pn}</div>`}$('#gm').innerHTML=h;gFx();gFly();gSnap()}
 function gArm(){const s=G.s,w=(G.k==='whack'?s.t:s.t*1.3)*1000;gT(()=>{gClr();G.lock=1;arcFreeze();const c=document.querySelector(`#gar [data-i="${G.q.a}"]`);if(c)c.classList.add('ok');gBn(false,true);gT(()=>{G.lock=0;aNext(false,0)},1100)},w);if(G.k==='whack')gI(()=>{const a=$('#gar');if(a&&!G.lock)a.innerHTML=gWhack()},1400)}
@@ -2597,9 +3018,9 @@ function gLL(x){if(G.lock||G.end)return;const l=G.ll[G.turn];if(l[x])return;l[x]
  else if(x==='a'){const c=45+Math.random()*35,r=q.o.map(()=>Math.random()+.1),sm=r.reduce((s,v,i)=>i===q.a?s:s+v,0)||1;G.poll=r.map((v,i)=>i===q.a?Math.round(c):Math.round((100-c)*v/sm))}
  else{G.q=gQ();G.hid=null;G.poll=null}
  gDraw()}
-function gClick(i){if(G.lock||G.end||G.tsel||G.gsel||(G.tpause&&G.k==='arena'))return;const k=G.k;if(k==='fall'||k==='whack'||k==='balloon')gArc(i);else gRes(i,{grid:gGridA,bomb:gBombA,mil:gMilA,boss:gBossA,arena:gArenaA}[k])}
+function gClick(i){if(G.lock||G.end||G.tsel||G.gsel||G.rsel||(G.tpause&&G.k==='arena'))return;const k=G.k;if(k==='fall'||k==='whack'||k==='balloon')gArc(i);else gRes(i,{grid:gGridA,bomb:gBombA,mil:gMilA,boss:gBossA,arena:gArenaA}[k])}
 $('#gm').addEventListener('click',e=>{const b=e.target.closest('[data-gg]');if(!b||!G)return;const a=b.dataset.gg,i=+b.dataset.i;
- if(a==='x')gClose();else if(a==='tac')tacDo(b.dataset.v);else if(a==='tg')tgPick(+b.dataset.t,+b.dataset.k);else if(a==='gv')gsPick(+b.dataset.k);else if(a==='gk')gsPick(-1);else if(a==='tp'){G.tpause=!G.tpause;b.textContent=G.tpause?'▶':'⏸'}else if(a==='re')gPlay(G.l,true);else if(a==='a')gClick(i);else if(a==='ll')gLL(b.dataset.k);
+ if(a==='x')gClose();else if(a==='tac')tacDo(b.dataset.v);else if(a==='tg')tgPick(+b.dataset.t,+b.dataset.k);else if(a==='rsu')rsMove(i,-1);else if(a==='rsd')rsMove(i,1);else if(a==='rsok')rsOk();else if(a==='tgok'){if(G.tsel&&G.tsel.pre!=null)tgPick(1-G.tsel.t,G.tsel.pre,1)}else if(a==='tgre'){const q=G.tsel;if(q&&q.pre!=null&&!G.lock&&!G.tpause){G.st[q.t].rt--;q.pre=null;gDraw()}}else if(a==='gv')gsPick(+b.dataset.k);else if(a==='gk')gsPick(-1);else if(a==='tp'){G.tpause=!G.tpause;b.textContent=G.tpause?'▶':'⏸'}else if(a==='re')gPlay(G.l,true);else if(a==='a')gClick(i);else if(a==='ll')gLL(b.dataset.k);
  else if(a==='cell'&&!G.lock&&G.sel==null&&G.cells[i]<0){G.sel=i;G.q=gQ();gDraw()}});
 document.addEventListener('keydown',e=>{if(G&&e.key==='Escape')gClose()});
 </script>
