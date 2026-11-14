@@ -267,6 +267,14 @@ del.fxd{color:#ff9a9d;opacity:.85;text-decoration-thickness:2px;padding:0 3px}
 .balopt{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:2px solid var(--line);border-radius:12px;margin:8px 0;cursor:pointer}
 .balopt input{margin-top:3px;accent-color:var(--pri)}.balopt small{display:block;color:var(--mut);font-weight:500}
 .arn{display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:6px;margin:6px 0 10px}.arn>b{font-size:clamp(22px,4vw,40px);color:var(--mut)}
+.arn{position:relative}
+.ucd{position:absolute;left:50%;bottom:6px;transform:translateX(-50%);z-index:6;width:min(250px,36%);pointer-events:none;text-align:center;padding:10px 12px;border-radius:14px;color:#fff;background:linear-gradient(160deg,rgba(15,23,42,.94),rgba(15,23,42,.82));border:2px solid var(--c);box-shadow:0 0 14px var(--c),0 6px 18px rgba(0,0,0,.45);animation:ucdGlow 1.2s ease-in-out infinite alternate}
+.ucd .ui{display:block;font-size:30px;line-height:1}
+.ucd b{display:block;font-size:14px;letter-spacing:.5px;margin:4px 0 3px;color:var(--c);filter:brightness(1.35)}
+.ucd small{display:block;font-size:11.5px;line-height:1.35;opacity:.95}
+.ucd em{display:block;margin-top:6px;font-size:10.5px;font-style:normal;color:#fde68a;font-weight:700}
+@keyframes ucdGlow{from{box-shadow:0 0 8px var(--c),0 6px 18px rgba(0,0,0,.45)}to{box-shadow:0 0 26px var(--c),0 6px 18px rgba(0,0,0,.45)}}
+@media(max-width:560px){.ucd{width:44%;padding:6px 8px}.ucd .ui{font-size:22px}.ucd b{font-size:12px}.ucd small{font-size:10px}.ucd em{font-size:9.5px}}
 .arv{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px}.arv svg{width:clamp(80px,15vw,140px);height:auto;transition:transform .3s}.arv.a1 svg{transform:scaleX(-1)}.arv.on svg{filter:drop-shadow(0 0 14px var(--c))}.arv small{font-weight:700}
 .arv .hp{width:min(86%,260px);height:16px;border-radius:99px;background:rgba(0,0,0,.18);border:2px solid var(--line);overflow:hidden}.arv .hp i{display:block;height:100%;background:var(--c);transition:width .7s}
 .arv.atk{animation:arAtk .6s}.arv.hit svg{animation:arHit .6s .25s}.arv.a0{--d:70px}.arv.a1{--d:-70px}
@@ -2841,6 +2849,8 @@ stonewarden:(t,a,b,v,L)=>{a.cp=v('cap');a.cpT=v('tn')+1;L(`🗿 ${AN(t)} Da Đá
 binder:(t,a,b,v,L)=>{const m=tmg(t);m.lnk=Math.max(m.lnk||0,v('tn')+1);L(`🔗 ${AN(t)} Đồng Mệnh: ${v('tn')} lượt tới sát thương cả đội nhận được chia đều`)},
 taunter:(t,a,b,v,L)=>{const m=tmg(t),n=v('tn')+1;m.tau=Math.max(m.tau||0,n);m.tak=G.sd?G.fi[t]:null;a.tdr=Math.max(a.tdr||0,v('dr'));a.tdrT=Math.max(a.tdrT||0,n);L(`📢 ${AN(t)} gầm thách thức: ${v('tn')} lượt tới đối thủ buộc phải đánh người này, giảm ${v('dr')}% sát thương nhận`)}});
 /* Hiệu ứng trạng thái hiển thị trên thẻ nhân vật */
+A7C.push(['ts','🤝','Khiên',e=>`Hấp thụ ${Math.round(e.ts)} sát thương của các đòn kế tiếp`,0],['dgp','🌊','Né Đòn',e=>`${e.dgp}% cơ hội né đòn đánh`+(e.dgt>1?`, còn ${e.dgt-1} lượt`:''),0]);AST.push(['dgp','🌊']);
+A7C.push(['mk','💀','Dấu Hắc Liêm',e=>`${e.mk} dấu: mỗi dấu cộng sát thương cho đòn của Tử Thần Liêm Sứ, đủ dấu sẽ bị thu hoạch`,1]);AST.push(['mk','💀']);
 A7C.push(['cp','🗿','Da Đá',e=>`Mỗi đòn nhận tối đa ${e.cp} sát thương`+(e.cpT>1?`, còn ${e.cpT-1} lượt`:''),0],['tdr','📢','Khiêu Khích',e=>`Giảm ${e.tdr}% sát thương nhận`+(e.tfl>0?`, dội lại ${e.tfl} sát thương mỗi đòn trúng`:''),0],['xmk','🎯','Dấu Hành Quyết',()=>'Đòn kế tiếp của Đao phủ chắc chắn kích hoạt Kết Liễu',1]);
 AST.push(['cp','🗿'],['tdr','📢'],['xmk','🎯']);
 /* Quà nhận ngay sau khi trả lời đúng ở lượt của chính mình: mốc "câu/lượt kế tiếp" phải bỏ qua lượt hiện tại */
@@ -3215,7 +3225,12 @@ function tmCards(i){const m=G.tm&&G.tm[i];if(!m)return[];const o=[];
   if(m.sal>0)o.push([2,'🏪','Đại Hạ Giá · cả đội','Mọi quà nhận được lên 1 bậc độ hiếm · còn '+m.sal+' lượt']);
   if(m.lnk>0)o.push([2,'🔗',m.lnkh?'Hợp Nhất · cả đội':'Đồng Mệnh · cả đội',(m.lnkh?'Sát thương và hồi máu':'Sát thương nhận')+' được chia đều cho mọi thành viên · còn '+m.lnk+' lượt']);
   if(m.tau>0)o.push([2,'📢','Khiêu Khích · cả đội','Đối thủ bắt buộc đánh người khiêu khích · còn '+m.tau+' lượt']);
-  aoeCards(i,o);return o}
+  aoeCards(i,o);
+ {const mo=G.tm[1-i];if(mo&&mo.mt&&mo.mt.n>0)o.push([1,'🌠','Thiên Thạch Sắp Rơi',`Rơi xuống sau ${mo.mt.n} lượt của đối thủ, gây ${mo.mt.d} sát thương không thể né`]);
+  if(m.hex&&m.hex.n>0)o.push([1,'🕸️','Lời Nguyền Phản Tri',`Mỗi lần trả lời đúng mất ${m.hex.d} HP, còn ${m.hex.n} lần`]);
+  if(m.lore>0)o.push([2,'📜','Trang Sách Soi Sáng · cả đội','Câu hỏi kế tiếp được loại bỏ bớt đáp án sai']);
+  if(G.cls&&G.cls[i]==='eclipse')o.push([2,m.ec?'🌙':'☀️','Lần kích hoạt tới: '+(m.ec?'Dạng Nguyệt':'Dạng Nhật'),m.ec?'Giảm sát thương nhận và hồi HP':'Đòn đánh cộng thêm sát thương'])}
+ return o}
 function aTeamHeal(t,h){const sv=[G.gtt,G.gtk];G.gtt=null;G.gtk=null;
  try{if(!G.sd){if(G.sc[t]>0)aHeal(t,h)}
   else G.sd[t].forEach((m,k)=>{if(m.dead)return;if(k===G.fi[t]){if(G.sc[t]>0)aHeal(t,h);return}if(m.hp<=0)return;const b=m.hp;m.hp=Math.min(G.s.hp,b+h);if(m.hp>b)G.ev.f.push({t,m:k,s:'+'+(m.hp-b),k:'h'})})}
@@ -3667,7 +3682,10 @@ GV.arena=function(){bloodSync();const ev=G.ev||{f:[]};G.ev=null;const tp=G.tsel&
  const tot=G.qs.length,qn=((G.qi-1)%tot)+1;
  const av=i=>{const e=G.st[i],g=ev.fx>=0&&ev.fxt===i&&!(ev.rk!=null&&ev.fxt===G.turn)?GF[ev.fx]:null;return `<div class="arv a${i}${stc(e)}${ev.f.some(x=>x.t===i&&x.m==null&&x.k==='h')?' heal':''}${G.turn===i&&!G.end?' on':''}${SW[i]?' pin':''}${ev.atk===i?' atk':''}${ev.hit===i&&(ev.hm==null||ev.hm===G.fi[i])?(ev.blk?' blk':' hit'):''}${tp&&i===1-tp.t?' pk':''}" style="--c:${GC[i]}"${tp&&i===1-tp.t?` data-gg="tg" data-t="${i}" data-k="${G.fi[i]}"`:''}>${ev.f.filter(x=>x.t===i&&x.m==null).map(x=>`<b class="adm ${x.k}">${x.s}</b>`).join('')}${ev.blk&&ev.hit===i&&(ev.hm==null||ev.hm===G.fi[i])?bfxHTML(ev.blk):''}${g?`<span class="afx ${g[4]}" style="--c:${g[5]}">${g[3]}</span>`:''}<div class="abf">${(e.q||[]).map(gi=>`<span class="pq" title="Chờ kích hoạt ở lượt sau: ${GF[gi][0]}">${GF[gi][3]}</span>`).join('')}${AST.filter(x=>e[x[0]]>0).map(x=>`<span>${x[1]}</span>`).join('')}</div>${clsAv(G.cls[i])}<div class="hp"><i style="width:${Math.max(0,G.sc[i])/G.s.hp*100}%"></i></div>${rgHTML(i)}<div class="anm">${esc(G.nm[i])}</div><small class="ahp">${Math.max(0,G.sc[i])}/${G.s.hp} HP</small><small class="acl" tabindex="0">${clsBadge(i)}<span class="acltip">${clsTip(i)}</span></small></div>`};
  const oppAll=!!(ev.rv&&ev.rv.length)&&ev.rv.every(x=>AOPP.includes(x)),rv=(ev.rv||[]).map((gi,n)=>{const g=GF[gi],r=RAR[aR(gi)],op=AOPP.includes(gi);return `<div class="rvc rvn" data-ra="${aR(gi)}" data-rt="${op?1-G.turn:G.turn}" data-n="${n}"${op?' data-opp="1"':ev.rk!=null?` data-rk="${ev.rk}"`:''} style="--c:${r[1]}"><span class="rvj">${g[3]}</span>${op?'':`<div class="rvi"><b>${g[0]}</b><em class="rar">${r[0]}</em><small>${esc(g[2])}</small></div>`}</div>`}).join('');
- return `<div class="arn${G.sd?' a7':''}${ev.ult?' ulth':''}${rv?' evd':''}${G.en?' ev-'+G.en.id:''}${ev.f.some(x=>x.k===''&&Math.abs(parseInt(x.s))>=15)?' shk':''}"${oppAll?' style="--rp:.7s"':(rv&&!ev.from?' style="--rp:.45s"':'')}>${a7s(0,av)}<b>VS</b>${a7s(1,av)}</div>`+(rv?`<div class="rvl">${rv}</div>`:'')+(gs?gsPanel(gs):'')+(os?osPanel(os):'')+(rs?rsPanel(rs):'')+(G.tz&&!gs&&!rs&&!os&&(!ph||tp)?`<div class="acd">${cdBar('acdq','⏱',G.tl,tp?tp.max:G.tz.q,tp?'Chọn mục tiêu':'Thời gian')}<button class="b g acdp" data-gg="tp" title="Tạm dừng / tiếp tục">${G.tpause?'▶':'⏸'}</button></div>`:'')+(G.en?`<div class="evb" style="--c:${EVD[G.en.id][3]}">${EVD[G.en.id][0]} ${EVD[G.en.id][1]} · còn ${G.en.left} lượt: ${EVD[G.en.id][2]}</div>`:'')+fxHTML()+(ph?'':`<div class="gqw${G.gf>=0&&!rv&&!tp&&!gs?'':' nogf'}">${G.gf>=0&&!rv&&!tp&&!gs?'<span class="bgb" aria-hidden="true">🎁</span>':''}${gQH(gTurn()+gNum('Câu '+qn+'/'+tot).replace('class="gnum"','class="gnum qn"')+gNum('Đúng = '+Math.max(1,Math.round(+G.q.p||1))+' điểm'),G.q.q)}</div>`)+(tp?tgBanner(tp):ph?((gs||os||rs)?'':phHTML(ph)):gOpts())+`${G.tacP?tacHTML():''}`};
+ return `<div class="arn${G.sd?' a7':''}${ev.ult?' ulth':''}${rv?' evd':''}${G.en?' ev-'+G.en.id:''}${ev.f.some(x=>x.k===''&&Math.abs(parseInt(x.s))>=15)?' shk':''}"${oppAll?' style="--rp:.7s"':(rv&&!ev.from?' style="--rp:.45s"':'')}>${a7s(0,av)}<b>VS</b>${a7s(1,av)}${ultCard(tp)}</div>`+(rv?`<div class="rvl">${rv}</div>`:'')+(gs?gsPanel(gs):'')+(os?osPanel(os):'')+(rs?rsPanel(rs):'')+(G.tz&&!gs&&!rs&&!os&&(!ph||tp)?`<div class="acd">${cdBar('acdq','⏱',G.tl,tp?tp.max:G.tz.q,tp?'Chọn mục tiêu':'Thời gian')}<button class="b g acdp" data-gg="tp" title="Tạm dừng / tiếp tục">${G.tpause?'▶':'⏸'}</button></div>`:'')+(G.en?`<div class="evb" style="--c:${EVD[G.en.id][3]}">${EVD[G.en.id][0]} ${EVD[G.en.id][1]} · còn ${G.en.left} lượt: ${EVD[G.en.id][2]}</div>`:'')+fxHTML()+(ph?'':`<div class="gqw${G.gf>=0&&!rv&&!tp&&!gs?'':' nogf'}">${G.gf>=0&&!rv&&!tp&&!gs?'<span class="bgb" aria-hidden="true">🎁</span>':''}${gQH(gTurn()+gNum('Câu '+qn+'/'+tot).replace('class="gnum"','class="gnum qn"')+gNum('Đúng = '+Math.max(1,Math.round(+G.q.p||1))+' điểm'),G.q.q)}</div>`)+(tp?tgBanner(tp):ph?((gs||os||rs)?'':phHTML(ph)):gOpts())+`${G.tacP?tacHTML():''}`};
+/* Thẻ chiêu nộ ở giữa hai nhân vật khi đang chọn mục tiêu mà nộ đã đầy */
+function ultCard(tp){if(!tp||!G.cls)return'';const t=tp.t,cid=G.cls[t],u=ULT[cid],g=G.s.rgn==null?25:+G.s.rgn;if(!u||!(g>0)||RGt()[t]<100)return'';
+ return `<div class="ucd" style="--c:${u[3]}"><span class="ui">${u[0]}</span><b>${esc(u[1])}</b><small>${clsFill(u[2],G.s,cid)}</small><em>⚡ Chiêu nộ sẽ kích hoạt ở đòn này</em></div>`}
 /* ===== Thanh nộ + chiêu tối thượng, combo, sự kiện ngẫu nhiên ===== */
 const UL=(id,k)=>clsVal(G.s,id,k),ULP={
 sword:[['u_pc','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,300]],mage:[['u_fz','⚡ Chiêu nộ: số lượt đóng băng',1,5,2],['u_add','⚡ Chiêu nộ: sát thương thêm',0,100,8]],
