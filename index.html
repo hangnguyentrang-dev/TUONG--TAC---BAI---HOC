@@ -6328,9 +6328,9 @@ U.wrap('paladin',function(c){
  ],2600,450,'filter:drop-shadow(0 0 20px #fde047)');
  ring(a.x,a.b-4,a.w*2.5,'#fde047',350,2700,{c,poly:'hex',sym:'✝'});
  /* Chiến binh thiên giới (angel) hạ xuống phía sau mở đôi cánh khổng lồ */
- backObj(c,200,165,svg.angel('#facc15'),[
+ backObj(c,200,165,svg.angel('#facc15'),U.fitBack(c,200,165,[
   [a.x,a.y-140,.3,0,0,0],[a.x,a.y-92,1.25,0,.95,.28],[a.x,a.y-92,1.3,0,.95,.75],[a.x,a.y-126,1.45,0,0,1]
- ],2200,1250,'filter:drop-shadow(0 0 24px #fde047)');
+ ]),2200,1250,'filter:drop-shadow(0 0 24px #fde047)');
  /* Thanh kiếm thánh khổng lồ giáng xuống mục tiêu */
  svgObj(66,216,svg.sword('palsw','#fde047'),[
   ufK(b.x,b.t-340,.6,0,0,0),ufK(b.x,b.t-220,1.5,0,1,.2),ufK(b.x,b.b-75,1.5,0,1,.55),ufK(b.x,b.b-75,1.55,0,0,1)
@@ -6366,8 +6366,8 @@ U.wrap('plague',function(c){
   svgObj(48,38,svg.toxicSlime(),
    [ufK(sx,sy,.5,0,0,0),ufK((sx+b.x)/2,sy-45,1.08,0,1,.45),ufK(b.x,b.y,1.25,0,0,1)],820,1680+i*210,'filter:drop-shadow(0 0 8px #a3e635)');
  }
- svgObj(156,156,svg.plagueBeast(),
-  [ufK(b.x,b.y,.3,0,0,0),ufK(b.x,b.y,1.25,0,.9,.3),ufK(b.x,b.y,1.35,0,.85,.75),ufK(b.x,b.y,1.55,0,0,1)],
+ svgObj(156,156,svg.plagueBeast(),U.fitFront(c,156,156,
+  [ufK(b.x,b.y,.3,0,0,0),ufK(b.x,b.y,1.25,0,.9,.3),ufK(b.x,b.y,1.35,0,.85,.75),ufK(b.x,b.y,1.55,0,0,1)]),
   1550,2380,'filter:drop-shadow(0 0 24px #84cc16)');
  impact(c,b.x,b.y,'#84cc16',2900,{chars:['☣️','☠️','🫧','💜'],n:15,rad:145,amp:11});
  hitReact(c,2900,'#a3e635',12);
@@ -6384,18 +6384,18 @@ U.wrap('summoner',function(c){
  ring(a.x,a.b-4,a.w*2.7,'#22d3ee',200,3200,{c,poly:'star',sym:'🐾'});
  runes(a.x,a.y,'#67e8f9',['ᛟ','ᚱ','ᚦ','ᚨ','ᛉ'],6,a.w*1.3,380,2100,{c});
  /* 3 cánh cổng linh giới (phía sau) mở ra cho Đại Bàng, Sư Tử, Sói linh hồn */
- ring(a.x+sd*60,a.t-110,110,'#22d3ee',850,1500,{c,flat:.88,poly:'hex',sym:'🦅'});
+ ring(a.x+sd*60,Math.max(a.t-110,U.arenaBox(c).t+62),110,'#22d3ee',850,1500,{c,flat:.88,poly:'hex',sym:'🦅'});
  ring(a.x-sd*75,a.y-10,105,'#fbbf24',1050,1500,{c,flat:.88,poly:'hex',sym:'🦁'});
  ring(a.x+sd*55,a.b-45,105,'#38bdf8',1250,1500,{c,flat:.88,poly:'hex',sym:'🐺'});
- svgObj(140,110,svg.eagle(sd),[
+ svgObj(140,110,svg.eagle(sd),U.fitFront(c,140,110,[
   ufK(a.x+sd*60,a.t-110,.3,0,0,0),ufK(a.x+sd*110,a.t-160,1.05,sd*8,1,.3),ufK(b.x-sd*40,b.t-90,1.15,sd*22,1,.7),ufK(b.x,b.y,1.25,sd*30,0,1)
- ],1550,1200,'filter:drop-shadow(0 0 16px #22d3ee)');
- svgObj(130,120,svg.lion(sd),[
+ ]),1550,1200,'filter:drop-shadow(0 0 16px #22d3ee)');
+ svgObj(130,120,svg.lion(sd),U.fitFront(c,130,120,[
   ufK(a.x-sd*75,a.y-10,.3,0,0,0),ufK(a.x+sd*50,a.y-25,1.05,0,1,.32),ufK(b.x-sd*26,b.y,1.2,0,1,.78),ufK(b.x,b.y,1.3,0,0,1)
- ],1480,1420,'filter:drop-shadow(0 0 16px #fbbf24)');
- svgObj(136,110,svg.wolf(sd),[
+ ]),1480,1420,'filter:drop-shadow(0 0 16px #fbbf24)');
+ svgObj(136,110,svg.wolf(sd),U.fitFront(c,136,110,[
   ufK(a.x+sd*55,a.b-45,.3,0,0,0),ufK((a.x+b.x)/2,a.b-75,1.05,0,1,.35),ufK(b.x,b.y+10,1.18,0,1,.8),ufK(b.x,b.y,1.25,0,0,1)
- ],1480,1620,'filter:drop-shadow(0 0 16px #38bdf8)');
+ ]),1480,1620,'filter:drop-shadow(0 0 16px #38bdf8)');
  beam(a.x,a.y,b.x,b.y,40,'#22d3ee','#0284c7',2750,800);
  impact(c,b.x,b.y,'#22d3ee',3150,{chars:['🐾','✦','💥','✨'],n:16,rad:155,amp:13});
  hitReact(c,3150,'#22d3ee',13);
@@ -6627,9 +6627,9 @@ U.wrap('cleric',function(c){
    [[a.x+s*a.w*1.15,a.b-34,.4,0,0,0],[a.x+s*a.w*1.15,a.b-44,1.1,0,1,.25],[a.x+s*a.w*1.15,a.b-44,1,0,1,.8],[a.x+s*a.w*1.15,a.b-54,1,0,0,1]],
    2200,800+i*150,'filter:drop-shadow(0 0 12px #fde047)');
  });
- backObj(c,150,124,svg.angel('#fef08a'),[
+ backObj(c,150,124,svg.angel('#fef08a'),U.fitBack(c,150,124,[
   [a.x,a.t-60,.3,0,0,0],[a.x-a.w*.9,a.t-90,.9,0,.9,.3],[a.x+a.w*.9,a.t-100,.95,0,.9,.7],[a.x,a.t-130,1,0,0,1]
- ],2200,1150,'filter:drop-shadow(0 0 18px #fde047)');
+ ]),2200,1150,'filter:drop-shadow(0 0 18px #fde047)');
  teamWave(c,'#fde047',['✨','🕊️','💚'],2400);
  residue(c,a.x,a.b-4,'#fef08a',['✨','🕊️'],3600,900);
  return 4500;
@@ -6674,7 +6674,7 @@ U.wrap('dragoon',function(c){
     x=ex+(tx-ex)*e;y=ey+(ty-ey)*e;s=1.45+w*.6;r=Math.atan2(f?-(ty-ey):ty-ey,f?-(tx-ex):tx-ex)*180/Math.PI}
    kf.push(ufK(x,y,s,r,(j===0||j===M)?0:1,u))}
   const dg=svg.dragon(c1,c2);
-  svgObj(204,116,f?`<g transform="translate(204,0) scale(-1,1)">${dg}</g>`:dg,kf,2600,300+i*80,'filter:drop-shadow(0 0 20px '+c1+')','linear');
+  svgObj(204,116,f?`<g transform="translate(204,0) scale(-1,1)">${dg}</g>`:dg,U.fitFront(c,204,116,kf),2600,300+i*80,'filter:drop-shadow(0 0 20px '+c1+')','linear');
  });
  impact(c,b.x,b.y,'#ef4444',2920,{chars:['🔥','🐉','💥','✦'],n:16,rad:165,amp:15});
  hitReact(c,2920,'#f97316',15);
@@ -6750,15 +6750,13 @@ U.wrap('vampire',function(c){
  aura(c,'#dc2626','#4c0519',0,3400);
  env(c,'','',4200,180);
  /* Ngai vàng huyết khí (vampireThrone) trồi lên PHÍA SAU nhân vật (.ufx-back) */
- backObj(c,170,196,svg.vampireThrone(),[
+ backObj(c,170,196,svg.vampireThrone(),U.fitBack(c,170,196,[
   [a.x,a.b-60,.3,0,0,0],[a.x,a.b-85,1.18,0,.95,.25],[a.x,a.b-85,1.2,0,.95,.82],[a.x,a.b-105,1.3,0,0,1]
- ],2500,550,'filter:drop-shadow(0 0 24px #dc2626)');
+ ]),2500,550,'filter:drop-shadow(0 0 24px #dc2626)');
  for(let i=0;i<6;i++){
   const bt=backObj(c,32,26,svg.bat(),[],1600,650,'filter:drop-shadow(0 0 8px #ef4444)');
   backOrbit(c,bt,a.x,a.y-20,a.w*1.4,a.h*.42,1500,650,1.5,i*Math.PI/3);
  }
- /* Dải huyết khí sắc bén quấn mục tiêu & rút ngược về */
- beam(a.x+sd*30,a.y,b.x,b.y,18,'#fb7185','#881337',1850,720);
  ring(b.x,b.b-4,b.w*2.4,'#be123c',1980,1500,{c,poly:'star',sym:'🦇'});
  impact(c,b.x,b.y,'#be123c',2550,{chars:['🩸','🦇','💥'],n:14,rad:145,amp:12});
  hitReact(c,2550,'#fb7185',13);
@@ -7073,10 +7071,8 @@ U.wrap('taunter',function(c){
  aura(c,'#f97316','#dc2626',0,3400);
  env(c,'','',4200,180);
  ring(a.x,a.b-4,a.w*2.4,'#fb923c',280,2500,{c,poly:'hex',sym:'📣'});
- /* Bóng khán giả trên khán đài Đấu trường La Mã cổ vũ phía sau + sóng âm khổng lồ dội thẳng tới mục tiêu */
- backObj(c,220,76,svg.coliseumCrowd(),[
-  ...(()=>{const R=c.arn?c.arn.getBoundingClientRect():{left:0,width:innerWidth,top:a.t-60},X=R.left+R.width/2,Y=R.top+64;return[[X,Y+30,1.2,0,0,0],[X,Y+6,2.3,0,.95,.25],[X,Y,2.4,0,.95,.75],[X,Y-8,2.5,0,0,1]]})()
- ],2300,600,'filter:drop-shadow(0 0 12px #f97316)');
+ /* Khán giả Đấu trường La Mã đông nghẹt, nhảy nhót hò reo lấp đầy cả khung hình nền + sóng âm khổng lồ dội thẳng tới mục tiêu */
+ U.crowdStand(c);
  for(let i=0;i<5;i++){
   const w=ufB(140+i*40,200+i*35,'border-radius:50%;border:6px solid #fb923c;box-shadow:0 0 22px #ef4444');
   ufA(w,[ufK(a.x,a.y,.3,0,0),ufK(a.x+(b.x-a.x)*.5,a.y,1.1,0,1,.5),ufK(b.x,b.y,1.65,0,0)],950,2050+i*180);
@@ -7155,15 +7151,10 @@ U.wrap('valk',function(c){
  aura(c,'#7dd3fc','#fde047',0,3500);
  env(c,'','',4250,180);
  ring(a.x,a.b-4,a.w*2.6,'#fde047',300,2700,{c,poly:'hex',sym:'🪽'});
- /* Chiến binh Valkyrie (angel) bay đến đứng PHÍA SAU từng đồng minh (.ufx-back) & nối vòng ánh sáng */
+ /* Vòng ánh sáng nối các đồng minh (đã bỏ thiên thần Valkyrie đứng phía sau) */
  const mem=[c.av].concat(ufMates(t));
  const sv=backSvg(c),pts=[];
- mem.slice(0,4).forEach((m,i)=>{
-  const r=ufR(m);pts.push([r.x,r.y]);
-  backObj(c,140,116,svg.angel('#38bdf8'),[
-   [r.x,r.t-140,.3,0,0,0],[r.x,r.y-42,1.05,0,.95,.3],[r.x,r.y-42,1.05,0,.95,.8],[r.x,r.y-78,1.15,0,0,1]
-  ],2100,1150+i*150,'filter:drop-shadow(0 0 16px #7dd3fc)');
- });
+ mem.slice(0,4).forEach(m=>{const r=ufR(m);pts.push([r.x,r.y])});
  if(pts.length>1)backDraw(c,sv,'#fde047',3.5,1400,1800,pts,'#7dd3fc');
  teamWave(c,'#7dd3fc',['🪽','🪶','✨'],2500);
  residue(c,a.x,a.b-4,'#38bdf8',['🪶','✨'],3700,800);
@@ -7245,18 +7236,31 @@ U.wrap('lore',function(c){
  env(c,'','',4250,180);
  ring(a.x,a.b-4,a.w*2.6,'#22d3ee',300,2800,{c,poly:'hex',sym:'📜'});
  runes(a.x,a.y,'#67e8f9',['Α','Ω','Σ','Δ','Φ','Ψ'],6,a.w*1.35,500,2000,{c});
- /* Cổ thư khổng lồ (ancientTome) trên cao & sách bay phóng ký tự ánh sáng */
- backObj(c,160,130,svg.ancientTome(),[
-  [innerWidth*.5,a.t-110,.3,0,0,0],[innerWidth*.5,a.t-110,1.2,0,.95,.28],[innerWidth*.5,a.t-110,1.25,0,.95,.78],[innerWidth*.5,a.t-110,.4,0,0,1]
- ],2350,650,'filter:drop-shadow(0 0 22px #22d3ee)');
- [-1,1].forEach((m,i)=>{
-  svgObj(64,48,svg.flyingTome(),
-   [ufK(a.x,a.t-40,.4,0,0,0),ufK(b.x-sd*70,b.y+m*45,1.15,0,1,.4),ufK(b.x-sd*70,b.y+m*45,1.2,0,1,.8),ufK(b.x,b.y,.6,0,0,1)],
-   1800,1300+i*180,'filter:drop-shadow(0 0 14px #22d3ee)');
- });
- beam(a.x,a.t-30,b.x,b.y,24,'#67e8f9','#0891b2',2600,760);
- impact(c,b.x,b.y,'#22d3ee',2850,{chars:['📖','📜','✨','✦'],n:15,rad:155,amp:12});
- hitReact(c,2850,'#67e8f9',12);
+ /* Cổ thư khổng lồ lơ lửng trên cao (luôn nằm gọn trong khung đấu trường) */
+ const B=U.arenaBox(c),TX=(B.l+B.r)/2,TY=B.t+72;
+ backObj(c,160,130,svg.ancientTome(),U.fitBack(c,160,130,[
+  [TX,TY,.3,0,0,0],[TX,TY,1.2,0,.95,.28],[TX,TY,1.25,0,.95,.78],[TX,TY,.4,0,0,1]
+ ]),2350,650,'filter:drop-shadow(0 0 22px #22d3ee)');
+ /* Đàn sách bay lơ lửng quanh người dùng chiêu rồi bắn tới tấp vào mục tiêu (không còn tia beam) */
+ const N=14,TL=3600,T0=400,GAP=88,FLY=330;
+ for(let i=0;i<N;i++){
+  const th=Math.PI*(1.12+.76*i/(N-1)),w=1+(i%2)*.18,
+   hx=a.x+Math.cos(th)*a.w*1.25*w,hy=a.y-6+Math.sin(th)*a.h*.5*w,
+   tx=b.x+ufRnd(-b.w*.25,b.w*.25),ty=b.y+ufRnd(-b.h*.3,b.h*.3),
+   ts=i*45,t1=ts+280,tf=1500+i*GAP,tw=tf-170,tb=(t1+tw)/2,tt=tf+FLY,te=tt+140,
+   ang=Math.atan2(ty-hy,tx-hx)*180/Math.PI*.4,
+   F=(x,y,s,r,o,at,ez)=>{const k=ufK(x,y,s,r,o,at/TL);if(ez)k.easing=ez;return k},kf=[F(TX,TY,.3,0,0,0)];
+  if(ts>0)kf.push(F(TX,TY,.3,0,0,ts));
+  kf.push(F(hx,hy,1,0,1,t1,'ease-in-out'),F(hx,hy-7,1.04,0,1,tb,'ease-in-out'),F(hx,hy,1,0,1,tw,'ease-in-out'),
+   F(hx-sd*16,hy+5,1.1,-ang*.5,1,tf,'cubic-bezier(.6,0,.95,.45)'),F(tx,ty,.95,ang,1,tt),F(tx,ty,.5,ang,0,te),F(tx,ty,.5,ang,0,TL));
+  svgObj(64,48,svg.flyingTome(),U.fitFront(c,64,48,kf),TL,T0,'filter:drop-shadow(0 0 12px #22d3ee)','linear');
+  ufBurst(tx,ty,['📖','📜','✦','✨'],4,58,T0+tt,18,520);
+  if(i%3===0)ufShake(c.arn,T0+tt,3);
+  if(i%4===1)hitReact(c,T0+tt,'#67e8f9',7);
+ }
+ const LT=T0+1500+(N-1)*GAP+FLY+60;
+ impact(c,b.x,b.y,'#22d3ee',LT,{chars:['📖','📜','✨','✦'],n:15,rad:155,amp:12});
+ hitReact(c,LT,'#67e8f9',12);
  residue(c,a.x,a.b-4,'#0891b2',['✨','📜'],3650,850);
  return 4500;
 });
@@ -7266,10 +7270,8 @@ U.wrap('reaper',function(c){
  const{a,b,sd}=c;
  aura(c,'#e2e8f0','#0f172a',0,3500);
  env(c,'','',4250,180);
- /* Bóng Tử Thần cao lớn (reaperShadow) đứng PHÍA SAU nhân vật (.ufx-back) & vung lưỡi hái trảm nguyệt */
- backObj(c,194,218,svg.reaperShadow(),[
-  [a.x-sd*26,a.y-20,.3,0,0,0],[a.x-sd*26,a.y-42,1.3,0,.95,.28],[a.x-sd*26,a.y-42,1.35,sd*10,.95,.75],[a.x-sd*26,a.y-52,1.45,0,0,1]
- ],2350,950,'filter:drop-shadow(0 0 24px #94a3b8)');
+ /* Thần Chết mới (đầu lâu mắt đỏ, áo choàng rách, lưỡi hái khổng lồ) trồi lên CÙNG LÚC với hình nền, đứng sau nhân vật và vung lưỡi hái đúng nhịp đòn chém */
+ U.reaperLoom(c);
  for(let i=0;i<8;i++){
   const e=ufE('👻',22,'filter:grayscale(1) drop-shadow(0 0 8px #e2e8f0)');
   ufA(e,[ufK(b.x+ufRnd(-50,50),b.b,.4,0,0),ufK(a.x,a.y-30,1,0,.9,.55),ufK(a.x,a.y-40,.4,0,0)],1350,950+i*90);
@@ -7550,7 +7552,7 @@ U.phoenixFly=function(c){
  for(let j=0;j<=M;j++){const u=j/M,[x,y]=P(u),[x2,y2]=P(Math.min(1,u+.03)),[x1,y1]=P(Math.max(0,u-.03));
   const ang=Math.atan2(f?-(y2-y1):y2-y1,f?-(x2-x1):x2-x1)*180/Math.PI;
   kf.push(ufK(x,y,.35+1.4*Math.sin(u*Math.PI/2),ang,(j===0||j===M)?0:1,u))}
- return U.svgObj(220,190,S.phoenixB(f),kf,1700,1350,'filter:drop-shadow(0 0 26px #f97316)','linear');
+ return U.svgObj(220,190,S.phoenixB(f),U.fitFront(c,220,190,kf),1700,1350,'filter:drop-shadow(0 0 26px #f97316)','linear');
 };
 
 /* Cây Thế Giới mọc vút lên phía sau nhân vật, nằm gọn trong khung đấu trường */
@@ -7633,7 +7635,7 @@ U.chainShot=function(c){
 
 /* Chiêu hồn sư: hai bộ xương trồi lên từ mặt đất chỗ nhân vật tấn công */
 U.skelRise=function(c){
- const{a}=c,gy=a.b-4,HH=Math.round(Math.max(a.h*1.3,110)),HW=Math.round(HH*.6),sv=ufSvg('');
+ const{a}=c,gy=a.b-4,HH=Math.round(Math.min(Math.max(a.h*1.3,110),Math.max(110,((c.ar&&c.ar.height)||320)*.9))),HW=Math.round(HH*.6),sv=ufSvg('');
  [-1,1].forEach((q,i)=>{const x=a.x+q*a.w*.62,dl=1000+i*300,Y=HH+10;
   for(let k=0;k<5;k++){const ang=Math.PI*(1.05+.9*k/4),L=ufRnd(40,80),p=ufPts(x,gy,x+Math.cos(ang)*L*1.4,gy+Math.abs(Math.sin(ang))*L*.3+ufRnd(0,6),4,8);ufDraw(sv,'#1f1308',4,dl,320,p,'#4ade80');ufDraw(sv,'#86efac',1.5,dl,320,p,'#22c55e')}
   const hole=ufB(HW*1.4,HW*.34,'border-radius:50%;background:radial-gradient(ellipse,#050805,#1f1308 70%,transparent);box-shadow:0 0 16px #4ade80');
@@ -7710,5 +7712,187 @@ const NM=U.nonMagic={
 })();
 
 </script>
+<script>
+/* ===== Bổ sung: giữ sinh vật triệu hồi trong khung đấu trường, Thần Chết mới, khán đài cổ vũ ===== */
+(function(){
+'use strict';
+const U=window.ULT_UP;if(!U||!U.svg)return;
+const S=U.svg;
+let _n=0;const gid=p=>'gx'+p+(++_n);
+const clamp=(v,lo,hi)=>hi<lo?(lo+hi)/2:Math.min(Math.max(v,lo),hi);
+const rnd=(a,b)=>a+Math.random()*(b-a);
+
+/* Vùng khung đấu trường (toạ độ viewport) mà sinh vật triệu hồi phải nằm trọn bên trong */
+U.arenaBox=function(c){
+ const R=(c&&c.ar&&c.ar.width)?c.ar:{left:0,top:0,width:innerWidth,height:innerHeight};
+ let l=R.left-8,t=R.top-6,r=R.left+R.width+8,b=R.top+R.height+4;
+ l=Math.max(l,4);t=Math.max(t,4);r=Math.min(r,innerWidth-4);b=Math.min(b,innerHeight-4);
+ return{l,t,r,b,w:r-l,h:b-t};
+};
+
+/* Kẹp các điểm [x,y,sc,rot,op,off] của vật ở LỚP SAU LƯNG (backObj) vào trong khung đấu trường */
+U.fitBack=function(c,w,h,pts){
+ const B=U.arenaBox(c),hw0=(c&&c.a&&c.a.w)||96;
+ const k=(w>64||h>64)?Math.min(.86,Math.max(.52,hw0/136)):Math.min(.95,Math.max(.72,hw0/110));
+ const rw=w*k,rh=h*k;
+ let mx=0;pts.forEach(p=>{if((p[4]==null?1:p[4])>=.05)mx=Math.max(mx,p[2]==null?1:p[2])});
+ const f=Math.min(1,B.h*.96/(rh*(mx||1)),B.w*.96/(rw*(mx||1)));
+ return pts.map(p=>{
+  const q=p.slice(),op=p[4]==null?1:p[4];
+  q[2]=(p[2]==null?1:p[2])*f;
+  if(op>=.05){const hh=rh*q[2]/2,hw=rw*q[2]/2;q[0]=clamp(p[0],B.l+hw,B.r-hw);q[1]=clamp(p[1],B.t+hh,B.b-hh)}
+  return q;
+ });
+};
+
+/* Kẹp các keyframe ufK của vật ở LỚP TRƯỚC (svgObj) vào trong khung đấu trường */
+U.fitFront=function(c,w,h,kf){
+ const B=U.arenaBox(c),k=(w>125||h>125)?.76:(w>70||h>70)?.88:1,rw=w*k,rh=h*k;
+ const re=/translate\(([-\d.eE+]+)px,\s*([-\d.eE+]+)px\)\s*rotate\(([-\d.eE+]+)deg\)\s*scale\(([-\d.eE+]+)\)/;
+ const P=kf.map(o=>{const m=re.exec(o.transform||'');return m?{x:+m[1],y:+m[2],r:+m[3],s:+m[4]}:null});
+ const vis=o=>(o.opacity==null?1:o.opacity)>=.05;
+ let mx=0;kf.forEach((o,i)=>{if(P[i]&&vis(o))mx=Math.max(mx,P[i].s)});
+ const f=Math.min(1,B.h*.96/(rh*(mx||1)),B.w*.96/(rw*(mx||1)));
+ return kf.map((o,i)=>{
+  const p=P[i];if(!p)return o;
+  const s=p.s*f;let x=p.x,y=p.y;
+  if(vis(o)){const hh=rh*s/2,hw=rw*s/2;x=clamp(x,B.l+hw,B.r-hw);y=clamp(y,B.t+hh,B.b-hh)}
+  const q=Object.assign({},o);
+  q.transform='translate('+x.toFixed(1)+'px,'+y.toFixed(1)+'px) rotate('+p.r+'deg) scale('+s.toFixed(3)+')';
+  return q;
+ });
+};
+
+/* ---------- Thần Chết (Tử Thần Liêm Sứ): bóng đen đáng sợ, đầu lâu mắt đỏ, áo choàng rách, lưỡi hái khổng lồ ---------- */
+S.grimReaper=flip=>{
+ const g=gid('rp');
+ let teeth='';for(let i=0;i<6;i++)teeth+=`<rect x="${(109+i*4.5).toFixed(1)}" y="134" width="4.1" height="8.5" rx="1"/>`;
+ const body=`<defs>
+<radialGradient id="${g}m" cx=".4" cy=".55" r=".6"><stop offset="0" stop-color="#7f1d1d" stop-opacity=".6"/><stop offset=".55" stop-color="#2e1065" stop-opacity=".28"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+<linearGradient id="${g}c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b1530"/><stop offset=".45" stop-color="#0a0712"/><stop offset="1" stop-color="#000"/></linearGradient>
+<linearGradient id="${g}b" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#475569"/><stop offset=".5" stop-color="#e2e8f0"/><stop offset="1" stop-color="#94a3b8"/></linearGradient>
+<linearGradient id="${g}k" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e7e5e4"/><stop offset="1" stop-color="#a8a29e"/></linearGradient>
+<radialGradient id="${g}e"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".35" stop-color="#ef4444"/><stop offset="1" stop-color="#7f1d1d" stop-opacity="0"/></radialGradient>
+<linearGradient id="${g}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".85"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>
+<filter id="${g}f" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter></defs>
+<ellipse cx="130" cy="210" rx="130" ry="150" fill="url(#${g}m)"/>
+<g class="rp-so" opacity=".55"><path d="M16 120 C6 100 24 84 36 96 C46 106 40 128 34 146 C30 136 26 140 22 132 C20 138 14 134 16 120Z" fill="#cbd5e1"/><circle cx="24" cy="106" r="2" fill="#0f172a"/><circle cx="32" cy="106" r="2" fill="#0f172a"/><ellipse cx="28" cy="116" rx="3" ry="4.4" fill="#0f172a"/></g>
+<g class="rp-so" opacity=".45"><path d="M250 190 C240 170 258 154 270 166 C280 176 274 198 268 216 C264 206 260 210 256 202 C254 208 248 204 250 190Z" fill="#cbd5e1"/><circle cx="258" cy="176" r="2" fill="#0f172a"/><circle cx="266" cy="176" r="2" fill="#0f172a"/><ellipse cx="262" cy="186" rx="3" ry="4.4" fill="#0f172a"/></g>
+<g class="rp-cl" style="transform-box:view-box;transform-origin:122px 344px">
+<path d="M30 214 C6 232 -2 268 6 316 L28 280 L22 250Z" fill="#05030a" opacity=".85"/>
+<path d="M214 214 C238 232 246 268 238 316 L216 280 L222 250Z" fill="#05030a" opacity=".85"/>
+<path d="M122 40 C88 50 66 80 64 118 C46 134 30 168 24 214 C20 254 14 296 12 332 L26 308 L38 338 L54 312 L68 340 L84 314 L100 342 L116 318 L132 344 L148 318 L164 340 L180 314 L196 338 L212 308 L228 332 C226 296 220 254 216 214 C210 168 194 134 180 118 C178 80 156 50 122 40Z" fill="url(#${g}c)" stroke="#000" stroke-width="2"/>
+<path d="M122 150 C112 210 100 270 94 330 M90 160 C76 210 62 270 52 320 M154 160 C166 214 178 270 186 326 M64 150 C46 190 36 240 30 296" stroke="#4c1d95" stroke-width="1.6" fill="none" opacity=".45"/>
+<path d="M44 238 Q84 266 122 256 Q160 266 202 234" fill="none" stroke="#a8a29e" stroke-width="3.6" stroke-dasharray="5 3"/>
+<circle cx="122" cy="258" r="9" fill="url(#${g}k)" stroke="#0c0a09" stroke-width="1.6"/><circle cx="118.6" cy="256" r="2.2" fill="#000"/><circle cx="125.4" cy="256" r="2.2" fill="#000"/><path d="M122 260 l-1.6 3 h3.2z" fill="#000"/>
+</g>
+<g>
+<path d="M122 38 C88 48 66 78 64 118 C64 142 78 156 98 162 L146 162 C166 156 180 142 180 118 C178 78 156 48 122 38Z" fill="#05030a" stroke="#6d28d9" stroke-width="1.8"/>
+<path d="M64 118 C66 78 88 48 122 38" fill="none" stroke="#ef4444" stroke-width="1.4" opacity=".6"/>
+<path d="M122 66 C100 70 88 92 90 116 C92 140 106 152 122 154 C138 152 152 140 154 116 C156 92 144 70 122 66Z" fill="#000"/>
+<path d="M122 84 C106 84 98 97 99 112 C100 122 104 128 108 132 L108 142 L136 142 L136 132 C140 128 144 122 145 112 C146 97 138 84 122 84Z" fill="url(#${g}k)" opacity=".92"/>
+<rect x="98" y="84" width="48" height="30" fill="url(#${g}s)"/>
+<ellipse cx="111" cy="111" rx="7.6" ry="9.4" fill="#000" transform="rotate(8 111 111)"/>
+<ellipse cx="133" cy="111" rx="7.6" ry="9.4" fill="#000" transform="rotate(-8 133 111)"/>
+<g class="rp-eye"><circle cx="111" cy="112" r="11" fill="url(#${g}e)"/><circle cx="133" cy="112" r="11" fill="url(#${g}e)"/><circle cx="111" cy="112" r="2.8" fill="#fff"/><circle cx="133" cy="112" r="2.8" fill="#fff"/></g>
+<path d="M122 122 l-3.6 8 h7.2z" fill="#0a0a0a"/>
+<rect x="108" y="133" width="28" height="9.5" fill="#000" opacity=".4"/>
+<g fill="#f5f5f4" stroke="#000" stroke-width=".8">${teeth}</g>
+<path d="M108 138 H136" stroke="#000" stroke-width="1.1"/>
+</g>
+<g class="rp-sc" style="transform-box:view-box;transform-origin:188px 215px">
+<path d="M178 346 L188 22" stroke="#1c1917" stroke-width="8.5" stroke-linecap="round"/>
+<path d="M178 346 L188 22" stroke="#57534e" stroke-width="2" stroke-linecap="round" opacity=".6"/>
+<g fill="url(#${g}k)" stroke="#0c0a09" stroke-width="1.4"><rect x="173" y="150" width="19" height="6" rx="2"/><rect x="171" y="300" width="19" height="6" rx="2"/><rect x="180" y="60" width="17" height="6" rx="2"/></g>
+<path d="M186 34 C220 -8 292 -4 326 74 C292 28 236 30 200 62Z" fill="#ef4444" opacity=".55" filter="url(#${g}f)"/>
+<path d="M186 34 C220 -8 292 -4 326 74 C292 28 236 30 200 62Z" fill="url(#${g}b)" stroke="#0f172a" stroke-width="2.4" stroke-linejoin="round"/>
+<path d="M326 74 C292 28 236 30 200 62" fill="none" stroke="#fecaca" stroke-width="1.8" opacity=".85"/>
+<path d="M214 14 l4 8 M236 6 l2 10 M260 6 l-1 10 M284 16 l-3 9" stroke="#1e293b" stroke-width="2" opacity=".6"/>
+<path d="M258 36 v14 M280 44 v10" stroke="#b91c1c" stroke-width="2.4" stroke-linecap="round" opacity=".8"/>
+<path d="M180 40 L198 28 L206 44 L190 56Z" fill="#292524" stroke="#0c0a09" stroke-width="2"/>
+<path d="M170 146 C200 154 212 190 206 226 L172 214 C170 190 166 168 164 150Z" fill="#06040c" stroke="#312e81" stroke-width="1.4"/>
+<g fill="none" stroke-linecap="round"><path d="M176 190 q14 -5 22 1 M176 198 q14 -5 22 1 M177 206 q14 -5 22 1" stroke="#0c0a09" stroke-width="6.4"/><path d="M176 190 q14 -5 22 1 M176 198 q14 -5 22 1 M177 206 q14 -5 22 1" stroke="#e7e5e4" stroke-width="3.4"/></g>
+<path d="M150 236 L178 258" stroke="#0c0a09" stroke-width="8" stroke-linecap="round"/><path d="M150 236 L178 258" stroke="#e7e5e4" stroke-width="4.4" stroke-linecap="round"/>
+<g fill="none" stroke-linecap="round"><path d="M180 254 q12 -4 18 2 M181 262 q12 -4 18 2 M182 270 q11 -3 17 2" stroke="#0c0a09" stroke-width="6.2"/><path d="M180 254 q12 -4 18 2 M181 262 q12 -4 18 2 M182 270 q11 -3 17 2" stroke="#e7e5e4" stroke-width="3.2"/></g>
+</g>`;
+ return flip?`<g transform="translate(330,0) scale(-1,1)">${body}</g>`:body;
+};
+
+/* Thần Chết trồi lên cùng lúc với hình nền chiêu nộ, to bằng cả khung đấu trường, đứng sau nhân vật và vung lưỡi hái đúng nhịp đòn chém */
+U.reaperLoom=function(c){
+ const{a,sd}=c,B=U.arenaBox(c),R=(c.ar&&c.ar.width)?c.ar:{left:0,top:0,width:innerWidth,height:innerHeight};
+ const H=Math.round(Math.max(150,R.height+14)),s=H/350,Wb=Math.round(330*s);
+ let cx=a.x-sd*a.w*.62+sd*43*s;
+ cx=clamp(cx,B.l+Wb/2,B.r-Wb/2);
+ const cy=R.top+R.height+6-H/2;
+ const e=U.backBox(c,Wb,H,'filter:drop-shadow(0 0 20px #7f1d1d) drop-shadow(0 0 6px #000)',
+  `<svg viewBox="0 0 330 350" width="${Wb}" height="${H}" style="display:block;overflow:visible">${S.grimReaper(sd<0)}</svg>`);
+ const K=(dy,sc,op,off)=>U.bk(c,cx,cy+dy,sc,0,op,off);
+ const k0=K(H*.5,.72,0,0);k0.easing='cubic-bezier(.14,1,.28,1)';
+ e.animate([k0,K(H*.02,1,1,.09),K(-H*.01,1.02,1,.5),K(-H*.02,1.04,.96,.89),K(H*.3,.96,0,1)],{duration:4200,delay:180,fill:'both',easing:'ease-in-out'});
+ const q=sel=>e.querySelector(sel);
+ const sc=q('.rp-sc'),eye=q('.rp-eye'),cl=q('.rp-cl');
+ if(sc)sc.animate([{transform:'rotate(0deg)'},{transform:'rotate(-26deg)',offset:.34},{transform:'rotate(38deg)',offset:.52},{transform:'rotate(30deg)',offset:.72},{transform:'rotate(0deg)'}],{duration:1500,delay:2180,fill:'both',easing:'ease-in-out'});
+ if(eye)eye.animate([{opacity:.72},{opacity:1},{opacity:.8},{opacity:1}],{duration:520,delay:180,iterations:Infinity,direction:'alternate'});
+ if(cl)cl.animate([{transform:'skewX(0deg)'},{transform:'skewX(-2deg)'},{transform:'skewX(1.6deg)'},{transform:'skewX(0deg)'}],{duration:1900,delay:180,iterations:Infinity,easing:'ease-in-out'});
+ e.querySelectorAll('.rp-so').forEach((so,i)=>so.animate([{transform:'translateY(0px)'},{transform:'translateY(-10px)'},{transform:'translateY(0px)'}],{duration:1500+i*300,delay:180,iterations:Infinity,easing:'ease-in-out'}));
+ return e;
+};
+
+/* ---------- Thách đấu sinh tử: khán đài đông nghẹt khán giả nhảy nhót, hò reo lấp đầy khung hình nền ---------- */
+U.crowdStand=function(c){
+ const R=(c.ar&&c.ar.width)?c.ar:{left:0,top:0,width:innerWidth,height:innerHeight};
+ const bk=U.backEl(c);
+ let ins={l:-12,t:-14,w:R.width+24,h:R.height+22};
+ try{const w=c.arn&&c.arn.querySelector('.ufx-arn-wrap');if(w){const q=w.getBoundingClientRect();if(q.width>50&&q.height>50)ins={l:q.left-R.left,t:q.top-R.top,w:q.width,h:q.height}}}catch(_){}
+ const W=Math.round(ins.w),H=Math.round(ins.h);
+ const box=document.createElement('div');
+ box.className='cwd-box';
+ box.style.cssText=`position:absolute;left:${ins.l}px;top:${ins.t}px;width:${W}px;height:${H}px;overflow:hidden;border-radius:18px;pointer-events:none;background:linear-gradient(180deg,rgba(67,20,7,.55),rgba(24,8,3,.8));`;
+ const SK=['#fcd9b6','#f3c18d','#d9a066','#b9794a','#8d5a36'],
+  CL=['#ef4444','#f59e0b','#fde047','#22c55e','#38bdf8','#e879f9','#fb923c','#a78bfa','#f43f5e','#2dd4bf'],
+  HR=['#1c1917','#451a03','#78350f','#f5d0a0','#e5e7eb','#7c2d12'];
+ const pick=a=>a[Math.random()*a.length|0];
+ const person=()=>{
+  const sk=pick(SK),cl=pick(CL),hr=pick(HR),cl2=pick(CL),kind=Math.random()*4|0;
+  const hand=(x,y)=>kind===1?`<circle cx="${x}" cy="${y}" r="4.4" fill="${cl2}" stroke="#431407" stroke-width=".6"/><circle cx="${x-2}" cy="${y-2}" r="1.6" fill="#fff" opacity=".7"/>`:kind===3?`<ellipse cx="${x}" cy="${y-2}" rx="3.6" ry="5.4" fill="${cl2}" stroke="#431407" stroke-width=".6"/>`:'';
+  const flag=kind===2?`<path d="M27 4 V-9" stroke="#78350f" stroke-width="1.3"/><path d="M27 -9 l9 2.6 -9 3.4z" fill="${cl2}" stroke="#431407" stroke-width=".6"/>`:'';
+  return `<svg viewBox="0 0 30 46" width="100%" height="100%"><rect x="9" y="37" width="5" height="9" rx="2" fill="#27272a"/><rect x="16" y="37" width="5" height="9" rx="2" fill="#27272a"/><g class="ar"><line x1="9" y1="24" x2="3" y2="5" stroke="${sk}" stroke-width="3.6" stroke-linecap="round"/>${hand(3,4)}</g><g class="ar r"><line x1="21" y1="24" x2="27" y2="5" stroke="${sk}" stroke-width="3.6" stroke-linecap="round"/>${hand(27,4)}${flag}</g><rect x="8" y="19" width="14" height="20" rx="5" fill="${cl}" stroke="#431407" stroke-width=".8"/><circle cx="15" cy="12" r="7" fill="${sk}" stroke="#431407" stroke-width=".8"/><path d="M8 11 Q15 0 22 11 Q15 6 8 11Z" fill="${hr}"/><circle cx="12.4" cy="11.4" r="1" fill="#1c1917"/><circle cx="17.6" cy="11.4" r="1" fill="#1c1917"/><ellipse cx="15" cy="15.6" rx="2.6" ry="2.2" fill="#7f1d1d"/></svg>`;
+ };
+ let html=`<style>
+@keyframes cwdJ{0%,100%{transform:translateY(0) scale(1,1)}12%{transform:translateY(0) scale(1.06,.9)}50%{transform:translateY(var(--j,-18px)) scale(.97,1.06)}88%{transform:translateY(0) scale(1.05,.93)}}
+@keyframes cwdA{0%,100%{transform:rotate(-14deg)}50%{transform:rotate(16deg)}}
+@keyframes cwdS{from{transform:rotate(-7deg)}to{transform:rotate(7deg)}}
+@keyframes cwdF{from{transform:scale(1) translateY(0)}to{transform:scale(1.18) translateY(-2px)}}
+.cwd-p{position:absolute;transform-origin:50% 100%;animation:cwdJ var(--d,.5s) ease-in-out var(--dl,0s) infinite}
+.cwd-p svg{display:block;overflow:visible}
+.cwd-p .ar{transform-box:view-box;transform-origin:9px 24px;animation:cwdA var(--d,.5s) ease-in-out var(--dl,0s) infinite}
+.cwd-p .ar.r{transform-origin:21px 24px;animation-direction:reverse}
+.cwd-b{position:absolute;top:0;width:22px;height:46px;font-size:13px;line-height:46px;text-align:center;clip-path:polygon(0 0,100% 0,100% 86%,50% 100%,0 86%);transform-origin:50% 0;animation:cwdS 1.1s ease-in-out infinite alternate}
+.cwd-f{position:absolute;top:2px;font-size:20px;line-height:1;animation:cwdF .3s ease-in-out infinite alternate}
+</style>`;
+ [[.36,.6],[.52,.72],[.68,.85],[.84,1],[1.02,1.15]].forEach(([fy,s],r)=>{
+  const ph=Math.round(54*s),pw=Math.round(ph*30/46),yb=Math.round(H*fy),sp=pw+2;
+  let row=`<div style="position:absolute;left:0;top:0;width:${W}px;height:${H}px">`;
+  row+=`<div style="position:absolute;left:0;top:${yb-2}px;width:${W}px;height:${Math.max(10,Math.round(12*s))}px;background:linear-gradient(180deg,#9a3412,#431407);border-top:2px solid rgba(253,186,116,.55)"></div>`;
+  const n=Math.ceil(W/sp)+1;
+  for(let i=0;i<n;i++){
+   const x=Math.round(i*sp-pw*.25+rnd(-3,3)),jt=Math.round((10+rnd(0,14))*s),dur=(.42+rnd(0,.2)).toFixed(2),dl=((x/W)*.9+rnd(0,.1)).toFixed(2);
+   row+=`<div class="cwd-p" style="left:${x}px;top:${yb-ph}px;width:${pw}px;height:${ph}px;--j:${-jt}px;--d:${dur}s;--dl:${dl}s">${person()}</div>`;
+  }
+  row+=`<div style="position:absolute;left:0;top:0;width:${W}px;height:${H}px;background:rgba(0,0,0,${(.42-.1*r).toFixed(2)})"></div></div>`;
+  html+=row;
+ });
+ for(let i=0;i<6;i++){const bx=Math.round(W*(i+.5)/6-11);html+=`<div class="cwd-b" style="left:${bx}px;background:linear-gradient(180deg,${CL[(i*3)%CL.length]},#431407)">⚔️</div>`}
+ html+=`<div class="cwd-f" style="left:6px">🔥</div><div class="cwd-f" style="right:6px;animation-delay:.2s">🔥</div>`;
+ box.innerHTML=html;
+ bk.insertBefore(box,bk.firstChild);
+ box.animate([{transform:'translateY(106%)',opacity:.3,easing:'cubic-bezier(.14,1,.28,1)'},{transform:'translateY(0)',opacity:1,offset:.09},{transform:'translateY(0)',opacity:1,offset:.89},{transform:'translateY(106%)',opacity:0}],{duration:4250,delay:180,fill:'both'});
+ [[.18,600],[.5,1300],[.82,2000],[.34,2700],[.66,3300]].forEach(([fx,dl])=>ufBurst(R.left+R.width*fx,R.top+36,['🎉','🎊','✨','👏','📣'],7,95,dl,22,900));
+ return box;
+};
+})();
+</script>
+
 </body>
 </html>
