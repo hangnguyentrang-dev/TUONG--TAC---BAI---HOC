@@ -550,6 +550,17 @@ body.ush-on .ufx{z-index:100001!important}body.ush-on .ult{z-index:100002!import
 .a7in{flex:1;min-width:0;font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:7px 10px;outline:0}
 .arn.a7{align-items:stretch}.a7s{display:flex;flex-direction:column;gap:8px;min-width:0}
 .a7bk{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;align-items:flex-end;min-height:58px}
+/* Nộ của thành viên dự bị: nền trắng avatar là bình nộ, dâng lên theo tầng, viền sóng, đủ nộ thì lửa cháy (gói gọn trong avatar) */
+.a7a svg{position:relative;z-index:1}
+.a7rg{position:absolute;left:0;right:0;bottom:0;height:calc(var(--f,0)*100%);background:linear-gradient(0deg,rgba(220,38,38,.92),rgba(249,115,22,.88));z-index:0;pointer-events:none;transition:height .6s cubic-bezier(.3,1.2,.4,1)}
+.a7rg:before,.a7rg:after{content:"";position:absolute;left:0;right:0;top:-5px;height:8px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='8' viewBox='0 0 24 8'%3E%3Cpath d='M0 4Q6 0 12 4T24 4V8H0Z' fill='%23f97316' fill-opacity='.88'/%3E%3C/svg%3E") repeat-x;background-size:24px 8px;animation:a7Wv 1.4s linear infinite}
+.a7rg:after{top:-3px;opacity:.55;background-size:18px 8px;animation:a7Wv2 2.1s linear infinite;filter:hue-rotate(-12deg) brightness(1.15)}
+@keyframes a7Wv{to{background-position-x:24px}}@keyframes a7Wv2{to{background-position-x:-18px}}
+.a7rg.full{height:100%;background:radial-gradient(circle at 50% 110%,#fde047 0,#f97316 42%,#dc2626 88%);animation:a7Fire .55s ease-in-out infinite alternate}
+.a7rg.full:before,.a7rg.full:after{display:none}
+.a7rg.full b{position:absolute;bottom:-4px;font-size:24px;line-height:1;font-weight:400;transform-origin:50% 100%;animation:a7Fl .5s ease-in-out infinite alternate}
+.a7rg.full b:nth-child(1){left:-3px}.a7rg.full b:nth-child(2){left:16px;font-size:30px;animation-delay:-.2s}.a7rg.full b:nth-child(3){right:-3px;animation-delay:-.35s}
+@keyframes a7Fire{from{filter:brightness(.95)}to{filter:brightness(1.2)}}@keyframes a7Fl{from{transform:translateY(1px) scale(.9,.85)}to{transform:translateY(-3px) scale(1.1,1.2)}}
 .a7m{position:relative;width:64px;display:flex;flex-direction:column;align-items:center;gap:3px;opacity:.92}.a7m.dead{opacity:.4;filter:grayscale(1)}
 .a7a{position:relative;width:54px;height:54px;border-radius:50%;overflow:hidden;background:var(--card);border:3px solid var(--c,#cbd5e1);display:grid;place-items:start center;box-shadow:0 2px 6px rgba(0,0,0,.2);transition:transform .15s}.a7a span{position:absolute;inset:0;display:grid;place-items:center;font-size:26px;z-index:2;background:rgba(255,255,255,.35)}.a7nm{max-width:64px;font-size:11px;font-weight:800;line-height:1.15;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink)}
 .a7a svg{width:70px;height:auto;display:block;margin-top:2px}.a7s.s1 .a7a svg{transform:scaleX(-1)}
@@ -823,7 +834,7 @@ try{D=JSON.parse(localStorage.getItem('quizdata')||'null')}catch(e){}
 if(!D||!D.classes){D={classes:[{id:uid(),name:'Lớp mẫu',h:225,lessons:[{id:uid(),name:'Bài mẫu: Địa lí Việt Nam',questions:[
 {q:'Thủ đô của Việt Nam là thành phố nào?',o:['Hà Nội','Huế','Đà Nẵng','TP. Hồ Chí Minh'],a:0},
 {q:'Sông nào dài nhất chảy qua lãnh thổ Việt Nam?',o:['Sông Hồng','Sông Mê Công','Sông Đà','Sông Cầu'],a:1}]}]}]}}
-const save=()=>{try{localStorage.setItem('quizdata',JSON.stringify(D))}catch(e){toast('Bộ nhớ trình duyệt đã đầy, hãy dùng hình nhỏ hơn hoặc xoá bớt bài tập')}};
+try{if(D&&!D.needV2){(function w(o){if(!o||typeof o!=='object')return;if(o.cl&&typeof o.cl==='object'&&!Array.isArray(o.cl))Object.values(o.cl).forEach(c=>{if(c&&typeof c==='object'&&'need' in c)c.need=2});Object.values(o).forEach(w)})(D);D.needV2=1;localStorage.setItem('quizdata',JSON.stringify(D))}}catch(e){} try{if(D&&!D.rV2){(function w(o){if(!o||typeof o!=='object')return;if(o.cl&&typeof o.cl==='object'&&!Array.isArray(o.cl)){['berserker'].forEach(k=>{const c=o.cl[k];if(c&&typeof c==='object'){c.per=5;c.cap=15}})}Object.values(o).forEach(w)})(D);D.rV2=1;localStorage.setItem('quizdata',JSON.stringify(D))}}catch(e){} try{if(D&&!D.rV3){(function w(o){if(!o||typeof o!=='object')return;if(o.cl&&typeof o.cl==='object'&&!Array.isArray(o.cl)){const c=o.cl.dragoon;if(c&&typeof c==='object'){c.per=2;c.cap=12}}Object.values(o).forEach(w)})(D);D.rV3=1;localStorage.setItem('quizdata',JSON.stringify(D))}}catch(e){} try{if(D&&!D.rV4){(function w(o){if(!o||typeof o!=='object')return;if(o.cl&&typeof o.cl==='object'&&!Array.isArray(o.cl)){const c=o.cl.dragoon;if(c&&typeof c==='object')c.rn=3}Object.values(o).forEach(w)})(D);D.rV4=1;localStorage.setItem('quizdata',JSON.stringify(D))}}catch(e){} try{if(D&&!D.rV5){(function w(o){if(!o||typeof o!=='object')return;if(o.cl&&typeof o.cl==='object'&&!Array.isArray(o.cl)){const c=o.cl.dragoon;if(c&&typeof c==='object'){c.per=5;c.cap=15}}Object.values(o).forEach(w)})(D);D.rV5=1;localStorage.setItem('quizdata',JSON.stringify(D))}}catch(e){} try{if(D&&!D.rV6){(function w(o){if(!o||typeof o!=='object')return;if(o.cl&&typeof o.cl==='object'&&!Array.isArray(o.cl)){const c=o.cl.dragoon;if(c&&typeof c==='object')c.at=3}Object.values(o).forEach(w)})(D);D.rV6=1;localStorage.setItem('quizdata',JSON.stringify(D))}}catch(e){} const save=()=>{try{localStorage.setItem('quizdata',JSON.stringify(D))}catch(e){toast('Bộ nhớ trình duyệt đã đầy, hãy dùng hình nhỏ hơn hoặc xoá bớt bài tập')}};
 const clampP=v=>Math.min(100,Math.max(1,Math.round(+v)||1));
 function normD(){
 D.classes.forEach(c=>c.lessons.forEach(l=>l.questions.forEach(q=>{q.p=clampP(q.p);if(l.type==='order'&&q.a==null&&q.q){q.a=q.q;q.q=''}})));
@@ -2396,7 +2407,7 @@ balloon:{n:'Bắn bóng bay',d:'Bắn trúng quả bóng mang đáp án đúng',
 mil:{n:'Ai là triệu phú',d:'Leo thang câu hỏi, có 3 quyền trợ giúp',p:[['m','Số bậc thang',5,15,10]]},
 boss:{n:'Đánh boss',d:'Mỗi đội một con boss, đội nào hạ boss trước thì thắng, sai thì mất tim',p:[['m','Máu của mỗi boss',5,40,12],['t','Số tim mỗi đội',1,5,3]]},
 tug:{n:'Kéo co',d:'Hai đội cùng trả lời, đúng thì kéo dây về phía mình; hết câu, đội nhiều điểm hơn thắng',p:[]},
-arena:{n:'Đối kháng',d:'2 đội đấu theo lượt, mỗi đội một nhân vật có thanh máu, trả lời đúng thì đánh đối phương và nhận quà ngẫu nhiên',p:[['hp','Máu mỗi nhân vật (1 máu = 1 điểm)',20,200,50],['gc','Tỉ lệ câu có hộp quà (%)',0,100,60],['rgn','Nộ nhận mỗi câu đúng (%, 0 = tắt chiêu tối thượng)',0,100,25],['evp','Tỉ lệ có sự kiện ngẫu nhiên mỗi lượt (%, 0 = tắt)',0,100,20]]}};
+arena:{n:'Đối kháng',d:'2 đội đấu theo lượt, mỗi đội một nhân vật có thanh máu, trả lời đúng thì đánh đối phương và nhận quà ngẫu nhiên',p:[['hp','Máu mỗi nhân vật (1 máu = 1 điểm)',20,200,50],['gc','Tỉ lệ câu có hộp quà (%)',0,100,60],['rgn','Chiêu nộ (1 = bật, 0 = tắt). Số lần kích hoạt nội tại để đầy nộ chỉnh riêng ở từng nhân vật',0,1,1],['evp','Tỉ lệ có sự kiện ngẫu nhiên mỗi lượt (%, 0 = tắt)',0,100,20]]}};
 const GT=['mc','tf','odd','essay','vocab'],GC=['#e5484d','#3a5bff','#16a34a','#f59e0b','#9333ea'];
 let G=null,GTM=[],GP=null;
 const tyLbl=x=>x.g?`${tyIco('g_'+x.g).replace('class="ti"','class="ti" style="width:1em;height:1em;vertical-align:-2px"')} ${GAMES[x.g].n} · ${TYPES[T(x)].n}`:`${TYPES[T(x)].i} ${TYPES[T(x)].n}`;
@@ -2524,8 +2535,8 @@ const CGT=[
 {id:'arm',name:'Giáp giảm sát thương',cat:'Phòng thủ',ic:'🪖',fx:'rg',col:'#9aa7b5',df:{pc:40,tn:2},d:'Giảm {pc}% sát thương trong {tn} lượt',f:p=>a=>{a.ar=p.tn+1;a.arp=p.pc}},
 {id:'ref',name:'Phản đòn',cat:'Phòng thủ',ic:'🪞',fx:'sp',col:'#8ee3f5',df:{pc:70},d:'Phản lại {pc}% sát thương kế tiếp',f:p=>a=>{a.rf=p.pc}},
 {id:'rev',name:'Hồi sinh',cat:'Phòng thủ',ic:'🦅',fx:'rs',col:'#ff9f1c',df:{hp:15},d:'Hồi sinh với {hp} HP khi bị hạ gục',f:p=>a=>{a.ph=p.hp}},
-{id:'frz',name:'Đóng băng',cat:'Khống chế',ic:'❄️',fx:'gl',col:'#8fdcff',opp:1,df:{tn:1},d:'Đóng băng đối thủ trong {tn} lượt',f:p=>(a,b)=>{b.fz=p.tn}},
-{id:'sea',name:'Phong ấn',cat:'Khống chế',ic:'🔒',fx:'rg',col:'#d4a017',opp:1,df:{tn:3},d:'Khóa buff tấn công của đối thủ trong {tn} lượt',f:p=>(a,b)=>{b.seal=p.tn}},
+{id:'frz',name:'Đóng băng',cat:'Khống chế',ic:'❄️',fx:'gl',col:'#8fdcff',opp:1,df:{tn:1},d:'Đóng băng đối thủ trong {tn} lượt',f:p=>(a,b)=>{b.fz=Math.max(b.fz||0,p.tn)}},
+{id:'sea',name:'Phong ấn',cat:'Khống chế',ic:'🔒',fx:'rg',col:'#d4a017',opp:1,df:{tn:3},d:'Khóa buff tấn công của đối thủ trong {tn} lượt',f:p=>(a,b)=>{b.seal=Math.max(b.seal||0,p.tn)}},
 {id:'wk',name:'Làm yếu',cat:'Khống chế',ic:'🌀',fx:'sp',col:'#a855f7',opp:1,df:{pc:60},d:'Giảm {pc}% sát thương đòn đánh kế tiếp của đối thủ',f:p=>(a,b)=>{b.chaos=p.pc}},
 {id:'hl',name:'Hồi máu',cat:'Hồi phục',ic:'💊',fx:'rs',col:'#ef4444',df:{hp:12},d:'Hồi {hp} HP',f:p=>(a,b,t)=>aHeal(t,p.hp)},
 {id:'hlp',name:'Hồi theo %',cat:'Hồi phục',ic:'✨',fx:'gl',col:'#fde047',df:{hpp:30},d:'Hồi {hpp}% HP tối đa',f:p=>(a,b,t)=>aHeal(t,Math.round(G.s.hp*p.hpp/100))},
@@ -2570,15 +2581,15 @@ const AV=[`<svg viewBox="0 0 120 160"><path d="M96 14l7 7-38 76-9-5z" fill="#dfe
 
 const CLS=[
 {id:'sword',n:'Kiếm sĩ',e:'Swordsman',w:'Kiếm dài',pn:'Kiếm Thuật Liên Hoàn',c:'#e5484d',ic:'⚔️',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh ở câu đúng kế tiếp gây sát thương x{mult} và giảm {ah}% hồi máu của mục tiêu trong {ahn} lượt',p:[['need','Số câu đúng liên tiếp',1,10,2],['mult','Hệ số sát thương',2,10,2],['ah','% giảm hồi máu của mục tiêu',1,100,40],['ahn','Số lượt giảm hồi máu',1,5,2]]},
-{id:'mage',n:'Pháp sư',e:'Mage',w:'Trượng phép',pn:'Băng Thuật',c:'#7c3aed',ic:'🧙',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh ở câu đúng kế tiếp đóng băng đối thủ, khiến đối thủ mất {fz} lượt kế tiếp và giảm {ah}% hồi máu của mục tiêu trong {ahn} lượt',p:[['need','Số câu đúng liên tiếp',1,10,3],['fz','Số lượt đóng băng',1,3,1],['ah','% giảm hồi máu của mục tiêu',1,100,40],['ahn','Số lượt giảm hồi máu',1,5,2]]},
+{id:'mage',n:'Pháp sư',e:'Mage',w:'Trượng phép',pn:'Băng Thuật',c:'#7c3aed',ic:'🧙',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh ở câu đúng kế tiếp đóng băng đối thủ, khiến đối thủ mất {fz} lượt kế tiếp và giảm {ah}% hồi máu của mục tiêu trong {ahn} lượt',p:[['need','Số câu đúng liên tiếp',1,10,2],['fz','Số lượt đóng băng',1,3,1],['ah','% giảm hồi máu của mục tiêu',1,100,40],['ahn','Số lượt giảm hồi máu',1,5,2]]},
 {id:'archer',n:'Cung thủ',e:'Archer',w:'Cung ma thuật',pn:'Xuyên Tâm Tiễn',c:'#16a34a',ic:'🏹',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh tiếp theo gây sát thương x{mult} và bỏ qua {pen}% hiệu quả giáp và giảm {ah}% hồi máu của mục tiêu trong {ahn} lượt',p:[['need','Số câu đúng liên tiếp',1,10,2],['mult','Hệ số sát thương (x)',2,10,2],['pen','% giáp bị bỏ qua',0,100,50],['ah','% giảm hồi máu của mục tiêu',1,100,40],['ahn','Số lượt giảm hồi máu',1,5,2]]},
-{id:'assassin',n:'Sát thủ',e:'Assassin',w:'Song đao',pn:'Ám Sát',c:'#475569',ic:'🗡️',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh tiếp theo có {ch}% cơ hội gây sát thương x{mult}',p:[['need','Số câu đúng liên tiếp',1,10,3],['ch','Cơ hội (%)',1,100,40],['mult','Hệ số sát thương',2,10,3]]},
+{id:'assassin',n:'Sát thủ',e:'Assassin',w:'Song đao',pn:'Ám Sát',c:'#475569',ic:'🗡️',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh tiếp theo có {ch}% cơ hội gây sát thương x{mult}; nếu đối thủ dưới {lowp}% HP thì cơ hội cộng thêm {lowch}%',p:[['need','Số câu đúng liên tiếp',1,10,2],['ch','Cơ hội (%)',1,100,40],['mult','Hệ số sát thương',2,10,3],['lowp','Ngưỡng HP đối thủ để cộng cơ hội (%)',1,99,30],['lowch','Cơ hội cộng thêm khi đối thủ thấp máu (%)',1,100,25]]},
 {id:'guardian',n:'Hộ vệ',e:'Guardian',w:'Đại khiên và kiếm',pn:'Bức Tường Kiên Cố',c:'#0ea5e9',ic:'🛡️',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Tạo lá chắn chặn {bp}% sát thương nhận cho cả đội trong {tn} lượt',p:[['need','Số câu đúng liên tiếp',1,10,2],['bp','% sát thương lá chắn chặn',1,90,40],['tn','Số lượt',1,10,2]]},
-{id:'berserker',n:'Cuồng chiến',e:'Berserker',w:'Rìu chiến',pn:'Cuồng Nộ',c:'#b91c1c',ic:'🪓',k:'r',cd:'Mỗi câu trả lời đúng liên tiếp',ef:'Đòn đánh kế tiếp được cộng {per}% sát thương (cộng dồn theo chuỗi), tối đa +{cap}%',p:[['per','% sát thương cộng mỗi câu đúng',1,100,25],['cap','% sát thương cộng tối đa',1,500,150]]},
-{id:'paladin',n:'Thánh kỵ sĩ',e:'Paladin',w:'Kiếm thánh',pn:'Thánh Ân',c:'#eab308',ic:'✨',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Hồi {hlp}% máu hiện có cho đồng đội có HP thấp nhất. Nếu cả đội đầy HP, hồi cho bản thân',p:[['need','Số câu đúng liên tiếp',1,10,3],['hlp','% máu hiện có được hồi',1,100,25]]},
+{id:'berserker',n:'Cuồng chiến',e:'Berserker',w:'Rìu chiến',pn:'Cuồng Nộ',c:'#b91c1c',ic:'🪓',k:'r',cd:'Mỗi câu trả lời đúng',ef:'Đòn đánh kế tiếp được cộng {per}% sát thương (cộng dồn theo chuỗi), tối đa +{cap}%; đồng thời giảm {dr}% sát thương nhận vào',p:[['per','% sát thương cộng mỗi câu đúng',1,100,5],['cap','% sát thương cộng tối đa',1,500,15],['dr','% sát thương nhận vào được giảm',0,90,10]]},
+{id:'paladin',n:'Thánh kỵ sĩ',e:'Paladin',w:'Kiếm thánh',pn:'Thánh Ân',c:'#eab308',ic:'✨',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Hồi {hlp}% máu hiện có cho đồng đội có HP thấp nhất. Nếu cả đội đầy HP, hồi cho bản thân',p:[['need','Số câu đúng liên tiếp',1,10,2],['hlp','% máu hiện có được hồi',1,100,25]]},
 {id:'plague',n:'Độc sư',e:'Plague Alchemist',w:'Song đao tẩm độc',pn:'Độc Chú',c:'#65a30d',ic:'🧪',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh tiếp theo gây độc: cứ mỗi {ev} lượt đối thủ mất {pct}% HP đang có, kéo dài {tn} lượt',p:[['need','Số câu đúng liên tiếp',1,10,2],['pct','% HP đang có mất mỗi đợt',1,100,25],['ev','Cứ mỗi … lượt mất HP',1,5,2],['tn','Số lượt độc',1,10,4]]},
-{id:'summoner',n:'Triệu hồi sư',e:'Summoner',w:'Trượng triệu hồi',pn:'Linh Thú Hộ Chiến',c:'#0891b2',ic:'🐺',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Triệu hồi linh thú ban phước: {hits} đòn đánh tiếp theo của cả đội được cộng {dm}% sát thương trong {tn} lượt',p:[['need','Số câu đúng liên tiếp',1,10,3],['dm','Sát thương thêm (%)',1,200,10],['hits','Số đòn đánh',1,10,2],['tn','Số lượt',1,10,2]]},
-{id:'chrono',n:'Thời không sư',e:'Chronomancer',w:'Quyền trượng thời gian',pn:'Dòng Chảy Thời Gian',c:'#4f46e5',ic:'⏳',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Hồi {hlp}% máu hiện có cho đồng đội có HP thấp nhất, không vượt quá HP tối đa',p:[['need','Số câu đúng liên tiếp',1,10,4],['hlp','% máu hiện có được hồi',1,100,25]]}];
+{id:'summoner',n:'Triệu hồi sư',e:'Summoner',w:'Trượng triệu hồi',pn:'Linh Thú Hộ Chiến',c:'#0891b2',ic:'🐺',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Triệu hồi linh thú ban phước: {hits} đòn đánh tiếp theo của cả đội được cộng {dm}% sát thương trong {tn} lượt',p:[['need','Số câu đúng liên tiếp',1,10,2],['dm','Sát thương thêm (%)',1,200,10],['hits','Số đòn đánh',1,10,2],['tn','Số lượt',1,10,2]]},
+{id:'chrono',n:'Thời không sư',e:'Chronomancer',w:'Quyền trượng thời gian',pn:'Dòng Chảy Thời Gian',c:'#4f46e5',ic:'⏳',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Hồi {hlp}% máu hiện có cho đồng đội có HP thấp nhất, không vượt quá HP tối đa',p:[['need','Số câu đúng liên tiếp',1,10,2],['hlp','% máu hiện có được hồi',1,100,25]]}];
 const clsDef=id=>CLS.find(c=>c.id===id);
 const clsVal=(s,id,k)=>{const v=s&&s.cl&&s.cl[id]&&s.cl[id][k];return v==null?(clsDef(id).p.find(p=>p[0]===k)||[0,0,0,0,0])[4]:v};
 const clsFill=(t,s,id)=>t.replace(/\{(\w+)\}/g,(_,k)=>clsVal(s,id,k));
@@ -2596,10 +2607,10 @@ plague:mkAv('#4d7c0f','<path d="M37 52a22 22 0 0 1 44 0v-8H37z" fill="#365314"/>
 summoner:mkAv('#0e7490','<path d="M36 46l24-34 24 34z" fill="#155e75"/><rect x="34" y="42" width="52" height="8" rx="3" fill="#67e8f9"/>','<rect x="92" y="22" width="5" height="120" rx="2" fill="#8d6e63"/><circle cx="94" cy="20" r="11" fill="#a3e635" stroke="#fff" stroke-width="2"/><ellipse cx="22" cy="140" rx="16" ry="10" fill="#fb923c"/><circle cx="12" cy="130" r="8" fill="#fb923c"/>'),
 chrono:mkAv('#6d28d9','<path d="M34 46l26-40 26 40z" fill="#312e81"/>','<rect x="92" y="30" width="5" height="112" rx="2" fill="#8d6e63"/><circle cx="94" cy="26" r="14" fill="#fff" stroke="#6366f1" stroke-width="3"/><path d="M94 26v-8M94 26l7 4" stroke="#312e81" stroke-width="2.5" stroke-linecap="round"/>')};
 CLS.push(
-{id:'dknight',n:'Kỵ sĩ bóng đêm',e:'Dark Knight',w:'Đại kiếm hắc ám',pn:'Huyết Nguyệt',c:'#581c87',ic:'🌑',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh tiếp theo gây thêm sát thương bằng {pct}% HP đã mất của bản thân',p:[['need','Số câu đúng liên tiếp',1,10,3],['pct','% HP đã mất',1,200,20]]},
+{id:'dknight',n:'Kỵ sĩ bóng đêm',e:'Dark Knight',w:'Đại kiếm hắc ám',pn:'Huyết Nguyệt',c:'#581c87',ic:'🌑',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh tiếp theo gây thêm sát thương bằng {pct}% HP đã mất của bản thân',p:[['need','Số câu đúng liên tiếp',1,10,2],['pct','% HP đã mất',1,200,20]]},
 {id:'storm',n:'Lôi thần',e:'Stormcaller',w:'Song pháp cầu sấm sét',pn:'Thiên Lôi',c:'#f59e0b',ic:'⛈️',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh tiếp theo gây sát thương x{mult} và {ch}% cơ hội cộng thêm x{mult2} và giảm {ah}% hồi máu của mục tiêu trong {ahn} lượt',p:[['need','Số câu đúng liên tiếp',1,10,2],['mult','Hệ số sát thương (x)',2,10,2],['ch','Cơ hội (%)',1,100,50],['mult2','Hệ số cộng thêm khi may mắn',1,5,1],['ah','% giảm hồi máu của mục tiêu',1,100,40],['ahn','Số lượt giảm hồi máu',1,5,2]]},
-{id:'blade',n:'Kiếm vũ',e:'Blade Dancer',w:'Song kiếm',pn:'Vũ Điệu Khích Lệ',c:'#0d9488',ic:'🤺',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Truyền cảm hứng: đòn đánh tiếp theo của mỗi thành viên trong đội gây thêm {dm}% sát thương',p:[['need','Số câu đúng liên tiếp',1,10,4],['dm','% sát thương thêm',10,300,15]]},
-{id:'illus',n:'Ảo thuật gia',e:'Illusionist',w:'Trượng ảo ảnh',pn:'Ảo Ảnh Bảo Hộ',c:'#c026d3',ic:'🎭',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Tạo kết giới giúp toàn đội né hoàn toàn đòn tấn công tiếp theo của đối thủ trong {tn} lượt',p:[['need','Số câu đúng liên tiếp',1,10,3],['tn','Số lượt',1,10,2]]},
+{id:'blade',n:'Kiếm vũ',e:'Blade Dancer',w:'Song kiếm',pn:'Vũ Điệu Khích Lệ',c:'#0d9488',ic:'🤺',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Truyền cảm hứng: đòn đánh tiếp theo của mỗi thành viên trong đội gây thêm {dm}% sát thương',p:[['need','Số câu đúng liên tiếp',1,10,2],['dm','% sát thương thêm',10,300,15]]},
+{id:'illus',n:'Ảo thuật gia',e:'Illusionist',w:'Trượng ảo ảnh',pn:'Ảo Ảnh Bảo Hộ',c:'#c026d3',ic:'🎭',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Tạo kết giới giúp toàn đội né hoàn toàn đòn tấn công tiếp theo của đối thủ trong {tn} lượt',p:[['need','Số câu đúng liên tiếp',1,10,2],['tn','Số lượt',1,10,2]]},
 {id:'tact',n:'Chiến lược gia',e:'Tactician',w:'Trượng chỉ huy',pn:'Thiên Tài Chiến Thuật',c:'#1e40af',ic:'🎯',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Nhận 1 điểm chiến thuật. Đủ {pts} điểm sẽ được chọn: cả đội gây thêm {dm}% sát thương trong đòn đánh tiếp theo hoặc nhận lá chắn chặn {bp}% sát thương trong {tn} lượt',p:[['need','Số câu đúng liên tiếp',1,10,2],['pts','Điểm chiến thuật cần',1,10,3],['dm','% sát thương cộng thêm',10,300,40],['bp','% sát thương lá chắn chặn',1,90,30],['tn','Số lượt lá chắn',1,10,2]]});
 Object.assign(AVX,{
 dknight:mkAv('#1f2937','<path d="M37 52a22 22 0 0 1 44 0v10H37z" fill="#111827"/><rect x="50" y="47" width="30" height="5" rx="2" fill="#ef4444"/><path d="M54 30q4-16 16-13q-7 6-4 15z" fill="#7f1d1d"/>','<path d="M98 8l9 9-40 86-11-6z" fill="#1e1b2e" stroke="#ef4444" stroke-width="2.5"/><rect x="48" y="94" width="32" height="8" rx="3" fill="#7f1d1d" transform="rotate(-27 64 98)"/>'),
@@ -2608,20 +2619,20 @@ blade:mkAv('#0f766e','<path d="M37 50a22 22 0 0 1 44 0v-5H37z" fill="#134e4a"/><
 illus:mkAv('#a21caf','<rect x="40" y="20" width="38" height="24" fill="#1e1b4b"/><rect x="32" y="42" width="54" height="7" rx="3" fill="#1e1b4b"/><rect x="40" y="35" width="38" height="5" fill="#f0abfc"/>','<ellipse cx="20" cy="108" rx="15" ry="34" fill="#e879f9" opacity=".35"/><rect x="92" y="30" width="5" height="112" rx="2" fill="#8d6e63"/><circle cx="94" cy="26" r="13" fill="#f0abfc" stroke="#fff" stroke-width="2.5"/><path d="M88 26a6 6 0 1 1 6 6" fill="none" stroke="#a21caf" stroke-width="2.5"/>'),
 tact:mkAv('#1e40af','<path d="M37 48a22 22 0 0 1 44 0z" fill="#fbbf24"/><rect x="33" y="44" width="52" height="6" rx="3" fill="#b45309"/><path d="M52 30l7-10 7 10z" fill="#ef4444"/>','<rect x="92" y="22" width="5" height="120" rx="2" fill="#8d6e63"/><path d="M97 24h22l-6 9 6 9H97z" fill="#ef4444"/>')});
 CLS.push(
-{id:'monk',n:'Võ sư',e:'Monk',w:'Găng quyền',pn:'Khí Công',c:'#ea580c',ic:'👊',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh kế tiếp đánh {hits} hit, mỗi hit {pc}% sát thương',p:[['need','Số câu đúng liên tiếp',1,10,3],['hits','Số hit',2,6,2],['pc','% sát thương mỗi hit',10,200,70]]},
+{id:'monk',n:'Võ sư',e:'Monk',w:'Găng quyền',pn:'Khí Công',c:'#ea580c',ic:'👊',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh kế tiếp đánh {hits} hit, mỗi hit {pc}% sát thương; mỗi hit trúng cộng dồn thêm {stk}% sát thương cho hit kế tiếp trong cùng đòn',p:[['need','Số câu đúng liên tiếp',1,10,2],['hits','Số hit',2,6,2],['pc','% sát thương mỗi hit',10,200,70],['stk','% sát thương cộng dồn mỗi hit trúng',1,200,25]]},
 {id:'gunner',n:'Xạ thủ súng',e:'Gunslinger',w:'Súng lục kép',pn:'Nạp Đạn',c:'#b45309',ic:'🔫',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh kế tiếp bắn {hits} viên, mỗi viên {pc}% sát thương, có {ch}% cơ hội chí mạng x{mult}',p:[['need','Số câu đúng liên tiếp',1,10,2],['hits','Số viên đạn',2,6,2],['pc','% sát thương mỗi viên',10,200,60],['ch','Cơ hội chí mạng (%)',1,100,30],['mult','Hệ số chí mạng',2,5,2]]},
 {id:'pyro',n:'Pháp sư lửa',e:'Pyromancer',w:'Trượng lửa',pn:'Hỏa Ấn',c:'#dc2626',ic:'🔥',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh kế tiếp thiêu đốt đối thủ {dm}% HP hiện có mỗi lượt trong {tn} lượt',p:[['need','Số câu đúng liên tiếp',1,10,2],['dm','% HP hiện có mất mỗi lượt',1,100,15],['tn','Số lượt',1,10,4]]},
-{id:'cleric',n:'Giáo sĩ',e:'Cleric',w:'Quyền trượng thánh',pn:'Thanh Tẩy',c:'#a16207',ic:'🕊️',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Xóa 1 hiệu ứng xấu của mỗi đồng đội và hồi {hlp}% máu hiện có cho đồng đội có HP thấp nhất',p:[['need','Số câu đúng liên tiếp',1,10,4],['hlp','% máu hiện có được hồi',1,100,25]]},
-{id:'ninja',n:'Ninja',e:'Ninja',w:'Phi tiêu',pn:'Ẩn Thân',c:'#1f2937',ic:'🥷',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh kế tiếp gây sát thương x{mult}, bản thân né hoàn toàn đòn đánh kế tiếp của đối thủ',p:[['need','Số câu đúng liên tiếp',1,10,2],['mult','Hệ số sát thương (x)',2,10,2]]},
-{id:'dragoon',n:'Kỵ sĩ rồng',e:'Dragoon',w:'Thương rồng',pn:'Long Uy',c:'#b91c1c',ic:'🐉',k:'r',cd:'Mỗi câu trả lời đúng liên tiếp',ef:'Đòn đánh kế tiếp được cộng {per}% sát thương (cộng dồn theo chuỗi), tối đa +{cap}%; từ chuỗi {at} câu trở đi đòn đánh xuyên giáp',p:[['per','% sát thương cộng mỗi câu đúng',1,100,20],['cap','% sát thương cộng tối đa',1,500,120],['at','Chuỗi để xuyên giáp',1,10,4]],xr:(r,a,t,v,L)=>{if((a.cc||1)-1>=v('at')){a.pierce=1;L(`🐉 ${AN(t)} Long Uy: đòn đánh xuyên giáp`)}}},
-{id:'astro',n:'Chiêm tinh sư',e:'Astrologer',w:'Quả cầu thủy tinh',pn:'Soi Vận Mệnh',c:'#4338ca',ic:'🔮',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Xem hiệu ứng và quà chờ của đối thủ, đồng thời nhận thêm {gf} quà',p:[['need','Số câu đúng liên tiếp',1,10,4],['gf','Số quà nhận thêm',1,3,1]]},
-{id:'smith',n:'Thợ rèn',e:'Blacksmith',w:'Búa rèn',pn:'Rèn Giáp',c:'#92400e',ic:'🔨',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Cả đội nhận giáp giảm {pct}% sát thương trong {tn} lượt',p:[['need','Số câu đúng liên tiếp',1,10,3],['pct','% sát thương giảm',1,90,35],['tn','Số lượt',1,10,2]]},
-{id:'alchemist',n:'Dược sư',e:'Alchemist',w:'Bình thuốc',pn:'Thuốc Hồi Phục',c:'#059669',ic:'⚗️',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Hồi {hlp}% máu hiện có cho đồng đội có HP thấp nhất và bản thân nhận lá chắn chặn {bp}% sát thương trong {tn} lượt',p:[['need','Số câu đúng liên tiếp',1,10,3],['hlp','% máu hiện có được hồi',1,100,25],['bp','% sát thương lá chắn chặn',1,90,40],['tn','Số lượt lá chắn',1,10,2]]},
-{id:'vampire',n:'Ma cà rồng',e:'Vampire',w:'Răng nanh và áo choàng',pn:'Hút Huyết',c:'#9f1239',ic:'🧛',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh kế tiếp hút {ls}% sát thương thành HP (gấp đôi nếu HP bản thân dưới 50%)',p:[['need','Số câu đúng liên tiếp',1,10,3],['ls','% hút máu',2,100,35]]},
-{id:'tide',n:'Thủy thần',e:'Tidecaller',w:'Đinh ba',pn:'Triều Dâng',c:'#0284c7',ic:'🌊',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Cả đội có {ch}% cơ hội né đòn đánh trong {tn} lượt',p:[['need','Số câu đúng liên tiếp',1,10,3],['ch','Cơ hội né (%)',1,100,35],['tn','Số lượt',1,10,2]]},
+{id:'cleric',n:'Giáo sĩ',e:'Cleric',w:'Quyền trượng thánh',pn:'Thanh Tẩy',c:'#a16207',ic:'🕊️',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Xóa 1 hiệu ứng xấu của mỗi đồng đội và hồi {hlp}% máu hiện có cho đồng đội có HP thấp nhất',p:[['need','Số câu đúng liên tiếp',1,10,2],['hlp','% máu hiện có được hồi',1,100,25]]},
+{id:'ninja',n:'Ninja',e:'Ninja',w:'Phi tiêu',pn:'Ẩn Thân',c:'#1f2937',ic:'🥷',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh kế tiếp gây sát thương x{mult}, bản thân né hoàn toàn đòn đánh kế tiếp của đối thủ. Ngoài ra, mỗi lần né thành công (từ bất kỳ nguồn nào), phản công gây {cb}% sát thương của đòn bị né (tối đa {cbc}) lên kẻ vừa đánh hụt',p:[['need','Số câu đúng liên tiếp',1,10,2],['mult','Hệ số sát thương (x)',2,10,2],['cb','% sát thương phản công khi né thành công',10,300,40],['cbc','Sát thương phản công tối đa mỗi đòn bị né',1,50,8]]},
+{id:'dragoon',n:'Kỵ sĩ rồng',e:'Dragoon',w:'Thương rồng',pn:'Long Uy',c:'#b91c1c',ic:'🐉',k:'r',cd:'Mỗi câu trả lời đúng liên tiếp',ef:'Đòn đánh kế tiếp được cộng {per}% sát thương (cộng dồn theo chuỗi), tối đa +{cap}%; từ chuỗi {at} câu trở đi đòn đánh xuyên giáp',p:[['per','% sát thương cộng mỗi câu đúng',1,100,5],['cap','% sát thương cộng tối đa',1,500,15],['at','Chuỗi để xuyên giáp',1,10,3]],xr:(r,a,t,v,L)=>{if((a.cc||0)>=v('at')){a.pierce=1;L(`🐉 ${AN(t)} Long Uy: đòn đánh xuyên giáp`)}}},
+{id:'astro',n:'Chiêm tinh sư',e:'Astrologer',w:'Quả cầu thủy tinh',pn:'Soi Vận Mệnh',c:'#4338ca',ic:'🔮',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Xem hiệu ứng và quà chờ của đối thủ, đồng thời nhận thêm {gf} quà',p:[['need','Số câu đúng liên tiếp',1,10,2],['gf','Số quà nhận thêm',1,3,1]]},
+{id:'smith',n:'Thợ rèn',e:'Blacksmith',w:'Búa rèn',pn:'Rèn Giáp',c:'#92400e',ic:'🔨',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Cả đội nhận giáp giảm {pct}% sát thương trong {tn} lượt',p:[['need','Số câu đúng liên tiếp',1,10,2],['pct','% sát thương giảm',1,90,35],['tn','Số lượt',1,10,2]]},
+{id:'alchemist',n:'Dược sư',e:'Alchemist',w:'Bình thuốc',pn:'Thuốc Hồi Phục',c:'#059669',ic:'⚗️',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Hồi {hlp}% máu hiện có cho đồng đội có HP thấp nhất và bản thân nhận lá chắn chặn {bp}% sát thương trong {tn} lượt',p:[['need','Số câu đúng liên tiếp',1,10,2],['hlp','% máu hiện có được hồi',1,100,25],['bp','% sát thương lá chắn chặn',1,90,40],['tn','Số lượt lá chắn',1,10,2]]},
+{id:'vampire',n:'Ma cà rồng',e:'Vampire',w:'Răng nanh và áo choàng',pn:'Hút Huyết',c:'#9f1239',ic:'🧛',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh kế tiếp hút {ls}% sát thương thành HP (gấp đôi nếu HP bản thân dưới 50%)',p:[['need','Số câu đúng liên tiếp',1,10,2],['ls','% hút máu',2,100,35]]},
+{id:'tide',n:'Thủy thần',e:'Tidecaller',w:'Đinh ba',pn:'Triều Dâng',c:'#0284c7',ic:'🌊',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Cả đội có {ch}% cơ hội né đòn đánh trong {tn} lượt',p:[['need','Số câu đúng liên tiếp',1,10,2],['ch','Cơ hội né (%)',1,100,35],['tn','Số lượt',1,10,2]]},
 {id:'druid',n:'Đạo sĩ rừng',e:'Druid',w:'Gậy gỗ cổ thụ',pn:'Rễ Trói',c:'#15803d',ic:'🌿',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh kế tiếp xiềng xích đối thủ (quà nhận bị vô hiệu) và Phong Ấn buff {tn} lượt',p:[['need','Số câu đúng liên tiếp',1,10,2],['tn','Số lượt Phong Ấn',1,5,1]]},
-{id:'voidmage',n:'Hư không sư',e:'Voidwalker',w:'Quả cầu hư vô',pn:'Hố Đen',c:'#6d28d9',ic:'🕳️',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh kế tiếp khiến đòn đánh tiếp theo của đối thủ giảm {wk}% sát thương',p:[['need','Số câu đúng liên tiếp',1,10,4],['wk','% sát thương giảm',2,100,40]]},
-{id:'samurai',n:'Samurai',e:'Samurai',w:'Katana',pn:'Nhất Kích',c:'#be123c',ic:'🎌',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh kế tiếp gây thêm {pct}% HP hiện tại của đối thủ (tối đa +{cap}) và giảm {ah}% hồi máu của mục tiêu trong {ahn} lượt',p:[['need','Số câu đúng liên tiếp',1,10,3],['pct','% HP hiện tại của đối thủ',1,100,25],['cap','Cộng tối đa',1,100,15],['ah','% giảm hồi máu của mục tiêu',1,100,40],['ahn','Số lượt giảm hồi máu',1,5,2]]},
+{id:'voidmage',n:'Hư không sư',e:'Voidwalker',w:'Quả cầu hư vô',pn:'Hố Đen',c:'#6d28d9',ic:'🕳️',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh kế tiếp khiến đòn đánh tiếp theo của đối thủ giảm {wk}% sát thương',p:[['need','Số câu đúng liên tiếp',1,10,2],['wk','% sát thương giảm',2,100,40]]},
+{id:'samurai',n:'Samurai',e:'Samurai',w:'Katana',pn:'Nhất Kích',c:'#be123c',ic:'🎌',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh kế tiếp gây thêm {pct}% HP hiện tại của đối thủ (tối đa +{cap}) và giảm {ah}% hồi máu của mục tiêu trong {ahn} lượt; nếu đối thủ dưới {lowp}% HP thì đòn này bỏ qua né tránh và phá khiên',p:[['need','Số câu đúng liên tiếp',1,10,2],['pct','% HP hiện tại của đối thủ',1,100,25],['cap','Cộng tối đa',1,100,15],['ah','% giảm hồi máu của mục tiêu',1,100,40],['ahn','Số lượt giảm hồi máu',1,5,2],['lowp','Ngưỡng HP đối thủ để bỏ qua né tránh, phá khiên (%)',1,99,20]]},
 {id:'gambler',n:'Con bạc',e:'Gambler',w:'Xúc xắc',pn:'Đặt Cược',c:'#9333ea',ic:'🎲',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh kế tiếp đặt cược: {ch}% cơ hội x{hi} sát thương, ngược lại chỉ còn {lo}% sát thương',p:[['need','Số câu đúng liên tiếp',1,10,2],['ch','Cơ hội thắng cược (%)',1,100,50],['hi','Hệ số khi thắng',2,10,3],['lo','% sát thương khi thua',10,100,50]]});
 Object.assign(AVX,{
 monk:mkAv('#ea580c','<rect x="37" y="42" width="44" height="7" fill="#fff"/><path d="M80 45l16 8-16 2z" fill="#fff"/>','<circle cx="18" cy="96" r="11" fill="#b91c1c" stroke="#fff" stroke-width="2"/><circle cx="102" cy="96" r="11" fill="#b91c1c" stroke="#fff" stroke-width="2"/>'),
@@ -2640,14 +2651,15 @@ voidmage:mkAv('#3b0764','<path d="M33 54a26 26 0 0 1 52 0v-4q-26-14-52 0z" fill=
 samurai:mkAv('#be123c','<path d="M37 50a22 22 0 0 1 44 0v-6H37z" fill="#1f2937"/><path d="M36 44l-12-8 16-2zM82 44l12-8-16-2z" fill="#eab308"/><rect x="55" y="22" width="8" height="12" fill="#eab308"/>','<path d="M98 4l5 5-44 90-6-3z" fill="#e2e8f0" stroke="#64748b" stroke-width="2"/><rect x="50" y="94" width="26" height="6" rx="2" fill="#7f1d1d" transform="rotate(-27 63 97)"/>'),
 gambler:mkAv('#7e22ce','<rect x="42" y="14" width="34" height="26" fill="#111827"/><rect x="34" y="38" width="50" height="7" rx="3" fill="#111827"/><rect x="42" y="30" width="34" height="5" fill="#ef4444"/>','<rect x="86" y="84" width="26" height="26" rx="5" fill="#fff" stroke="#111827" stroke-width="2"/><circle cx="93" cy="91" r="2.6" fill="#111827"/><circle cx="105" cy="103" r="2.6" fill="#111827"/><circle cx="99" cy="97" r="2.6" fill="#111827"/>')});
 const CX={
-monk:(r,v)=>{r.hits=v('hits');r.hm=v('pc')/100;r.hw='cú đấm'},
+monk:(r,v)=>{r.hits=v('hits');r.hm=v('pc')/100;r.hw='cú đấm';r.hs=v('stk')},
 gunner:(r,v,a,t,L)=>{r.hits=v('hits');r.hm=v('pc')/100;r.hw='viên đạn';if(Math.random()*100<v('ch')){r.m=v('mult');L(`🔫 ${AN(t)} bắn chí mạng x${v('mult')}!`)}},
 pyro:(r,v)=>{r.fn=[(t,a,b,tn)=>{b.bn=v('tn');b.bd=0;b.bp=v('dm');G.log.unshift(`🔥 ${tn} bị thiêu đốt: −${v('dm')}% HP hiện có/lượt trong ${v('tn')} lượt`)}]},
 ninja:(r,v,a,t,L)=>{r.m=v('mult');a.dg=1;L(`🥷 ${AN(t)} ẩn thân: sát thương x${v('mult')}, né đòn kế tiếp của đối thủ`)},
 vampire:(r,v,a,t,L)=>{const lo=G.sc[t]<G.s.hp/2,q=Math.min(100,v('ls')*(lo?2:1));a.ls=q;L(`🧛 ${AN(t)} hút huyết: hồi ${q}% sát thương gây ra${lo?' (HP thấp, gấp đôi)':''}`)},
-druid:(r,v)=>{r.fn=[(t,a,b,tn)=>{b.chain=1;b.seal=(b.seal||0)+v('tn');G.log.unshift(`🌿 ${tn} bị rễ cây trói: xiềng xích và Phong Ấn buff ${v('tn')} lượt`)}]},
+druid:(r,v)=>{r.fn=[(t,a,b,tn)=>{b.chain=1;b.seal=Math.max(b.seal||0,v('tn'));G.log.unshift(`🌿 ${tn} bị rễ cây trói: xiềng xích và Phong Ấn buff ${v('tn')} lượt`)}]},
 voidmage:(r,v)=>{r.fn=[(t,a,b,tn)=>{b.chaos=v('wk');G.log.unshift(`🕳️ ${tn} bị Hố Đen nuốt: đòn đánh kế tiếp giảm ${v('wk')}% sát thương`)}]},
-samurai:(r,v,a,t,L)=>{const hp=Math.max(0,mhp(1-t,G.lk)),ad=Math.min(v('cap'),Math.round(hp*v('pct')/100));r.add=ad;if(ad)L(`🎌 ${AN(t)} Nhất Kích: +${ad} sát thương theo HP đối thủ`)},
+samurai:(r,v,a,t,L)=>{const hp=Math.max(0,mhp(1-t,G.lk)),ad=Math.min(v('cap'),Math.round(hp*v('pct')/100));r.add=ad;if(ad)L(`🎌 ${AN(t)} Nhất Kích: +${ad} sát thương theo HP đối thủ`);
+ if(hp>0&&hp<G.s.hp*v('lowp')/100){a.ig=1;a.pierce=1;const ts=tgS(1-t);let br=0;if(ts)['sh','ts','gs','ab'].forEach(k=>{if(ts[k]>0){ts[k]=0;br=1}});L(`🎌 ${AN(t)} Nhất Kích: đối thủ dưới ${v('lowp')}% HP, đòn này bỏ qua né tránh${br?' và phá vỡ khiên':', xuyên giáp và khiên'}`)}},
 gambler:(r,v,a,t,L)=>{if(Math.random()*100<v('ch')){r.m=v('hi');L(`🎲 ${AN(t)} thắng cược: x${v('hi')} sát thương!`)}else{r.m=v('lo')/100;L(`🎲 ${AN(t)} thua cược: chỉ còn ${v('lo')}% sát thương`)}}},
 CI={
 valk:(t,a,b,v,L)=>{lowSt(t,a).lb=1;clsHealLow(t,v('hlp'),1);L(`🪽 ${AN(t)} ban Lời Thề Hộ Mệnh: chặn một đòn hạ gục, hồi ${v('hlp')}% máu hiện có`)},
@@ -2688,12 +2700,12 @@ function clsPick(init,cancel,cb,go){cpF.v='all';cpF.m7=0;const old=document.getE
 document.addEventListener('click',e=>{const b=e.target.closest('[data-st]');if(b){document.querySelectorAll('#modal [data-st]').forEach(x=>x.classList.toggle('on',x===b));document.querySelectorAll('#modal [data-sp]').forEach(p=>p.hidden=p.dataset.sp!==b.dataset.st);return}
  const c=e.target.closest('[data-cl]');if(!c)return;if(c.dataset.cl==='view')clsBrowse();else document.querySelectorAll('#modal [data-cp]').forEach(x=>x.value=x.dataset.def)});
 function clsAtk(t,a){const id=G.cls[t],c=clsDef(id),s=G.s,r={m:1,add:0,pen:0,inst:0},v=k=>clsVal(s,id,k),L=x=>G.log.unshift(x);
- if(G.ult0===t){G.log.unshift(`⚡ Chiêu tối thượng thay thế ${c.pn} ở đòn này`)}else if(c.k==='r'){r.add=0;{const pc=a.seal>0?0:Math.min(v('cap'),v('per')*(a.cc||0));r.m=1+pc/100;r.pcx=pc}if(a.seal>0&&(a.cc||0)>0)L(`🔒 Phong Ấn khóa ${c.pn} của ${AN(t)}`);a.cc=(a.cc||0)+1;if(r.pcx)L(`${c.ic} ${AN(t)} ${c.pn}: +${r.pcx}% sát thương`);if(c.xr)c.xr(r,a,t,v,L)}
+ if(G.ult0===t){if(id==='dragoon')a.cc=0;G.log.unshift(`⚡ Chiêu tối thượng thay thế ${c.pn} ở đòn này`)}else if(c.k==='r'){r.add=0;a.cc=(a.cc||0)+1;{const pc=a.seal>0?0:Math.min(v('cap'),v('per')*a.cc);r.m=1+pc/100;r.pcx=pc}if(a.seal>0&&a.cc>1)L(`🔒 Phong Ấn khóa ${c.pn} của ${AN(t)}`);if(r.pcx)L(`${c.ic} ${AN(t)} ${c.pn}: +${r.pcx}% sát thương`);if(c.xr)c.xr(r,a,t,v,L)}
  else if(c.k==='x'){if(XA[id])XA[id](r,a,t,L,v)}
  else if(c.k==='c'){if((a.cc||0)>=v('need')&&a.seal>0){L(`🔒 Phong Ấn khóa ${c.pn} của ${AN(t)}, vẫn giữ nguyên nội tại đã nạp`)}
   else if((a.cc||0)>=v('need')&&(!c.cd2||c.cd2(t))){r.trig=1;r.cc0=a.cc;a.cc=0;L(`${c.ic} ${AN(t)} kích hoạt ${c.pn}!`);
    if(id==='sword')r.m=v('mult');else if(id==='mage')r.fz=v('fz');else if(id==='archer'){r.m=v('mult');r.pen=v('pen')/100}
-   else if(id==='assassin'){if(Math.random()*100<v('ch'))r.m=v('mult');else{r.miss=1;L(`🗡️ ${AN(t)} Ám Sát trượt, không ra x${v('mult')}`)}}
+   else if(id==='assassin'){if(Math.random()*100<asCh(t,v,L))r.m=v('mult');else{r.miss=1;L(`🗡️ ${AN(t)} Ám Sát trượt, không ra x${v('mult')}`)}}
    else if(id==='dknight'){r.add=Math.round(Math.max(0,G.s.hp-G.sc[t])*v('pct')/100);if(r.add)L(`🌑 Huyết Nguyệt: +${r.add} sát thương từ HP đã mất`)}
    else if(id==='storm'){r.m=v('mult');if(Math.random()*100<v('ch')){r.m+=v('mult2');L(`⚡ Thiên Lôi giáng thêm x${v('mult2')} sát thương!`)}}
    else if(id==='blade'){r.hits=v('hits');r.hm=v('pc')/100}
@@ -2707,7 +2719,7 @@ function clsAtk(t,a){const id=G.cls[t],c=clsDef(id),s=G.s,r={m:1,add:0,pen:0,ins
  return r}
 function clsPost(t,a,b,cx,tn){tn=tn||AN(1-t);const id=cx.mid||G.cls[t],c=clsDef(id),v=k=>clsVal(G.s,id,k),L=x=>G.log.unshift(x);
  if(cx.trig&&!cx.miss&&(cx.dd||0)>0&&AHC.includes(id)&&v('ah')>0){ahApply(b,v('ah'),v('ahn'));L(`🚫 ${tn} bị giảm ${v('ah')}% hồi máu trong ${v('ahn')} lượt`)}
- if(cx.fz){b.fz=cx.fz;L(`❄ ${AN(t)} đóng băng ${tn}!`)}
+ if(cx.fz){b.fz=Math.max(b.fz||0,cx.fz);L(`❄ ${AN(t)} đóng băng ${tn}!`)}
  if(cx.vp){b.vp=cx.vp[0];if(cx.vp[3]){b.vpp=cx.vp[1];b.vpe=cx.vp[2];b.vpc=0;b.vd=0;L(`🧪 ${tn} nhiễm độc: cứ mỗi ${cx.vp[2]} lượt mất ${cx.vp[1]}% HP đang có (trong ${cx.vp[0]} lượt)`)}else{b.vpp=0;b.vd=cx.vp[1];L(`🧪 ${tn} nhiễm độc: −${cx.vp[1]} HP/lượt trong ${cx.vp[0]} lượt`)}}
  if(cx.fn)cx.fn.forEach(f=>f(t,a,b,tn,cx));
  if(cx.inst){L(`${c.ic} ${AN(t)} kích hoạt ${c.pn}!`);
@@ -2725,7 +2737,7 @@ function clsHealLow(t,h,pc){if(!G.sd){aHeal(t,pc?Math.max(1,Math.round(G.sc[t]*h
 function clsTip(i){const id=G.cls[i],c=clsDef(id),S=G.s,e=G.st[i],cc=e.cc||0;let st;
  if(c.k==='x')st='Nội tại tự kích hoạt theo điều kiện';else if(c.k==='r')st=`Chuỗi hiện tại: ${cc} (đòn kế tiếp +${Math.min(clsVal(S,id,'cap'),clsVal(S,id,'per')*cc)}%)`;
  else{const n=clsVal(S,id,'need');st=c.k==='c'&&cc>=n?'⚡ Đã sẵn sàng, kích hoạt ở câu đúng kế tiếp':`Chuỗi hiện tại: ${cc}/${n}`;if(id==='tact')st+=` · Điểm chiến thuật: ${e.tp||0}/${clsVal(S,id,'pts')}`}
- const u=ULT[id];let rg='';try{const R=RGt(),gn=S.rgn==null?25:+S.rgn;if(u&&gn>0)rg=` · Nộ: ${Math.min(100,Math.round(R[i]||0))}/100`}catch(x){}
+ const u=ULT[id];let rg='';try{const R=RGt(),gn=S.rgn==null?25:+S.rgn;if(u&&gn>0)rg=` · Nộ: ${Math.min(clsVal(S,id,'rn'),Math.round((R[i]||0)*clsVal(S,id,'rn')/100))}/${clsVal(S,id,'rn')} tầng`}catch(x){}
  return `<b>${c.ic} ${esc(c.pn)}</b><i>${esc(c.n)} · ${esc(c.w)}</i><span><u>⚡ Điều kiện</u>${esc(clsFill(c.cd,S,id))}</span><span><u>💥 Hiệu ứng</u>${esc(clsFill(c.ef,S,id))}</span>${u?`<span><u style="color:#d97706">🔥 Chiêu nộ · ${esc(u[1])}</u>${esc(clsFill(u[2],S,id))}</span>`:''}<em>${esc(st+rg)}</em>`}
 function clsBadge(i){const e=G.st[i];return clsBadge0(i)+(G.cls[i]==='tact'?esc(' · 🎯 '+(e.tp||0)+'/'+clsVal(G.s,'tact','pts')):'')}
 function clsBadge0(i){const id=G.cls[i],c=clsDef(id),cc=G.st[i].cc||0;let x=`${c.ic} ${c.n}`;
@@ -2781,7 +2793,7 @@ function a7Setup(l,s,go,cancel){const old=document.getElementById('a7');if(old)o
 function a7Init(r,s){const hp=s.hp;G.tn=r.tn;G.sd=r.T.map((t,i)=>t.map((m,k)=>({nm:(m.nm||'').trim()||`${r.tn[i]} #${k+1}`,cls:m.cls,hp,st:{},dead:0})));G.fi=[0,0];G.rep=[0,0];
  G.cls=[G.sd[0][0].cls,G.sd[1][0].cls];G.nm=[G.sd[0][0].nm,G.sd[1][0].nm];G.st=[G.sd[0][0].st,G.sd[1][0].st];G.sc=[hp,hp];G.last=G.sc.slice();G.turn=0;G.log=[];G.ev=null}
 function nxt7(i,f){const T=G.sd[i];for(let k=1;k<=T.length;k++){const j=(f+k)%T.length;if(!T[j].dead)return j}return -1}
-function ld7(i,j){const T=G.sd[i];T[G.fi[i]].hp=Math.max(0,G.sc[i]);(G.sw=G.sw||[null,null])[i]={from:G.fi[i],to:j};G.fi[i]=j;const m=T[j];G.st[i]=m.st;G.sc[i]=m.hp;G.cls[i]=m.cls;G.nm[i]=m.nm}
+function ld7(i,j){const T=G.sd[i];T[G.fi[i]].hp=Math.max(0,G.sc[i]);T[G.fi[i]].rg=T[G.fi[i]].hp>0?(RGt()[i]||0):0;(G.sw=G.sw||[null,null])[i]={from:G.fi[i],to:j};G.fi[i]=j;const m=T[j];G.st[i]=m.st;G.sc[i]=m.hp;G.cls[i]=m.cls;G.nm[i]=m.nm;RGt()[i]=m.rg||0}
 function rot7(t){const sk=G.rep[t];G.rep=[0,0];if(sk)return;{const ao=G.tm&&G.tm[t]&&G.tm[t].ao;if(ao&&ao.nosw>0){ao.nosw--;G.log.unshift(`🕸 ${G.tn[t]} bị Ngục Tù Không Gian: không thể đổi nhân vật`);return}}const n=nxt7(t,G.fi[t]);if(n>=0&&n!==G.fi[t]){ld7(t,n)}}
 function aChk7(){const w=[0,0];[0,1].forEach(i=>{G.sd[i].forEach((m,k)=>{if(k!==G.fi[i]&&!m.dead&&m.hp<=0){m.hp=0;m.dead=1;G.log.unshift(`💀 ${m.nm} (${G.tn[i]}) bị hạ gục!`)}});if(G.sc[i]>0)return;const T=G.sd[i],f=G.fi[i];T[f].hp=0;T[f].dead=1;G.log.unshift(`💀 ${T[f].nm} (${G.tn[i]}) bị hạ gục!`);const n=nxt7(i,f);if(n<0)w[i]=1;else{ld7(i,n);G.rep[i]=1}});
  if(!w[0]&&!w[1])return false;if(w[0]&&w[1])gEnd('🤝 Hòa!','Hai đội cùng bị hạ gục');else{const x=w[0]?1:0;gEnd('🏆 '+G.tn[x]+' thắng!','Hạ gục toàn bộ đội '+G.tn[1-x])}return true}
@@ -2798,17 +2810,17 @@ A7C.push(['bn','🔥','Thiêu Đốt',e=>(e.bp>0?`Mất ${e.bp}% HP hiện có m
 /* ===== 13 class mở rộng: Chấp Pháp Quan, Hấp Hồn Quỷ, Kẻ trộm, Thương nhân, Kẻ bắt chước, Lão Thạch Vệ, Linh sư, Đao phủ, Pháo thủ, Lính canh, Chiêu hồn sư, Nhà hùng biện, Thôi miên sư (m7 = chỉ chọn được ở chế độ 7v7; k:'x' = nội tại tự kích hoạt theo điều kiện) ===== */
 CLS.push(
 {id:'arbiter',n:'Chấp Pháp Quan',e:'Arbiter',w:'Còi và thẻ phạt',pn:'Phạt Gian Lận',c:'#2563eb',ic:'👮',k:'x',cd:'Khi đối thủ trả lời sai',ef:'Khi đối thủ trả lời sai, đối thủ mất {pen}% HP hiện có',p:[['pen','% HP hiện có đối thủ mất',1,100,20]]},
-{id:'leech',n:'Hấp Hồn Quỷ',e:'Soul Leech',w:'Móng vuốt hấp hồn',pn:'Rút Năng Lượng',c:'#0f766e',ic:'👹',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh kế tiếp hút {drain} nộ của đối thủ cho mình',p:[['need','Số câu đúng liên tiếp',1,10,3],['drain','Nộ hút được',1,100,15]]},
-{id:'thief',n:'Kẻ trộm',e:'Thief',w:'Dao găm và túi vải',pn:'Móc Túi',c:'#78716c',ic:'🦝',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh kế tiếp, nếu trúng, cướp 1 quà đang chờ của đối thủ',p:[['need','Số câu đúng liên tiếp',1,10,3]]},
-{id:'merchant',n:'Thương nhân',e:'Merchant',w:'Cân và túi tiền',pn:'Mua Bán',c:'#b45309',ic:'🏪',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Trả {cost} HP để đổi lấy 1 quà (cần còn hơn {cost} HP)',p:[['need','Số câu đúng liên tiếp',1,10,3],['cost','HP phải trả',1,30,4]]},
-{id:'stonewarden',n:'Lão Thạch Vệ',e:'Stone Warden',w:'Khiên đá và búa',pn:'Da Đá',c:'#57534e',ic:'🗿',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Bản thân mỗi đòn nhận tối đa {cap} sát thương trong {tn} lượt',p:[['need','Số câu đúng liên tiếp',1,10,3],['cap','Sát thương tối đa mỗi đòn',1,50,6],['tn','Số lượt',1,10,2]]},
-{id:'binder',n:'Linh sư',e:'Soul Binder',w:'Sợi dây linh hồn',pn:'Đồng Mệnh',c:'#7c3aed',ic:'🔗',k:'i',m7:1,cd:'Trả lời đúng {need} câu liên tiếp',ef:'{tn} lượt tới, sát thương cả đội nhận được chia đều cho mọi thành viên còn sống',p:[['need','Số câu đúng liên tiếp',1,10,3],['tn','Số lượt',1,10,2]]},
+{id:'leech',n:'Hấp Hồn Quỷ',e:'Soul Leech',w:'Móng vuốt hấp hồn',pn:'Rút Năng Lượng',c:'#0f766e',ic:'👹',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh kế tiếp hút {drain} nộ của đối thủ cho mình',p:[['need','Số câu đúng liên tiếp',1,10,2],['drain','Nộ hút được',1,100,15]]},
+{id:'thief',n:'Kẻ trộm',e:'Thief',w:'Dao găm và túi vải',pn:'Móc Túi',c:'#78716c',ic:'🦝',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh kế tiếp, nếu trúng, cướp 1 quà đang chờ của đối thủ',p:[['need','Số câu đúng liên tiếp',1,10,2]]},
+{id:'merchant',n:'Thương nhân',e:'Merchant',w:'Cân và túi tiền',pn:'Mua Bán',c:'#b45309',ic:'🏪',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Trả {cost} HP để đổi lấy 1 quà (cần còn hơn {cost} HP)',p:[['need','Số câu đúng liên tiếp',1,10,2],['cost','HP phải trả',1,30,4]]},
+{id:'stonewarden',n:'Lão Thạch Vệ',e:'Stone Warden',w:'Khiên đá và búa',pn:'Da Đá',c:'#57534e',ic:'🗿',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Bản thân mỗi đòn nhận tối đa {cap} sát thương trong {tn} lượt',p:[['need','Số câu đúng liên tiếp',1,10,2],['cap','Sát thương tối đa mỗi đòn',1,50,6],['tn','Số lượt',1,10,2]]},
+{id:'binder',n:'Linh sư',e:'Soul Binder',w:'Sợi dây linh hồn',pn:'Đồng Mệnh',c:'#7c3aed',ic:'🔗',k:'i',m7:1,cd:'Trả lời đúng {need} câu liên tiếp',ef:'{tn} lượt tới, sát thương cả đội nhận được chia đều cho mọi thành viên còn sống',p:[['need','Số câu đúng liên tiếp',1,10,2],['tn','Số lượt',1,10,2]]},
 {id:'executioner',n:'Đao phủ',e:'Executioner',w:'Rìu đao phủ',pn:'Kết Liễu',c:'#7f1d1d',ic:'🔪',k:'x',cd:'Khi HP đối thủ dưới {pct}% (kiểm tra mỗi đòn)',ef:'Đòn đánh x{mult} sát thương',p:[['pct','Ngưỡng HP đối thủ (%)',1,99,40],['mult','Hệ số sát thương',2,10,2]]},
-{id:'bomber',n:'Pháo thủ',e:'Bombardier',w:'Đại pháo',pn:'Nổ Lan',c:'#c2410c',ic:'💣',k:'c',m7:1,cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh kế tiếp gây thêm {pc}% sát thương cho cả hàng chờ của đối thủ',p:[['need','Số câu đúng liên tiếp',1,10,3],['pc','% sát thương lan',1,300,40]]},
-{id:'warden',n:'Lính canh',e:'Warden',w:'Xích và còng',pn:'Kéo Ra',c:'#475569',ic:'🗝️',k:'c',m7:1,cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh kế tiếp kéo thành viên thấp máu nhất của đối thủ ra tuyến đầu',p:[['need','Số câu đúng liên tiếp',1,10,3]]},
-{id:'necro',n:'Chiêu hồn sư',e:'Soulcaller',w:'Nến chiêu hồn',pn:'Gọi Hồn',c:'#16a34a',ic:'🕯️',k:'c',m7:1,cd2:t=>!!G.sd&&G.sd[t].some(m=>m.dead),cd:'Có đồng đội đã bị hạ gục và trả lời đúng {need} câu liên tiếp',ef:'Hồi sinh 1 đồng đội về hàng chờ với {pct}% HP gốc',p:[['need','Số câu đúng liên tiếp',1,10,3],['pct','% HP gốc khi hồi sinh',1,100,50]]},
-{id:'taunter',n:'Nhà hùng biện',e:'Taunter',w:'Loa chiến',pn:'Gầm Thách Thức',c:'#dc2626',ic:'📢',k:'i',m7:1,cd:'Trả lời đúng {need} câu liên tiếp',ef:'{tn} lượt tới đối thủ bắt buộc chọn mình làm mục tiêu, kể cả khi đang dự bị; mình giảm {dr}% sát thương nhận',p:[['need','Số câu đúng liên tiếp',1,10,3],['tn','Số lượt',1,10,2],['dr','% giảm sát thương nhận',1,95,50]]},
-{id:'hypno',n:'Thôi miên sư',e:'Nightmare Weaver',w:'Con lắc thôi miên',pn:'Mê Hoặc',c:'#a21caf',ic:'😵',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh kế tiếp của đối thủ có {ch}% tự đánh vào chính họ',p:[['need','Số câu đúng liên tiếp',1,10,3],['ch','Cơ hội tự đánh (%)',1,100,50]]}
+{id:'bomber',n:'Pháo thủ',e:'Bombardier',w:'Đại pháo',pn:'Nổ Lan',c:'#c2410c',ic:'💣',k:'c',m7:1,cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh kế tiếp gây thêm {pc}% sát thương cho cả hàng chờ của đối thủ',p:[['need','Số câu đúng liên tiếp',1,10,2],['pc','% sát thương lan',1,300,40]]},
+{id:'warden',n:'Lính canh',e:'Warden',w:'Xích và còng',pn:'Kéo Ra',c:'#475569',ic:'🗝️',k:'c',m7:1,cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh kế tiếp kéo thành viên thấp máu nhất của đối thủ ra tuyến đầu',p:[['need','Số câu đúng liên tiếp',1,10,2]]},
+{id:'necro',n:'Chiêu hồn sư',e:'Soulcaller',w:'Nến chiêu hồn',pn:'Gọi Hồn',c:'#16a34a',ic:'🕯️',k:'c',m7:1,cd2:t=>!!G.sd&&G.sd[t].some(m=>m.dead),cd:'Có đồng đội đã bị hạ gục và trả lời đúng {need} câu liên tiếp',ef:'Hồi sinh 1 đồng đội về hàng chờ với {pct}% HP gốc',p:[['need','Số câu đúng liên tiếp',1,10,2],['pct','% HP gốc khi hồi sinh',1,100,50]]},
+{id:'taunter',n:'Nhà hùng biện',e:'Taunter',w:'Loa chiến',pn:'Gầm Thách Thức',c:'#dc2626',ic:'📢',k:'i',m7:1,cd:'Trả lời đúng {need} câu liên tiếp',ef:'{tn} lượt tới đối thủ bắt buộc chọn mình làm mục tiêu, kể cả khi đang dự bị; mình giảm {dr}% sát thương nhận',p:[['need','Số câu đúng liên tiếp',1,10,2],['tn','Số lượt',1,10,2],['dr','% giảm sát thương nhận',1,95,50]]},
+{id:'hypno',n:'Thôi miên sư',e:'Nightmare Weaver',w:'Con lắc thôi miên',pn:'Mê Hoặc',c:'#a21caf',ic:'😵',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh kế tiếp của đối thủ có {ch}% tự đánh vào chính họ',p:[['need','Số câu đúng liên tiếp',1,10,2],['ch','Cơ hội tự đánh (%)',1,100,50]]}
 );
 Object.assign(AVX,{
 arbiter:mkAv('#2563eb','<path d="M36 46a23 23 0 0 1 46 0z" fill="#1e3a8a"/><rect x="34" y="42" width="50" height="6" rx="3" fill="#1e3a8a"/><circle cx="59" cy="38" r="4" fill="#facc15"/>','<rect x="90" y="76" width="18" height="26" rx="3" fill="#ef4444" stroke="#fff" stroke-width="2"/><circle cx="98" cy="118" r="7" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>'),
@@ -2828,14 +2840,14 @@ Object.assign(CTY,{arbiter:['ctl'],leech:['ctl'],thief:['sup'],merchant:['sup'],
 
 /* ===== 8 class mới: Tinh Thiên Pháp Sư, Huyết Khế Ma Nhân, Valkyrie Hộ Mệnh, Ca Linh Sư, Chú Nguyền Sư, Nhật Nguyệt Thần Sứ, Cổ Thư Hiền Giả, Tử Thần Liêm Sứ (thay Kẻ bắt chước) ===== */
 CLS.push(
-{id:'starcaller',n:'Tinh Thiên Pháp Sư',e:'Starcaller',w:'Kính thiên văn cổ',pn:'Sao Rơi Định Mệnh',c:'#6366f1',ic:'🌠',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh kế tiếp gọi thiên thạch: sau {tn} lượt của mình rơi xuống gây {dmg}% HP hiện có của đối thủ, không thể né',p:[['need','Số câu đúng liên tiếp',1,10,3],['tn','Số lượt chờ',1,5,2],['dmg','% HP hiện có đối thủ mất',1,100,40]]},
+{id:'starcaller',n:'Tinh Thiên Pháp Sư',e:'Starcaller',w:'Kính thiên văn cổ',pn:'Sao Rơi Định Mệnh',c:'#6366f1',ic:'🌠',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh kế tiếp gọi thiên thạch: sau {tn} lượt của mình rơi xuống gây {dmg}% HP hiện có của đối thủ, không thể né',p:[['need','Số câu đúng liên tiếp',1,10,2],['tn','Số lượt chờ',1,5,2],['dmg','% HP hiện có đối thủ mất',1,100,40]]},
 {id:'bloodpact',n:'Huyết Khế Ma Nhân',e:'Bloodpact Warlock',w:'Khế ước máu',pn:'Hiến Tế',c:'#9f1239',ic:'🩸',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh kế tiếp hiến tế {cost} HP của bản thân để nhân sát thương lên x{mult} (HP không đủ thì giảm tương ứng)',p:[['need','Số câu đúng liên tiếp',1,10,2],['cost','HP hiến tế',1,50,6],['mult','Hệ số sát thương (x)',2,10,3]]},
-{id:'valk',n:'Valkyrie Hộ Mệnh',e:'Aegis Valkyrie',w:'Giáo thiên sứ',pn:'Cánh Che Chở',c:'#38bdf8',ic:'🪽',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đồng đội thấp máu nhất nhận Lời Thề Hộ Mệnh (chặn một đòn hạ gục) và được hồi {hlp}% máu hiện có',p:[['need','Số câu đúng liên tiếp',1,10,3],['hlp','% máu hiện có được hồi',1,100,25]]},
-{id:'song',n:'Ca Linh Sư',e:'Songweaver',w:'Đàn hạc tinh linh',pn:'Khúc Ca Truyền Nộ',c:'#ec4899',ic:'🎶',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Cộng {rg} nộ cho cả đội',p:[['need','Số câu đúng liên tiếp',1,10,3],['rg','Nộ cộng thêm',1,100,20]]},
+{id:'valk',n:'Valkyrie Hộ Mệnh',e:'Aegis Valkyrie',w:'Giáo thiên sứ',pn:'Cánh Che Chở',c:'#38bdf8',ic:'🪽',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đồng đội thấp máu nhất nhận Lời Thề Hộ Mệnh (chặn một đòn hạ gục) và được hồi {hlp}% máu hiện có',p:[['need','Số câu đúng liên tiếp',1,10,2],['hlp','% máu hiện có được hồi',1,100,25]]},
+{id:'song',n:'Ca Linh Sư',e:'Songweaver',w:'Đàn hạc tinh linh',pn:'Khúc Ca Truyền Nộ',c:'#ec4899',ic:'🎶',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Cộng {rg} nộ cho cả đội',p:[['need','Số câu đúng liên tiếp',1,10,2],['rg','Nộ cộng thêm',1,100,20]]},
 {id:'hexer',n:'Chú Nguyền Sư',e:'Hexweaver',w:'Búp bê rối ngải',pn:'Lời Nguyền Phản Tri',c:'#7e22ce',ic:'🕸️',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh kế tiếp gieo nguyền: {tn} lần tới đối thủ trả lời đúng sẽ mất {dm}% HP đang có',p:[['need','Số câu đúng liên tiếp',1,10,2],['tn','Số lần nguyền',1,6,2],['dm','% HP đang có mất mỗi lần',1,100,20]]},
 {id:'eclipse',n:'Nhật Nguyệt Thần Sứ',e:'Eclipse Sage',w:'Đôi kiếm Nhật Nguyệt',pn:'Nhật Nguyệt Luân Chuyển',c:'#f59e0b',ic:'🌗',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đổi dạng mỗi lần kích hoạt: Dạng Nhật sát thương x{mult}; Dạng Nguyệt giảm {dr}% sát thương nhận và hồi {hl}% HP hiện có',p:[['need','Số câu đúng liên tiếp',1,10,2],['mult','Hệ số sát thương dạng Nhật (x)',2,10,2],['dr','% giảm sát thương dạng Nguyệt',1,90,40],['hl','% HP hiện có hồi dạng Nguyệt',1,100,25]]},
-{id:'lore',n:'Cổ Thư Hiền Giả',e:'Loremaster',w:'Sách phép cổ',pn:'Trang Sách Soi Sáng',c:'#0891b2',ic:'📜',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Câu hỏi kế tiếp của đội mình được loại bỏ bớt 2 đáp án sai',p:[['need','Số câu đúng liên tiếp',1,10,3]]},
-{id:'reaper',n:'Tử Thần Liêm Sứ',e:'Reaper',w:'Lưỡi hái tử thần',pn:'Dấu Hắc Liêm',c:'#334155',ic:'💀',k:'x',cd:'Mỗi đòn đánh trúng đối thủ',ef:'Gieo 1 Dấu Hắc Liêm; mỗi dấu cộng {per}% sát thương cho đòn của mình, đủ {cap} dấu thì thu hoạch: x{mult} sát thương và xóa hết dấu',p:[['per','% sát thương mỗi dấu',1,100,25],['cap','Số dấu để thu hoạch',2,10,4],['mult','Hệ số thu hoạch',2,10,2]]}
+{id:'lore',n:'Cổ Thư Hiền Giả',e:'Loremaster',w:'Sách phép cổ',pn:'Trang Sách Soi Sáng',c:'#0891b2',ic:'📜',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Câu hỏi kế tiếp của đội mình được loại bỏ bớt 2 đáp án sai',p:[['need','Số câu đúng liên tiếp',1,10,2]]},
+{id:'reaper',n:'Tử Thần Liêm Sứ',e:'Reaper',w:'Lưỡi hái tử thần',pn:'Dấu Hắc Liêm',c:'#334155',ic:'💀',k:'x',cd:'Mỗi đòn đánh trúng đối thủ',ef:'Gieo 1 Dấu Hắc Liêm; mỗi dấu cộng {per}% sát thương cho đòn của mình, đủ {cap} dấu thì thu hoạch: x{mult} sát thương và xóa hết dấu',p:[['per','% sát thương mỗi dấu',1,100,3],['cap','Số dấu để thu hoạch',2,10,4],['mult','Hệ số thu hoạch',2,10,2]]}
 );
 Object.assign(AVX,{
 starcaller:mkAv('#4338ca','<path d="M33 48l26-44 26 44z" fill="#1e1b4b"/><circle cx="50" cy="28" r="2.5" fill="#fde047"/><circle cx="66" cy="20" r="2.5" fill="#fde047"/>','<rect x="92" y="30" width="5" height="110" rx="2" fill="#8d6e63"/><path d="M94 8l4 10 10 2-8 7 3 10-9-6-9 6 3-10-8-7 10-2z" fill="#fde047" stroke="#fff" stroke-width="2"/>'),
@@ -3063,6 +3075,7 @@ reaper:mkAv('#1e293b','<path d="M34 52a25 25 0 0 1 50 0v-4q-25-24-50 0z" fill="#
  trident:(r,l,a)=>pole(r[0],'#0e7490')+ln(`M${r[0]-12} 4V22Q${r[0]-12} 32 ${r[0]} 32Q${r[0]+12} 32 ${r[0]+12} 22V4M${r[0]} 0V30`,'#bae6fd',4)+pth(`M${r[0]-12} 0l-4 8h8zM${r[0]} -4l-4 8h8zM${r[0]+12} 0l-4 8h8z`,a),
  pistol:(r,l,a)=>gun(r[0]-2,r[1]-4,1)+gun(l[0]+2,l[1]-4,-1)+ci(r[0]+20,r[1]-14,4,a),
  cards:(r,l,a)=>[-26,-9,8,25].map((d,i)=>`<g transform="rotate(${d} ${r[0]} ${r[1]})"><rect x="${r[0]-9}" y="${r[1]-48}" width="18" height="28" rx="3" fill="#fff" stroke="${OL}" stroke-width="1.6"/>${ln(`M${r[0]} ${r[1]-38}v8`,i%2?'#dc2626':a,3)}${ci(r[0],r[1]-34,2.8,i%2?'#dc2626':a)}</g>`).join(''),
+ dice:(r,l,a)=>{const die=(x,y,s,rot,n,col)=>{const P={1:[[0,0]],2:[[-1,-1],[1,1]],3:[[-1,-1],[0,0],[1,1]],4:[[-1,-1],[1,-1],[-1,1],[1,1]],5:[[-1,-1],[1,-1],[0,0],[-1,1],[1,1]],6:[[-1,-1],[1,-1],[-1,0],[1,0],[-1,1],[1,1]]}[n],u=s*.26;return `<g transform="rotate(${rot} ${x} ${y})"><rect x="${x-s/2+2}" y="${y-s/2+3}" width="${s}" height="${s}" rx="${s*.22}" fill="${dk(a,.45)}" stroke="${OL}" stroke-width="1.6"/><rect x="${x-s/2}" y="${y-s/2}" width="${s}" height="${s}" rx="${s*.22}" fill="#fff" stroke="${OL}" stroke-width="1.8"/>`+P.map(p=>ci(x+p[0]*u,y+p[1]*u,s*.09+.4,col)).join('')+'</g>'};return `<ellipse cx="${r[0]}" cy="${r[1]-4}" rx="14" ry="3.5" fill="${a}" opacity=".28"/>`+die(r[0]-14,r[1]-50,22,-16,5,'#dc2626')+die(r[0]+12,r[1]-34,19,14,3,'#1f2937')+die(r[0]+2,r[1]-72,15,-6,6,a)+ci(r[0]-26,r[1]-26,1.8,GOLD)+ci(r[0]+28,r[1]-56,1.6,GOLD)+ci(r[0]-6,r[1]-86,1.4,'#fff')},
  fan:(r,l,a)=>pth(`M${r[0]} ${r[1]-6}L${r[0]-26} ${r[1]-50}Q${r[0]} ${r[1]-70} ${r[0]+26} ${r[1]-50}Z`,'#f8fafc')+ln(`M${r[0]} ${r[1]-6}L${r[0]-14} ${r[1]-60}M${r[0]} ${r[1]-6}V${r[1]-64}M${r[0]} ${r[1]-6}L${r[0]+14} ${r[1]-60}`,a,2)+ln(`M${r[0]-26} ${r[1]-50}Q${r[0]} ${r[1]-70} ${r[0]+26} ${r[1]-50}`,GOLD,3),
  harp:(r,l,a)=>pth(`M${r[0]-6} 36Q${r[0]+28} 30 ${r[0]+20} 74L${r[0]+16} 112H${r[0]-6}Z`,GOLD)+ln(`M${r[0]} 44V112M${r[0]+6} 42V112M${r[0]+12} 44V110`,'#fff',1.6)+ci(r[0]+24,34,4,a)+ln(`M${r[0]+30} 52q6-8 10 0`,a,2.4),
  book:(r,l,a)=>rc(r[0]-14,r[1]-44,28,36,dk(a,.25),3)+rc(r[0]-12,r[1]-42,24,32,'#f8fafc',2)+ln(`M${r[0]} ${r[1]-42}V${r[1]-10}`,OL,1.4)+pth(`M${r[0]-6} ${r[1]-30}l3 6 6 1-5 4 1 6-5-3-5 3 1-6-5-4 6-1z`,GOLD)+stf('orb')(r,l,a),
@@ -3107,12 +3120,12 @@ reaper:mkAv('#1e293b','<path d="M34 52a25 25 0 0 1 50 0v-4q-25-24-50 0z" fill="#
  astro:['cape','robeT','mantle','cuff','circ','ring'],
  smith:[null,'apron','pad','greave','smithH','hammerS'],
  alchemist:['tatter','apron','mantle','cuff','gog','flask'],
- vampire:['cape','coat','mantle','cuff',null,'none'],
+ vampire:['cape','coat','hicollar','cuff',null,'none'],
  tide:['ribbon','robeT','leaf','cuff','tiara','trident'],
  druid:['ribbon','vest','leaf','wrap','antler','wood'],
  voidmage:['tatter','runes','mantle','cuff','hood','cry'],
  samurai:[null,'samurai','sode','greave','kabuto','katana2'],
- gambler:['cape','coat','epaulet','cuff','top','cards'],
+ gambler:['cape','coat','epaulet','cuff','top','dice'],
  arbiter:['cape','coat','epaulet','cuff','cap','cardsRY'],
  leech:['bat','runes','skull','wrap','hoodH','skull'],
  thief:['pack','bando','mantle','wrap','hoodm','duo'],
@@ -3138,6 +3151,7 @@ reaper:mkAv('#1e293b','<path d="M34 52a25 25 0 0 1 50 0v-4q-25-24-50 0z" fill="#
  HD.mask2=(b,a)=>hoodP(dk(b,.35))+pth('M36 60.5Q59 65 82 60.5V80Q59 94 36 80Z',mix(b,'#bef264',.3))+ci(47,72,4.4,GOLD)+ci(71,72,4.4,GOLD)+ln('M42 66Q59 70 76 66',dk(b,.4),1.4);
  HD.helmF=(b,a)=>pth('M36 38Q20 30 20 6Q32 18 44 28ZM82 38Q98 30 98 6Q86 18 74 28Z',a)+pth('M33 56Q31 20 59 18Q87 20 85 56Q85 74 70 78H48Q33 74 33 56Z','#1e1b2e')+pth('M33 56Q31 20 59 18Q87 20 85 56L80 50Q76 30 59 28Q42 30 38 50Z',lt('#1e1b2e',.14))+pth('M37 46H81V61Q59 66 37 61Z','#ef4444')+pth('M37 46H81V51H37Z',lt('#ef4444',.45))+ci(50,55,4.2,'#fecaca')+ci(68,55,4.2,'#fecaca')+ln('M59 66V78M45 70H73',lt('#1e1b2e',.3),1.4);
  OV.samurai=(b,a)=>{const m=dk(b,.12);return pth('M42 72H76L75 104H43Z',m)+[79,86,93,100].map(y=>ln(`M43 ${y}H75`,GOLD,1.2)).join('')+ln('M50 72V104M59 72V104M68 72V104',a,2.2)+pth('M40 110H78L81 136H37Z',dk(b,.2))+ln('M47 112V134M56 112V135M65 112V135M72 112V134',GOLD,1.2)+`<g transform="rotate(-9 59 118)">`+rc(20,114,76,6,'#1c1917',3)+rc(13,115,12,4,'#7f1d1d',2)+`<ellipse cx="28" cy="117" rx="3.6" ry="5" fill="${GOLD}"/>`+rc(92,114,6,6,GOLD,2)+'</g>'};
+ SH.hicollar=(b,a)=>mir(()=>pth('M31 86L24 36L46 58L51 84Z',dk(b,.4))+pth('M35 82L30 45L45 60L47 82Z',mix(a,'#be123c',.5))+ln('M25 38L45 58',lt(a,.5),1.4))+SH.mantle(b,a);
  SH.sode=(b,a)=>mir(()=>rc(31,66,18,18,dk(b,.05),3)+ln('M31 72H49M31 78H49',GOLD,1.4)+ln('M35 67V83M45 67V83',a,2));
  WPS.none=()=>'';
  WPS.katana2=(r,l,a)=>{const x=r[0],y=r[1];return `<g transform="rotate(6 ${x} ${y})">`+pth(`M${x-3} ${y-10}V${y-62}Q${x-3} ${y-86} ${x+9} ${y-98}Q${x+5} ${y-72} ${x+3} ${y-62}V${y-10}Z`,'#e8eef5')+ln(`M${x} ${y-14}V${y-64}`,'#fff',1.2)+`<ellipse cx="${x}" cy="${y-10}" rx="8" ry="3.4" fill="${GOLD}"/>`+rc(x-3,y-8,6,30,'#7f1d1d',2)+ln(`M${x-3} ${y-2}L${x+3} ${y+2}M${x-3} ${y+8}L${x+3} ${y+12}`,GOLD,1.2)+'</g>'};
@@ -3299,14 +3313,14 @@ const tgS=o=>G.sd&&G.lk!=null&&G.sd[o][G.lk]?G.sd[o][G.lk].st:G.st[o];
 /* Chuỗi kích hoạt của class kiểu 'c' (dùng chung cho nội tại gốc và Kẻ bắt chước) */
 function clsTrig(id,r,v,a,t,L){
  if(id==='sword')r.m=v('mult');else if(id==='mage')r.fz=v('fz');else if(id==='archer'){r.m=v('mult');r.pen=v('pen')/100}
- else if(id==='assassin'){if(Math.random()*100<v('ch'))r.m=v('mult');else{r.miss=1;L(`🗡️ ${AN(t)} Ám Sát trượt, không ra x${v('mult')}`)}}
+ else if(id==='assassin'){if(Math.random()*100<asCh(t,v,L))r.m=v('mult');else{r.miss=1;L(`🗡️ ${AN(t)} Ám Sát trượt, không ra x${v('mult')}`)}}
  else if(id==='dknight'){r.add=Math.round(Math.max(0,G.s.hp-G.sc[t])*v('pct')/100);if(r.add)L(`🌑 Huyết Nguyệt: +${r.add} sát thương từ HP đã mất`)}
  else if(id==='storm'){r.m=v('mult');if(Math.random()*100<v('ch')){r.m+=v('mult2');L(`⚡ Thiên Lôi giáng thêm x${v('mult2')} sát thương!`)}}
  else if(id==='blade'){r.hits=v('hits');r.hm=v('pc')/100}
  else if(CX[id])CX[id](r,v,a,t,L);else r.vp=[v('tn'),v('pct'),v('ev'),1]}
 /* Phạt khi trả lời sai: Chấp Pháp Quan đối diện và/hoặc Đình Chỉ Thi */
 function wrongPen(t){const o=1-t,m=G.tm&&G.tm[t],pen=clsVal(G.s,'arbiter','pen');let pc=0;
- if(G.cls&&G.cls[o]==='arbiter')pc=pen;
+ if(m&&m.arm>0)pc=m.arp||pen;
  if(m&&m.sus>0)pc=m.susp||(pc?pc*2:pen*2);
  if(pc>0){const n=Math.max(1,Math.round(G.sc[t]*pc/100));aHurt(t,n);G.log.unshift(`👮 ${m&&m.sus>0?'Đình Chỉ Thi':'Phạt Gian Lận'}: ${AN(t)} trả lời sai, mất ${pc}% HP hiện có (${n} HP)`)}}
 /* Thôi miên: đòn kế tiếp của đội t có thể tự đánh vào chính mình */
@@ -3328,14 +3342,14 @@ function revOne(t,hp){if(!G.sd)return false;const T=G.sd[t],k=T.findIndex(m=>m.d
 function revAll(t,hp){let n=0;while(revOne(t,hp))n++;if(!n)G.log.unshift('🕯️ Không có đồng đội nào đã gục để hồi sinh')}
 /* Kẻ trộm: cướp toàn bộ hiệu ứng có lợi của đối thủ */
 const BUFK=['sh','ab','ts','gs','sp','ar','dg','dgp','ph','rf','ls','hk','ch','lt','crown','xm','pierce','lb','ang','ib','bt','en','vk','kn','fzh','ex','cp','tdr'],BUFC={ar:['arp'],gs:['gsT'],sp:['spT'],dgp:['dgt'],ph:['pht'],ang:['angp'],bt:['bd'],cp:['cpT'],tdr:['tdrT','tfl']},BUFS=['sh','ab','ts','gs','lt','ex','ib'];
-function stealBuffs(t,o,a){let n=0;
- aSts(o).forEach(x=>{BUFK.forEach(k=>{if(!(x[k]>0))return;
+function stealBuffs(t,o,a){let n=0;const mx=G.stealMax||99;
+ aSts(o).forEach(x=>{BUFK.forEach(k=>{if(!(x[k]>0)||n>=mx)return;
   if(k==='xm')a.xm=(a.xm||1)*x.xm;else if(BUFS.includes(k))a[k]=(a[k]||0)+x[k];else a[k]=Math.max(a[k]||0,x[k]);
   (BUFC[k]||[]).forEach(c=>{if(x[c]!=null){a[c]=Math.max(a[c]||0,x[c]);delete x[c]}});delete x[k];n++})});
  const mo=G.tm&&G.tm[o];if(mo){const mt=tmg(t);
-  for(const id in TBD){if(mo[id]>0){mt[id]=Math.max(mt[id]||0,mo[id]);mo[id]=0;n++}}
-  ['ill','tb'].forEach(k=>{if(mo[k]>0){mt[k]=(mt[k]||0)+mo[k];mo[k]=0;n++}});
-  if(mo.sm){mt.sm=mo.sm;mo.sm=null;n++}}
+  for(const id in TBD){if(mo[id]>0&&n<mx){mt[id]=Math.max(mt[id]||0,mo[id]);mo[id]=0;n++}}
+  ['ill','tb'].forEach(k=>{if(mo[k]>0&&n<mx){mt[k]=(mt[k]||0)+mo[k];mo[k]=0;n++}});
+  if(mo.sm&&n<mx){mt.sm=mo.sm;mo.sm=null;n++}}
  G.log.unshift(n?`🦝 Cướp Trắng: ${AN(t)} chiếm ${n} hiệu ứng có lợi của ${tmN(o)}`:`🦝 Cướp Trắng: ${tmN(o)} không có hiệu ứng có lợi nào để cướp`)}
 /* ----- Nội tại kiểu 'x' (điều kiện, không cần chuỗi) ----- */
 const XA={reaper:(r,a,t,L,v)=>{if(a.seal>0)return;const ts=tgS(1-t);if(!ts)return;const n=ts.mk||0;r.m=1+n*v('per')/100;if(n>=v('cap')){r.m=v('mult');ts.mk=0;L(`💀 ${AN(t)} thu hoạch ${n} Dấu Hắc Liêm: x${v('mult')} sát thương!`)}else(r.fn=r.fn||[]).push(()=>{ts.mk=(ts.mk||0)+1;L(`💀 Dấu Hắc Liêm ${ts.mk}/${v('cap')} đóng lên đối thủ`)})},executioner:(r,a,t,L,v)=>{if(a.seal>0){L(`🔒 Phong Ấn khóa ${clsDef('executioner').pn} của ${AN(t)}`);return}
@@ -3398,9 +3412,11 @@ function a7TeamLine(i){const m=G.tm&&G.tm[i],o=[],full=[],add=(ic,sh,fl)=>{o.pus
   if(m.tb>0)add('🎯','+'+m.tb+'% sát thương đòn kế'+(m.tbp>0?` (${m.tbp}% → +${m.tbx}%)`:''))}
  const ts=Math.max(0,...G.sd[i].filter(x=>!x.dead).map(x=>x.st.ts||0));if(ts>0&&!(m&&m.sh>0))add('🛡️','khiên đội '+ts);
  return o.length?`<div class="a7tl" title="${esc(full.join(' | '))}">${esc(o.join(' · '))}</div>`:''}
+function a7Rg(m){try{if(m.dead||!(m.hp>0)||!ULT[m.cls])return'';const gn=G.s.rgn==null?25:+G.s.rgn;if(!(gn>0))return'';const n=Math.max(1,+clsVal(G.s,m.cls,'rn')||2),r=Math.min(100,m.rg||0),t=Math.min(n,Math.round(r*n/100));if(t<=0)return'';return t>=n?'<i class="a7rg full"><b>🔥</b><b>🔥</b><b>🔥</b></i>':`<i class="a7rg" style="--f:${t/n}"></i>`}catch(e){return''}}
+function a7RgT(m){try{if(m.dead||!ULT[m.cls])return'';const n=Math.max(1,+clsVal(G.s,m.cls,'rn')||2),t=Math.min(n,Math.round(Math.min(100,m.rg||0)*n/100));return' · ⚡ Nộ: '+t+'/'+n+' tầng'}catch(e){return''}}
 function a7s0(i,av){if(!G.sd){const cd=a7Cards(i);return `<div class="a7s s${i}" style="--c:${GC[i]}"><div class="a7ct">${i?av(i)+cd:cd+av(i)}</div></div>`}const T=G.sd[i],f=G.fi[i],sw=(G.swc||[])[i],nx0=nxt7(i,f),nx=nx0===f?-1:nx0,sl=G.tsel&&!G.end&&i===1-G.tsel.t,hm=G.hitm,
  bk=T.map((m,k)=>{if(k===f)return'';const pq=!m.dead&&m.st.q&&m.st.q.length?m.st.q:null,pk=sl&&!m.dead&&tgOk(i,k),hp=m.dead?0:Math.max(0,m.hp);
-  return `<div data-mk="${k}" class="a7m${m.dead?'':stc(m.st)}${m.dead?' dead':''}${k===nx?' nxt':''}${sw&&sw.from===k?' pin2':''}${pk?' pk':''}${hm&&hm.t===i&&hm.k===k?(hm.blk?' blk':' hit'):''}" title="${esc(m.nm)} · ${hp}/${G.s.hp} HP${pq?' · Quà chờ: '+esc(pq.map(g=>GF[g][0]).join(', ')):''}"${pk?` data-gg="tg" data-t="${i}" data-k="${k}"`:''}>${(G.evf||[]).filter(x=>x.t===i&&x.m===k).map(x=>`<b class="adm ${x.k}">${x.s}</b>`).join('')}${hm&&hm.t===i&&hm.k===k&&hm.blk?bfxHTML(hm.blk):''}${k===nx?'<em class="a7ar">▼</em>':''}${pq?`<u class="a7g">🎁${pq.length>1?`<sup>${pq.length}</sup>`:''}</u>`:''}${G.rkfx&&G.rkfx.t===i&&G.rkfx.k===k?`<span class="afx ${GF[G.rkfx.fx][4]}" style="--c:${GF[G.rkfx.fx][5]}">${GF[G.rkfx.fx][3]}</span>`:''}<div class="a7a">${m.dead?'<span>💀</span>':''}${clsAv(m.cls)}</div><div class="a7nm">${esc(m.nm)}</div><div class="a7h"><i style="width:${hp/G.s.hp*100}%"></i></div><div class="a7bf">${m.dead?'':AST.filter(x=>m.st[x[0]]>0).map(x=>`<span>${x[1]}</span>`).join('')}</div></div>`}).join(''),cd=a7Cards(i);
+  return `<div data-mk="${k}" class="a7m${m.dead?'':stc(m.st)}${m.dead?' dead':''}${k===nx?' nxt':''}${sw&&sw.from===k?' pin2':''}${pk?' pk':''}${hm&&hm.t===i&&hm.k===k?(hm.blk?' blk':' hit'):''}" title="${esc(m.nm)} · ${hp}/${G.s.hp} HP${a7RgT(m)}${pq?' · Quà chờ: '+esc(pq.map(g=>GF[g][0]).join(', ')):''}"${pk?` data-gg="tg" data-t="${i}" data-k="${k}"`:''}>${(G.evf||[]).filter(x=>x.t===i&&x.m===k).map(x=>`<b class="adm ${x.k}">${x.s}</b>`).join('')}${hm&&hm.t===i&&hm.k===k&&hm.blk?bfxHTML(hm.blk):''}${k===nx?'<em class="a7ar">▼</em>':''}${pq?`<u class="a7g">🎁${pq.length>1?`<sup>${pq.length}</sup>`:''}</u>`:''}${G.rkfx&&G.rkfx.t===i&&G.rkfx.k===k?`<span class="afx ${GF[G.rkfx.fx][4]}" style="--c:${GF[G.rkfx.fx][5]}">${GF[G.rkfx.fx][3]}</span>`:''}<div class="a7a">${a7Rg(m)}${m.dead?'<span>💀</span>':''}${clsAv(m.cls)}</div><div class="a7nm">${esc(m.nm)}</div><div class="a7h"><i style="width:${hp/G.s.hp*100}%"></i></div><div class="a7bf">${m.dead?'':AST.filter(x=>m.st[x[0]]>0).map(x=>`<span>${x[1]}</span>`).join('')}</div></div>`}).join(''),cd=a7Cards(i);
  return `<div class="a7s s${i}" style="--c:${GC[i]}"><div class="a7bk">${a7TeamLine(i)}${bk}</div><div class="a7ct">${i?av(i)+cd:cd+av(i)}</div></div>`}
 const RAR=[['Thường','#9aa3af',40],['Hiếm','#3a8bff',30],['Sử thi','#a855f7',18],['Huyền thoại','#facc15',9],['Thần thoại','#ef4444',3]];
 const GR=[1,0,1,0,3,2,0,0,1,3,2,1,1,2,2,1,0,2,0,0,2,3,2,1,2,3,1,4,1,2,2,3,2,3,3,2,3,2,4,4];
@@ -3416,16 +3432,16 @@ function rtSum(){const e=document.getElementById('rtsum');if(!e)return;const t=[
 document.addEventListener('input',e=>{if(e.target.matches&&e.target.matches('[data-rt]'))rtSum()});
 const AN=t=>G.nm[t];
 const mhp=(i,k)=>G.sd&&k!=null&&k!==G.fi[i]?G.sd[i][k].hp:G.sc[i];
-function aHurt(t,d,k){d=Math.max(0,Math.round(d));if(!d)return;if(k==null&&G.gtt===t&&G.gtk!=null)k=G.gtk;{const e0=G.sd&&k!=null&&k!==G.fi[t]?G.sd[t][k].st:G.st[t];if(e0&&e0.hc>0)d+=e0.hcv||2}
+function aHurt(t,d,k){d=Math.max(0,Math.round(d));if(!d)return;if(k==null&&G.gtt===t&&G.gtk!=null)k=G.gtk;{const e0=G.sd&&k!=null&&k!==G.fi[t]?G.sd[t][k].st:G.st[t];if(e0&&e0.inv>0){G.log.unshift(`✨ ${G.sd&&k!=null&&k!==G.fi[t]?G.sd[t][k].nm:AN(t)} đang miễn nhiễm: không nhận sát thương`);return}if(e0&&e0.hc>0)d+=e0.hcv||2}
  if(G.sd&&k!=null&&k!==G.fi[t]){const m=G.sd[t][k],e=m.st;m.hp-=d;e.lost=d;G.ev.f.push({t,m:k,s:'-'+d,k:''});if(m.hp<=0&&e.ph){const rv=e.ph>1?e.ph:10;m.hp=rv;e.ph=0;G.log.unshift(`🦅 Phượng Hoàng hồi sinh ${m.nm} với ${rv} HP!`);G.ev.f.push({t,m:k,s:'+'+rv,k:'h'})}aAng(t,e,m.hp);return}
  const e=G.st[t];G.sc[t]-=d;e.lost=d;G.ev.f.push({t,s:'-'+d,k:''});if(G.sc[t]<=0&&e.ph){const rv=e.ph>1?e.ph:10;G.sc[t]=rv;e.ph=0;G.log.unshift(`🦅 Phượng Hoàng hồi sinh ${AN(t)} với ${rv} HP!`);G.ev.f.push({t,s:'+'+rv,k:'h'})}aAng(t,e,G.sc[t])}
 const ahF=e=>e&&e.ahl>0?Math.max(0,1-(+e.ahv||0)/100):1;
 const ahApply=(e,pc,n)=>{if(!e||!(+pc>0)||!(+n>0))return;e.ahl=Math.max(e.ahl||0,+n);e.ahv=Math.max(e.ahv||0,+pc)};
-function aHeal(t,h){if(G.sd&&!aHeal.r&&h>0&&G.tm&&G.tm[t]&&G.tm[t].lnkh>0){aHeal.r=1;const sv=[G.gtt,G.gtk];try{const ks=G.sd[t].map((m,k)=>m.dead?-1:k).filter(k=>k>=0),sh=Math.max(1,Math.round(h/ks.length));ks.forEach(k=>{G.gtt=k===G.fi[t]?null:t;G.gtk=k===G.fi[t]?null:k;aHeal(t,sh)})}finally{G.gtt=sv[0];G.gtk=sv[1];aHeal.r=0}return}
+function aHeal(t,h){if(G.sd&&!aHeal.r&&h>0&&G.tm&&G.tm[t]&&G.tm[t].lnkh>0){aHeal.r=1;const sv=[G.gtt,G.gtk];try{const ks=G.sd[t].map((m,k)=>m.dead?-1:k).filter(k=>k>=0);const pf=Math.min(1,G.tm[t].lnkh),tk=(G.gtt===t&&G.gtk!=null)?G.gtk:G.fi[t];ks.forEach(k=>{const am=Math.round(h*pf/ks.length+(k===tk?h*(1-pf):0));if(am<=0)return;G.gtt=k===G.fi[t]?null:t;G.gtk=k===G.fi[t]?null:k;aHeal(t,am)})}finally{G.gtt=sv[0];G.gtk=sv[1];aHeal.r=0}return}
  {const e0=G.sd&&G.gtt===t&&G.gtk!=null&&G.sd[t][G.gtk]?G.sd[t][G.gtk].st:G.st[t];h=Math.round(h*ahF(e0)*hbF(e0))}
  if(G.gtt===t&&G.gtk!=null){const m=G.sd[t][G.gtk],b0=m.hp;m.hp=Math.min(G.s.hp,b0+h);const g0=m.hp-b0;if(g0>0)G.ev.f.push({t,m:G.gtk,s:'+'+g0,k:'h'});return}const b=G.sc[t];G.sc[t]=Math.min(G.s.hp,b+h);const g=G.sc[t]-b;if(g>0)G.ev.f.push({t,s:'+'+g,k:'h'})}
 const GFX=[a=>{a.hk=1},a=>{a.lt=(a.lt||0)+1},(a,b)=>{b.bomb=gP(2,'dm')},(a,b)=>{b.po=gP(3,'tn');b.pd=gP(3,'dm')},a=>{a.ch=1},(a,b,t,o)=>{const d=gP(5,'add');aHurt(o,d);G.log.unshift(`☄️ Thiên Thạch rơi xuống ${AN(o)}, gây ${d} sát thương`)},a=>{a.sh=1},a=>{a.ar=gP(7,'tn')+1;a.arp=gP(7,'pc')},a=>{a.ab=gP(8,'ab')},a=>{a.ph=gP(9,'hp')},a=>{a.rf=gP(10,'pc')},
-(a,b)=>{b.fz=gP(11,'tn')},(a,b)=>{b.chain=1},(a,b)=>{b.seal=gP(13,'tn')},(a,b)=>{b.nodmg=1},(a,b)=>{b.chaos=gP(15,'pc')},(a,b,t)=>aHeal(t,gP(16,'hp')),(a,b,t)=>aHeal(t,gP(17,'hp')),a=>{a.en=1},(a,b,t,o,d)=>aGive(t,aGift(),d),
+(a,b)=>{b.fz=Math.max(b.fz||0,gP(11,'tn'))},(a,b)=>{b.chain=1},(a,b)=>{b.seal=Math.max(b.seal||0,gP(13,'tn'))},(a,b)=>{b.nodmg=1},(a,b)=>{b.chaos=gP(15,'pc')},(a,b,t)=>aHeal(t,gP(16,'hp')),(a,b,t)=>aHeal(t,gP(17,'hp')),a=>{a.en=1},(a,b,t,o,d)=>aGive(t,aGift(),d),
 a=>{['po','fz','chain','seal','nodmg','chaos','bomb','stun','pzn','bnn','pln','hc','dgd','bn','ahl'].forEach(k=>delete a[k])},(a,b,t)=>aHeal(t,Math.min(gP(21,'hp'),a.lost||0)),a=>{a.ls=gP(22,'pc')},
 (a,b,t,o,d)=>{if(Math.random()<.5)aHeal(t,1+Math.random()*gP(23,'hp')|0);else aGive(t,aGift(),d)},
 (a,b,t,o)=>{const r=1+Math.random()*6|0;G.log.unshift('🎲 Xúc xắc ra '+r);if(r===1)aHurt(t,3);else if(r===2)aHeal(t,5);else if(r===3)a.lt=(a.lt||0)+1;else if(r===4)aHurt(o,4);else if(r===5)a.sh=1;else a.ch=1},
@@ -3589,9 +3605,9 @@ function nfx(i){return(a,b,t,o,d)=>{const s=gdesc(i),M=r=>{const x=s.match(r);re
  if(T(/giảm \d+% phòng thủ/)){b.ar=0;b.arp=0;u=1}
  if(T(/bằng \d+% sát thương gây ra/)){a.ls=M(/bằng (\d+)%/);u=1}
  if(!T(/[Xx]óa/)&&T(/thiêu đốt|mất \d+ HP|độc/)){b.vp=tn;b.vpp=0;b.vd=M(/(?:thiêu đốt|mất) (\d+) HP/)||2;u=1}
- if(!T(/[Xx]óa/)&&T(/đóng băng|choáng/)){if(ex)a.fzh=ch;else if(rnd)b.fz=1;u=1}
+ if(!T(/[Xx]óa/)&&T(/đóng băng|choáng/)){if(ex)a.fzh=ch;else if(rnd)b.fz=Math.max(b.fz||0,1);u=1}
  const wk=M(/[Gg]iảm (\d+)% sát thương của đối thủ/);if(wk){b.chaos=wk;u=1}
- if(T(/[Kk]hóa (?:một hiệu ứng )?buff/)){b.seal=tn;u=1}
+ if(T(/[Kk]hóa (?:một hiệu ứng )?buff/)){b.seal=Math.max(b.seal||0,tn);u=1}
  if(T(/không thể sử dụng vật phẩm/)){b.chain=1;u=1}
  if(T(/[Pp]há hủy \d+% lá chắn/)){const f=1-M(/(\d+)%/)/100;['ab','ts','gs','sp'].forEach(k=>{if(b[k])b[k]=Math.round(b[k]*f)});u=1}
  if(T(/tỷ lệ nhận quà/)){a.lk=M(/(\d+)%/)||10;a.lkn=tn+1;u=1}else if(T(/đánh bại đối thủ/)&&T(/vật phẩm/)){a.vk=1;a.vkw=gWait();u=1}else if(T(/[Nn]ếu/)&&T(/vật phẩm/)){a.en=1;u=1}
@@ -3627,7 +3643,8 @@ const aoeNm=(t,x)=>x.f?AN(t):x.m.nm;
 const aoeK=x=>x.f?null:x.k;
 function aoeDie(t,x){if(!x.f&&x.m.hp<=0&&!x.m.dead){x.m.hp=0;x.m.dead=1;G.log.unshift(`💀 ${x.m.nm} (${G.tn[t]}) bị hạ gục!`)}}
 /* Sát thương AOE: chịu giảm sát thương (giáp, đội), bị khiên hấp thụ (khiên đội, bức tường, kết giới). pierce = tỉ lệ bỏ qua khiên */
-function aoeHit(t,x,d,op){op=op||{};d=+d||0;if(d<=0)return 0;const e=x.st;
+function brDr(t,id){return id==='berserker'?Math.min(90,+clsVal(G.s,'berserker','dr')||0):0}
+function aoeHit(t,x,d,op){op=op||{};d=+d||0;if(d<=0)return 0;const e=x.st;{const bd=brDr(t,x.m?x.m.cls:G.cls[t]);if(bd>0)d*=1-bd/100}
  {const R=Math.min(70,aTP(t,'r'));if(R>0)d*=1-R/100}
  if(e.ar>0)d*=1-(e.arp||50)/100;
  const pr=op.pierce||0;let sh=d*(1-pr);const th=d*pr;if(e.sp>0)sh*=1-e.sp/100;
@@ -3844,10 +3861,10 @@ function tmCards(i){const m=G.tm&&G.tm[i];if(!m)return[];const o=[];
  if(m.sm)o.push([2,'🐺','Linh Thú Hộ Chiến · cả đội',`${m.sm.hits} đòn đánh tới của cả đội +${m.sm.pc?m.sm.pc+'%':m.sm.dm} sát thương, còn ${m.sm.tn} lượt`]);
  if(m.ill>0)o.push([2,'🎭','Ảo Ảnh Bảo Hộ · cả đội',`Né hoàn toàn đòn đánh kế tiếp của đối thủ, còn ${m.ill} lượt`]);
  if(m.tb>0)o.push([2,'🎯','Chiến Thuật · cả đội',`Đòn đánh kế tiếp của cả đội +${m.tb}% sát thương`]);
- if(m.sus>0)o.push([1,'👮','Đình Chỉ Thi','Trả lời sai mất '+(m.susp?m.susp+'% HP hiện có':'gấp đôi HP')+', không nhận được quà · còn '+m.sus+' lượt']);
+ if(m.arm>0)o.push([1,'👮','Bị theo dõi','Trả lời sai mất '+(m.arp||15)+'% HP hiện có · còn '+m.arm+' lượt']);if(m.sus>0)o.push([1,'👮','Đình Chỉ Thi','Trả lời sai mất '+(m.susp?m.susp+'% HP hiện có':'gấp đôi HP')+', không nhận được quà · còn '+m.sus+' lượt']);
   if(m.hyp>0)o.push([1,'😵','Thôi Miên',`Đòn đánh kế tiếp có ${m.hyp}% tự đánh vào chính mình`]);
   if(m.sal>0)o.push([2,'🏪','Đại Hạ Giá · cả đội','Mọi quà nhận được lên 1 bậc độ hiếm · còn '+m.sal+' lượt']);
-  if(m.lnk>0)o.push([2,'🔗',m.lnkh?'Hợp Nhất · cả đội':'Đồng Mệnh · cả đội',(m.lnkh?'Sát thương và hồi máu':'Sát thương nhận')+' được chia đều cho mọi thành viên · còn '+m.lnk+' lượt']);
+  if(m.lnk>0)o.push([2,'🔗',m.lnkh?'Hợp Nhất · cả đội':'Đồng Mệnh · cả đội',(m.lnkh?'Sát thương nhận và '+Math.round(m.lnkh*100)+'% lượng hồi':'Sát thương nhận')+' được chia đều cho mọi thành viên · còn '+m.lnk+' lượt']);
   if(m.tau>0)o.push([2,'📢','Khiêu Khích · cả đội','Đối thủ bắt buộc đánh người khiêu khích · còn '+m.tau+' lượt']);
   aoeCards(i,o);
  {const mo=G.tm[1-i];if(mo&&mo.mt&&mo.mt.n>0)o.push([1,'🌠','Thiên Thạch Sắp Rơi',`Rơi xuống sau ${mo.mt.n} lượt của đối thủ, gây ${mo.mt.d} sát thương không thể né`]);
@@ -3927,7 +3944,7 @@ function goPick(){const q=G.osel;if(!q||G.lock||G.end||G.tpause)return;const t=q
 function osPanel(q){const t=q.t,gi=q.list[0],g=GF[gi],r=RAR[aR(gi)],o=1-t;
  return `<div class="gsl" style="--c:${GC[t]}"><div class="gst">🎁 ${esc(AN(t))} nhận quà gây hiệu ứng bất lợi cho ${esc(AN(o))}!${q.list.length>1?` (còn ${q.list.length} quà)`:''}</div>${G.tz?`<div class="acd gsac">${cdBar('acdq','⏱',G.tl,q.max,'Dùng quà')}<button class="b g acdp" data-gg="tp" title="Tạm dừng / tiếp tục">${G.tpause?'▶':'⏸'}</button></div>`:''}<div class="rvc hold" style="--c:${r[1]}"><span>${g[3]}</span><b>${g[0]}</b><em class="rar">${r[0]}</em><small>${esc(g[2])}</small></div><div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center"><button class="b p gsk" data-gg="go">⚡ Dùng ngay</button></div></div>`}
 const phHTML=p=>p.hide?'':`<div class="phs" style="--c:${p.c}"><i>${p.ic}</i><b>${p.tx}</b><small>${esc(p.sub)}</small></div>`;
-const BKF={dg:['💨','NÉ ĐÒN!'],ill:['🎭','NÉ ĐÒN!'],tdg:['🌫️','NÉ ĐÒN!'],sh:['🛡️','CHẶN ĐÒN!'],lb:['💠','CHẶN ĐÒN!'],ab:['🛡️','HẤP THỤ!']};
+const BKF={inv:['✨','MIỄN NHIỄM!'],dg:['💨','NÉ ĐÒN!'],ill:['🎭','NÉ ĐÒN!'],tdg:['🌫️','NÉ ĐÒN!'],sh:['🛡️','CHẶN ĐÒN!'],lb:['💠','CHẶN ĐÒN!'],ab:['🛡️','HẤP THỤ!']};
 const bfxHTML=k=>{const b=BKF[k]||BKF.ab;return `<span class="bfx"><i>${b[0]}</i><em>${b[1]}</em></span>`};
 /* ---------- Tặng quà cho đồng đội (7v7) ---------- */
 function gsOpen(t,list){G.gsel={t,list:list.slice(),max:10};G.lock=0;if(G.tz)G.tl=G.gsel.max;gDraw()}
@@ -4353,7 +4370,7 @@ function ultAnim(cid,t,tk){
  setTimeout(()=>{UFX.l.forEach(e=>e.remove());UFX.l=[]},d+500);return d}
 function ultPre(ok){const t=G.turn,cid=G.cls&&G.cls[t],R=RGt(),gain=G.s.rgn==null?25:+G.s.rgn;
  if(!ULT[cid]||!(gain>0)||R[t]<100)return false;
- const u=ULT[cid];if(cid==='gambler')G.gmb=Math.random()*3|0;G.ultGo=1;G.lock=1;fxq({k:'big',ic:u[0],tx:u[1],sub:clsFill(u[2],G.s,cid),c:u[3]});gDraw();
+ const u=ULT[cid];if(cid==='gambler')G.gmb=gmbRoll();G.ultGo=1;G.lock=1;fxq({k:'big',ic:u[0],tx:u[1],sub:clsFill(u[2],G.s,cid),c:u[3]});gDraw();
  gT(()=>{let d=300;try{d=ultAnim(cid,t,G.tk)}catch(e){console.error(e)}gT(()=>gArenaB(ok),d)},1800);return true}
 
 function gArenaB(ok){
@@ -4361,23 +4378,23 @@ function gArenaB(ok){
  if(ok&&G.ph&&G.ph.hide)G.ph.hide=0;
  G.ga=0;G.nb=null;const t=G.turn,hy=ok&&hypTake(t),o=hy?t:1-t,a=G.st[t],tk0=G.sd?(!hy&&G.tk!=null&&G.sd[o][G.tk]&&!G.sd[o][G.tk].dead?G.tk:G.fi[o]):null,bm=G.sd?G.sd[o][tk0]:null,b=bm?bm.st:G.st[o],tn=bm?bm.nm:AN(o);G.tk=null;G.lk=tk0;(G.ld=G.ld||[0,0])[t]=0;G.ev={f:[],atk:-1,hit:-1,fx:-1,fxt:t};
  if(a.kn){if(a.knw)a.knw=0;else{const v=a.kn;a.kn=0;if(ok){aHeal(t,v);G.log.unshift(`📖 Sách Tri Thức: ${AN(t)} trả lời đúng, hồi ${v} HP`)}else G.log.unshift(`📖 Sách Tri Thức: ${AN(t)} trả lời sai, không được hồi HP`)}}
- if(ok){hexTick(t);rgPre(t,a,b,o);let d=Math.max(1,Math.round(+G.q.p||1));const cx=clsAtk(t,a);G.ult0=null;
+ if(ok){hexTick(t);rgPre(t,a,b,o);let d=Math.max(1,Math.round(+G.q.p||1));G.dgn=0;const cx=clsAtk(t,a);G.ult0=null;
   if(a.nodmg){d=0;G.log.unshift(`⏳ ${AN(t)} bị ngưng đọng, không gây được sát thương`)}
   else{let m=1,add=a.ex||0;a.ex=0;
    if(a.seal>0)G.log.unshift(`🔒 Phong Ấn: buff tấn công của ${AN(t)} bị khóa`);
    else{if(a.hk){m*=gP(0,'m');a.hk=0}if(a.ch){m*=gP(4,'m');a.ch=0}if(a.xm){m*=a.xm;a.xm=0}if(a.crown>0){m*=2;a.crown--}if(a.lt){add+=gP(1,'add')*a.lt;a.lt=0}m*=ng2Atk(t,a)}
-   if(a.chaos){m*=1-(a.chaos>1?a.chaos:50)/100;a.chaos=0}
+   if(a.chaos){m*=1-(a.chaos>1?a.chaos:50)/100;if(a.chaosN>1)a.chaosN--;else{a.chaos=0;a.chaosN=0}}
    d=d*m*cx.m+add+cx.add;d*=evM();{const tp=aTP(t,'dm');if(tp)d*=1+tp/100}{const w=aoeWk(t);if(w)d*=Math.max(0,1-w/100)}{const v=aoeDf(o);if(v)d*=1+v/100}cx.pre=d;const pr=a.pierce;a.pierce=0;
-    const df=d=>{if(!G.sd&&b.ut>0&&!a.ign){d=0;G.nb='dg';G.log.unshift(`👻 ${tn} đang ẩn thân, không thể bị chọn làm mục tiêu: đòn đánh trượt!`);return d}if(!a.ig&&((b.dg&&(Math.random()*100>=(b.dgd||0)||(b.dg=0,false)))||(b.dgp>0&&Math.random()*100<b.dgp-(b.dgd||0)))){b.dg=0;d=0;G.nb='dg';G.log.unshift(`💨 ${tn} né hoàn toàn đòn đánh!`)}else if(!a.ign&&G.tm&&G.tm[o]&&G.tm[o].ill>0){G.tm[o].ill=0;d=0;G.nb='ill';G.log.unshift(`🎭 Ảo ảnh bảo hộ giúp ${tn} né hoàn toàn đòn đánh!`)}else if(!a.ign&&aTP(o,'dg')>0&&Math.random()*100<Math.max(0,Math.min(60,aTP(o,'dg'))-(b.dgd||0))){d=0;G.nb='tdg';G.log.unshift(`🌫 ${tn} né được đòn đánh nhờ hiệu ứng toàn đội!`)}else if(b.sh&&!pr){b.sh=0;d=0;G.nb='sh';G.log.unshift(`🛡 ${tn} chặn hoàn toàn đòn đánh!`)}else{const qq=1-cx.pen;if(!a.ign){const R=Math.min(70,aTP(o,'r')+(G.tm&&G.tm[o]&&G.tm[o].oth>0?(b.ohs||0):0));if(R>0)d*=1-R/100}if(b.ar>0&&!pr)d*=1-(b.arp||50)/100*qq;if(b.ts>0&&!pr){const x=Math.min(b.ts,d*qq);b.ts-=x;d-=x}if(b.gs>0&&!pr){const x=Math.min(b.gs,d*qq);b.gs-=x;d-=x}if(b.sp>0&&!pr)d*=1-b.sp/100*qq;if(b.ab>0&&!pr){const x=Math.min(b.ab,d*qq);b.ab-=x;d-=x}if(b.cp>0&&!pr)d=Math.min(d,b.cp);if(b.tdr>0&&!pr)d*=1-b.tdr/100;if(b.rf){const r=Math.round(d*(b.rf>1?b.rf:50)/100);b.rf=0;d-=r;G.log.unshift(`🪞 ${tn} phản lại ${r} sát thương!`);aHurt(t,r)}if(b.lb&&!a.ign&&mhp(o,tk0)>0&&Math.round(d)>=mhp(o,tk0)){b.lb=0;d=0;G.nb='lb';G.log.unshift(`💠 ${tn} được bảo hộ: đòn đánh có thể hạ gục bị chặn hoàn toàn!`)}}return d};
-    if(cx.hits){const per=d*cx.hm;let tot=0;for(let k=0;k<cx.hits;k++)tot+=df(per);d=tot;G.log.unshift(`🤺 ${AN(t)} tung ${cx.hits} ${cx.hw||'nhát chém'}!`)}else d=df(d)}
-   d=Math.round(d);if(cx.trig&&!cx.miss&&d<=0){a.cc=cx.cc0;cx.fz=0;cx.vp=null;cx.fn=null;G.log.unshift(`🔄 Đòn bị vô hiệu, ${clsDef(G.cls[t]).pn} chưa bị tiêu hao`)}
-  if(d>0){G.ld[t]=d;G.ev.atk=t;G.ev.hit=o;G.ev.hm=tk0;if(!bindHit(o,d,tk0))aHurt(o,d,tk0);aOath(o,b);if(b.tfl>0){aHurt(t,b.tfl);G.log.unshift(`📢 ${tn} dội lại ${b.tfl} sát thương cho ${AN(t)}!`)}if(b.thn>0&&o!==t){const r=Math.round(d*b.thn/100);if(r>0){aHurt(t,r);G.log.unshift(`🌵 Giáp Gai: ${tn} phản ${r} sát thương cho ${AN(t)}!`)}}G.log.unshift(`⚔ ${AN(t)} đánh ${tn} ${d} sát thương`);if(G.en&&G.en.id==='blood')aHeal(t,Math.round(d*.3));if(G.en&&G.en.id==='ice'&&Math.random()<.25){b.fz=(b.fz||0)+1;G.log.unshift(`❄ Bão băng đóng băng ${tn}!`)}if(a.ls){const q=a.ls>1?a.ls:50;a.ls=0;const n0=G.ev.f.length;aHeal(t,Math.round(d*q/100));if(G.ev.f.length===n0)G.ev.f.push({t,s:'+0',k:'h'})}}
+    const df=d=>{if(b.inv>0){d=0;G.nb='inv';G.log.unshift(`✨ ${tn} đang miễn nhiễm: mọi sát thương bị vô hiệu!`);return d}if(!G.sd&&b.ut>0&&!a.ign){d=0;G.nb='dg';G.dgn=(G.dgn||0)+1;G.log.unshift(`👻 ${tn} đang ẩn thân, không thể bị chọn làm mục tiêu: đòn đánh trượt!`);return d}if(!a.ig&&((b.dg&&(Math.random()*100>=(b.dgd||0)||(b.dg=0,false)))||(b.dgp>0&&Math.random()*100<b.dgp-(b.dgd||0)))){b.dg=0;if(b.dg1){b.dgp=0;b.dgt=0;b.dg1=0}d=0;G.nb='dg';G.dgn=(G.dgn||0)+1;G.log.unshift(`💨 ${tn} né hoàn toàn đòn đánh!`)}else if(!a.ign&&G.tm&&G.tm[o]&&G.tm[o].ill>0){G.tm[o].ill=0;d=0;G.nb='ill';G.dgn=(G.dgn||0)+1;G.log.unshift(`🎭 Ảo ảnh bảo hộ giúp ${tn} né hoàn toàn đòn đánh!`)}else if(!a.ign&&aTP(o,'dg')>0&&Math.random()*100<Math.max(0,Math.min(60,aTP(o,'dg'))-(b.dgd||0))){d=0;G.nb='tdg';G.dgn=(G.dgn||0)+1;G.log.unshift(`🌫 ${tn} né được đòn đánh nhờ hiệu ứng toàn đội!`)}else if(b.sh&&!pr){b.sh=0;d=0;G.nb='sh';G.log.unshift(`🛡 ${tn} chặn hoàn toàn đòn đánh!`)}else{const qq=1-cx.pen;if(!a.ign){const R=Math.min(70,aTP(o,'r')+(G.tm&&G.tm[o]&&G.tm[o].oth>0?(b.ohs||0):0));if(R>0)d*=1-R/100}{const bd=brDr(o,G.cls[o]);if(bd>0)d*=1-bd/100}if(b.ar>0&&!pr)d*=1-(b.arp||50)/100*qq;if(b.ts>0&&!pr){const x=Math.min(b.ts,d*qq);b.ts-=x;d-=x}if(b.gs>0&&!pr){const x=Math.min(b.gs,d*qq);b.gs-=x;d-=x}if(b.sp>0&&!pr)d*=1-b.sp/100*qq;if(b.ab>0&&!pr){const x=Math.min(b.ab,d*qq);b.ab-=x;d-=x}if(b.cp>0&&!pr)d=Math.min(d,b.cp);if(b.tdr>0&&!pr)d*=1-b.tdr/100;if(b.rf){const r=Math.round(d*(b.rf>1?b.rf:50)/100);b.rf=0;d-=r;G.log.unshift(`🪞 ${tn} phản lại ${r} sát thương!`);aHurt(t,r)}if(b.lb&&!a.ign&&mhp(o,tk0)>0&&Math.round(d)>=mhp(o,tk0)){b.lb=0;d=0;G.nb='lb';G.log.unshift(`💠 ${tn} được bảo hộ: đòn đánh có thể hạ gục bị chặn hoàn toàn!`)}}return d};
+    if(cx.hits){const per=d*cx.hm;let tot=0,stk=0;for(let k=0;k<cx.hits;k++){const x=df(per*(1+(cx.hs||0)*stk/100));tot+=x;if(x>0)stk++}d=tot;G.log.unshift(`🤺 ${AN(t)} tung ${cx.hits} ${cx.hw||'nhát chém'}!`+(cx.hs&&stk>1?` ${stk} hit trúng, mỗi hit cộng dồn +${cx.hs}% sát thương cho hit sau`:''))}else d=df(d)}
+   d=Math.round(d);ninjaCnt(t,o,tk0,cx);if(cx.trig&&!cx.miss&&d<=0){a.cc=cx.cc0;cx.fz=0;cx.vp=null;cx.fn=null;G.log.unshift(`🔄 Đòn bị vô hiệu, ${clsDef(G.cls[t]).pn} chưa bị tiêu hao`)}
+  if(d>0){G.ld[t]=d;G.ev.atk=t;G.ev.hit=o;G.ev.hm=tk0;if(!bindHit(o,d,tk0))aHurt(o,d,tk0);aOath(o,b);if(b.tfl>0){aHurt(t,b.tfl);G.log.unshift(`📢 ${tn} dội lại ${b.tfl} sát thương cho ${AN(t)}!`)}if(b.thn>0&&o!==t){const r=Math.round(d*b.thn/100);if(r>0){aHurt(t,r);G.log.unshift(`🌵 Giáp Gai: ${tn} phản ${r} sát thương cho ${AN(t)}!`)}}G.log.unshift(`⚔ ${AN(t)} đánh ${tn} ${d} sát thương`);if(G.en&&G.en.id==='blood')aHeal(t,Math.round(d*.3));if(G.en&&G.en.id==='ice'&&Math.random()<.25){b.fz=Math.max(b.fz||0,1);G.log.unshift(`❄ Bão băng đóng băng ${tn}!`)}if(a.ls){const q=a.ls>1?a.ls:50,hh=Math.round(d*q/100),lx=a.lsx;a.ls=0;a.lsx=0;const n0=G.ev.f.length;if(lx&&!(G.tm&&G.tm[t]&&G.tm[t].lnkh>0)){const ef=Math.round(hh*ahF(a)*hbF(a)),ov=Math.max(0,G.sc[t]+ef-G.s.hp);aHeal(t,hh);if(ov>0){a.ts=(a.ts||0)+ov;G.log.unshift(`🧛 ${AN(t)} hút máu vượt HP tối đa: ${ov} HP chuyển thành khiên`)}}else aHeal(t,hh);if(G.ev.f.length===n0)G.ev.f.push({t,s:'+0',k:'h'})}}
   else if(!a.nodmg){const bk=G.nb||'ab',mk=G.sd&&tk0!=null&&tk0!==G.fi[o]?tk0:null;G.nb=null;G.ev.atk=t;G.ev.hit=o;G.ev.hm=tk0;G.ev.blk=bk;G.ev.f.push(mk!=null?{t:o,m:mk,s:'-0',k:'nb'}:{t:o,s:'-0',k:'nb'})}
-  if(a.fzh){const c=a.fzh;a.fzh=0;if(d>0&&Math.random()*100<c){b.fz=(b.fz||0)+1;G.log.unshift(`❄ Đòn đánh trúng ${tn}: bị đóng băng/choáng!`)}}
- cx.dd=d;clsPost(t,a,b,cx,tn)}else{{const cl=clsDef(G.cls[t]);if(cl&&cl.k==='c'&&(a.cc||0)>=clsVal(G.s,cl.id,'need'))G.log.unshift(`🛡 ${AN(t)} trả lời sai nhưng nội tại đã nạp đầy vẫn được giữ`);else{if(a.cc>0)G.log.unshift(`💔 ${AN(t)} trả lời sai, chuỗi nội tại về 0`);a.cc=0}}rgMiss(t);wrongPen(t);G.log.unshift(`✖ ${AN(t)} trả lời sai: không có quà, không gây sát thương`)}
- if(a.vk){if(a.vkw)a.vkw=0;else{a.vk=0;if(ok&&mhp(o,tk0)<=0){G.log.unshift(`👑 ${AN(t)} hạ gục ${tn}: Vương Miện Kẻ Thắng thưởng thêm 1 quà!`);aQueue(t,aGift())}}}
+  if(a.fzh){const c=a.fzh;a.fzh=0;if(d>0&&Math.random()*100<c){b.fz=Math.max(b.fz||0,1);G.log.unshift(`❄ Đòn đánh trúng ${tn}: bị đóng băng/choáng!`)}}
+ cx.dd=d;clsPost(t,a,b,cx,tn)}else{{const cl=clsDef(G.cls[t]);if(cl&&cl.id==='berserker'){}else if(cl&&cl.k==='c'&&(a.cc||0)>=clsVal(G.s,cl.id,'need'))G.log.unshift(`🛡 ${AN(t)} trả lời sai nhưng nội tại đã nạp đầy vẫn được giữ`);else{if(a.cc>0)G.log.unshift(`💔 ${AN(t)} trả lời sai, chuỗi nội tại về 0`);a.cc=0}}rgMiss(t);wrongPen(t);G.log.unshift(`✖ ${AN(t)} trả lời sai: không có quà, không gây sát thương`)}
+ bountyChk(t);if(a.vk){if(a.vkw)a.vkw=0;else{a.vk=0;if(ok&&mhp(o,tk0)<=0){G.log.unshift(`👑 ${AN(t)} hạ gục ${tn}: Vương Miện Kẻ Thắng thưởng thêm 1 quà!`);aQueue(t,aGift())}}}
  if(a.bomb){const bd=a.bomb>1?a.bomb:5;a.bomb=0;aHurt(t,bd);G.log.unshift(`💣 Bom nổ! ${AN(t)} mất ${bd} HP`)}
- evTick();a.nodmg=0;a.ig=0;a.ign=0;a.chain=0;if(a.im>0)a.im--;if(a.lkn>0&&--a.lkn<=0)a.lk=0;if(a.pht>0&&--a.pht<=0&&a.ph){a.ph=0;G.log.unshift(`⌛ Hiệu lực hồi sinh của ${AN(t)} đã hết`)}if(a.seal>0)a.seal--;aTick(t);aoeTick(t);exTick(t);(G.sd?G.sd[t].map(m=>m.st):[a]).forEach(x=>{if(x.dgt>0&&--x.dgt<=0)x.dgp=0;if(x.dgdt>0&&--x.dgdt<=0)x.dgd=0;if(x.hc>0&&--x.hc<=0)x.hcv=0;if(x.ahl>0&&--x.ahl<=0)x.ahv=0;if(x.ar>0)x.ar--;if(x.gsT>0&&--x.gsT<=0)x.gs=0;if(x.spT>0&&--x.spT<=0)x.sp=0;if(x.cpT>0&&--x.cpT<=0)x.cp=0;if(x.tdrT>0&&--x.tdrT<=0){x.tdr=0;x.tfl=0}if(x.thT>0&&--x.thT<=0)x.thn=0;if(x.hbT>0&&--x.hbT<=0)x.hb=0;if(x.ut>0)x.ut--});if(a.cbn>0&&--a.cbn<=0){a.cbp=0;a.cbl=0}if(a.cmT>0&&--a.cmT<=0){a.cms=0;a.cmm=0;a.cmv=0}{const q=G.tm&&G.tm[t];if(q&&q.sm){q.sm.tn--;if(q.sm.tn<=0||q.sm.hits<=0)q.sm=null}const w=G.tm&&G.tm[o];if(w&&w.ill>0)w.ill--;if(q){if(q.sus>0)q.sus--;if(q.sal>0)q.sal--;if(q.lnk>0&&--q.lnk<=0)q.lnkh=0;if(q.tau>0&&--q.tau<=0)q.tak=null}}
+ evTick();a.nodmg=0;a.ig=0;a.ign=0;a.chain=0;if(a.im>0)a.im--;if(a.lkn>0&&--a.lkn<=0)a.lk=0;if(a.pht>0&&--a.pht<=0&&a.ph){a.ph=0;G.log.unshift(`⌛ Hiệu lực hồi sinh của ${AN(t)} đã hết`)}if(a.seal>0)a.seal--;aTick(t);aoeTick(t);exTick(t);(G.sd?G.sd[t].map(m=>m.st):[a]).forEach(x=>{if(x.dgt>0&&--x.dgt<=0){x.dgp=0;x.dg1=0}if(x.dgdt>0&&--x.dgdt<=0)x.dgd=0;if(x.hc>0&&--x.hc<=0)x.hcv=0;if(x.ahl>0&&--x.ahl<=0)x.ahv=0;if(x.ar>0)x.ar--;if(x.gsT>0&&--x.gsT<=0)x.gs=0;if(x.spT>0&&--x.spT<=0)x.sp=0;if(x.cpT>0&&--x.cpT<=0)x.cp=0;if(x.inv>0)x.inv--;if(x.tdrT>0&&--x.tdrT<=0){x.tdr=0;x.tfl=0}if(x.thT>0&&--x.thT<=0)x.thn=0;if(x.hbT>0&&--x.hbT<=0)x.hb=0;if(x.ut>0)x.ut--});if(a.cbn>0&&--a.cbn<=0){a.cbp=0;a.cbl=0}if(a.cmT>0&&--a.cmT<=0){a.cms=0;a.cmm=0;a.cmv=0}{const q=G.tm&&G.tm[t];if(q&&q.sm){q.sm.tn--;if(q.sm.tn<=0||q.sm.hits<=0)q.sm=null}const w=G.tm&&G.tm[o];if(w&&w.ill>0)w.ill--;if(q){if(q.sus>0)q.sus--;if(q.sal>0)q.sal--;if(q.lnk>0&&--q.lnk<=0)q.lnkh=0;if(q.tau>0&&--q.tau<=0)q.tak=null}}
  G.log=G.log.slice(0,8);G.lock=1;const ms=ok?2400:(G.ev&&G.ev.f&&G.ev.f.length?2300:900),fin=()=>gT(()=>{G.lock=0;if(aChk())return;const go=()=>{G.lock=0;G.ph=null;if(G.sd)rot7(t);{const tt=G.tm&&G.tm[t];if(tt&&tt.vt){tt.vt=0;G.turn=t;G.log.unshift(`🎫 Vé Ưu Tiên: ${tmN(t)} hành động trước ở lượt kế tiếp`)}else G.turn=o}aStart();if(G.end)return;evRoll();G.q=gQ();loreHide();cutHide();G.gf=aBox();gDraw()};if(G.sd){const n=nxt7(t,G.fi[t]),el=document.querySelector('#gm .a7s.s'+t+' .arv');if(!(G.rep&&G.rep[t])&&n>=0&&n!==G.fi[t]&&el){el.classList.add('shr');G.lock=1;gT(go,430);return}}go()},ms);if(G.tacP){G.tacP.fin=fin;gDraw();return}gDraw();fin()}
 GV.arena=function(){bloodSync();const ev=G.ev||{f:[]};G.ev=null;const tp=G.tsel&&!G.end?G.tsel:null,gs=G.gsel&&!G.end?G.gsel:null,rs=G.rsel&&!G.end?G.rsel:null,os=G.osel&&!G.end?G.osel:null,ph=G.ph&&!G.end?G.ph:null;G.evf=ev.f;healFx(ev.f);G.aoefx=ev.aoe||null;G.rkfx=ev.rk!=null&&ev.fx>=0&&ev.fxt===G.turn?{t:G.turn,k:ev.rk,fx:ev.fx}:null;G.hitm=ev.hit>=0&&G.sd&&ev.hm!=null&&ev.hm!==G.fi[ev.hit]?{t:ev.hit,k:ev.hm,blk:ev.blk}:null;
  const SW=G.sw||[null,null];G.sw=null;G.swc=SW;
@@ -4399,16 +4416,23 @@ chrono:[['u_hlp','⚡ Chiêu nộ: % máu hiện có hồi cả đội',1,100,25
 storm:[['u_xm','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,200],['u_fz','⚡ Chiêu nộ: số lượt choáng',0,5,1]],blade:[['u_dm','⚡ Chiêu nộ: % sát thương thêm cả đội',10,300,100],['u_pr','⚡ Chiêu nộ: xác suất nâng sát thương cả đội (%)',0,100,30],['u_x3','⚡ Chiêu nộ: % sát thương thêm khi trúng xác suất',10,500,200],['u_xm','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,200]],
 illus:[['u_tn','⚡ Chiêu nộ: số lượt né',1,10,2],['u_wk','⚡ Chiêu nộ: % giảm sát thương đối thủ',0,100,50]],tact:[['u_dm','⚡ Chiêu nộ: % sát thương thêm cả đội',10,300,55],['u_bp','⚡ Chiêu nộ: % sát thương lá chắn chặn (cả đội)',0,90,60],['u_tn','⚡ Chiêu nộ: số lượt lá chắn',1,10,3]],monk:[['u_hits','⚡ Chiêu nộ: số hit',2,10,5],['u_pc','⚡ Chiêu nộ: % sát thương mỗi hit',10,300,60],['u_st','⚡ Chiêu nộ: số lượt choáng',0,3,1]],gunner:[['u_hits','⚡ Chiêu nộ: số viên đạn',2,10,6],['u_pc','⚡ Chiêu nộ: % sát thương mỗi viên',10,300,50]],pyro:[['u_xm','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,200],['u_dm','⚡ Chiêu nộ: % HP hiện có thiêu đốt/lượt',1,100,30],['u_tn','⚡ Chiêu nộ: số lượt thiêu đốt',1,10,3]],
 cleric:[['u_im','⚡ Chiêu nộ: số lượt miễn nhiễm khống chế',1,5,2],['u_hlp','⚡ Chiêu nộ: % máu hiện có hồi cả đội',1,100,30]],ninja:[['u_pc','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,300],['u_tn','⚡ Chiêu nộ: số lượt né',1,10,2]],dragoon:[['u_pc','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,280],['u_st','⚡ Chiêu nộ: số lượt choáng',0,3,1]],
-astro:[['u_gf','⚡ Chiêu nộ: số quà nhận',1,4,2],['u_xm','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,200]],smith:[['u_pct','⚡ Chiêu nộ: % sát thương giảm',1,90,60],['u_tn','⚡ Chiêu nộ: số lượt giáp',1,10,3],['u_rf','⚡ Chiêu nộ: % phản sát thương',2,100,50]],alchemist:[['u_hlp','⚡ Chiêu nộ: % máu hiện có hồi cả đội',1,100,30],['u_dm','⚡ Chiêu nộ: % sát thương thêm cả đội',10,300,100]],
+astro:[['u_gf','⚡ Chiêu nộ: số quà nhận',1,4,2],['u_xm','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,200]],smith:[['u_pct','⚡ Chiêu nộ: % sát thương giảm',1,90,60],['u_tn','⚡ Chiêu nộ: số lượt giáp',1,10,3],['u_rf','⚡ Chiêu nộ: % sát thương giáp gai dội lại (mỗi đòn trúng)',2,100,50]],alchemist:[['u_hlp','⚡ Chiêu nộ: % máu hiện có hồi cả đội',1,100,30],['u_dm','⚡ Chiêu nộ: % sát thương thêm cả đội',10,300,100]],
 vampire:[['u_pc','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,200],['u_ls','⚡ Chiêu nộ: % hút máu',2,100,60],['u_pct','⚡ Chiêu nộ: % HP đối thủ đã mất',1,200,30]],tide:[['u_xm','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,200],['u_st','⚡ Chiêu nộ: số lượt choáng',0,3,1],['u_tn','⚡ Chiêu nộ: số lượt né cả đội',1,10,1]],
 druid:[['u_tn','⚡ Chiêu nộ: số lượt trói và độc',1,10,2],['u_dm','⚡ Chiêu nộ: % HP hiện có độc/lượt',1,100,15],['u_hlp','⚡ Chiêu nộ: % máu hiện có hồi cả đội',1,100,20]],voidmage:[['u_tn','⚡ Chiêu nộ: số lượt Phong Ấn',1,5,2],['u_wk','⚡ Chiêu nộ: % giảm sát thương đối thủ',2,100,50],['u_xm','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,200]],
 samurai:[['u_pc','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,350]],gambler:[['u_pc','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,400],['u_hl','⚡ Chiêu nộ: HP hồi cả đội',1,100,15],['u_xm','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,200],['u_st','⚡ Chiêu nộ: số lượt choáng',1,5,2]]};
 Object.assign(ULP,{arbiter:[['u_tn','⚡ Chiêu nộ: số lượt đình chỉ',1,5,2],['u_pc','⚡ Chiêu nộ: % HP hiện có mất khi trả lời sai',1,100,50]],leech:[['u_rg','⚡ Chiêu nộ: nộ mình nhận thêm',1,100,50],['u_xm','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,200]],merchant:[['u_tn','⚡ Chiêu nộ: số lượt hạ giá',1,10,3]],stonewarden:[['u_cap','⚡ Chiêu nộ: sát thương tối đa mỗi đòn (cả đội)',1,50,4],['u_tn','⚡ Chiêu nộ: số lượt',1,10,3]],binder:[['u_tn','⚡ Chiêu nộ: số lượt chia đều',1,10,3]],executioner:[['u_pct','⚡ Chiêu nộ: ngưỡng hạ gục (% HP)',1,99,35],['u_mult','⚡ Chiêu nộ: hệ số sát thương nếu không hạ gục',2,10,2]],bomber:[['u_dm','⚡ Chiêu nộ: % sát thương mỗi thành viên',10,500,150]],warden:[['u_pc','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,200],['u_tn','⚡ Chiêu nộ: số lượt khóa đổi người',1,5,2]],necro:[['u_pct','⚡ Chiêu nộ: % HP gốc khi hồi sinh',1,100,30]],taunter:[['u_tn','⚡ Chiêu nộ: số lượt',1,10,3],['u_dr','⚡ Chiêu nộ: % giảm sát thương nhận',1,95,80],['u_rf','⚡ Chiêu nộ: sát thương dội lại',1,50,5]]});
 Object.assign(ULP,{starcaller:[['u_tn','⚡ Chiêu nộ: số lượt chờ thiên thạch',1,5,1],['u_dm','⚡ Chiêu nộ: sát thương thiên thạch',1,100,28]],bloodpact:[['u_hp','⚡ Chiêu nộ: % HP hiến tế',1,90,20],['u_pc','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,300]],valk:[['u_hlp','⚡ Chiêu nộ: % máu hiện có hồi cả đội',1,100,30]],song:[['u_hits','⚡ Chiêu nộ: số đòn',1,10,3],['u_dm','⚡ Chiêu nộ: % sát thương thêm/đòn',10,300,100],['u_tn','⚡ Chiêu nộ: số lượt',1,10,3]],hexer:[['u_tn','⚡ Chiêu nộ: số lần nguyền',1,6,3],['u_dm','⚡ Chiêu nộ: % HP đang có mất mỗi lần',1,100,40],['u_wk','⚡ Chiêu nộ: % giảm sát thương đối thủ',2,100,30]],eclipse:[['u_xm','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,200],['u_dr','⚡ Chiêu nộ: % giảm sát thương nhận',1,90,40],['u_hl','⚡ Chiêu nộ: % HP hiện có hồi',1,100,40]],lore:[['u_xm','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,200],['u_tn','⚡ Chiêu nộ: số lượt loại bỏ đáp án sai',1,10,3]],reaper:[['u_pc','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,220],['u_mk','⚡ Chiêu nộ: % sát thương mỗi dấu',1,100,25]]});
 const AHC=['sword', 'storm', 'mage', 'samurai', 'archer'];AHC.forEach(id=>{ULP[id]=(ULP[id]||[]).concat([['u_ah','⚡ Chiêu nộ: % giảm hồi máu cả đội đối thủ',1,100,60],['u_ahn','⚡ Chiêu nộ: số lượt giảm hồi máu',1,5,3]])});
+/* ===== Cập nhật chiêu nộ: Cuồng chiến, Lão Thạch Vệ, Kỵ sĩ bóng đêm, Hộ vệ, Đao phủ, Ma cà rồng, Thủy thần (thông số mới) ===== */
+ULP.berserker.push(['u_lo','⚡ Chiêu nộ: ngưỡng HP để miễn nhiễm (% HP tối đa)',1,50,10],['u_im','⚡ Chiêu nộ: số lượt miễn nhiễm sát thương',1,5,2]);
+ULP.stonewarden.push(['u_low','⚡ Chiêu nộ: ngưỡng tổng HP cả đội để tăng cường (%)',1,99,30],['u_cap2','⚡ Chiêu nộ: sát thương tối đa mỗi đòn khi cả đội nguy kịch',1,50,2],['u_ext','⚡ Chiêu nộ: số lượt kéo dài thêm khi nguy kịch',0,5,1]);
+ULP.dknight.push(['u_lo','⚡ Chiêu nộ: ngưỡng HP để hút máu (%)',1,99,30],['u_ls','⚡ Chiêu nộ: % sát thương gây ra được hút thành HP',1,100,30]);
+ULP.guardian.push(['u_lo','⚡ Chiêu nộ: ngưỡng HP nhận Lời Thề Hộ Mệnh (%)',1,99,20]);
+ULP.executioner.push(['u_bn','⚡ Chiêu nộ: số lượt để mục tiêu bị đánh dấu gục nhận quà',1,5,2]);
+ULP.tide.push(['u_hl','⚡ Chiêu nộ: HP cả đội hồi mỗi lượt sau Sóng Thần',1,30,3],['u_ht','⚡ Chiêu nộ: số lượt hồi máu',1,10,3]);
 CLS.forEach(c=>(ULP[c.id]||[]).forEach(p=>c.p.push(p)));
 const ULT={sword:['⚔️','KIẾM THÁNH TRẢM','Chém xuyên màn hình: x{u_pc}% sát thương, xuyên giáp','#e5484d',(a,b,t)=>{a.xm=(a.xm||1)*UL('sword','u_pc')/100;a.pierce=1}],
-mage:['🧊','BĂNG GIÁ VĨNH CỬU','Đóng băng đối thủ {u_fz} lượt, x{u_xm}% sát thương','#7dd3fc',(a,b)=>{b.fz=(b.fz||0)+UL('mage','u_fz');a.xm=(a.xm||1)*UL('mage','u_xm')/100}],
+mage:['🧊','BĂNG GIÁ VĨNH CỬU','Đóng băng đối thủ {u_fz} lượt, x{u_xm}% sát thương','#7dd3fc',(a,b)=>{b.fz=Math.max(b.fz||0,UL('mage','u_fz'));a.xm=(a.xm||1)*UL('mage','u_xm')/100}],
 archer:['🏹','MƯA TÊN XUYÊN TÂM','x{u_pc}% sát thương, xuyên giáp','#16a34a',a=>{a.xm=(a.xm||1)*UL('archer','u_pc')/100;a.pierce=1}],
 assassin:['🗡️','ÁM SÁT TỬ THẦN','Chí mạng chắc chắn: x{u_pc}% sát thương','#94a3b8',a=>{a.xm=(a.xm||1)*UL('assassin','u_pc')/100}],
 guardian:['🛡️','THÀNH TRÌ BẤT DIỆT','Cả đội nhận lá chắn chặn {u_bp}% sát thương trong {u_tn} lượt, x{u_xm}% sát thương','#0ea5e9',(a,b,t)=>{const sh=UL('guardian','u_bp'),tn=UL('guardian','u_tn')+1;aSts(t).forEach(x=>{x.sp=Math.max(x.sp||0,sh);x.spT=Math.max(x.spT||0,tn)});G.log.unshift(`🛡️ Toàn đội ${tmN(t)} nhận lá chắn chặn ${sh}% sát thương trong ${tn-1} lượt`);a.xm=(a.xm||1)*UL('guardian','u_xm')/100}],
@@ -4416,28 +4440,28 @@ berserker:['🪓','CUỒNG NỘ HUYẾT CHIẾN','x{u_pc}% sát thương, hút {
 paladin:['✨','THÁNH QUANG GIÁNG THẾ','Cả đội hồi {u_hlp}% máu hiện có, x{u_xm}% sát thương','#eab308',(a,b,t)=>{aTeamHeal(t,UL('paladin','u_hlp'),1);a.xm=(a.xm||1)*UL('paladin','u_xm')/100}],
 plague:['🧪','ĐẠI DỊCH HẮC ÁM','Độc: cứ mỗi {u_ev} lượt đối thủ mất {u_pct}% HP đang có trong {u_tn} lượt, sát thương x{u_xm}%','#65a30d',(a,b)=>{b.vp=UL('plague','u_tn');b.vpp=UL('plague','u_pct');b.vpe=UL('plague','u_ev');b.vpc=0;b.vd=0;a.xm=(a.xm||1)*UL('plague','u_xm')/100}],
 summoner:['🐺','BẦY THÚ HỘ CHIẾN','{u_hits} đòn tới của cả đội +{u_dm}% sát thương, đòn này x{u_xm}% sát thương','#0891b2',(a,b,t)=>{tmg(t).sm={hits:UL('summoner','u_hits'),pc:UL('summoner','u_dm'),dm:0,tn:UL('summoner','u_tn')};a.xm=(a.xm||1)*UL('summoner','u_xm')/100}],
-chrono:['⏳','NGƯNG ĐỌNG THỜI GIAN','Cả đội hồi {u_hlp}% máu hiện có, đối thủ mất {u_fz} lượt','#4f46e5',(a,b,t)=>{aTeamHeal(t,UL('chrono','u_hlp'),1);b.fz=(b.fz||0)+UL('chrono','u_fz')}],
+chrono:['⏳','NGƯNG ĐỌNG THỜI GIAN','Cả đội hồi {u_hlp}% máu hiện có, đối thủ mất {u_fz} lượt','#4f46e5',(a,b,t)=>{aTeamHeal(t,UL('chrono','u_hlp'),1);b.fz=Math.max(b.fz||0,UL('chrono','u_fz'))}],
 dknight:['🌑','HUYẾT NGUYỆT TRẢM','x{u_xm}% sát thương và cộng {u_pct}% HP đã mất','#7e22ce',a=>{a.xm=(a.xm||1)*UL('dknight','u_xm')/100;a.ex=(a.ex||0)+Math.round(Math.max(0,G.s.hp-G.sc[G.turn])*UL('dknight','u_pct')/100)}],
-storm:['⛈️','THIÊN LÔI GIÁNG THẾ','x{u_xm}% sát thương, choáng {u_fz} lượt','#f59e0b',(a,b)=>{a.xm=(a.xm||1)*UL('storm','u_xm')/100;b.stun=(b.stun||0)+UL('storm','u_fz')}],
+storm:['⛈️','THIÊN LÔI GIÁNG THẾ','x{u_xm}% sát thương, choáng {u_fz} lượt','#f59e0b',(a,b)=>{a.xm=(a.xm||1)*UL('storm','u_xm')/100;b.stun=Math.max(b.stun||0,UL('storm','u_fz'))}],
 blade:['🤺','VŨ ĐIỆU SONG KIẾM','Cả đội +{u_dm}% sát thương đòn tới (xác suất {u_pr}% thành +{u_x3}%), sát thương x{u_xm}%','#0d9488',(a,b,t)=>{tmg(t).tb=(tmg(t).tb||0)+UL('blade','u_dm');tmg(t).tbp=UL('blade','u_pr');tmg(t).tbx=UL('blade','u_x3');a.xm=(a.xm||1)*UL('blade','u_xm')/100}],
 illus:['🎭','HUYỄN ẢNH BẤT KHẢ','Cả đội né {u_tn} lượt, đối thủ giảm {u_wk}% sát thương','#c026d3',(a,b,t)=>{tmg(t).ill=UL('illus','u_tn');b.chaos=UL('illus','u_wk')||0}],
 tact:['🎯','CHIẾN THUẬT TỐI THƯỢNG','Cả đội +{u_dm}% sát thương, lá chắn chặn {u_bp}% sát thương trong {u_tn} lượt','#1e40af',(a,b,t)=>{tmg(t).tb=(tmg(t).tb||0)+UL('tact','u_dm');{const bp=UL('tact','u_bp'),tn=UL('tact','u_tn')+1;if(bp>0){aSts(t).forEach(x=>{x.sp=Math.max(x.sp||0,bp);x.spT=Math.max(x.spT||0,tn)});G.log.unshift(`🛡️ Toàn đội ${tmN(t)} nhận lá chắn chặn ${bp}% sát thương trong ${tn-1} lượt`)}}}]};
 Object.assign(ULT,{
-monk:['👊','THẬP BÁT CHƯỞNG','{u_hits} hit xuyên giáp, mỗi hit {u_pc}% sát thương, đối thủ choáng {u_st} lượt','#ea580c',(a,b)=>{a.uh=[UL('monk','u_hits'),UL('monk','u_pc'),'cú đấm'];a.pierce=1;b.stun=(b.stun||0)+UL('monk','u_st')}],
+monk:['👊','THẬP BÁT CHƯỞNG','{u_hits} hit xuyên giáp, mỗi hit {u_pc}% sát thương, đối thủ choáng {u_st} lượt','#ea580c',(a,b)=>{a.uh=[UL('monk','u_hits'),UL('monk','u_pc'),'cú đấm'];a.pierce=1;b.stun=Math.max(b.stun||0,UL('monk','u_st'))}],
 gunner:['🔫','SÁU PHÁT CHẾT CHÓC','{u_hits} viên đạn xuyên giáp, mỗi viên {u_pc}% sát thương, bỏ qua mọi phòng ngự và né đòn','#f59e0b',a=>{a.uh=[UL('gunner','u_hits'),UL('gunner','u_pc'),'viên đạn'];a.pierce=1;a.ig=1;a.ign=1}],
 pyro:['🔥','HỎA CẦU ĐỊA NGỤC','Phá khiên và giáp đối thủ, x{u_xm}% sát thương, thiêu đốt {u_dm}% HP hiện có/lượt trong {u_tn} lượt','#ef4444',(a,b)=>{['sh','ts','gs','ab','ar','sp'].forEach(k=>{b[k]=0});a.xm=(a.xm||1)*UL('pyro','u_xm')/100;b.bn=UL('pyro','u_tn');b.bd=0;b.bp=UL('pyro','u_dm')}],
 cleric:['🕊️','PHÁN QUYẾT THIÊN SỨ','Xóa mọi hiệu ứng xấu cả đội, miễn nhiễm khống chế {u_im} lượt, hồi {u_hlp}% máu hiện có cả đội','#fde68a',(a,b,t)=>{aSts(t).forEach(x=>{AOBAD.forEach(k=>delete x[k]);x.im=UL('cleric','u_im')+1});aTeamHeal(t,UL('cleric','u_hlp'),1)}],
 ninja:['🥷','PHÂN THÂN ẨN NHẪN','Né mọi đòn trong {u_tn} lượt, đòn đánh x{u_pc}% sát thương','#64748b',a=>{a.xm=(a.xm||1)*UL('ninja','u_pc')/100;a.dgp=100;a.dgt=UL('ninja','u_tn')+1}],
-dragoon:['🐉','LONG NHẢY GIÁNG','x{u_pc}% sát thương xuyên giáp, đối thủ choáng {u_st} lượt','#dc2626',(a,b)=>{a.xm=(a.xm||1)*UL('dragoon','u_pc')/100;a.pierce=1;b.stun=(b.stun||0)+UL('dragoon','u_st')}],
+dragoon:['🐉','LONG NHẢY GIÁNG','x{u_pc}% sát thương xuyên giáp, đối thủ choáng {u_st} lượt','#dc2626',(a,b)=>{a.xm=(a.xm||1)*UL('dragoon','u_pc')/100;a.pierce=1;b.stun=Math.max(b.stun||0,UL('dragoon','u_st'))}],
 astro:['🔮','SAO BĂNG ĐỊNH MỆNH','Nhận {u_gf} quà ngẫu nhiên, x{u_xm}% sát thương','#8b5cf6',(a,b,t)=>{for(let i=0;i<UL('astro','u_gf');i++)aGive(t,aGift(),1);a.xm=(a.xm||1)*UL('astro','u_xm')/100}],
 smith:['🔨','LÒ RÈN THẦN','Cả đội giảm {u_pct}% sát thương trong {u_tn} lượt và phản {u_rf}% sát thương đòn kế tiếp','#b45309',(a,b,t)=>{aSts(t).forEach(x=>{x.ar=UL('smith','u_tn')+1;x.arp=UL('smith','u_pct');x.rf=UL('smith','u_rf')})}],
 alchemist:['⚗️','TIÊN DƯỢC','Hồi {u_hlp}% máu hiện có cả đội, đòn đánh kế tiếp của cả đội +{u_dm}% sát thương','#10b981',(a,b,t)=>{aTeamHeal(t,UL('alchemist','u_hlp'),1);tmg(t).tb=(tmg(t).tb||0)+UL('alchemist','u_dm')}],
 vampire:['🧛','HUYẾT TẾ','x{u_pc}% sát thương, hút {u_ls}% máu, cộng {u_pct}% HP đối thủ đã mất','#be123c',(a,b,t,o)=>{a.xm=(a.xm||1)*UL('vampire','u_pc')/100;a.ls=Math.max(2,UL('vampire','u_ls'));a.ex=(a.ex||0)+Math.round(Math.max(0,G.s.hp-mhp(o,G.lk))*UL('vampire','u_pct')/100)}],
-tide:['🌊','SÓNG THẦN','x{u_xm}% sát thương, đối thủ choáng {u_st} lượt, cả đội né {u_tn} lượt','#0284c7',(a,b,t)=>{a.xm=(a.xm||1)*UL('tide','u_xm')/100;b.stun=(b.stun||0)+UL('tide','u_st');aSts(t).forEach(x=>{x.dgp=100;x.dgt=UL('tide','u_tn')+1})}],
-druid:['🌿','RỪNG THỨC TỈNH','Xiềng xích và Phong Ấn đối thủ {u_tn} lượt, độc {u_dm}% HP hiện có/lượt, hồi {u_hlp}% máu hiện có cả đội','#16a34a',(a,b,t)=>{b.chain=1;b.seal=(b.seal||0)+UL('druid','u_tn');b.vp=UL('druid','u_tn');b.vpp=UL('druid','u_dm');b.vpe=1;b.vpc=0;b.vd=0;aTeamHeal(t,UL('druid','u_hlp'),1)}],
-voidmage:['🕳️','HƯ VÔ NUỐT CHỬNG','Phong Ấn đối thủ {u_tn} lượt, đòn kế tiếp của đối thủ giảm {u_wk}% sát thương, x{u_xm}% sát thương','#6d28d9',(a,b)=>{b.seal=(b.seal||0)+UL('voidmage','u_tn');b.chaos=Math.max(2,UL('voidmage','u_wk'));a.xm=(a.xm||1)*UL('voidmage','u_xm')/100}],
+tide:['🌊','SÓNG THẦN','x{u_xm}% sát thương, đối thủ choáng {u_st} lượt, cả đội né {u_tn} lượt','#0284c7',(a,b,t)=>{a.xm=(a.xm||1)*UL('tide','u_xm')/100;b.stun=Math.max(b.stun||0,UL('tide','u_st'));aSts(t).forEach(x=>{x.dgp=100;x.dgt=UL('tide','u_tn')+1})}],
+druid:['🌿','RỪNG THỨC TỈNH','Xiềng xích và Phong Ấn đối thủ {u_tn} lượt, độc {u_dm}% HP hiện có/lượt, hồi {u_hlp}% máu hiện có cả đội','#16a34a',(a,b,t)=>{b.chain=1;b.seal=Math.max(b.seal||0,UL('druid','u_tn'));b.vp=UL('druid','u_tn');b.vpp=UL('druid','u_dm');b.vpe=1;b.vpc=0;b.vd=0;aTeamHeal(t,UL('druid','u_hlp'),1)}],
+voidmage:['🕳️','HƯ VÔ NUỐT CHỬNG','Phong Ấn đối thủ {u_tn} lượt, đòn kế tiếp của đối thủ giảm {u_wk}% sát thương, x{u_xm}% sát thương','#6d28d9',(a,b)=>{b.seal=Math.max(b.seal||0,UL('voidmage','u_tn'));b.chaos=Math.max(2,UL('voidmage','u_wk'));a.xm=(a.xm||1)*UL('voidmage','u_xm')/100}],
 samurai:['🎌','BẠT ĐAO TRẢM','x{u_pc}% sát thương, xuyên giáp, bỏ qua né tránh','#e11d48',a=>{a.xm=(a.xm||1)*UL('samurai','u_pc')/100;a.pierce=1;a.ig=1}],
-gambler:['🎲','JACKPOT','Quay ngẫu nhiên: x{u_pc}% sát thương, hoặc hồi {u_hl} HP cả đội và x{u_xm}% sát thương, hoặc đối thủ choáng {u_st} lượt','#eab308',(a,b,t)=>{const r=G.gmb!=null?G.gmb:Math.random()*3|0;G.gmb=null;if(r===0){a.xm=(a.xm||1)*UL('gambler','u_pc')/100;G.log.unshift('🎰 Jackpot: sát thương nhân lên!')}else if(r===1){aTeamHeal(t,UL('gambler','u_hl'));a.xm=(a.xm||1)*UL('gambler','u_xm')/100;G.log.unshift('🎰 Jackpot: cả đội được hồi máu!')}else{b.stun=(b.stun||0)+UL('gambler','u_st');G.log.unshift('🎰 Jackpot: đối thủ bị choáng!')}}]});
+gambler:['🎲','JACKPOT','Quay ngẫu nhiên: x{u_pc}% sát thương, hoặc hồi {u_hl} HP cả đội và x{u_xm}% sát thương, hoặc đối thủ choáng {u_st} lượt','#eab308',(a,b,t)=>{const r=G.gmb!=null?G.gmb:Math.random()*3|0;G.gmb=null;if(r===0){a.xm=(a.xm||1)*UL('gambler','u_pc')/100;G.log.unshift('🎰 Jackpot: sát thương nhân lên!')}else if(r===1){aTeamHeal(t,UL('gambler','u_hl'));a.xm=(a.xm||1)*UL('gambler','u_xm')/100;G.log.unshift('🎰 Jackpot: cả đội được hồi máu!')}else{b.stun=Math.max(b.stun||0,UL('gambler','u_st'));G.log.unshift('🎰 Jackpot: đối thủ bị choáng!')}}]});
 
 /* ===== Chiêu nộ của 13 class mở rộng ===== */
 Object.assign(ULT,{
@@ -4465,6 +4489,56 @@ hexer:['🕸️','NGUYỀN RỦA MUÔN ĐỜI','Nguyền {u_tn} lần đúng, m�
 eclipse:['🌗','NHẬT THỰC TOÀN PHẦN','x{u_xm}% sát thương, giảm {u_dr}% sát thương nhận, hồi {u_hl}% HP hiện có','#f59e0b',(a,b,t)=>{a.xm=(a.xm||1)*UL('eclipse','u_xm')/100;a.ar=2;a.arp=UL('eclipse','u_dr');aHeal(t,Math.max(1,Math.round(G.sc[t]*UL('eclipse','u_hl')/100)))}],
 lore:['📜','THƯ VIỆN VÔ TẬN','Trong {u_tn} lượt tới, câu hỏi của cả đội được loại bỏ bớt 2 đáp án sai, x{u_xm}% sát thương','#0891b2',(a,b,t)=>{tmg(t).lore=UL('lore','u_tn');a.xm=(a.xm||1)*UL('lore','u_xm')/100}],
 reaper:['💀','HÀNH HÌNH HẮC LIÊM','x{u_pc}% sát thương xuyên giáp, mỗi Dấu Hắc Liêm +{u_mk}% sát thương rồi xóa hết dấu','#334155',(a,b)=>{a.xm=(a.xm||1)*UL('reaper','u_pc')/100;a.pierce=1;a.xm=(a.xm||1)*(1+(b.mk||0)*UL('reaper','u_mk')/100);b.mk=0}]});
+/* ===== Cập nhật nội tại & chiêu nộ: Cuồng chiến, Lão Thạch Vệ, Kỵ sĩ bóng đêm, Hộ vệ, Đao phủ, Thợ rèn, Ma cà rồng, Thủy thần, Ninja, Sát thủ ===== */
+/* Trạng thái mới: inv = miễn nhiễm mọi sát thương (kể cả xuyên giáp), lsx = hút máu dư chuyển thành khiên, xbt/xbo = dấu treo thưởng của Đao phủ */
+A7C.push(['inv','✨','Miễn Nhiễm',e=>`Miễn nhiễm mọi sát thương (kể cả xuyên giáp), còn ${e.inv} lượt`,0]);AST.push(['inv','✨']);
+A7C.push(['xbt','💰','Treo Thưởng',e=>`Nếu bị hạ gục trong ${Math.max(1,e.xbt-1)} lượt tới của Đao phủ, Đao phủ nhận 1 quà từ Sử thi trở lên`,1]);AST.push(['xbt','💰']);
+function teamHp(t){if(!G.sd)return[Math.max(0,G.sc[t]),G.s.hp];let c=0;G.sd[t].forEach((m,k)=>{if(m.dead)return;c+=Math.max(0,k===G.fi[t]?G.sc[t]:m.hp)});return[c,G.sd[t].length*G.s.hp]}
+function aMem(t){if(!G.sd)return[[G.st[t],Math.max(0,G.sc[t])]];const r=[];G.sd[t].forEach((m,k)=>{if(m.dead)return;r.push([m.st,Math.max(0,k===G.fi[t]?G.sc[t]:m.hp)])});return r}
+function asCh(t,v,L){let c=v('ch');const hp=mhp(1-t,G.lk);if(hp>0&&hp<G.s.hp*v('lowp')/100){c=Math.min(100,c+v('lowch'));if(L)L(`🗡️ ${AN(t)} thấy đối thủ dưới ${v('lowp')}% HP: cơ hội chí mạng +${v('lowch')}% (còn ${c}%)`)}return c}
+function aGiftMin(rm){for(let i=0;i<120;i++){const g=aGift();if(aR(g)>=rm)return g}const gf=G.s.gf||{},p=GF.map((_,i)=>i).filter(i=>(!gf[i]||gf[i].on!==0)&&aR(i)>=rm);return p.length?p[Math.random()*p.length|0]:aGift()}
+function bountyChk(t){if(!G.sd)return;const o=1-t;G.sd[o].forEach((m,k)=>{const e=m.st;if(!(e&&e.xbt>0&&e.xbo===t))return;const hp=k===G.fi[o]?G.sc[o]:m.hp;
+ if(m.dead||hp<=0){e.xbt=0;e.xbo=null;e.xmk=0;const gi=aGiftMin(2);G.log.unshift(`🔪 ${m.nm} bị đánh dấu đã gục: ${AN(t)} nhận tiền thưởng Hành Quyết!`);aQueue(t,gi)}
+ else if(--e.xbt<=0){e.xbt=0;e.xbo=null}})}
+function ninjaCnt(t,o,tk0,cx){const n=G.dgn||0;G.dgn=0;if(!n||o===t)return;const m=G.sd&&tk0!=null&&G.sd[o][tk0]?G.sd[o][tk0]:null;if((m?m.cls:G.cls[o])!=='ninja')return;
+ const v=k=>clsVal(G.s,'ninja',k),per=(cx.hits?cx.pre*cx.hm:cx.pre)||0,tot=Math.min(v('cbc'),Math.max(1,Math.round(per*n*v('cb')/100)));
+ G.log.unshift(`🥷 ${m?m.nm:AN(o)} né thành công và phản công: ${AN(t)} chịu ${tot} sát thương`);aHurt(t,tot)}
+TBD.tidh={ic:'🌊',n:'Triều Hồi Phục',get hf(){return UL('tide','u_hl')},d:()=>`Cả đội hồi ${UL('tide','u_hl')} HP mỗi lượt`};
+
+/* Cuồng chiến: HP thấp thì miễn nhiễm, còn lại giữ nguyên x sát thương + hút máu */
+ULT.berserker[2]='x{u_pc}% sát thương, hút {u_ls}% máu; nếu HP dưới {u_lo}% HP tối đa thì thay bằng miễn nhiễm mọi sát thương (kể cả xuyên giáp) trong {u_im} lượt';
+ULT.berserker[4]=(a,b,t)=>{const lo=UL('berserker','u_lo');
+ if(G.sc[t]<G.s.hp*lo/100){const n=UL('berserker','u_im');a.inv=Math.max(a.inv||0,n+1);G.log.unshift(`🪓 ${AN(t)} Cuồng Nộ Bất Tử: HP dưới ${lo}%, miễn nhiễm mọi sát thương (kể cả xuyên giáp) trong ${n} lượt`)}
+ else{a.xm=(a.xm||1)*UL('berserker','u_pc')/100;a.ls=UL('berserker','u_ls')||0}};
+/* Lão Thạch Vệ: cả đội nguy kịch thì giới hạn sát thương thấp hơn và kéo dài thêm */
+ULT.stonewarden[2]='Cả đội nhận tối đa {u_cap} sát thương mỗi đòn trong {u_tn} lượt; nếu tổng HP cả đội dưới {u_low}% thì chỉ nhận tối đa {u_cap2} sát thương mỗi đòn và kéo dài thêm {u_ext} lượt';
+ULT.stonewarden[4]=(a,b,t)=>{const h=teamHp(t),lo=h[0]<h[1]*UL('stonewarden','u_low')/100,c=lo?UL('stonewarden','u_cap2'):UL('stonewarden','u_cap'),n=UL('stonewarden','u_tn')+(lo?UL('stonewarden','u_ext'):0)+1;
+ aSts(t).forEach(x=>{x.cp=c;x.cpT=n});
+ G.log.unshift(lo?`🗿 ${tmN(t)} nguy kịch (${h[0]}/${h[1]} HP): Núi Tảng cứng lại, mỗi đòn chỉ nhận tối đa ${c} sát thương trong ${n-1} lượt`:`🗿 Cả đội ${tmN(t)} mỗi đòn nhận tối đa ${c} sát thương trong ${n-1} lượt`)};
+/* Kỵ sĩ bóng đêm: HP thấp thì Huyết Nguyệt Trảm hút máu */
+ULT.dknight[2]='x{u_xm}% sát thương và cộng {u_pct}% HP đã mất; nếu HP dưới {u_lo}% thì hút {u_ls}% sát thương gây ra thành HP';
+ULT.dknight[4]=(a,b,t)=>{a.xm=(a.xm||1)*UL('dknight','u_xm')/100;a.ex=(a.ex||0)+Math.round(Math.max(0,G.s.hp-G.sc[t])*UL('dknight','u_pct')/100);const lo=UL('dknight','u_lo');
+ if(G.sc[t]<G.s.hp*lo/100){a.ls=Math.max(2,UL('dknight','u_ls'));G.log.unshift(`🌑 ${AN(t)} máu cạn (dưới ${lo}% HP): Huyết Nguyệt Trảm hút ${a.ls}% sát thương gây ra`)}};
+/* Hộ vệ: đồng đội thấp máu nhận thêm Lời Thề Hộ Mệnh */
+ULT.guardian[2]='Cả đội nhận lá chắn chặn {u_bp}% sát thương trong {u_tn} lượt, x{u_xm}% sát thương; đồng đội dưới {u_lo}% HP nhận thêm Lời Thề Hộ Mệnh (chặn một đòn hạ gục)';
+ULT.guardian[4]=(a,b,t)=>{const sh=UL('guardian','u_bp'),tn=UL('guardian','u_tn')+1,lo=UL('guardian','u_lo');let n=0;
+ aMem(t).forEach(([x,h])=>{x.sp=Math.max(x.sp||0,sh);x.spT=Math.max(x.spT||0,tn);if(h<G.s.hp*lo/100){x.lb=1;n++}});
+ G.log.unshift(`🛡️ Toàn đội ${tmN(t)} nhận lá chắn chặn ${sh}% sát thương trong ${tn-1} lượt`);if(n)G.log.unshift(`💠 ${n} thành viên dưới ${lo}% HP nhận thêm Lời Thề Hộ Mệnh: chặn một đòn hạ gục`);a.xm=(a.xm||1)*UL('guardian','u_xm')/100};
+/* Đao phủ: mục tiêu bị đánh dấu mà gục trong vài lượt thì thưởng quà Sử thi trở lên */
+ULT.executioner[2]='Đối thủ dưới {u_pct}% HP bị hạ gục ngay, nếu không thì x{u_mult} sát thương và bị đánh dấu; mục tiêu bị đánh dấu mà gục trong {u_bn} lượt thì nhận thêm 1 quà từ Sử thi trở lên';
+ULT.executioner[4]=(a,b,t,o)=>{const hp=Math.max(0,mhp(o,G.lk)),pct=UL('executioner','u_pct');
+ if(hp>0&&hp<G.s.hp*pct/100){G.log.unshift(`🔪 Hành Quyết! ${tgNm(o)} (${hp} HP) bị hạ gục ngay`);aHurt(o,hp,G.lk)}
+ else{a.xm=(a.xm||1)*UL('executioner','u_mult');const ts=tgS(o);if(ts){ts.xmk=1;if(G.sd){ts.xbt=UL('executioner','u_bn')+1;ts.xbo=t}}
+  G.log.unshift(`🔪 Hành Quyết: đòn x${UL('executioner','u_mult')} và đánh dấu ${tgNm(o)}`+(G.sd?`, gục trong ${UL('executioner','u_bn')} lượt sẽ có thưởng`:''))}};
+/* Thợ rèn: thay phản sát thương một lần bằng giáp gai nhiều lượt (cùng cơ chế quà Giáp Gai) */
+ULT.smith[2]='Cả đội giảm {u_pct}% sát thương và mọc giáp gai (kẻ đánh trúng chịu {u_rf}% sát thương gây ra) trong {u_tn} lượt';
+ULT.smith[4]=(a,b,t)=>{const tn=UL('smith','u_tn')+1,pc=UL('smith','u_pct'),th=UL('smith','u_rf');
+ aSts(t).forEach(x=>{x.ar=tn;x.arp=pc;x.thn=Math.max(x.thn||0,th);x.thT=Math.max(x.thT||0,tn)});
+ G.log.unshift(`🔨 ${AN(t)} khai lò rèn thần: cả đội ${tmN(t)} giảm ${pc}% sát thương và mọc giáp gai (dội lại ${th}%) trong ${tn-1} lượt`)};
+/* Ma cà rồng: hút máu vượt HP tối đa thì thành khiên */
+{const f=ULT.vampire[4];ULT.vampire[2]+='; phần hút máu vượt HP tối đa chuyển thành khiên';ULT.vampire[4]=function(a,b,t,o){f.apply(this,arguments);a.lsx=1}}
+/* Thủy thần: hồi nhẹ cả đội mỗi lượt sau Sóng Thần */
+{const f=ULT.tide[4];ULT.tide[2]+=', sau đó cả đội hồi {u_hl} HP mỗi lượt trong {u_ht} lượt';ULT.tide[4]=function(a,b,t,o){f.apply(this,arguments);const m=tmg(t);m.tidh=Math.max(m.tidh||0,UL('tide','u_ht'));G.log.unshift(`🌊 Triều dâng: ${tmN(t)} hồi ${UL('tide','u_hl')} HP mỗi lượt trong ${UL('tide','u_ht')} lượt`)}}
 AHC.forEach(id=>{const u=ULT[id];if(!u)return;const f=u[4];u[2]+=', giảm {u_ah}% hồi máu cả đội đối thủ {u_ahn} lượt';u[4]=function(a,b,t,o){f.apply(this,arguments);aSts(o==null?1-t:o).forEach(x=>ahApply(x,UL(id,'u_ah'),UL(id,'u_ahn')))}});
 const tgNm=o=>G.sd&&G.lk!=null&&G.sd[o][G.lk]?G.sd[o][G.lk].nm:AN(o);
 /* ===== Animation chiêu nộ của 13 class mở rộng ===== */
@@ -4597,7 +4671,6 @@ const EVD={ice:['❄️','BÃO BĂNG','Mỗi đòn đánh có 25% cơ hội đó
 const RGt=()=>(G.rg=G.rg||[0,0]),CBt=()=>(G.cb=G.cb||[0,0]),fxq=o=>(G.fxq=G.fxq||[]).push(o);
 function rgPre(t,a,b,o){const R=RGt(),C=CBt(),gain=G.s.rgn==null?25:+G.s.rgn,cid=G.cls&&G.cls[t];
  if(gain>0&&R[t]>=100){const u=ULT[cid]||['💥','CHIÊU TỐI THƯỢNG','+15 sát thương','#f59e0b',a=>{a.ex=(a.ex||0)+15}];R[t]=0;u[4](a,b,t,o);if(!G.ultGo)fxq({k:'big',ic:u[0],tx:u[1],sub:ULT[cid]?clsFill(u[2],G.s,cid):u[2],c:u[3]});G.ultGo=0;if(G.ev)G.ev.ult=1;G.ult0=t;G.log.unshift(`💥 ${AN(t)} tung chiêu tối thượng ${u[1]}!`)}
- if(gain>0)R[t]=Math.min(100,R[t]+gain);
  C[t]++;const n=C[t];
  if(n===3){aHeal(t,4);fxq({k:'sm',ic:'🔥',tx:'COMBO x3',sub:'Hồi 4 HP',c:'#fb923c'});G.log.unshift(`🔥 ${AN(t)} combo x3: hồi 4 HP`)}
  else if(n===5){a.ab=(a.ab||0)+6;fxq({k:'sm',ic:'🔥',tx:'COMBO x5',sub:'Nhận khiên 6',c:'#f97316'});G.log.unshift(`🔥 ${AN(t)} combo x5: nhận khiên 6`)}
@@ -4620,7 +4693,7 @@ function bloodSync(){const id=(G&&G.k==='arena'&&G.en&&!G.end)?G.en.id:null,el=d
   d.innerHTML=h;document.body.appendChild(d);if(!bloodSync.rs){bloodSync.rs=1;window.addEventListener('resize',bloodPos);window.addEventListener('scroll',bloodPos,true)}}
  requestAnimationFrame(bloodPos)}
 function evTick(){if(!G.en)return;if(--G.en.left<=0){G.log.unshift(`⌛ Sự kiện ${EVD[G.en.id][1]} đã kết thúc`);G.en=null;G.evcd=2}}
-const rgHTML=i=>{const r=Math.min(100,RGt()[i]),c=CBt()[i];return `<div class="rgb${r>=100?' full':''}" title="Thanh nộ: đầy thì câu đúng kế tiếp tung chiêu tối thượng"><i style="width:${r}%"></i><span>${r>=100?'⚡ TỐI THƯỢNG SẴN SÀNG':'⚡ '+r+'%'}</span></div>${c>1?`<div class="cmbb">🔥 Combo x${c}</div>`:''}`};
+const rgHTML=i=>{const r=Math.min(100,RGt()[i]),c=CBt()[i],rn=Math.max(1,+clsVal(G.s,G.cls[i],'rn')||2);return `<div class="rgb${r>=100?' full':''}" title="Thanh nộ: mỗi lần kích hoạt nội tại nhận 1 tầng, đầy thì đòn đánh kế tiếp tung chiêu tối thượng"><i style="width:${r}%"></i><span>${r>=100?'⚡ TỐI THƯỢNG SẴN SÀNG':'⚡ '+Math.min(rn,Math.round(r*rn/100))+'/'+rn+' tầng'}</span></div>${c>1?`<div class="cmbb">🔥 Combo x${c}</div>`:''}`};
 const fxHTML=()=>{const q=G.fxq||[];G.fxq=null;return q.map((x,n)=>`<div class="ult ${x.k}" style="--c:${x.c};--n:${n}"><i>${x.ic}</i><b>${x.tx}</b><small>${x.sub}</small></div>`).join('')};
 const stc=e=>{if(!e)return'';const L1=e.fz>0?'fz':e.stun>0?'st':e.seal>0?'seal':e.chain?'chain':e.chaos?'wk':e.nodmg?'nd':'',pw=e.hk||e.ch||e.xm||e.crown>0||e.lt||e.ex>0||e.pierce,
  L2=(e.sh||e.ab>0||e.ts>0||e.gs>0||e.sp>0)?'sh':(e.dg||e.dgp>0)?'dg':e.bn>0?'bn':(e.po>0||e.vp>0)?'po':e.rf?'rf':e.ar>0?'ar':e.ph?'ph':e.bomb?'bomb':e.rg>0?'rg':pw?'pw':'';
@@ -5189,6 +5262,66 @@ UFXF.hexer=function(c){const{arv,a,b,tv}=c,TV=ufTv(tv),D=3700,o=ms=>ms/D,LIFT=Ma
  if(tv)tv.animate([{filter:'none'},{filter:'hue-rotate(250deg) brightness(.7)',offset:.4},{filter:'none'}],{duration:1100,delay:T});
  const mk=ufE('✠',70,'color:#a855f7;text-shadow:0 0 12px #7e22ce');ufA(mk,[ufK(b.x,by2,1.6,0,0),ufK(b.x,by2,.9,0,.9,.3),ufK(b.x,by2,.9,0,.9,.75),ufK(b.x,by2,.9,0,0)],1000,T);
  return D};
+
+/* ===== Thanh nộ riêng từng nhân vật: nhận 1 tầng mỗi lần nội tại kích hoạt thành công ===== */
+function rgGain(t,k){const g=G.s.rgn;if(!(g==null||+g>0))return;const id=(G.sd&&k!=null&&G.sd[t][k])?G.sd[t][k].cls:G.cls[t];if(!ULT[id])return;
+ const n=Math.max(1,+clsVal(G.s,id,'rn')||2),add=id==='reaper'?100:Math.ceil(100/n);
+ if(G.sd&&k!=null&&k!==G.fi[t]){const m=G.sd[t][k];if(m&&!m.dead&&m.hp>0)m.rg=Math.min(100,(m.rg||0)+add);return}
+ const R=RGt();if((R[t]||0)>=100)return;R[t]=Math.min(100,(R[t]||0)+add);const c=Math.min(n,Math.round(R[t]*n/100));
+ G.log.unshift(R[t]>=100?`⚡ ${AN(t)} nhận tầng nộ ${c}/${n}: nộ đầy, đòn kế tiếp sẽ tung chiêu tối thượng!`:`⚡ ${AN(t)} nhận 1 tầng nộ (${c}/${n})`)}
+function rgAct(t,cx){const id=G.cls&&G.cls[t],c=id&&clsDef(id);if(!c||!ULT[id]||!cx)return;const hit=(cx.dd||0)>0;let ok;
+ if(cx.inst)ok=true;else if(c.k==='r')ok=cx.pcx>0&&hit;else if(c.k==='x')ok=!!cx.act&&hit;else ok=!!cx.trig&&!cx.miss&&hit;
+ if(ok)rgGain(t)}
+{const _cp=clsPost;clsPost=function(t,a,b,cx,tn){const r=_cp.apply(this,arguments);try{rgAct(t,cx)}catch(e){console.error(e)}return r}}
+{const _x=exTick;exTick=function(t){const m=G.tm&&G.tm[t];if(m&&m.arm>0)m.arm--;return _x.apply(this,arguments)}}
+{const _e=XA.executioner;XA.executioner=function(r,a,t,L,v){_e.apply(this,arguments);if(r.m>1)r.act=1};
+ const _r=XA.reaper;XA.reaper=function(r,a,t,L,v){if((G.s.rgn==null||+G.s.rgn>0)&&(RGt()[t]||0)>=100)return;const ts=a.seal>0?null:tgS(1-t),n0=ts?(ts.mk||0):0;_r.apply(this,arguments);if(ts&&n0>=v('cap'))r.act=1};
+ XA.arbiter=function(r,a,t,L,v){if(a.seal>0){L(`🔒 Phong Ấn khóa ${clsDef('arbiter').pn} của ${AN(t)}`);return}
+  (r.fn=r.fn||[]).push((t2,a2,b2,tn,cx)=>{if(!((cx.dd||0)>0))return;const m=tmg(1-t2);m.arm=v('tn');m.arp=v('pen');cx.act=1;G.log.unshift(`👮 ${tn} bị Chấp Pháp Quan theo dõi ${v('tn')} lượt: trả lời sai mất ${v('pen')}% HP hiện có`)})}}
+CI.song=function(t,a,b,v,L){const g=G.s.rgn;if(!(g==null||+g>0)){L('🎶 Thanh nộ đang tắt nên khúc ca chưa có tác dụng');return}
+ const R=RGt(),ad=v('rg');R[t]=Math.min(100,(R[t]||0)+ad);if(G.sd)G.sd[t].forEach((m,k)=>{if(k!==G.fi[t]&&!m.dead&&m.hp>0)m.rg=Math.min(100,(m.rg||0)+ad)});L(`🎶 ${AN(t)} hát: cả đội +${ad} nộ`)};
+{const RGN={dragoon:'Mỗi lần cộng sát thương từ chuỗi nhận 1 tầng nộ, đủ {rn} tầng thì đầy nộ',berserker:'Mỗi lần cộng sát thương từ chuỗi nhận 1 tầng nộ, đủ {rn} tầng thì đầy nộ',reaper:'Mỗi lần thu hoạch nhận đủ nộ'};
+ CLS.forEach(c=>{const p=c.p.find(x=>x[0]==='need');if(p)p[4]=2;
+  const i=c.p.findIndex(x=>/^u_/.test(x[0])),rn=['rn','⚡ Chiêu nộ: số lần kích hoạt nội tại để đầy nộ',1,10,2];if(i<0)c.p.push(rn);else c.p.splice(i,0,rn);
+  c.ef+=' · '+(RGN[c.id]||'Mỗi lần kích hoạt nhận 1 tầng nộ, đủ {rn} tầng thì đầy nộ')});
+ const sd=(id,k,d)=>{const p=clsDef(id).p.find(x=>x[0]===k);if(p)p[4]=d};
+ sd('dragoon','per',5);sd('dragoon','cap',15);sd('dragoon','rn',3);sd('berserker','per',5);sd('berserker','cap',15);sd('berserker','rn',4);
+ sd('arbiter','pen',15);sd('reaper','per',3);sd('reaper','rn',1);sd('reaper','u_pc',220);sd('reaper','u_mk',5);
+ const ar=clsDef('arbiter');ar.p.splice(ar.p.findIndex(x=>x[0]==='rn'),0,['tn','Số lượt theo dõi đối thủ',1,10,3]);
+ ar.cd='Khi đòn đánh thường trúng đối thủ';ar.ef='Đối thủ trả lời sai trong {tn} lượt tới sẽ mất {pen}% HP hiện có · Mỗi lần đánh dấu nhận 1 tầng nộ, đủ {rn} tầng thì đầy nộ'}
+
+
+/* ===== Cân bằng chiêu nộ ===== */
+function gmbRoll(){const x=Math.random();return x<.4?0:x<.75?1:2}
+{const sd=(id,k,d)=>{const p=clsDef(id).p.find(x=>x[0]===k);if(p)p[4]=d},add=(id,p)=>clsDef(id).p.push(p);
+ add('illus',['u_cn','⚡ Chiêu nộ: số lượt đối thủ bị giảm sát thương',1,5,2]);
+ add('necro',['u_n','⚡ Chiêu nộ: số đồng đội hồi sinh tối đa',1,6,2]);
+ add('binder',['u_hp','⚡ Chiêu nộ: % lượng hồi chia đều',1,100,50]);
+ add('thief',['u_n','⚡ Chiêu nộ: số hiệu ứng cướp tối đa',1,10,3]);
+ sd('mage','u_fz',1);sd('mage','u_xm',250);sd('illus','u_tn',1);sd('illus','u_wk',40);
+ sd('taunter','u_tn',2);sd('taunter','u_dr',70);sd('taunter','u_rf',8);
+ sd('voidmage','u_tn',1);sd('voidmage','u_xm',250);sd('necro','u_pct',50);sd('cleric','u_im',1);sd('paladin','u_hlp',35);
+ sd('guardian','u_bp',60);sd('guardian','u_xm',250);sd('binder','u_tn',2);sd('arbiter','u_pc',25);
+ sd('executioner','u_pct',25);sd('executioner','u_mult',3);sd('gambler','u_hl',20);sd('gambler','u_st',1);
+ sd('bloodpact','u_hp',15);sd('bloodpact','u_pc',350);sd('tide','u_xm',250);
+ ULT.illus[2]='Cả đội né hoàn toàn {u_tn} lượt, đối thủ giảm {u_wk}% sát thương trong {u_cn} lượt';
+ ULT.illus[4]=(a,b,t)=>{tmg(t).ill=UL('illus','u_tn');b.chaos=UL('illus','u_wk')||0;b.chaosN=UL('illus','u_cn')};
+ ULT.ninja[2]='Né hoàn toàn đòn đánh kế tiếp của đối thủ trong {u_tn} lượt, đòn đánh x{u_pc}% sát thương xuyên giáp';
+ ULT.ninja[4]=a=>{a.xm=(a.xm||1)*UL('ninja','u_pc')/100;a.pierce=1;a.dgp=100;a.dg1=1;a.dgt=UL('ninja','u_tn')+1};
+ ULT.taunter[2]=ULT.taunter[2].replace(/dội\s*\{u_rf\}\s*sát thương lại/,'phản lại {u_rf} sát thương');
+ ULT.necro[2]='Hồi sinh tối đa {u_n} đồng đội đã gục với {u_pct}% HP gốc';
+ ULT.necro[4]=(a,b,t)=>{let n=0;const mx=UL('necro','u_n'),hp=G.s.hp*UL('necro','u_pct')/100;while(n<mx&&revOne(t,hp))n++;if(!n)G.log.unshift('🕯️ Không có đồng đội nào đã gục để hồi sinh')};
+ ULT.binder[2]='Trong {u_tn} lượt, chia đều sát thương nhận vào giữa các đồng đội còn sống; khi đồng đội được hồi máu, {u_hp}% lượng hồi được chia đều cho các thành viên còn sống';
+ ULT.binder[4]=(a,b,t)=>{const m=tmg(t);m.lnk=Math.max(m.lnk||0,UL('binder','u_tn')+1);m.lnkh=UL('binder','u_hp')/100;G.log.unshift(`🔗 ${tmN(t)} hợp nhất: chia đều sát thương nhận ${UL('binder','u_tn')} lượt, ${UL('binder','u_hp')}% lượng hồi được chia đều`)};
+ ULT.thief[2]='Đánh cắp tối đa {u_n} hiệu ứng có lợi của đối thủ và chuyển sang bản thân';
+ ULT.thief[4]=(a,b,t,o)=>{G.stealMax=UL('thief','u_n');try{stealBuffs(t,o,a)}finally{G.stealMax=0}};
+ ULT.bloodpact[2]=ULT.bloodpact[2].replace('hút 50% máu','hút 50% sát thương gây ra thành HP');
+ ULT.gambler[2]='Quay ngẫu nhiên: 40% x{u_pc}% sát thương; 35% x{u_xm}% sát thương và hồi {u_hl} HP cả đội; 25% x{u_xm}% sát thương và đối thủ choáng {u_st} lượt';
+ ULT.gambler[4]=(a,b,t)=>{const r=G.gmb!=null?G.gmb:gmbRoll();G.gmb=null;
+  if(r===0){a.xm=(a.xm||1)*UL('gambler','u_pc')/100;G.log.unshift('🎰 Jackpot: sát thương nhân lên!')}
+  else if(r===1){aTeamHeal(t,UL('gambler','u_hl'));a.xm=(a.xm||1)*UL('gambler','u_xm')/100;G.log.unshift('🎰 Jackpot: sát thương x2 và cả đội được hồi máu!')}
+  else{b.stun=Math.max(b.stun||0,UL('gambler','u_st'));a.xm=(a.xm||1)*UL('gambler','u_xm')/100;G.log.unshift('🎰 Jackpot: sát thương x2 và đối thủ bị choáng!')}};
+}
 </script>
 <script>
 /* ===== Engine Nâng Cấp Chiêu Nộ 5 Giai Đoạn (0 - 4.5s) =====
