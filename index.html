@@ -777,6 +777,31 @@ body.ush-on .ufx{z-index:100001!important}body.ush-on .ult{z-index:100002!import
 .ufx-arn-bg{position:absolute;inset:0;width:100%;height:100%;border-radius:inherit;will-change:transform,opacity;overflow:hidden;box-shadow:inset 0 0 44px rgba(0,0,0,.5)}
 .ufx-arn-bg::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.95),transparent);box-shadow:0 0 18px 2px rgba(255,255,255,.85);z-index:3}
 .ufx-arn-bg svg{display:block;width:100%;height:100%}
+
+/* ===== Animation nhân vật đứng yên (idle) ===== */
+@keyframes chBreath{0%,100%{transform:translateY(0) rotate(-.6deg) scale(1,1)}25%{transform:translateY(-1.4px) rotate(0) scale(1.012,1.02)}50%{transform:translateY(0) rotate(.6deg) scale(1,1)}75%{transform:translateY(-1.4px) rotate(0) scale(1.012,1.02)}}
+@keyframes chHead{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-.7px) rotate(1.3deg)}}
+@keyframes chHair{0%,100%{transform:rotate(-1.8deg)}50%{transform:rotate(1.8deg)}}
+@keyframes chWp{0%,100%{transform:rotate(-1.6deg) translateY(0)}50%{transform:rotate(1.8deg) translateY(-1px)}}
+@keyframes chBk{0%,100%{transform:skewX(-1.8deg) scaleY(1)}50%{transform:skewX(1.8deg) scaleY(1.015)}}
+@keyframes chLh{0%,100%{transform:rotate(1.4deg)}50%{transform:rotate(-1.4deg)}}
+@keyframes chBlink{0%,91%,100%{transform:scaleY(1)}94%{transform:scaleY(.1)}97%{transform:scaleY(1)}}
+@keyframes chAura{0%,100%{opacity:.5}50%{opacity:1}}
+@keyframes chTwk{0%,100%{opacity:0;transform:scale(.3) rotate(0)}50%{opacity:.95;transform:scale(1) rotate(45deg)}}
+@keyframes chRise{0%{opacity:0;transform:translateY(8px) scale(.6)}20%{opacity:.85}100%{opacity:0;transform:translateY(-36px) scale(1)}}
+@keyframes chFall{0%{opacity:0;transform:translate(0,-10px) rotate(0)}20%{opacity:.85}100%{opacity:0;transform:translate(9px,36px) rotate(170deg)}}
+@keyframes chZap{0%,84%,100%{opacity:0}87%{opacity:1}90%{opacity:.15}93%{opacity:1}96%{opacity:0}}
+.ch-all{transform-origin:60px 156px;animation:chBreath 6.4s ease-in-out infinite;animation-delay:var(--ph,0s)}
+.ch-hd{transform-origin:59px 82px;animation:chHead 4.8s ease-in-out infinite;animation-delay:calc(var(--ph,0s) - .4s)}
+.ch-hair{transform-origin:59px 26px;animation:chHair 3.6s ease-in-out infinite;animation-delay:calc(var(--ph,0s) - .9s)}
+.ch-wp{animation:chWp 4s ease-in-out infinite;animation-delay:calc(var(--ph,0s) - .6s)}
+.ch-bk{transform-origin:60px 72px;animation:chBk 3.4s ease-in-out infinite;animation-delay:calc(var(--ph,0s) - 1.2s)}
+.ch-lh{transform-origin:40px 77px;animation:chLh 3.2s ease-in-out infinite;animation-delay:var(--ph,0s)}
+.ch-eye{transform-origin:60px 56px;animation:chBlink 4.6s infinite;animation-delay:var(--ph,0s)}
+.ch-aura{animation:chAura 3.4s ease-in-out infinite;animation-delay:var(--ph,0s)}
+.fxp{opacity:0;transform-box:fill-box;transform-origin:center;animation-name:var(--an);animation-duration:var(--du,3s);animation-delay:var(--dl,0s);animation-iteration-count:infinite;animation-timing-function:ease-in-out}
+.arv.on .ch-wp{animation-duration:2.2s}.arv.on .ch-all{animation-duration:4.2s}
+.a7m.dead svg *,.dead .cpa svg *{animation-play-state:paused!important}
 </style></head>
 <body>
 <div id="app"></div>
@@ -2416,7 +2441,7 @@ function gSetModal(l){const s=gS(l);gShow(`<div class="mb${l.g==='arena'?' wide'
 document.addEventListener('click',e=>{const b=e.target.closest('[data-ga],[data-gm]');if(!b)return;const c=curC(),a=b.dataset.ga||b.dataset.gm;
  if(a==='x')closeModal();else if(a==='choose')gChoose();else if(a==='rtreset'){document.querySelectorAll('#modal [data-rt]').forEach((x,k)=>x.value=RAR[k][2]);gcCapture();window.GST.gf={};gfRedraw();rtSum()}else if(a==='cgnew'){const f=document.getElementById('cgform');f.hidden=!f.hidden;if(!f.hidden)cgFormDraw()}else if(a==='cgadd')cgAdd();else if(a==='cgdel'){gcCapture();const W=window.GST,j=+b.dataset.i-NB,n={};W.cg.splice(j,1);for(const k in W.gf){const x=+k;if(x!==NB+j)n[x>NB+j?x-1:x]=W.gf[k]}W.gf=n;gfRedraw()}else if(a==='lesson'){closeModal();addLessonModal(c)}else if(a==='games')gList();else if(a==='pick')gType(b.dataset.k);
  else if(a==='make'){const t=document.querySelector('#modal input[name=gtype]:checked').value,L={id:uid(),name:($('#gname').value||'').trim()||GAMES[GP].n,type:t,u:V.u,questions:[],g:GP,gs:{}};if(t==='vocab')L.dir='en-vi';if(GP==='tug'){L.type='mc';L.tm={n:2,names:[],mode:'duel'}}c.lessons.push(L);save();closeModal();render();toast('Đã tạo trò chơi '+GAMES[GP].n)}
- else if(a==='save'){const l=window.GL,s={n:+document.querySelector('#modal input[name=gn]:checked').value,names:[...document.querySelectorAll('#modal .gnm')].map(x=>x.value.trim())};document.querySelectorAll('#modal [data-gp]').forEach(x=>{const p=GAMES[l.g].p.find(q=>q[0]===x.dataset.gp);s[p[0]]=Math.min(p[3],Math.max(p[2],x.value===''||isNaN(+x.value)?p[4]:+x.value))});if(l.g==='arena'){s.rt=[...document.querySelectorAll('#modal [data-rt]')].map(x=>Math.min(100,Math.max(0,+x.value||0)));if(!s.rt.some(v=>v>0)){toast('Tỉ lệ độ hiếm cần lớn hơn 0');return}gcCapture();s.gf=window.GST.gf;s.cg=window.GST.cg;s.gv=3;if(!Object.values(s.gf).some(c=>c.on)){toast('Cần bật ít nhất 1 quà');return}}if(l.g==='arena'){clsSave(s);const sh={};for(const k in s)if(!ARS_OWN.includes(k))sh[k]=s[k];D.arenaS=JSON.parse(JSON.stringify(sh))}l.gs=s;save();closeModal();toast(l.g==='arena'?'Đã lưu, áp dụng cho mọi game Đối kháng':'Đã lưu cài đặt trò chơi')}});
+ else if(a==='save'){const l=window.GL,s={n:+document.querySelector('#modal input[name=gn]:checked').value,names:[...document.querySelectorAll('#modal .gnm')].map(x=>x.value.trim())};document.querySelectorAll('#modal [data-gp]').forEach(x=>{const p=GAMES[l.g].p.find(q=>q[0]===x.dataset.gp);s[p[0]]=Math.min(p[3],Math.max(p[2],x.value===''||isNaN(+x.value)?p[4]:+x.value))});if(l.g==='arena'){s.rt=[...document.querySelectorAll('#modal [data-rt]')].map(x=>Math.min(100,Math.max(0,+x.value||0)));if(!s.rt.some(v=>v>0)){toast('Tỉ lệ độ hiếm cần lớn hơn 0');return}gcCapture();s.gf=window.GST.gf;s.cg=window.GST.cg;s.gv=6;if(!Object.values(s.gf).some(c=>c.on)){toast('Cần bật ít nhất 1 quà');return}}if(l.g==='arena'){clsSave(s);const sh={};for(const k in s)if(!ARS_OWN.includes(k))sh[k]=s[k];D.arenaS=JSON.parse(JSON.stringify(sh))}l.gs=s;save();closeModal();toast(l.g==='arena'?'Đã lưu, áp dụng cho mọi game Đối kháng':'Đã lưu cài đặt trò chơi')}});
 function gQs(l){const t=T(l),out=[],qa=l.questions;
  if(t==='tf')qa.forEach(q=>{if((q.q||'').trim()&&(q.a===0||q.a===1))out.push({q:q.q,o:['Đúng','Sai'],a:q.a,fix:1,p:clampP(q.p)})});
  else if(t==='mc'||t==='odd')qa.forEach(q=>{const o=(q.o||[]).map((x,i)=>[String(x||'').trim(),i]).filter(x=>x[0]),k=o.findIndex(x=>x[1]===q.a);if(o.length>=2&&k>=0&&(t==='odd'||(q.q||'').trim()))out.push({q:t==='odd'?'Chọn từ khác loại':q.q,o:o.map(x=>x[0]),a:k,p:clampP(q.p)})});
@@ -2558,7 +2583,8 @@ const clsDef=id=>CLS.find(c=>c.id===id);
 const clsVal=(s,id,k)=>{const v=s&&s.cl&&s.cl[id]&&s.cl[id][k];return v==null?(clsDef(id).p.find(p=>p[0]===k)||[0,0,0,0,0])[4]:v};
 const clsFill=(t,s,id)=>t.replace(/\{(\w+)\}/g,(_,k)=>clsVal(s,id,k));
 const clsEff=(c,S)=>{const f=t=>clsFill(t,S,c.id).replace(/(\d+%?)/g,'<i>$1</i>');return f(c.cd)+' → '+f(c.ef)};
-const mkAv=(bd,hd,wp)=>`<svg viewBox="0 0 120 160">${wp}<rect x="38" y="70" width="42" height="56" rx="10" fill="${bd}"/><rect x="40" y="126" width="15" height="28" rx="4" fill="#37474f"/><rect x="63" y="126" width="15" height="28" rx="4" fill="#37474f"/><circle cx="59" cy="52" r="22" fill="#ffd6a5"/>${hd}<circle cx="68" cy="54" r="3" fill="#16213e"/></svg>`;
+const mkAv0=(bd,hd,wp)=>`<svg viewBox="0 0 120 160">${wp}<rect x="38" y="70" width="42" height="56" rx="10" fill="${bd}"/><rect x="40" y="126" width="15" height="28" rx="4" fill="#37474f"/><rect x="63" y="126" width="15" height="28" rx="4" fill="#37474f"/><circle cx="59" cy="52" r="22" fill="#ffd6a5"/>${hd}<circle cx="68" cy="54" r="3" fill="#16213e"/></svg>`;
+const AVP=new Map();const mkAv=(bd,hd,wp)=>{const s=mkAv0(bd,hd,wp);AVP.set(s,[bd,hd,wp]);return s};
 const dag=(x,y,c)=>`<path d="M${x} ${y}l6 4-22 34-6-4z" fill="${c}" stroke="#475569" stroke-width="1.5"/>`;
 const AVX={
 archer:mkAv('#16a34a','<path d="M37 52a22 22 0 0 1 44 0v-8H37z" fill="#166534"/>','<path d="M98 30q24 50 0 100" fill="none" stroke="#8d6e63" stroke-width="5"/><path d="M98 30v100M60 80h40" stroke="#e2e8f0" stroke-width="2"/>'),
@@ -2820,6 +2846,449 @@ hexer:mkAv('#6b21a8','<path d="M34 50a25 25 0 0 1 50 0v-4q-25-20-50 0z" fill="#3
 eclipse:mkAv('#d97706','<path d="M37 50a22 22 0 0 1 44 0v-6H37z" fill="#1f2937"/><circle cx="59" cy="32" r="6" fill="#fde047"/>','<path d="M96 14l6 6-34 66-8-4z" fill="#fde68a" stroke="#d97706" stroke-width="2"/><path d="M22 14l-6 6 34 66 8-4z" fill="#c7d2fe" stroke="#4338ca" stroke-width="2"/>'),
 lore:mkAv('#0e7490','<path d="M34 46l26-36 26 36z" fill="#164e63"/><rect x="34" y="42" width="52" height="8" rx="3" fill="#67e8f9"/>','<rect x="82" y="76" width="30" height="36" rx="3" fill="#92400e" stroke="#fde68a" stroke-width="2"/><path d="M88 86h18M88 94h18M88 102h12" stroke="#fde68a" stroke-width="2"/>'),
 reaper:mkAv('#1e293b','<path d="M34 52a25 25 0 0 1 50 0v-4q-25-24-50 0z" fill="#0f172a"/><rect x="48" y="50" width="22" height="8" rx="3" fill="#e2e8f0"/>','<rect x="94" y="14" width="5" height="128" rx="2" fill="#78350f"/><path d="M96 16q-34-8-44 24q22-6 44-6z" fill="#cbd5e1" stroke="#475569" stroke-width="2"/>')});
+/* ===== Phong cách chibi RPG (viền nâu đậm, đầu to, mắt to bóng, tóc nhiều lớp, trang phục viền vàng) cho 51 nhân vật ===== */
+(function(){
+ const OL='#3a2820',GOLD='#e2b94a',CREAM='#f3e7c8';
+ const hx=h=>{h=h.replace('#','');if(h.length===3)h=h.split('').map(x=>x+x).join('');return[parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)]};
+ const mix=(a,b,t)=>{const A=hx(a),B=hx(b);return'#'+A.map((v,i)=>Math.round(v+(B[i]-v)*t).toString(16).padStart(2,'0')).join('')};
+ const dk=(c,t)=>mix(c,'#000000',t),lt=(c,t)=>mix(c,'#ffffff',t);
+ const SK='#ffdcb5',SKS='#ecbb90';
+ /* viền nâu đậm đồng nhất cho mũ/vũ khí/đạo cụ của từng class */
+ const ol=(s,w)=>s.replace(/<(path|rect|circle|ellipse|polygon)\b([^>]*?)(\/?)>/g,(m,tag,at,sl)=>{
+  if(/fill="none"/.test(at))return m;
+  const op=/opacity="([\d.]+)"/.exec(at);if(op&&+op[1]<.75)return m;
+  if(tag==='circle'){const r=/\br="([\d.]+)"/.exec(at);if(r&&+r[1]<2.6)return m}
+  if(tag==='rect'){const wd=/width="([\d.]+)"/.exec(at),ht=/height="([\d.]+)"/.exec(at);if((wd&&+wd[1]<3.4)||(ht&&+ht[1]<3.4))return m}
+  const st=/stroke="([^"]+)"/.exec(at);
+  if(st){if(/^#fff(fff)?$/i.test(st[1])||st[1]==='none')return m;return`<${tag}${at.replace(/stroke="[^"]+"/,`stroke="${OL}"`)}${sl}>`}
+  return`<${tag}${at} stroke="${OL}" stroke-width="${w||1.8}" stroke-linejoin="round"${sl}>`;
+ });
+ const R={archer:[97,84],assassin:[94,100],guardian:[94,98],berserker:[93,98],paladin:[94,98],plague:[94,100],summoner:[94,98],chrono:[94,98],
+  dknight:[94,98],storm:[100,84],blade:[92,96],illus:[94,98],tact:[94,98],monk:[98,94],gunner:[92,98],pyro:[94,98],cleric:[94,98],ninja:[98,96],
+  dragoon:[96,98],astro:[90,108],smith:[94,98],alchemist:[97,82],vampire:[85,110],tide:[96,98],druid:[94,98],voidmage:[98,104],samurai:[94,98],
+  gambler:[92,106],arbiter:[94,100],leech:[92,72],thief:[92,106],merchant:[103,100],mimic:[92,102],stonewarden:[95,98],binder:[92,74],executioner:[95,98],
+  bomber:[90,94],warden:[92,76],necro:[96,98],taunter:[82,96],hypno:[96,46],starcaller:[94,98],bloodpact:[92,100],valk:[96,98],song:[94,100],
+  hexer:[100,54],eclipse:[92,96],lore:[94,110],reaper:[96,98],sword:[94,98],mage:[88,84]};
+ const Lh={arbiter:[28,94],warden:[28,104],monk:[22,94],blade:[28,96],eclipse:[28,96],gunner:[26,92],storm:[20,84],assassin:[26,100],plague:[26,100]};
+ const BULK={};
+ const BACK=new Set(['valk','vampire','illus']);
+ const EYE={vampire:'#dc2626',voidmage:'#c084fc',necro:'#4ade80',reaper:'socket',dknight:'none',hypno:'#c084fc',starcaller:'#818cf8',pyro:'#f97316',storm:'#38bdf8',tide:'#22d3ee',druid:'#4ade80'};
+ const ELF=new Set(['archer','druid','song','illus','starcaller','tide','cleric','chrono','hypno','voidmage']);
+ const ARMOR=new Set(['sword','guardian','paladin','dknight','samurai','stonewarden','valk','dragoon','berserker','eclipse','executioner','warden','blade']);
+ const ROBE=new Set(['mage','summoner','chrono','illus','tact','starcaller','pyro','cleric','astro','voidmage','necro','lore','hypno','hexer','song','druid','tide','bloodpact','alchemist','arbiter','merchant','binder','monk']);
+ const HAIRC={sword:'#6b3f22',archer:'#8a5a2b',assassin:'#1c1917',guardian:'#4a3020',berserker:'#9a3a22',paladin:'#d9b25a',plague:'#4d5a30',summoner:'#8b5a2b',chrono:'#e8e0cf',
+  dknight:'#1c1917',storm:'#ffe066',blade:'#2f7a6a',illus:'#d46fd0',tact:'#2b3a6b',monk:'#3a2a20',gunner:'#6b3f22',pyro:'#d9481f',cleric:'#f0d78a',ninja:'#1c1917',
+  dragoon:'#2f4f9a',astro:'#4a4a8a',smith:'#7a4a22',alchemist:'#7a3f1c',vampire:'#1c1417',tide:'#2a78b8',druid:'#3f7a3a',voidmage:'#2a1646',samurai:'#1c1917',
+  gambler:'#5a2a6a',arbiter:'#3a3a52',leech:'#1f5d4f',thief:'#2b2724',merchant:'#a8672b',mimic:'#8aa0b8',stonewarden:'#6b6358',binder:'#3d7a5a',executioner:'#1c1917',
+  bomber:'#7a3f1c',warden:'#5a6a82',necro:'#1f3d2a',taunter:'#9a1f2a',hypno:'#5a2a8a',starcaller:'#3a3a9a',bloodpact:'#5a1a1a',valk:'#9ad4f0',song:'#b8316a',hexer:'#4a1a6a',
+  eclipse:'#a03a1a',lore:'#2a5a6a',reaper:'#0f172a',mage:'#e8e8ee'};
+ const STY=['short','bob','long','short','bob','long','short'];
+ const style=(id,i)=>({mage:'long',cleric:'long',valk:'long',song:'long',illus:'bob',tide:'bob',druid:'bob',vampire:'short',reaper:'short',berserker:'short',guardian:'short',stonewarden:'short',dknight:'short',paladin:'short',sword:'short',storm:'short'}[id]||STY[i%STY.length]);
+ const HG='translate(59 77) scale(1.1) translate(-59 -77)';
+ /* Kiếm/đao/dao: cầm dựng ở bên hông, lưỡi hướng lên cao, tránh kề vào cổ */
+ const sw=(x,y,len,o)=>{const w=o.w||9,g=o.gw||8;return`<g transform="rotate(${o.tilt||0} ${x} ${y})"><path d="M${x-w/2} ${y-9}L${x-w/2} ${y-len+10}L${x} ${y-len}L${x+w/2} ${y-len+10}L${x+w/2} ${y-9}Z" fill="${o.fill}" stroke="${o.stroke}" stroke-width="2" stroke-linejoin="round"/><path d="M${x} ${y-13}V${y-len+9}" stroke="#fff" stroke-width="1.6" opacity=".5"/><rect x="${x-g}" y="${y-10}" width="${g*2}" height="5" rx="2" fill="${o.guard}"/><rect x="${x-2.4}" y="${y-6}" width="4.8" height="13" rx="2" fill="${o.grip}"/><circle cx="${x}" cy="${y+8}" r="2.8" fill="${o.guard}"/></g>`};
+ const OVR={
+  sword:sw(94,98,84,{tilt:6,fill:'#dfe6ee',stroke:'#64748b',guard:'#eab308',grip:'#8d6e63'}),
+  paladin:sw(94,98,84,{tilt:6,fill:'#fef9c3',stroke:'#eab308',guard:'#eab308',grip:'#92400e'}),
+  guardian:sw(94,98,76,{tilt:6,fill:'#dfe6ee',stroke:'#64748b',guard:'#f59e0b',grip:'#78350f'})+'<path d="M6 70h38v42q-19 20-38 0z" fill="#0ea5e9" stroke="#fff" stroke-width="3"/>',
+  dknight:sw(94,98,92,{tilt:5,w:11,fill:'#1e1b2e',stroke:'#ef4444',guard:'#7f1d1d',grip:'#450a0a',gw:9}),
+  samurai:sw(94,98,92,{tilt:5,w:6,fill:'#e2e8f0',stroke:'#64748b',guard:'#7f1d1d',grip:'#7f1d1d',gw:6}),
+  blade:sw(92,96,76,{tilt:8,fill:'#e2e8f0',stroke:'#64748b',guard:'#134e4a',grip:'#134e4a'})+sw(28,96,76,{tilt:-8,fill:'#e2e8f0',stroke:'#64748b',guard:'#134e4a',grip:'#134e4a'}),
+  eclipse:sw(92,96,78,{tilt:8,fill:'#fde68a',stroke:'#d97706',guard:'#b45309',grip:'#78350f'})+sw(28,96,78,{tilt:-8,fill:'#c7d2fe',stroke:'#4338ca',guard:'#3730a3',grip:'#1e1b4b'}),
+  assassin:sw(94,100,44,{tilt:6,w:7,fill:'#cbd5e1',stroke:'#64748b',guard:'#475569',grip:'#1e293b',gw:6})+sw(26,100,44,{tilt:-6,w:7,fill:'#cbd5e1',stroke:'#64748b',guard:'#475569',grip:'#1e293b',gw:6}),
+  plague:sw(94,100,44,{tilt:6,w:7,fill:'#bef264',stroke:'#4d7c0f',guard:'#365314',grip:'#1a2e05',gw:6})+sw(26,100,44,{tilt:-6,w:7,fill:'#bef264',stroke:'#4d7c0f',guard:'#365314',grip:'#1a2e05',gw:6})+'<circle cx="104" cy="122" r="5" fill="#84cc16"/>'
+ };
+
+
+ const arm=(sx,sy,hx_,hy,side,col,hand)=>{
+  const mx=(sx+hx_)/2,my=(sy+hy)/2,ex=mx+side*6,ey=my+9,d=`M${sx} ${sy}Q${ex.toFixed(1)} ${ey.toFixed(1)} ${hx_} ${hy}`;
+  return`<path d="${d}" fill="none" stroke="${OL}" stroke-width="13.4" stroke-linecap="round"/><path d="${d}" fill="none" stroke="${col}" stroke-width="10" stroke-linecap="round"/>`+
+   `<path d="${d}" fill="none" stroke="${lt(col,.32)}" stroke-width="2.2" stroke-linecap="round" opacity=".55" transform="translate(${-side*1.8} -1.4)"/>`+
+   `<circle cx="${hx_}" cy="${hy}" r="6.2" fill="${hand}" stroke="${OL}" stroke-width="1.9"/><path d="M${hx_-2.8} ${hy-.6}q2.8-3 5.6 0" fill="none" stroke="${OL}" stroke-width="1.2" stroke-linecap="round" opacity=".7"/><ellipse cx="${hx_-1.6}" cy="${hy-2.6}" rx="1.9" ry="1.1" fill="#fff" opacity=".4"/>`;
+ };
+ const eyes=(id,hc)=>{
+  const st=EYE[id];if(st==='none')return'';
+  const bro=`<path d="M49.4 47.4Q54 44.4 58.6 46.6M63 46.6Q67.6 44.4 72 47.4" fill="none" stroke="${dk(hc,.35)}" stroke-width="1.8" stroke-linecap="round"/>`;
+  if(st==='socket')return`<ellipse cx="54" cy="55.6" rx="4.9" ry="5.8" fill="#0b0f1a" stroke="${OL}" stroke-width="1.4"/><ellipse cx="67.4" cy="55.6" rx="4.5" ry="5.4" fill="#0b0f1a" stroke="${OL}" stroke-width="1.4"/><circle cx="54.6" cy="56.2" r="2" fill="#ef4444"/><circle cx="68" cy="56.2" r="1.8" fill="#ef4444"/>`;
+  const ir=st||'#7a4a28';
+  const eye=(x,rx,ry)=>`<ellipse cx="${x}" cy="55.8" rx="${rx}" ry="${ry}" fill="#1d1410"/><ellipse cx="${x}" cy="${(55.8+ry*.46).toFixed(1)}" rx="${(rx*.74).toFixed(1)}" ry="${(ry*.4).toFixed(1)}" fill="${ir}" opacity=".9"/><circle cx="${(x-rx*.3).toFixed(1)}" cy="${(55.8-ry*.4).toFixed(1)}" r="${(rx*.4).toFixed(1)}" fill="#fff"/><circle cx="${(x+rx*.4).toFixed(1)}" cy="${(55.8+ry*.38).toFixed(1)}" r="${(rx*.2).toFixed(1)}" fill="#fff" opacity=".92"/>`;
+  return '<g class="ch-eye">'+eye(54,4.9,6.1)+eye(67.4,4.5,5.7)+'</g>'+bro;
+ };
+ const hairBack=(sty,hc)=>{const f=`fill="${hc}" stroke="${OL}" stroke-width="2" stroke-linejoin="round"`;
+  if(sty==='long')return`<path d="M31 56Q24 18 59 16Q94 18 87 56Q96 84 84 108Q70 100 59 94Q48 100 34 108Q22 84 31 56Z" ${f}/>`;
+  if(sty==='bob')return`<path d="M31 56Q25 20 59 17Q93 20 87 56Q92 76 80 88Q70 80 59 82Q48 80 38 88Q26 76 31 56Z" ${f}/>`;
+  return`<path d="M33 58Q27 22 59 18Q91 22 85 58Q72 50 59 50Q46 50 33 58Z" ${f}/>`;
+ };
+ const hairFront=(sty,hc)=>{const f=`fill="${hc}" stroke="${OL}" stroke-width="2" stroke-linejoin="round"`,sh=dk(hc,.32);
+  let s=`<path d="M36.4 48Q32 22 59 21Q86 22 81.6 48Q78 38 70 37Q64 43 59 36Q54 43 48 37Q40 38 36.4 48Z" ${f}/>`+
+   `<path d="M48 27Q45 34 47 38M59 24Q58 31 60 36M70 27Q70 33 72 37" fill="none" stroke="${sh}" stroke-width="1.3" stroke-linecap="round"/>`+
+   `<path d="M46 26Q59 20 73 27" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".28"/>`;
+  if(sty==='short')s+=`<path d="M36.4 44Q34 56 38 64Q41 56 42 48Z" ${f}/><path d="M81.6 44Q84 56 80 64Q77 56 76 48Z" ${f}/>`;
+  if(sty==='bob')s+=`<path d="M36.4 42Q30 62 38 82Q48 72 46 54Q45 46 42 41Z" ${f}/><path d="M81.6 42Q88 62 80 82Q70 72 72 54Q73 46 76 41Z" ${f}/>`;
+  if(sty==='long')s+=`<path d="M36.4 42Q28 70 34 106Q47 96 46 66Q45 52 42 41Z" ${f}/><path d="M81.6 42Q90 70 84 106Q71 96 72 66Q73 52 76 41Z" ${f}/>`;
+  return s;
+ };
+ const face=(id,hc,sty)=>{
+  const ear=ELF.has(id)?`<path d="M38.4 52L27.6 45.4L36.8 63Z" fill="${SKS}" stroke="${OL}" stroke-width="1.8" stroke-linejoin="round"/><path d="M79.6 52L90.4 45.4L81.2 63Z" fill="${SKS}" stroke="${OL}" stroke-width="1.8" stroke-linejoin="round"/>`
+   :`<ellipse cx="37.4" cy="57.4" rx="3.8" ry="5" fill="${SKS}" stroke="${OL}" stroke-width="1.7"/><ellipse cx="80.6" cy="57.4" rx="3.8" ry="5" fill="${SKS}" stroke="${OL}" stroke-width="1.7"/>`;
+  return ear+`<circle cx="59" cy="52" r="22" fill="${SKS}" stroke="${OL}" stroke-width="2.3"/><circle cx="60.8" cy="50.4" r="20" fill="${SK}"/>`+
+   `<ellipse cx="48.6" cy="63.4" rx="4.2" ry="2.5" fill="#ff7f8f" opacity=".4"/><ellipse cx="72.4" cy="63.4" rx="4.2" ry="2.5" fill="#ff7f8f" opacity=".4"/>`+
+   `<path d="M58 66.2Q60.7 69.4 63.4 66.2" fill="none" stroke="#7a3326" stroke-width="1.6" stroke-linecap="round"/><path d="M61.6 62.2l1.2 1.4" stroke="${dk(SKS,.25)}" stroke-width="1.2" stroke-linecap="round"/>`+
+   hairFront(sty,hc);
+ };
+
+  /* ===== Nâng cấp trang phục + vũ khí 50 class (phong cách fantasy chibi), giữ nguyên màu chủ đạo ===== */
+ const ST='#cbd5e1',STD='#94a3b8',BR='#8a5a34',BONE='#f1f5f9';
+ const pth=(d,f,x)=>`<path d="${d}" fill="${f}"${x||''}/>`,ln=(d,c,w)=>`<path d="${d}" fill="none" stroke="${c}" stroke-width="${w||2}" stroke-linecap="round"/>`;
+ const mir=f=>f()+`<g transform="translate(118 0) scale(-1 1)">${f()}</g>`;
+ const rc=(x,y,w,h,f,r)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r||1.5}" fill="${f}"/>`,ci=(x,y,r,f)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${f}"/>`;
+ const metal=b=>mix(b,'#cbd5e1',.55);
+ /* --- phía sau thân: áo choàng, cánh, khăn, ống tên, balo --- */
+ const tat=(b,a)=>pth('M42 72Q20 108 22 144L30 138L36 150L44 140L52 150L59 140L66 150L74 140L82 150L88 138L96 144Q98 108 76 72Z',dk(b,.4));
+ const BK={
+ cape:(b,a)=>pth('M42 72Q18 106 20 150Q59 140 98 150Q100 106 76 72Z',dk(b,.3))+pth('M44 74Q30 108 32 146Q59 138 86 146Q88 108 74 74Z',a)+ln('M44 80Q59 88 74 80',GOLD,3),
+ scarf:(b,a)=>pth('M46 74Q20 70 6 92Q22 88 32 92Q16 100 14 112Q38 100 54 86Z',a)+ln('M44 80Q28 82 16 100',dk(a,.3),1.5),
+ wings:(b,a)=>{const c=mix(a,'#ffffff',.82);return mir(()=>pth('M46 80Q0 66 -2 14Q16 26 30 22Q22 34 38 40Q30 48 46 56Q40 62 50 68Z',c)+ln('M12 30Q26 50 44 70M6 44Q22 58 42 76',dk(c,.22),1.6))},
+ bat:(b,a)=>mir(()=>pth('M46 80Q8 66 -2 26Q14 40 22 34Q16 50 30 54Q26 64 40 70Z',dk(a,.35))+ln('M2 32L40 72M20 38L30 62',a,1.6)),
+ tatter:tat,
+ quiver:(b,a)=>tat(b,a)+pth('M72 52L86 46L92 92L78 98Z','#7c4a22')+ln('M76 50L74 34M81 48L82 32M86 47L91 33',a,2.6)+rc(74,64,16,4,GOLD,1),
+ pack:(b,a)=>pth('M70 70Q108 66 106 106Q104 132 76 128Z','#b45309')+ln('M74 76Q98 82 98 118',lt('#b45309',.3),2)+rc(66,66,14,6,GOLD,2)+ci(92,70,6,a),
+ ribbon:(b,a)=>ln('M44 80Q8 92 16 136',a,7)+ln('M76 80Q110 92 102 136',a,7)+ln('M44 80Q8 92 16 136',lt(a,.5),2)
+ };
+ /* --- thân áo: giáp ngực, áo choàng ngắn, đai chéo, tạp dề... --- */
+ const OV={
+ plate:(b,a)=>{const m=metal(b);return pth('M42 72H76L74 102Q59 110 44 102Z',m)+pth('M42 72H50L49 104Q46 103 44 102Z','#000',' opacity=".16"')+ln('M59 74V106M44 88Q59 94 74 88',GOLD,1.8)+pth('M59 80L64 86L59 92L54 86Z',a)+pth('M40 106H78L80 120H38Z',dk(m,.12))+ln('M48 108L46 120M59 108V120M70 108L72 120',OL,1.2)},
+ tabard:(b,a)=>pth('M49 70H69V136L59 129L49 136Z',a)+ln('M49 70V136M69 70V136',GOLD,2)+rc(57,86,4,18,GOLD,1)+rc(51,92,16,4,GOLD,1)+ln('M52 130L59 126L66 130',GOLD,1.6),
+ vest:(b,a)=>pth('M40 72L50 72L53 106L40 106Z',dk(b,.32))+pth('M78 72L68 72L65 106L78 106Z',dk(b,.2))+ln('M50 74L53 104M68 74L65 104',a,1.6)+ln('M51 80H55M51 88H55M51 96H55M63 80H67M63 88H67M63 96H67',GOLD,1.4),
+ robeT:(b,a)=>ln('M40 124Q59 131 78 124',GOLD,2)+ln('M37 134Q59 143 81 134',a,2)+pth('M59 84L62 91L69 91L63 96L66 103L59 99L52 103L55 96L49 91L56 91Z',GOLD)+ln('M50 72L44 110M68 72L74 110',a,2),
+ coat:(b,a)=>pth('M40 108H78L84 144H70L59 126L48 144H34Z',dk(b,.28))+pth('M46 70L59 98L72 70L77 74L59 112L41 74Z',dk(b,.45))+ln('M59 98V112',OL,1.2)+ci(53,100,1.9,GOLD)+ci(65,100,1.9,GOLD)+ln('M38 118L34 140M80 118L84 140',a,2),
+ sash:(b,a)=>pth('M41 72L51 70L79 108L70 114Z',a)+ln('M45 74L74 111',lt(a,.45),1.6)+ln('M70 114L74 124M74 112L79 120',GOLD,2),
+ bando:(b,a)=>pth('M42 73L52 70L77 112L68 117Z','#6b4528')+ci(52,82,3,GOLD)+ci(58,90,3,GOLD)+ci(64,98,3,GOLD)+ci(70,106,3,GOLD)+pth('M54 105H66V117H54Z',dk('#6b4528',.1))+ci(60,111,2.6,a),
+ apron:(b,a)=>pth('M46 76H72L77 126H41Z','#8a5a34')+ln('M48 70L52 78M70 70L66 78',OL,2)+rc(50,104,18,12,dk('#8a5a34',.25),2)+ln('M54 108V115M59 108V115M64 108V115',ST,1.6)+ln('M44 90H74',lt('#8a5a34',.3),1.2),
+ gi:(b,a)=>pth('M44 70L59 98L74 70L79 76L59 108L39 76Z','#f8fafc')+rc(38,104,42,8,a,2)+pth('M58 112L52 134L58 130Z',a)+pth('M62 112L68 134L61 130Z',dk(a,.2)),
+ ribs:(b,a)=>ln('M48 76Q59 80 70 76M49 84Q59 88 69 84M50 92Q59 96 68 92M59 74V98',BONE,2.2)+pth('M54 100h10v7q-5 4-10 0z',BONE)+ci(57,102,1.6,'#0b0f1a')+ci(61,102,1.6,'#0b0f1a'),
+ runes:(b,a)=>ln('M59 78L67 86L59 96L51 86Z',a,2.4)+ln('M59 82V92M55 86H63',lt(a,.5),1.6)+ln('M42 112H76',a,2)+ci(59,86,2.8,lt(a,.6)),
+ fur:(b,a)=>pth('M40 72Q46 84 52 74Q59 86 66 74Q72 84 78 72L78 88Q59 100 40 88Z','#e7d3b0')+ln('M46 80L47 86M59 82V90M72 80L71 86',BR,1.4)+ln('M40 110Q59 118 78 110',BR,3),
+ stole:(b,a)=>pth('M46 70H55L52 132H43Z','#f8fafc')+pth('M63 70H72L75 132H66Z','#f8fafc')+rc(45,96,7,7,GOLD,1)+rc(66,96,7,7,GOLD,1)+ln('M43 128H52M66 128H75',GOLD,2),
+ stone:(b,a)=>pth('M42 74H76L74 102L59 108L44 102Z','#78716c')+ln('M50 76L54 90L48 100M66 78L62 92L70 102',OL,1.4)+pth('M42 74H54L50 82Z','#65a30d')+pth('M64 106H76L74 112Z','#65a30d')
+ };
+ /* --- vai --- */
+ const pd=(x,c,r)=>`<ellipse cx="${x}" cy="75" rx="${r||10}" ry="${(r||10)*.8}" fill="${c}"/>`+rc(x-(r||10)+1,81,(r||10)*2-2,3.4,GOLD,1.4);
+ const SH={
+ pad:(b,a)=>pd(40,metal(b))+pd(78,lt(metal(b),.2)),
+ padL:(b,a)=>pd(38,metal(b),12)+pd(80,lt(metal(b),.2),12)+ci(38,74,3,a)+ci(80,74,3,a),
+ spike:(b,a)=>pd(40,dk(metal(b),.2))+pd(78,metal(b))+pth('M34 70L30 56L41 64Z',STD)+pth('M84 70L89 56L77 64Z',ST)+pth('M40 66L38 52L47 64Z',STD),
+ furS:(b,a)=>[36,44,74,82].map((x,i)=>ci(x,i%3?74:72,7,'#e7d3b0')).join('')+ln('M34 78Q40 84 46 78M72 78Q78 84 84 78',BR,1.4),
+ mantle:(b,a)=>pth('M32 78Q40 64 59 67Q78 64 87 78Q80 90 59 85Q38 90 32 78Z',dk(b,.12))+ln('M33 80Q59 94 86 80',GOLD,2.4)+ci(59,86,3.2,a),
+ skull:(b,a)=>pd(40,dk(metal(b),.3))+pd(78,dk(metal(b),.3))+ci(40,74,4.6,BONE)+ci(78,74,4.6,BONE)+ci(38.6,73,1.5,'#0b0f1a')+ci(41.6,73,1.5,'#0b0f1a'),
+ leaf:(b,a)=>pth('M32 78Q34 64 46 66Q44 76 36 82Z','#4ade80')+pth('M86 78Q84 64 72 66Q74 76 82 82Z','#22c55e')+pth('M38 68Q42 58 50 62Q46 68 42 72Z','#86efac'),
+ rock:(b,a)=>pth('M30 80L34 64L48 62L52 74L44 86Z','#78716c')+pth('M88 80L84 64L70 62L66 74L74 86Z','#a8a29e')+pth('M34 64L48 62L42 68Z','#65a30d'),
+ epaulet:(b,a)=>rc(32,70,16,6,GOLD,2)+rc(70,70,16,6,GOLD,2)+ln('M34 77V84M38 77V84M42 77V84M76 77V84M80 77V84M84 77V84',GOLD,1.4)
+ };
+ /* --- chân: giáp ống chân, gấu ủng, quấn vải --- */
+ const FT={
+ greave:(b,a)=>pth('M39 130H56L55 144H41Z',metal(b))+pth('M62 130H79L78 144H64Z',lt(metal(b),.15))+ln('M41 136H55M64 136H78',GOLD,1.6),
+ cuff:(b,a)=>rc(40,139,16,6,GOLD,2)+rc(63,139,16,6,lt(GOLD,.15),2)+ln('M42 142H54M65 142H77',BR,1.2),
+ wrap:(b,a)=>ln('M41 132L55 136M41 138L55 142M64 132L78 136M64 138L78 142',lt(a,.7),2.2)
+ };
+ /* --- đầu (trong hệ toạ độ đầu, không che mắt) --- */
+ const hoodP=(h,m)=>pth('M30 64Q22 14 59 12Q96 14 88 64Q86 76 78 84Q82 60 76 46Q70 34 59 34Q48 34 42 46Q36 60 40 84Q32 76 30 64Z',h)+ln('M34 28Q59 18 84 28',lt(h,.3),1.6)+(m?pth('M39 62Q59 76 79 62V76Q59 90 39 76Z',dk(h,.1)):'');
+ const helmP=(c,p,x)=>pth('M35 54Q32 22 59 20Q86 22 83 54L77 54Q76 36 59 34Q42 36 41 54Z',c)+pth('M56 34H62V50H56Z',dk(c,.1))+pth('M35 54H43L44 70L36 64Z',dk(c,.15))+pth('M83 54H75L74 70L82 64Z',c)+ln('M44 28Q59 22 74 28',lt(c,.5),2)+(p?pth('M59 20Q48 2 70 0Q64 10 68 22Z',p):'')+(x||'');
+ const hornP='';
+ const wizP=(h,a,sage)=>pth('M30 46Q42 22 56 10Q66 2 80 12Q68 14 66 26Q82 36 88 46Z',h)+rc(29,41,60,8.4,dk(h,.2),3.4)+rc(30,42,58,2.6,lt(h,.5),1)+ci(59,45,3.4,a)+pth('M62 10l3 6 6 1-5 4 1 6-5-3-5 3 1-6-5-4 6-1z',GOLD,'')+(sage?beard('#f4f4f8'):'');
+ const HD={
+ hood:(b,a)=>hoodP(dk(b,.35)),hoodm:(b,a)=>hoodP(dk(b,.35),1),
+ hoodF:(b,a)=>hoodP(dk(b,.2))+pth('M80 36Q98 22 94 4Q86 22 76 34Z',a),
+ hoodH:(b,a)=>hoodP(dk(b,.35),1)+pth('M36 30Q24 18 28 4Q38 16 46 26Z',BONE)+pth('M82 30Q94 18 90 4Q80 16 72 26Z',BONE),
+ hoodS:(b,a)=>hoodP(dk(b,.4))+pth('M45 66Q59 80 73 66V74Q59 88 45 74Z',BONE)+ci(54,70,1.6,'#0b0f1a'),
+ helm:(b,a)=>helmP(metal(b),a),
+ helmG:(b,a)=>helmP(metal(b),a)+pth('M59 20Q48 2 70 0Q64 10 68 22Z',a),
+ helmP:(b,a)=>helmP('#f1f5f9',null)+pth('M36 36Q16 30 12 12Q26 16 40 28Z','#fff')+pth('M82 36Q102 30 106 12Q92 16 78 28Z','#fff')+ln('M40 30Q59 22 78 30',GOLD,2),
+ helmD:(b,a)=>helmP('#1e1b2e',null)+pth('M36 36Q20 28 20 6Q32 18 42 28Z',a)+pth('M82 36Q98 28 98 6Q86 18 76 28Z',a)+ln('M44 28Q59 22 74 28',a,2),
+ helmR:(b,a)=>helmP(metal(b),null)+pth('M59 20L50 0L59 8L68 0Z',a)+pth('M36 34L22 26L34 42Z',a)+pth('M82 34L96 26L84 42Z',a),
+ horn:(b,a)=>pth('M36 44Q34 26 59 24Q84 26 82 44Q59 34 36 44Z',dk('#78350f',.1))+pth('M36 40Q20 34 18 12Q30 22 42 32Z',BONE)+pth('M82 40Q98 34 100 12Q88 22 76 32Z',BONE)+ln('M40 38Q59 30 78 38',GOLD,2),
+ kabuto:(b,a)=>pth('M36 46Q36 24 59 22Q82 24 82 46Q59 38 36 46Z',dk(b,.3))+pth('M59 22L38 2Q46 18 52 26ZM59 22L80 2Q72 18 66 26Z',GOLD)+pth('M36 46L26 60L38 62ZM82 46L92 60L80 62Z',dk(b,.3))+ln('M38 42Q59 34 80 42',GOLD,2)+ci(59,36,3,a),
+ wiz:(b,a)=>wizP(dk(b,.15),a),wizS:(b,a)=>wizP(dk(b,.2),a,1),
+ top:(b,a)=>rc(39,8,40,30,dk(b,.35),3)+rc(31,35,56,7,dk(b,.45),3)+rc(39,28,40,6,a,1)+ci(70,31,2.4,GOLD),
+ cow:(b,a)=>pth('M22 40Q59 54 96 40Q90 34 80 34Q78 14 59 14Q40 14 38 34Q28 34 22 40Z','#92400e')+rc(39,30,40,5,dk('#92400e',.4),1)+ci(59,32.4,2.6,GOLD),
+ cap:(b,a)=>pth('M35 42Q35 20 59 20Q83 20 83 42Z',dk(b,.2))+pth('M33 42H87Q82 49 58 46Z','#1e293b')+rc(35,38,48,5,a,1)+pth('M59 24l3 5 5 1-4 4 1 5-5-3-5 3 1-5-4-4 5-1z',GOLD),
+ band:(b,a)=>pth('M37 40Q59 34 81 40V46Q59 40 37 46Z',a)+pth('M80 42L96 50L92 58L78 48Z',a)+ln('M82 46L92 52',dk(a,.3),1.4),
+ circ:(b,a)=>ln('M39 40Q59 31 79 40',GOLD,3.2)+pth('M59 29L63 35L59 41L55 35Z',a)+ci(44,37,2.4,lt(a,.4))+ci(74,37,2.4,lt(a,.4)),
+ tiara:(b,a)=>ln('M39 40Q59 31 79 40',lt(a,.5),3)+pth('M45 38L47 28L52 36L59 24L66 36L71 28L73 38Z',a)+ci(59,31,2.6,'#fff'),
+ veil:(b,a)=>pth('M33 62Q28 18 59 14Q90 18 85 62L80 62Q78 36 59 33Q40 36 38 62Z','#f8fafc')+ln('M34 30Q59 20 84 30',GOLD,2.4)+rc(56.8,18,4.4,12,GOLD,1)+rc(53,22,12,4,GOLD,1),
+ antler:(b,a)=>ln('M44 34Q34 24 36 8M36 8L30 4M37 20L28 18M74 34Q84 24 82 8M82 8L88 4M81 20L90 18',BR,3.2)+ln('M41 38Q59 30 77 38',a,3)+pth('M40 38Q34 32 38 28Q42 34 44 38Z','#4ade80')+pth('M78 38Q84 32 80 28Q76 34 74 38Z','#4ade80'),
+ turban:(b,a)=>pth('M35 46Q34 20 59 18Q84 20 83 46Q59 36 35 46Z',dk(b,.1))+ln('M38 36Q59 26 80 36M36 42Q59 32 82 42',lt(b,.4),2)+ci(59,31,4,a)+pth('M62 28Q76 12 82 14Q74 22 66 32Z',BONE),
+ gog:(b,a)=>rc(36,35,46,5,'#6b4528',2)+ci(47,38,7,'#38bdf8')+ci(71,38,7,'#38bdf8')+ln('M43 36L50 40M67 36L74 40',lt('#38bdf8',.7),1.6),
+ bun:(b,a)=>ci(59,16,9,dk(b,.4))+ln('M46 14L72 18M72 14L46 18',GOLD,2.4)+ln('M40 38Q59 30 78 38',a,3),
+ rock:(b,a)=>pth('M35 48L38 28L52 22L62 18L78 26L83 48L72 40L60 42L48 38Z','#78716c')+pth('M38 28L52 22L46 32Z','#65a30d')+ln('M62 20L64 34M72 30L68 40',OL,1.4),
+ halo:(b,a)=>`<ellipse cx="59" cy="14" rx="19" ry="5" fill="none" stroke="${GOLD}" stroke-width="3.6"/>`+ln('M40 40Q59 31 78 40',a,2.4),
+ sunmoon:(b,a)=>`<ellipse cx="59" cy="14" rx="19" ry="5" fill="none" stroke="${GOLD}" stroke-width="3.6"/>`+ci(44,34,5,'#fde68a')+pth('M74 28Q82 34 74 42Q78 35 74 28Z','#c7d2fe')+ln('M40 40Q59 31 78 40',GOLD,2.4)
+ };
+ /* --- vũ khí (toạ độ tuyệt đối; r = tay phải, l = tay trái) --- */
+ const pole=(x,c)=>rc(x-2.6,24,5.2,122,c||'#8d6e63',2.6)+rc(x-3.8,78,7.6,4.4,GOLD,1.6);
+ const cl=(x)=>ln(`M${x-9} 36Q${x-14} 14 ${x-3} 8M${x+9} 36Q${x+14} 14 ${x+3} 8`,GOLD,3);
+ const STH={
+ orb:(x,a)=>cl(x)+ci(x,21,9,a)+ci(x-3,17,3.2,'#fff'),
+ cry:(x,a)=>cl(x)+pth(`M${x} 2L${x+8} 18L${x} 38L${x-8} 18Z`,a)+pth(`M${x} 2L${x+8} 18L${x} 22Z`,'#fff',' opacity=".8"'),
+ cross:(x,a)=>rc(x-3.4,0,6.8,38,GOLD,1.6)+rc(x-11,10,22,6.8,GOLD,1.6)+ci(x,13,3.2,a),
+ clock:(x,a)=>ci(x,20,15,GOLD)+ci(x,20,12,'#fff')+ln(`M${x} 20V11M${x} 20L${x+6} 24`,'#312e81',2.4)+ci(x,20,1.8,a),
+ skull:(x,a)=>ci(x,18,11,BONE)+rc(x-6.5,26,13,8,BONE,2)+ci(x-4,18,2.8,a)+ci(x+4,18,2.8,a)+ln(`M${x-3} 30V34M${x+3} 30V34`,OL,1),
+ star:(x,a)=>`<polygon points="${x},0 ${x+5},13 ${x+19},13 ${x+8},21 ${x+12},35 ${x},26 ${x-12},35 ${x-8},21 ${x-19},13 ${x-5},13" fill="${a}"/>`,
+ flame:(x,a)=>cl(x)+pth(`M${x} 0Q${x+16} 16 ${x+9} 30Q${x} 40 ${x-9} 30Q${x-16} 16 ${x} 0Z`,a)+pth(`M${x} 14Q${x+8} 24 ${x+4} 31Q${x} 35 ${x-4} 31Q${x-8} 24 ${x} 14Z`,'#fde047'),
+ bolt:(x,a)=>ci(x,20,13,dk(a,.5))+`<polygon points="${x+5},2 ${x-8},22 ${x-1},22 ${x-6},40 ${x+9},15 ${x+2},15" fill="${a}"/>`,
+ ring:(x,a)=>`<ellipse cx="${x}" cy="20" rx="16" ry="6" fill="none" stroke="${GOLD}" stroke-width="3" transform="rotate(-25 ${x} 20)"/><circle cx="${x}" cy="20" r="13" fill="none" stroke="${GOLD}" stroke-width="3"/>`+ci(x,20,7,a)+ci(x-2,18,2.4,'#fff'),
+ wood:(x,a)=>`<circle cx="${x}" cy="18" r="13" fill="none" stroke="#65a30d" stroke-width="4"/>`+ci(x,18,6.5,a)+pth(`M${x+10} 8Q${x+22} 4 ${x+18} 16Q${x+12} 14 ${x+10} 8Z`,'#4ade80')+pth(`M${x-10} 8Q${x-22} 4 ${x-18} 16Q${x-12} 14 ${x-10} 8Z`,'#86efac'),
+ candle:(x,a)=>rc(x-9,34,18,4,GOLD,1.5)+rc(x-4,14,8,22,BONE,1.5)+pth(`M${x} 0Q${x+7} 8 ${x+4} 14Q${x} 17 ${x-4} 14Q${x-7} 8 ${x} 0Z`,a)+ci(x,30,2.4,'#0b0f1a'),
+ doll:(x,a)=>pth(`M${x-8} 10Q${x} 0 ${x+8} 10L${x+10} 30L${x+4} 38H${x-4}L${x-10} 30Z`,'#d6b98c')+ln(`M${x-6} 26L${x+6} 34M${x+6} 26L${x-6} 34`,OL,1.4)+ci(x-3,14,1.8,OL)+ci(x+3,14,1.8,OL)+ci(x,22,2.6,a)
+ };
+ const stf=(h,c)=>(r,l,a)=>pole(r[0],c)+STH[h](r[0],a);
+ const dual=(o1,o2)=>(r,l,a)=>sw(r[0],r[1],o1.len,o1)+sw(l[0],l[1],o2.len,o2);
+ const gun=(x,y,f)=>`<g transform="translate(${x} ${y}) scale(${f} 1)">`+pth('M-2 -4H18V2H8L6 12H-2Z','#475569')+rc(8,-6,12,4,STD,1)+rc(-3,0,6,13,'#6b4528',2)+'</g>';
+ const WPS={
+ sword:(r,l,a)=>sw(r[0],r[1],88,{tilt:6,w:11,fill:'#e8eef5',stroke:'#64748b',guard:GOLD,grip:'#7c2d12'}),
+ holy:(r,l,a)=>sw(r[0],r[1],88,{tilt:6,w:12,fill:'#fff7d6',stroke:'#eab308',guard:GOLD,grip:'#92400e',gw:12}),
+ great:(r,l,a)=>sw(r[0],r[1],98,{tilt:5,w:15,fill:'#2a2438',stroke:a,guard:'#7f1d1d',grip:'#450a0a',gw:13}),
+ katana:(r,l,a)=>sw(r[0],r[1],94,{tilt:5,w:6,fill:'#f1f5f9',stroke:'#64748b',guard:GOLD,grip:'#7f1d1d',gw:7}),
+ sabre:(r,l,a)=>sw(r[0],r[1],82,{tilt:6,w:8,fill:'#e2e8f0',stroke:a,guard:GOLD,grip:'#1e3a8a',gw:10}),
+ rapier:(r,l,a)=>sw(r[0],r[1],90,{tilt:6,w:5,fill:'#f1f5f9',stroke:a,guard:GOLD,grip:'#4c0519',gw:12}),
+ duo:(r,l,a)=>dual({len:50,tilt:8,w:8,fill:'#e2e8f0',stroke:a,guard:STD,grip:'#1e293b',gw:6},{len:50,tilt:-8,w:8,fill:'#e2e8f0',stroke:a,guard:STD,grip:'#1e293b',gw:6})(r,l,a),
+ twin:(r,l,a)=>dual({len:80,tilt:8,w:8,fill:'#e2e8f0',stroke:a,guard:GOLD,grip:'#134e4a',gw:8},{len:80,tilt:-8,w:8,fill:'#e2e8f0',stroke:a,guard:GOLD,grip:'#134e4a',gw:8})(r,l,a),
+ sunmoon:(r,l,a)=>dual({len:80,tilt:8,w:9,fill:'#fde68a',stroke:'#d97706',guard:'#b45309',grip:'#78350f',gw:9},{len:80,tilt:-8,w:9,fill:'#c7d2fe',stroke:'#4338ca',guard:'#3730a3',grip:'#1e1b4b',gw:9})(r,l,a),
+ bow:(r,l,a)=>`<g transform="translate(${r[0]-98} 0)">`+ln('M98 20Q132 82 98 144','#7c4a22',6)+ln('M98 20Q132 82 98 144',lt('#7c4a22',.3),1.6)+ci(98,20,3.4,GOLD)+ci(98,144,3.4,GOLD)+`<path d="M98 20V144" stroke="#f1f5f9" stroke-width="1.6"/>`+ln('M64 82H112',BR,2.2)+pth('M112 82l-7-4v8z',a)+'</g>',
+ axe2:(r,l,a)=>pole(r[0],'#7c4a22')+pth(`M${r[0]} 28Q${r[0]-26} 22 ${r[0]-24} 48Q${r[0]-10} 46 ${r[0]} 42Z`,ST)+pth(`M${r[0]} 28Q${r[0]+26} 22 ${r[0]+24} 48Q${r[0]+10} 46 ${r[0]} 42Z`,lt(ST,.3))+ci(r[0],35,4,a),
+ axe1:(r,l,a)=>pole(r[0],'#3f2a1a')+pth(`M${r[0]+2} 24Q${r[0]+34} 22 ${r[0]+30} 58Q${r[0]+14} 50 ${r[0]+2} 52Z`,'#9ca3af')+ln(`M${r[0]+8} 30Q${r[0]+26} 34 ${r[0]+22} 52`,lt('#9ca3af',.5),1.6)+ci(r[0],38,4,a),
+ hammer:(r,l,a)=>pole(r[0],'#6b4528')+rc(r[0]-17,20,34,22,'#9ca3af',3)+rc(r[0]-17,20,34,5,lt('#9ca3af',.4),2)+rc(r[0]-17,36,34,6,dk('#9ca3af',.25),2)+ci(r[0],31,3.6,a),
+ scythe:(r,l,a)=>pole(r[0],'#3b3a4a')+pth(`M${r[0]} 26Q${r[0]-34} 14 ${r[0]-48} 44Q${r[0]-26} 30 ${r[0]} 36Z`,'#e2e8f0')+ln(`M${r[0]-4} 30Q${r[0]-28} 24 ${r[0]-40} 42`,a,1.6),
+ spear:(r,l,a)=>pole(r[0],'#7f1d1d')+pth(`M${r[0]} 0L${r[0]+8} 22L${r[0]} 34L${r[0]-8} 22Z`,'#e2e8f0')+pth(`M${r[0]-14} 30L${r[0]-2} 24V36ZM${r[0]+14} 30L${r[0]+2} 24V36Z`,a)+pth(`M${r[0]} 38Q${r[0]+10} 52 ${r[0]+4} 62Q${r[0]-2} 52 ${r[0]} 38Z`,a),
+ trident:(r,l,a)=>pole(r[0],'#0e7490')+ln(`M${r[0]-12} 4V22Q${r[0]-12} 32 ${r[0]} 32Q${r[0]+12} 32 ${r[0]+12} 22V4M${r[0]} 0V30`,'#bae6fd',4)+pth(`M${r[0]-12} 0l-4 8h8zM${r[0]} -4l-4 8h8zM${r[0]+12} 0l-4 8h8z`,a),
+ pistol:(r,l,a)=>gun(r[0]-2,r[1]-4,1)+gun(l[0]+2,l[1]-4,-1)+ci(r[0]+20,r[1]-14,4,a),
+ cards:(r,l,a)=>[-26,-9,8,25].map((d,i)=>`<g transform="rotate(${d} ${r[0]} ${r[1]})"><rect x="${r[0]-9}" y="${r[1]-48}" width="18" height="28" rx="3" fill="#fff" stroke="${OL}" stroke-width="1.6"/>${ln(`M${r[0]} ${r[1]-38}v8`,i%2?'#dc2626':a,3)}${ci(r[0],r[1]-34,2.8,i%2?'#dc2626':a)}</g>`).join(''),
+ fan:(r,l,a)=>pth(`M${r[0]} ${r[1]-6}L${r[0]-26} ${r[1]-50}Q${r[0]} ${r[1]-70} ${r[0]+26} ${r[1]-50}Z`,'#f8fafc')+ln(`M${r[0]} ${r[1]-6}L${r[0]-14} ${r[1]-60}M${r[0]} ${r[1]-6}V${r[1]-64}M${r[0]} ${r[1]-6}L${r[0]+14} ${r[1]-60}`,a,2)+ln(`M${r[0]-26} ${r[1]-50}Q${r[0]} ${r[1]-70} ${r[0]+26} ${r[1]-50}`,GOLD,3),
+ harp:(r,l,a)=>pth(`M${r[0]-6} 36Q${r[0]+28} 30 ${r[0]+20} 74L${r[0]+16} 112H${r[0]-6}Z`,GOLD)+ln(`M${r[0]} 44V112M${r[0]+6} 42V112M${r[0]+12} 44V110`,'#fff',1.6)+ci(r[0]+24,34,4,a)+ln(`M${r[0]+30} 52q6-8 10 0`,a,2.4),
+ book:(r,l,a)=>rc(r[0]-14,r[1]-44,28,36,dk(a,.25),3)+rc(r[0]-12,r[1]-42,24,32,'#f8fafc',2)+ln(`M${r[0]} ${r[1]-42}V${r[1]-10}`,OL,1.4)+pth(`M${r[0]-6} ${r[1]-30}l3 6 6 1-5 4 1 6-5-3-5 3 1-6-5-4 6-1z`,GOLD)+stf('orb')(r,l,a),
+ flask:(r,l,a)=>ci(r[0]+2,r[1]-18,15,a)+rc(r[0]-3,r[1]-52,10,22,lt('#e2e8f0',.2),2)+rc(r[0]-5,r[1]-56,14,6,'#8a5a34',2)+ci(r[0]-4,r[1]-24,4,lt(a,.6))+ln(`M${r[0]-12} ${r[1]-14}q14 6 28 0`,dk(a,.3),1.4),
+ shuriken:(r,l,a)=>`<polygon points="${r[0]},${r[1]-52} ${r[0]+8},${r[1]-30} ${r[0]+30},${r[1]-24} ${r[0]+8},${r[1]-18} ${r[0]},${r[1]+4} ${r[0]-8},${r[1]-18} ${r[0]-30},${r[1]-24} ${r[0]-8},${r[1]-30}" fill="#cbd5e1"/>`+ci(r[0],r[1]-24,4.4,a)+sw(l[0],l[1],34,{tilt:-8,w:6,fill:'#cbd5e1',stroke:'#475569',guard:'#475569',grip:'#1e293b',gw:5}),
+ fist:(r,l,a)=>[r,l].map(h=>ci(h[0],h[1]-2,13,a)+ci(h[0],h[1]-2,8,lt(a,.6))).join('')+ln(`M${r[0]-12} ${r[1]-18}q12-12 24 0M${l[0]-12} ${l[1]-18}q12-12 24 0`,lt(a,.5),2),
+ pend:(r,l,a)=>ln(`M${r[0]} ${r[1]-8}Q${r[0]+6} ${r[1]-34} ${r[0]-2} ${r[1]-52}`,GOLD,2)+ci(r[0]-2,r[1]-54,10,GOLD)+ci(r[0]-2,r[1]-54,6,a)+ln(`M${r[0]-6} ${r[1]-54}h8`,'#fff',1.6),
+ chain:(r,l,a)=>pole(r[0],'#475569')+ln(`M${r[0]} 40Q${r[0]+28} 50 ${r[0]+20} 80Q${r[0]+12} 100 ${r[0]+24} 120`,'#94a3b8',4)+ci(r[0]+24,124,8,a)+rc(r[0]-12,18,24,10,GOLD,3)+ci(r[0],23,3.4,'#7c2d12'),
+ bag:(r,l,a)=>pth(`M${r[0]-14} ${r[1]-8}Q${r[0]-20} ${r[1]-34} ${r[0]-6} ${r[1]-36}H${r[0]+10}Q${r[0]+24} ${r[1]-34} ${r[0]+16} ${r[1]-8}Z`,'#b45309')+rc(r[0]-9,r[1]-40,18,6,GOLD,2)+ln(`M${r[0]-4} ${r[1]-24}h10M${r[0]+1} ${r[1]-29}v10`,GOLD,2.6)+ci(l[0],l[1]-6,9,GOLD)+ci(l[0],l[1]-6,5,lt(GOLD,.4)),
+ cannon:(r,l,a)=>rc(r[0]-10,r[1]-30,22,18,'#44403c',4)+rc(r[0]+8,r[1]-34,16,26,'#57534e',4)+ci(r[0]+24,r[1]-21,6,'#0b0f1a')+ci(l[0],l[1]-8,12,'#1c1917')+ln(`M${l[0]+4} ${l[1]-18}q6-8 10-6`,'#a8a29e',2)+ci(l[0]+14,l[1]-24,3.4,a),
+ horn:(r,l,a)=>pth(`M${r[0]-6} ${r[1]-10}Q${r[0]-8} ${r[1]-40} ${r[0]+6} ${r[1]-44}Q${r[0]+30} ${r[1]-56} ${r[0]+34} ${r[1]-70}Q${r[0]+40} ${r[1]-34} ${r[0]+14} ${r[1]-20}Z`,'#d6b98c')+ln(`M${r[0]-4} ${r[1]-30}Q${r[0]+16} ${r[1]-40} ${r[0]+26} ${r[1]-56}`,a,3)+rc(r[0]-10,r[1]-14,12,7,GOLD,2),
+ tele:(r,l,a)=>rc(r[0]-3,r[1]-34,6,70,'#6b4528',2)+pth(`M${r[0]-6} ${r[1]-6}L${r[0]+24} ${r[1]-64}L${r[0]+34} ${r[1]-58}L${r[0]+6} ${r[1]+2}Z`,'#a16207')+rc(r[0]+24,r[1]-66,12,8,GOLD,2)+ci(r[0]+12,r[1]-68,3,a),
+ wolf:(r,l,a)=>stf('orb','#a3e635')(r,l,a)+pth('M0 130Q8 108 20 114L30 108L34 120Q42 124 40 134Q38 144 22 144Q4 144 0 130Z','#bae6fd',' opacity=".8"')+pth('M20 114L22 102L28 112Z','#bae6fd')+ci(26,126,2.6,a)
+ };
+ Object.keys(STH).forEach(k=>{if(!WPS[k])WPS[k]=stf(k)});
+ const FGS={
+ tower:(b,a)=>pth('M4 64H44V114Q24 134 4 114Z',metal(b))+pth('M10 70H38V112Q24 126 10 112Z',a)+ln('M24 72V122M10 92H38',GOLD,2.4)+ci(24,92,4,GOLD),
+ kite:(b,a)=>pth('M6 68H42V104Q24 132 6 104Z','#f8fafc')+pth('M6 68H24V120Q8 108 6 104Z',lt(a,.4),' opacity=".9"')+rc(22.4,74,3.4,40,GOLD,1)+rc(12,88,24,3.4,GOLD,1)
+ };
+ /* Bảng thiết kế: [lưng, thân, vai, chân, đầu, vũ khí, khiên]; null = giữ thiết kế cũ */
+ const SPEC={
+ sword:['scarf','vest','pad','cuff',null,'sword'],
+ archer:['quiver','vest','mantle','wrap','hoodF','bow'],
+ assassin:['tatter','bando','spike','wrap','ninja','duo'],
+ guardian:['cape','plate','padL','greave','helmG','sword','tower'],
+ berserker:[null,'fur','furS','wrap','horn','axe2'],
+ paladin:['cape','tabard','pad','greave','helmP','holy','kite'],
+ plague:['tatter','bando','mantle','wrap','mask2','flask'],
+ summoner:['cape','robeT','mantle','cuff','circ','wolf'],
+ chrono:['cape','robeT','mantle','cuff','circ','clock'],
+ dknight:['cape','plate','spike','greave','helmF','great'],
+ storm:[null,'vest','furS','wrap','circ','handbolt'],
+ blade:['scarf','sash','mantle','cuff','band','twin'],
+ illus:['cape','coat','mantle','cuff','top','cards'],
+ tact:['cape','coat','mantle','cuff','bun','fan'],
+ monk:[null,'gi',null,'wrap','band','fist'],
+ gunner:['tatter','bando','epaulet','cuff','cow','pistol'],
+ pyro:['cape','robeT','mantle','cuff','wiz','flame'],
+ cleric:['cape','stole','mantle','cuff','veil','cross'],
+ ninja:['scarf','bando','pad','wrap','ninja','shuriken'],
+ dragoon:['cape','plate','spike','greave','helmR','spear'],
+ astro:['cape','robeT','mantle','cuff','circ','ring'],
+ smith:[null,'apron','pad','greave','smithH','hammerS'],
+ alchemist:['tatter','apron','mantle','cuff','gog','flask'],
+ vampire:['cape','coat','mantle','cuff',null,'none'],
+ tide:['ribbon','robeT','leaf','cuff','tiara','trident'],
+ druid:['ribbon','vest','leaf','wrap','antler','wood'],
+ voidmage:['tatter','runes','mantle','cuff','hood','cry'],
+ samurai:[null,'samurai','sode','greave','kabuto','katana2'],
+ gambler:['cape','coat','epaulet','cuff','top','cards'],
+ arbiter:['cape','coat','epaulet','cuff','cap','cardsRY'],
+ leech:['bat','runes','skull','wrap','hoodH','skull'],
+ thief:['pack','bando','mantle','wrap','hoodm','duo'],
+ merchant:['pack','vest','mantle','cuff','turban','bag'],
+ stonewarden:[null,'stone','rock','greave','beardG','hammer'],
+ binder:['ribbon','robeT','mantle','cuff','hood','ring'],
+ executioner:['tatter','vest','spike','greave','hood','axe1'],
+ bomber:['pack','bando','pad','greave','gog','cannon'],
+ warden:['cape','coat','epaulet','greave','cap','baton'],
+ necro:['tatter','ribs','skull','cuff','hoodS','candle'],
+ taunter:[null,'fur','furS','wrap','horn'],
+ hypno:['cape','coat','mantle','cuff','wiz','pend2'],
+ starcaller:['cape','robeT','mantle','cuff','wiz'],
+ bloodpact:['bat','runes','spike','wrap','hoodH'],
+ valk:['wingsLow','plate','pad','greave','helmP','spear','round'],
+ song:['ribbon','robeT','mantle','cuff','circ','harp'],
+ hexer:['tatter','robeT','mantle','cuff','hoodm','doll'],
+ eclipse:[null,'robeT','mantle','cuff','sunmoon','sunmoon'],
+ lore:['cape','robeT','mantle','cuff','wizS','book'],
+ reaper:['tatter','ribs','mantle','wrap','hoodS','scythe']};
+ /* ----- Chỉnh sửa theo yêu cầu: đầu, giáp samurai, vũ khí mới ----- */
+ HD.ninja=(b,a)=>hoodP(dk(b,.35))+pth('M36 36Q59 29 82 36V49Q59 46 36 49Z',dk(b,.45))+pth('M36 60.5Q59 65 82 60.5V80Q59 94 36 80Z',dk(b,.2))+ln('M38 62Q59 67 80 62',lt(b,.35),1.4)+pth('M80 40L98 52L94 62L78 48Z',a);
+ HD.mask2=(b,a)=>hoodP(dk(b,.35))+pth('M36 60.5Q59 65 82 60.5V80Q59 94 36 80Z',mix(b,'#bef264',.3))+ci(47,72,4.4,GOLD)+ci(71,72,4.4,GOLD)+ln('M42 66Q59 70 76 66',dk(b,.4),1.4);
+ HD.helmF=(b,a)=>pth('M36 38Q20 30 20 6Q32 18 44 28ZM82 38Q98 30 98 6Q86 18 74 28Z',a)+pth('M33 56Q31 20 59 18Q87 20 85 56Q85 74 70 78H48Q33 74 33 56Z','#1e1b2e')+pth('M33 56Q31 20 59 18Q87 20 85 56L80 50Q76 30 59 28Q42 30 38 50Z',lt('#1e1b2e',.14))+pth('M37 46H81V61Q59 66 37 61Z','#ef4444')+pth('M37 46H81V51H37Z',lt('#ef4444',.45))+ci(50,55,4.2,'#fecaca')+ci(68,55,4.2,'#fecaca')+ln('M59 66V78M45 70H73',lt('#1e1b2e',.3),1.4);
+ OV.samurai=(b,a)=>{const m=dk(b,.12);return pth('M42 72H76L75 104H43Z',m)+[79,86,93,100].map(y=>ln(`M43 ${y}H75`,GOLD,1.2)).join('')+ln('M50 72V104M59 72V104M68 72V104',a,2.2)+pth('M40 110H78L81 136H37Z',dk(b,.2))+ln('M47 112V134M56 112V135M65 112V135M72 112V134',GOLD,1.2)+`<g transform="rotate(-9 59 118)">`+rc(20,114,76,6,'#1c1917',3)+rc(13,115,12,4,'#7f1d1d',2)+`<ellipse cx="28" cy="117" rx="3.6" ry="5" fill="${GOLD}"/>`+rc(92,114,6,6,GOLD,2)+'</g>'};
+ SH.sode=(b,a)=>mir(()=>rc(31,66,18,18,dk(b,.05),3)+ln('M31 72H49M31 78H49',GOLD,1.4)+ln('M35 67V83M45 67V83',a,2));
+ WPS.none=()=>'';
+ WPS.katana2=(r,l,a)=>{const x=r[0],y=r[1];return `<g transform="rotate(6 ${x} ${y})">`+pth(`M${x-3} ${y-10}V${y-62}Q${x-3} ${y-86} ${x+9} ${y-98}Q${x+5} ${y-72} ${x+3} ${y-62}V${y-10}Z`,'#e8eef5')+ln(`M${x} ${y-14}V${y-64}`,'#fff',1.2)+`<ellipse cx="${x}" cy="${y-10}" rx="8" ry="3.4" fill="${GOLD}"/>`+rc(x-3,y-8,6,30,'#7f1d1d',2)+ln(`M${x-3} ${y-2}L${x+3} ${y+2}M${x-3} ${y+8}L${x+3} ${y+12}`,GOLD,1.2)+'</g>'};
+ WPS.handbolt=(r,l,a)=>[r,l].map(h=>{const x=h[0],y=h[1]-6;return `<circle cx="${x}" cy="${y}" r="17" fill="#fde047" opacity=".35"/><polygon points="${x+3},${y-26} ${x-7},${y-8} ${x},${y-8} ${x-5},${y+8} ${x+9},${y-12} ${x+2},${y-12}" fill="#facc15"/>`+ln(`M${x-16} ${y-8}l6 4-4 4 6 4`,'#fef08a',2.4)+ln(`M${x+16} ${y-8}l-6 4 4 4-6 4`,'#fef08a',2.4)}).join('');
+ WPS.hammerS=(r,l,a)=>{const x=r[0],y=r[1];return rc(x-2.8,y-34,5.6,50,'#6b4528',2.8)+rc(x-3.6,y+6,7.2,5,GOLD,1.5)+rc(x-16,y-52,32,20,'#9ca3af',3)+rc(x-16,y-52,32,5,lt('#9ca3af',.4),2)+rc(x-16,y-37,32,5,dk('#9ca3af',.25),2)+ci(x,y-42,3.4,a)};
+ WPS.cardsRY=(r,l,a)=>`<g transform="rotate(10 ${r[0]} ${r[1]})">`+rc(r[0]-10,r[1]-38,20,32,'#dc2626',3)+rc(r[0]-7,r[1]-35,14,26,'#ef4444',2)+`</g><g transform="rotate(-12 ${l[0]} ${l[1]})">`+rc(l[0]-10,l[1]-38,20,32,'#eab308',3)+rc(l[0]-7,l[1]-35,14,26,'#fde047',2)+'</g>';
+ WPS.baton=(r,l,a)=>`<g transform="rotate(18 ${r[0]} ${r[1]})">`+rc(r[0]-4,r[1]-46,8,58,'#1f2937',3)+rc(r[0]-4.4,r[1]-24,8.8,4,'#f1f5f9',1)+rc(r[0]-4.4,r[1]-4,8.8,12,'#475569',2)+'</g>'+`<path d="M${l[0]} ${l[1]}Q${l[0]-12} ${l[1]+22} ${l[0]+4} ${l[1]+40}" fill="none" stroke="#94a3b8" stroke-width="5" stroke-dasharray="5 3" stroke-linecap="round"/>`+ci(l[0]+4,l[1]+44,6,a);
+ WPS.pend2=(r,l,a)=>{const x=r[0],y=r[1]-6;return `<g><animateTransform attributeName="transform" type="rotate" values="-16 ${x} ${y};16 ${x} ${y};-16 ${x} ${y}" dur="1.8s" repeatCount="indefinite"/>`+ln(`M${x} ${y}V${y+44}`,'#e2e8f0',2.4)+ci(x,y+52,10,'#c084fc')+ci(x,y+52,5,'#f5f3ff')+'</g>'};
+ WPS.scythe=(r,l,a)=>pole(r[0],'#3b3a4a')+pth(`M${r[0]} 26Q${r[0]+30} 14 ${r[0]+42} 42Q${r[0]+24} 30 ${r[0]} 36Z`,'#e2e8f0')+ln(`M${r[0]+4} 30Q${r[0]+26} 24 ${r[0]+36} 40`,a,1.6);
+ WPS.book=(r,l,a)=>rc(r[0]-14,r[1]-44,28,36,dk(a,.25),3)+rc(r[0]-12,r[1]-42,24,32,'#f8fafc',2)+ln(`M${r[0]} ${r[1]-42}V${r[1]-10}`,OL,1.4)+pth(`M${r[0]-6} ${r[1]-30}l3 6 6 1-5 4 1 6-5-3-5 3 1-6-5-4 6-1z`,GOLD);
+ BK.wingsLow=(b,a)=>mir(()=>pth('M46 80Q22 54 -6 54Q-8 64 -1 68Q-10 78 4 82Q-2 92 14 92Q6 102 26 102Q38 100 46 94Z','#ffffff')+pth('M46 86Q28 72 8 76Q6 85 18 88Q14 96 30 96Q40 94 46 92Z','#e8eef5')+ln('M46 82L0 60M46 86L2 74M46 90L8 88M46 94L16 99','#cbd5e1',1.6));
+ FGS.round=(b,a)=>ci(24,98,21,metal(b))+ci(24,98,16,a)+ci(24,98,6,GOLD)+ln('M24 80V116M6 98H42',GOLD,2);
+ const beard=c=>pth('M39 60Q46 70 59 64Q72 70 79 60Q81 84 74 92Q66 100 59 100Q52 100 44 92Q37 84 39 60Z',c)+ln('M46 70Q52 74 59 70Q66 74 72 70',dk(c,.12),1.4)+ln('M50 80q3 9 7 14M61 78q4 10 7 14M44 76q1 8 5 12',dk(c,.15),1.2);
+ HD.smithH=(b,a)=>HD.gog(b,a)+beard(HAIRC.smith);HD.beardG=(b,a)=>beard('#d6d3d1');
+ /* đưa tay cầm vũ khí ra xa thân để thấy rõ vũ khí */
+ Object.keys(SPEC).forEach(id=>{if(!SPEC[id][5])return;const r=R[id]||[86,112];R[id]=[Math.min(r[0]+9,106),r[1]];if(Lh[id])Lh[id]=[Math.max(Lh[id][0]-9,12),Lh[id][1]]});
+ const UPG=(id,bd)=>{const S=SPEC[id];if(!S)return null;const a=(clsDef(id)||{}).c||bd,g=(T,k)=>k&&T[k]?T[k](bd,a):'';
+  return{bk:g(BK,S[0]),ov:g(OV,S[1]),sh:g(SH,S[2]),ft:g(FT,S[3]),hd:S[4]?HD[S[4]](bd,a):null,wp:S[5]?WPS[S[5]](R[id]||[86,112],Lh[id]||[31,112],a):null,fg:S[6]?FGS[S[6]](bd,a):null}};
+
+/* ===== Animation nhân vật: thở, lắc đầu, tóc, áo choàng, vũ khí, chớp mắt + hiệu ứng nhẹ theo class ===== */
+const FXM={pyro:'rise',bomber:'rise',berserker:'rise',dknight:'rise',executioner:'rise',tide:'rise',alchemist:'rise',plague:'rise',smith:'rise',
+ druid:'fall',valk:'fall',song:'fall',cleric:'fall',vampire:'fall',bloodpact:'fall',leech:'fall',
+ storm:'zap',
+ astro:'twk',starcaller:'twk',chrono:'twk',eclipse:'twk',hypno:'twk',voidmage:'twk'};
+const chPh=id=>{let h=0;for(const c of id)h=(h*31+c.charCodeAt(0))>>>0;return -((h%37)/10).toFixed(1)};
+const chAura=id=>{const a=((clsDef(id)||{}).c)||'#fde68a';
+ return `<g class="ch-aura" pointer-events="none"><ellipse cx="60" cy="92" rx="46" ry="62" fill="${a}" opacity=".035"/><ellipse cx="60" cy="92" rx="36" ry="50" fill="${a}" opacity=".045"/><ellipse cx="60" cy="92" rx="25" ry="38" fill="${a}" opacity=".05"/></g>`};
+const chSpark=id=>{const a=((clsDef(id)||{}).c)||'#fde68a',k=FXM[id]||'twk',ph=chPh(id);
+ const P={twk:[[18,50],[102,44],[26,112],[96,120]],rise:[[26,140],[94,138],[40,146],[82,146]],fall:[[24,8],[96,14],[12,48],[106,58]],zap:[[18,70],[102,82],[22,112]]}[k];
+ return `<g pointer-events="none">`+P.map((p,i)=>{
+  const st=`style="--an:ch${k[0].toUpperCase()+k.slice(1)};--du:${(2.4+i*.55).toFixed(2)}s;--dl:${(ph-i*.9).toFixed(1)}s"`;
+  const sh=k==='twk'?`<path class="fxp" ${st} d="M0 -4L1.2 -1.2 4 0 1.2 1.2 0 4 -1.2 1.2 -4 0 -1.2 -1.2Z" fill="${a}"/>`
+   :k==='rise'?`<circle class="fxp" ${st} r="${(1.6+(i%2)*.7).toFixed(1)}" fill="${a}"/>`
+   :k==='fall'?`<ellipse class="fxp" ${st} rx="3.2" ry="1.7" fill="${a}" transform="rotate(-30)"/>`
+   :`<path class="fxp" ${st} d="M0 0L-3 5L1 6L-2 12" fill="none" stroke="#fef08a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>`;
+  return `<g transform="translate(${p[0]} ${p[1]})">${sh}</g>`}).join('')+`</g>`};
+const MUS=new Set(['guardian','smith','stonewarden','berserker','executioner','dknight']);
+const serEye=(cx,d,cy,ir)=>{
+ const ox=cx+d*5.6,oy=cy-.7,ix=cx-d*5,iy=cy+.7,top=`M${ox} ${oy}Q${cx} ${cy-5.6} ${ix} ${iy}`,K='#1d1410';
+ return `<path d="${top}Q${cx} ${cy+4.6} ${ox} ${oy}Z" fill="#f4f6fa"/>`+
+  `<ellipse cx="${cx}" cy="${cy-.2}" rx="3.1" ry="2.3" fill="${ir}"/><ellipse cx="${cx}" cy="${cy+.9}" rx="2.2" ry=".9" fill="${lt(ir,.4)}" opacity=".55"/>`+
+  `<ellipse cx="${cx}" cy="${cy-.1}" rx="1.4" ry="1.6" fill="#14100e"/><circle cx="${cx-.9}" cy="${cy-1}" r=".85" fill="#fff"/><circle cx="${cx+1.1}" cy="${cy+.9}" r=".4" fill="#fff" opacity=".8"/>`+
+  `<path d="${top}" fill="none" stroke="${K}" stroke-width="2" stroke-linecap="round"/><path d="M${ox} ${oy}l${d*2} -1.4" fill="none" stroke="${K}" stroke-width="1.5" stroke-linecap="round"/>`+
+  `<path d="M${ox} ${oy}Q${cx} ${cy+4.6} ${ix} ${iy}" fill="none" stroke="${dk(SKS,.25)}" stroke-width=".7" opacity=".55"/>`};
+const armM=(sx,sy,hx_,hy,side,col,hand)=>{
+ const mx=(sx+hx_)/2,my=(sy+hy)/2,ex=mx+side*9,ey=my+10,d=`M${sx} ${sy}Q${ex.toFixed(1)} ${ey.toFixed(1)} ${hx_} ${hy}`;
+ const pt=t=>[(1-t)*(1-t)*sx+2*(1-t)*t*ex+t*t*hx_,(1-t)*(1-t)*sy+2*(1-t)*t*ey+t*t*hy].map(v=>v.toFixed(1));
+ const [bx,by]=pt(.3),[fx,fy]=pt(.74);
+ return `<path d="${d}" fill="none" stroke="${OL}" stroke-width="21" stroke-linecap="round"/><ellipse cx="${bx}" cy="${by}" rx="12" ry="10.8" fill="${OL}"/><ellipse cx="${fx}" cy="${fy}" rx="9.6" ry="9" fill="${OL}"/>`+
+  `<path d="${d}" fill="none" stroke="${col}" stroke-width="17.4" stroke-linecap="round"/><ellipse cx="${bx}" cy="${by}" rx="10.4" ry="9.2" fill="${col}"/><ellipse cx="${fx}" cy="${fy}" rx="8" ry="7.4" fill="${col}"/>`+
+  `<ellipse cx="${(+bx-side*2.4).toFixed(1)}" cy="${(+by-2.6).toFixed(1)}" rx="3.4" ry="5" fill="${lt(col,.4)}" opacity=".45"/><path d="M${(+bx+side*1).toFixed(1)} ${(+by+7).toFixed(1)}Q${(+bx+side*4).toFixed(1)} ${(+by+11).toFixed(1)} ${(+fx-side*2).toFixed(1)} ${(+fy-6).toFixed(1)}" fill="none" stroke="${dk(col,.35)}" stroke-width="1.5" stroke-linecap="round" opacity=".6"/>`+
+  `<circle cx="${hx_}" cy="${hy}" r="7.6" fill="${hand}" stroke="${OL}" stroke-width="2"/><path d="M${hx_-3.4} ${hy-.6}q3.4-3.6 6.8 0" fill="none" stroke="${OL}" stroke-width="1.3" stroke-linecap="round" opacity=".7"/>`};
+function human(id,bd,hd,wp,fg,idx){
+  const hc=HAIRC[id]||'#6b3f22',sty=style(id,idx||0);
+  const pant=mix('#4a5560',bd,.16),pantD=dk(pant,.28),boot='#6b4528',bootD='#4a2f1b';
+  const back=BACK.has(id),rg=R[id]||[86,112],lg=Lh[id]||[31,112],lgFront=lg[0]>38;
+  const armor=ARMOR.has(id),robe=ROBE.has(id),hand=armor?'#9aa7b8':SK,handFar=armor?'#7f8b9b':SKS;
+  const mus=MUS.has(id),LX=mus?36.5:40,RX=mus?82.5:79,AR=mus?armM:arm,SCL='<g transform="translate(59 77) scale(1.16 1.12) translate(-59 -77)">';
+  const U=UPG(id,bd);if(U){if(U.hd)hd=U.hd;wp=U.wp!=null?U.wp:(OVR[id]||wp);if(U.fg)fg=U.fg}else wp=OVR[id]||wp;
+  wp=ol(wp,1.9);hd=ol(hd,1.9);fg=fg?ol(fg,1.9):'';
+  let s=`<svg viewBox="0 0 120 160" overflow="visible" style="--ph:${chPh(id)}s">`;
+  s+=`<ellipse cx="60" cy="155.5" rx="37" ry="4.6" fill="#000" opacity=".22"/>`+chAura(id)+`<g class="ch-all">`;
+  const WG=x=>x?`<g class="ch-wp" style="transform-origin:${rg[0]}px ${rg[1]}px">${x}</g>`:'';
+  if(U&&U.bk)s+='<g class="ch-bk">'+ol(U.bk,1.9)+'</g>';
+  if(back)s+=WG(wp);
+  s+=`<g transform="${HG}"><g class="ch-hair">${hairBack(sty,hc)}</g></g>`;
+  if(!lgFront)s+='<g class="ch-lh">'+AR(LX,77,lg[0],lg[1],-1,dk(bd,.22),handFar)+'</g>';
+  /* chân + ủng */
+  if(mus)s+='<g transform="translate(59 130) scale(1.12 1) translate(-59 -130)">';
+  s+=`<path d="M40 126H55.5L54.6 145H42.4Z" fill="${pantD}" stroke="${OL}" stroke-width="2" stroke-linejoin="round"/><path d="M63 126H78L77 145H64.4Z" fill="${pant}" stroke="${OL}" stroke-width="2" stroke-linejoin="round"/>`+
+     `<path d="M64.6 144.4V128" stroke="#fff" stroke-width="1.4" opacity=".14"/>`+
+     `<path d="M41.6 142.4H55.4L55.8 149Q61.8 150 61.8 154.4H40.2Q39.4 148 41.6 142.4Z" fill="${bootD}" stroke="${OL}" stroke-width="2" stroke-linejoin="round"/><path d="M64 142.4H77.8L78.2 149Q84.2 150 84.2 154.4H62.6Q61.8 148 64 142.4Z" fill="${boot}" stroke="${OL}" stroke-width="2" stroke-linejoin="round"/>`+
+     `<path d="M42 144.6H55M64.6 144.6H77.4" stroke="${GOLD}" stroke-width="1.5" opacity=".85"/><path d="M63.6 152.6H83.4M41 152.6H60.6" stroke="#000" stroke-width="1.4" opacity=".35"/>`;
+  if(U&&U.ft)s+=ol(U.ft,1.7);
+  if(mus)s+='</g>';
+  /* áo choàng / váy phía sau thân cho nhóm áo dài */
+  if(robe)s+=`<path d="M39 110L31 141Q46 146 58 139L58.6 112Z" fill="${dk(bd,.12)}" stroke="${OL}" stroke-width="2" stroke-linejoin="round"/><path d="M79 110L87 141Q72 146 60.4 139L59.6 112Z" fill="${bd}" stroke="${OL}" stroke-width="2" stroke-linejoin="round"/><path d="M33 138Q46 143 57 137M85 138Q72 143 61.4 137" fill="none" stroke="${GOLD}" stroke-width="1.6"/>`+
+     `<path d="M53 112L51 139H67L65 112Z" fill="${CREAM}" stroke="${OL}" stroke-width="1.8" stroke-linejoin="round"/><path d="M59 114V138" stroke="${GOLD}" stroke-width="1.2"/>`;
+  /* thân */
+  if(mus)s+='<g transform="translate(59 100) scale(1.16 1.02) translate(-59 -100)">';
+  s+=`<path d="M38 79Q37.4 70 46 69H72Q80.6 70 80 79L79 113Q79 127.4 71 127.4H47Q39 127.4 39 113Z" fill="${bd}" stroke="${OL}" stroke-width="2.3" stroke-linejoin="round"/>`+
+     `<path d="M38 79Q37.4 70 46 69H52L50 127.4H47Q39 127.4 39 113Z" fill="#000" opacity=".17"/>`+
+     `<path d="M72 69Q80.6 70 80 79L79 113H75L76 79Q76 72 72 69Z" fill="#fff" opacity=".25"/>`+
+     `<path d="M39 113Q39 127.4 47 127.4H71Q79 127.4 79 113Q59 120.6 39 113Z" fill="#000" opacity=".2"/>`+
+     `<path d="M40.4 122.4Q59 127.6 77.6 122.4" fill="none" stroke="${GOLD}" stroke-width="1.6"/><path d="M51 114L48.4 126M67 114L69.6 126" stroke="#000" stroke-width="1" opacity=".12"/>`;
+  if(armor)s+=`<path d="M43 71H75L73 100Q59 108 45 100Z" fill="#a9b6c6" stroke="${OL}" stroke-width="2" stroke-linejoin="round"/><path d="M43 71H52L51 102Q47 101 45 100Z" fill="#000" opacity=".16"/><path d="M59 72V105M47 86H71" stroke="${GOLD}" stroke-width="1.6" opacity=".9"/><circle cx="59" cy="87" r="3.4" fill="${GOLD}" stroke="${OL}" stroke-width="1.4"/>`+
+     `<path d="M40 112H78L80 128H38Z" fill="#8f9cae" stroke="${OL}" stroke-width="2" stroke-linejoin="round"/><path d="M48 112L46 128M59 112V128M70 112L72 128" stroke="${OL}" stroke-width="1.2" opacity=".6"/>`;
+  else s+=`<path d="M49 69.6L59 85.6L69 69.6Z" fill="${CREAM}" stroke="${OL}" stroke-width="1.8" stroke-linejoin="round"/><path d="M53.4 73L59 82.4L64.6 73" fill="none" stroke="${GOLD}" stroke-width="1.2"/>`;
+  if(!armor&&!robe)s+=`<path d="M44 71L74 108" stroke="${OL}" stroke-width="6.4" stroke-linecap="round"/><path d="M44 71L74 108" stroke="#8a5a34" stroke-width="3.6" stroke-linecap="round"/><path d="M44 71L74 108" stroke="${GOLD}" stroke-width="1" stroke-dasharray="2 3"/>`;
+  /* thắt lưng + túi nhỏ */
+  s+=`<rect x="38.6" y="105.4" width="41" height="7" rx="1.4" fill="#6b4528" stroke="${OL}" stroke-width="1.8"/><rect x="55" y="104" width="9.6" height="9.6" rx="2" fill="${GOLD}" stroke="${OL}" stroke-width="1.6"/><rect x="57.8" y="106.8" width="4" height="4" rx=".8" fill="${OL}" opacity=".75"/>`+
+     `<path d="M41 112H52V121Q46.4 124 41 121Z" fill="#8a5a34" stroke="${OL}" stroke-width="1.7" stroke-linejoin="round"/><path d="M41 115.4H52" stroke="${OL}" stroke-width="1.2"/><circle cx="46.6" cy="117.6" r="1.1" fill="${GOLD}"/>`;
+  if(U&&U.ov)s+=ol(U.ov,1.8);
+  if(mus)s+='<path d="M45 76Q52 94 59 87Q66 94 73 76" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" opacity=".22"/><path d="M47 78Q52 90 57 85M71 78Q66 90 61 85" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round" opacity=".16"/><path d="M59 90V104M51 97H67M52 103H66" fill="none" stroke="#000" stroke-width="1.2" stroke-linecap="round" opacity=".16"/></g>';
+  /* vai */
+  if(mus)s+=SCL;
+  s+=armor?`<ellipse cx="41.2" cy="77" rx="8" ry="6.6" fill="#8f9cae" stroke="${OL}" stroke-width="2"/><ellipse cx="78.4" cy="77" rx="8" ry="6.6" fill="#b3c0d0" stroke="${OL}" stroke-width="2"/><path d="M71 75Q78 72 85 77" fill="none" stroke="${GOLD}" stroke-width="1.5"/><path d="M34 77Q41 72 48 76" fill="none" stroke="${GOLD}" stroke-width="1.5"/>`
+   :`<ellipse cx="41.4" cy="77.4" rx="6.8" ry="6" fill="${dk(bd,.22)}" stroke="${OL}" stroke-width="1.8"/><ellipse cx="78.2" cy="77.4" rx="6.8" ry="6" fill="${lt(bd,.1)}" stroke="${OL}" stroke-width="1.8"/>`;
+  if(mus)s+='</g>';
+  s+=`<ellipse cx="59.4" cy="76.8" rx="15" ry="4" fill="#000" opacity=".24"/>`;
+  if(!back)s+=WG(wp);
+  if(lgFront)s+='<g class="ch-lh">'+AR(LX,77,lg[0],lg[1],-1,dk(bd,.12),handFar)+'</g>';
+  s+=AR(RX,77,rg[0],rg[1],1,bd,hand);
+  if(fg)s+=fg;
+  if(U&&U.sh)s+=mus?SCL+ol(U.sh,1.9)+'</g>':ol(U.sh,1.9);
+  s+=`<g class="ch-hd"><g transform="${HG}">${face(id,hc,sty)}${hd}${eyes(id,hc)}</g></g>`;
+  s+='</g>'+chSpark(id);
+  if(BULK[id]){s=s.replace('overflow="visible">','overflow="visible"><g transform="translate(60 156) scale('+BULK[id]+') translate(-60 -156)">');return s+'</g></svg>'}
+  return s+`</svg>`;
+ }
+ /* Pháp sư: mũ phù thủy, râu trắng, áo choàng tím viền vàng */
+ function mageArt(){
+  const bd='#7c3aed',hc='#e8e8ee';
+  let s=`<svg viewBox="0 0 120 160" overflow="visible" style="--ph:${chPh('mage')}s"><ellipse cx="60" cy="146" rx="36" ry="4.6" fill="#000" opacity=".22"/>`+chAura('mage')+`<g class="ch-all">`;
+  s+=`<g class="ch-wp" style="transform-origin:88px 84px"><rect x="92" y="22" width="5" height="120" rx="2" fill="#8d6e63" stroke="${OL}" stroke-width="1.8"/><rect x="92.6" y="24" width="1.6" height="116" fill="#fff" opacity=".25"/><rect x="89" y="58" width="11" height="5" rx="2" fill="${GOLD}" stroke="${OL}" stroke-width="1.4"/><circle cx="94" cy="20" r="11" fill="#7dd3fc" stroke="${OL}" stroke-width="2"/><circle cx="90.6" cy="16.6" r="3.4" fill="#fff" opacity=".8"/></g>`;
+  s+=`<path d="M36 130l7-60h32l11 60z" fill="${bd}" stroke="${OL}" stroke-width="2.3" stroke-linejoin="round"/><path d="M36 130l7-60h10L50 130z" fill="#000" opacity=".2"/><path d="M75 70l11 60h-4L70 70z" fill="#fff" opacity=".2"/>`+
+     `<path d="M52 72L60 102L68 72Z" fill="${CREAM}" stroke="${OL}" stroke-width="1.8" stroke-linejoin="round"/><path d="M60 80V128" stroke="${GOLD}" stroke-width="1.6"/><path d="M42 122Q60 130 80 122" fill="none" stroke="${GOLD}" stroke-width="1.6"/>`+
+     `<path d="M44 98Q60 108 78 98" fill="none" stroke="${OL}" stroke-width="6.4"/><path d="M44 98Q60 108 78 98" fill="none" stroke="#4c1d95" stroke-width="4"/><rect x="55.6" y="97" width="8.8" height="8.8" rx="2" fill="${GOLD}" stroke="${OL}" stroke-width="1.6"/>`+
+     `<path d="M34 130Q60 138 86 130V137Q60 145 34 137Z" fill="#4c1d95" stroke="${OL}" stroke-width="2" stroke-linejoin="round"/><path d="M36 134Q60 142 84 134" fill="none" stroke="${GOLD}" stroke-width="1.4"/>`+
+     `<path d="M41 136q3 7 9 4M70 140q7 2 10-4" stroke="${OL}" stroke-width="7" stroke-linecap="round" fill="none"/><path d="M41 136q3 7 9 4M70 140q7 2 10-4" stroke="${boot0()}" stroke-width="4.4" stroke-linecap="round" fill="none"/>`;
+  s+=arm(41,76,32,110,-1,dk(bd,.25),SKS)+arm(77,76,88,84,1,bd,SK)+`<ellipse cx="60" cy="76" rx="14" ry="4" fill="#000" opacity=".24"/>`;
+  s+=`<g class="ch-hd"><g transform="${HG}">`+
+   `<path d="M34 44Q24 74 34 98Q48 92 58 86Q70 92 84 98Q94 74 84 44Q59 18 34 44Z" fill="${hc}" stroke="${OL}" stroke-width="2" stroke-linejoin="round"/>`+
+   `<ellipse cx="38" cy="57.4" rx="3.8" ry="5" fill="${SKS}" stroke="${OL}" stroke-width="1.7"/><ellipse cx="80" cy="57.4" rx="3.8" ry="5" fill="${SKS}" stroke="${OL}" stroke-width="1.7"/>`+
+   `<circle cx="59" cy="52" r="22" fill="${SKS}" stroke="${OL}" stroke-width="2.3"/><circle cx="60.8" cy="50.4" r="20" fill="${SK}"/>`+
+   `<ellipse cx="48.6" cy="63.4" rx="4.2" ry="2.5" fill="#ff7f8f" opacity=".4"/><ellipse cx="72.4" cy="63.4" rx="4.2" ry="2.5" fill="#ff7f8f" opacity=".4"/>`+
+   `<path d="M42 66Q46 96 59 98Q72 96 76 66Q68 74 59 72Q50 74 42 66Z" fill="#f4f4f8" stroke="${OL}" stroke-width="2" stroke-linejoin="round"/><path d="M52 80q3 9 7 12M62 78q4 9 6 12" stroke="#cbd5e1" stroke-width="1.2" fill="none" stroke-linecap="round"/>`+
+   `<path d="M55 49Q54 62 42 66M63 49Q64 62 76 66" fill="none" stroke="${OL}" stroke-width="0"/>`+
+   `<path d="M32 46l27-42 27 42z" fill="#4c1d95" stroke="${OL}" stroke-width="2.3" stroke-linejoin="round"/><path d="M32 46l27-42 8 0-22 42z" fill="#000" opacity=".2"/><path d="M62 8l21 38h3L62 8z" fill="#fff" opacity=".2"/>`+
+   `<rect x="30" y="41" width="58" height="8.4" rx="3.4" fill="#a78bfa" stroke="${OL}" stroke-width="2"/><rect x="31" y="42" width="56" height="2.6" rx="1.3" fill="#fff" opacity=".35"/><circle cx="59" cy="25" r="3" fill="${GOLD}" stroke="${OL}" stroke-width="1.4"/>`+
+   `<path d="M48.6 51.6Q54 48.4 59 50.6M62 50.6Q67.4 48.4 72.4 51.6" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" opacity="0"/>`+
+   (()=>{const e=(x,rx,ry)=>`<ellipse cx="${x}" cy="57" rx="${rx}" ry="${ry}" fill="#1d1410"/><ellipse cx="${x}" cy="${(57+ry*.46).toFixed(1)}" rx="${(rx*.74).toFixed(1)}" ry="${(ry*.4).toFixed(1)}" fill="#7dd3fc" opacity=".9"/><circle cx="${(x-rx*.3).toFixed(1)}" cy="${(57-ry*.4).toFixed(1)}" r="${(rx*.4).toFixed(1)}" fill="#fff"/><circle cx="${(x+rx*.4).toFixed(1)}" cy="${(57+ry*.38).toFixed(1)}" r="${(rx*.2).toFixed(1)}" fill="#fff" opacity=".92"/>`;return e(54,4.6,5.6)+e(67.4,4.3,5.3)})()+
+   `<path d="M48.6 50Q54 47 58.6 49M63 49Q67.6 47 72.4 50" fill="none" stroke="#e5e7eb" stroke-width="2.6" stroke-linecap="round"/><path d="M48.6 50Q54 47 58.6 49M63 49Q67.6 47 72.4 50" fill="none" stroke="${OL}" stroke-width="0"/>`+
+   `</g></g>`;
+  return s+'</g>'+chSpark('mage')+`</svg>`;
+ }
+ const boot0=()=>'#6b4528';
+ const swordWp='<path d="M96 14l7 7-38 76-9-5z" fill="#dfe6ee" stroke="#64748b" stroke-width="2"/><path d="M96 14l3 3-36 75-4-2z" fill="#fff" opacity=".45"/><rect x="52" y="92" width="24" height="7" rx="3" fill="#8d6e63" transform="rotate(-27 64 95)"/><rect x="56" y="87.5" width="12" height="5" rx="2" fill="#eab308" transform="rotate(-27 64 95)"/>';
+ const swordHd='<path d="M37 50a22 22 0 0 1 44 0v-5H37z" fill="#90a4ae"/><path d="M37 50a22 22 0 0 1 44 0v-5H59z" fill="#fff" opacity=".18"/><rect x="56" y="24" width="6" height="18" fill="#e5484d"/><rect x="36" y="43.4" width="46" height="4" rx="1.6" fill="#64748b"/>';
+ const swordFg='<path d="M18 76h24v28q-12 13-24 0z" fill="#3a5bff" stroke="#fff" stroke-width="2"/><path d="M30 78v34q-8-3-12-8V78z" fill="#000" opacity=".16"/><path d="M30 82v22M22 92h16" stroke="#fff" stroke-width="2" opacity=".6"/>';
+ const run=()=>{
+  AV[0]=human('sword','#e5484d',swordHd,'',swordFg,0);
+  AV[1]=mageArt();
+  Object.keys(AVX).forEach((id,i)=>{
+   const p=AVP.get(AVX[id]);if(!p)return;
+   try{AVX[id]=human(id,p[0],p[1],p[2],'',i)}catch(e){console.error('avatar',id,e)}
+  });
+ };
+ try{run()}catch(e){console.error('avatar upgrade',e)}
+})();
+
 Object.assign(CTY,{starcaller:['atk'],bloodpact:['atk'],valk:['def','heal'],song:['sup'],hexer:['ctl'],eclipse:['atk','def'],lore:['sup'],reaper:['atk']});
 function lowSt(t,a){if(!G.sd)return a;let bk=-1,bh=1e9;G.sd[t].forEach((m,k)=>{if(m.dead)return;const h=k===G.fi[t]?G.sc[t]:m.hp;if(h<bh){bh=h;bk=k}});return bk<0?a:G.sd[t][bk].st}
 function exTick(t){const m=tmg(t);if(m.mt&&--m.mt.n<=0){let d=m.mt.d;const pc=m.mt.pc;m.mt=null;if(pc){const o=1-t,k=G.lk,hp=(G.sd&&k!=null&&k!==G.fi[o]&&G.sd[o][k])?G.sd[o][k].hp:G.sc[o];d=Math.max(1,Math.round(hp*d/100))}G.log.unshift(`🌠 Thiên thạch của ${tmN(t)} giáng xuống: −${d} HP`+(pc?' (không thể né)':''));aHurt(1-t,d,G.lk)}}
@@ -2930,7 +3399,7 @@ function a7TeamLine(i){const m=G.tm&&G.tm[i],o=[],full=[],add=(ic,sh,fl)=>{o.pus
  const ts=Math.max(0,...G.sd[i].filter(x=>!x.dead).map(x=>x.st.ts||0));if(ts>0&&!(m&&m.sh>0))add('🛡️','khiên đội '+ts);
  return o.length?`<div class="a7tl" title="${esc(full.join(' | '))}">${esc(o.join(' · '))}</div>`:''}
 function a7s0(i,av){if(!G.sd){const cd=a7Cards(i);return `<div class="a7s s${i}" style="--c:${GC[i]}"><div class="a7ct">${i?av(i)+cd:cd+av(i)}</div></div>`}const T=G.sd[i],f=G.fi[i],sw=(G.swc||[])[i],nx0=nxt7(i,f),nx=nx0===f?-1:nx0,sl=G.tsel&&!G.end&&i===1-G.tsel.t,hm=G.hitm,
- bk=T.map((m,k)=>{if(k===f)return'';const pq=!m.dead&&m.st.q&&m.st.q.length?m.st.q:null,pk=sl&&!m.dead,hp=m.dead?0:Math.max(0,m.hp);
+ bk=T.map((m,k)=>{if(k===f)return'';const pq=!m.dead&&m.st.q&&m.st.q.length?m.st.q:null,pk=sl&&!m.dead&&tgOk(i,k),hp=m.dead?0:Math.max(0,m.hp);
   return `<div data-mk="${k}" class="a7m${m.dead?'':stc(m.st)}${m.dead?' dead':''}${k===nx?' nxt':''}${sw&&sw.from===k?' pin2':''}${pk?' pk':''}${hm&&hm.t===i&&hm.k===k?(hm.blk?' blk':' hit'):''}" title="${esc(m.nm)} · ${hp}/${G.s.hp} HP${pq?' · Quà chờ: '+esc(pq.map(g=>GF[g][0]).join(', ')):''}"${pk?` data-gg="tg" data-t="${i}" data-k="${k}"`:''}>${(G.evf||[]).filter(x=>x.t===i&&x.m===k).map(x=>`<b class="adm ${x.k}">${x.s}</b>`).join('')}${hm&&hm.t===i&&hm.k===k&&hm.blk?bfxHTML(hm.blk):''}${k===nx?'<em class="a7ar">▼</em>':''}${pq?`<u class="a7g">🎁${pq.length>1?`<sup>${pq.length}</sup>`:''}</u>`:''}${G.rkfx&&G.rkfx.t===i&&G.rkfx.k===k?`<span class="afx ${GF[G.rkfx.fx][4]}" style="--c:${GF[G.rkfx.fx][5]}">${GF[G.rkfx.fx][3]}</span>`:''}<div class="a7a">${m.dead?'<span>💀</span>':''}${clsAv(m.cls)}</div><div class="a7nm">${esc(m.nm)}</div><div class="a7h"><i style="width:${hp/G.s.hp*100}%"></i></div><div class="a7bf">${m.dead?'':AST.filter(x=>m.st[x[0]]>0).map(x=>`<span>${x[1]}</span>`).join('')}</div></div>`}).join(''),cd=a7Cards(i);
  return `<div class="a7s s${i}" style="--c:${GC[i]}"><div class="a7bk">${a7TeamLine(i)}${bk}</div><div class="a7ct">${i?av(i)+cd:cd+av(i)}</div></div>`}
 const RAR=[['Thường','#9aa3af',40],['Hiếm','#3a8bff',30],['Sử thi','#a855f7',18],['Huyền thoại','#facc15',9],['Thần thoại','#ef4444',3]];
@@ -2953,7 +3422,7 @@ function aHurt(t,d,k){d=Math.max(0,Math.round(d));if(!d)return;if(k==null&&G.gtt
 const ahF=e=>e&&e.ahl>0?Math.max(0,1-(+e.ahv||0)/100):1;
 const ahApply=(e,pc,n)=>{if(!e||!(+pc>0)||!(+n>0))return;e.ahl=Math.max(e.ahl||0,+n);e.ahv=Math.max(e.ahv||0,+pc)};
 function aHeal(t,h){if(G.sd&&!aHeal.r&&h>0&&G.tm&&G.tm[t]&&G.tm[t].lnkh>0){aHeal.r=1;const sv=[G.gtt,G.gtk];try{const ks=G.sd[t].map((m,k)=>m.dead?-1:k).filter(k=>k>=0),sh=Math.max(1,Math.round(h/ks.length));ks.forEach(k=>{G.gtt=k===G.fi[t]?null:t;G.gtk=k===G.fi[t]?null:k;aHeal(t,sh)})}finally{G.gtt=sv[0];G.gtk=sv[1];aHeal.r=0}return}
- {const e0=G.sd&&G.gtt===t&&G.gtk!=null&&G.sd[t][G.gtk]?G.sd[t][G.gtk].st:G.st[t];h=Math.round(h*ahF(e0))}
+ {const e0=G.sd&&G.gtt===t&&G.gtk!=null&&G.sd[t][G.gtk]?G.sd[t][G.gtk].st:G.st[t];h=Math.round(h*ahF(e0)*hbF(e0))}
  if(G.gtt===t&&G.gtk!=null){const m=G.sd[t][G.gtk],b0=m.hp;m.hp=Math.min(G.s.hp,b0+h);const g0=m.hp-b0;if(g0>0)G.ev.f.push({t,m:G.gtk,s:'+'+g0,k:'h'});return}const b=G.sc[t];G.sc[t]=Math.min(G.s.hp,b+h);const g=G.sc[t]-b;if(g>0)G.ev.f.push({t,s:'+'+g,k:'h'})}
 const GFX=[a=>{a.hk=1},a=>{a.lt=(a.lt||0)+1},(a,b)=>{b.bomb=gP(2,'dm')},(a,b)=>{b.po=gP(3,'tn');b.pd=gP(3,'dm')},a=>{a.ch=1},(a,b,t,o)=>{const d=gP(5,'add');aHurt(o,d);G.log.unshift(`☄️ Thiên Thạch rơi xuống ${AN(o)}, gây ${d} sát thương`)},a=>{a.sh=1},a=>{a.ar=gP(7,'tn')+1;a.arp=gP(7,'pc')},a=>{a.ab=gP(8,'ab')},a=>{a.ph=gP(9,'hp')},a=>{a.rf=gP(10,'pc')},
 (a,b)=>{b.fz=gP(11,'tn')},(a,b)=>{b.chain=1},(a,b)=>{b.seal=gP(13,'tn')},(a,b)=>{b.nodmg=1},(a,b)=>{b.chaos=gP(15,'pc')},(a,b,t)=>aHeal(t,gP(16,'hp')),(a,b,t)=>aHeal(t,gP(17,'hp')),a=>{a.en=1},(a,b,t,o,d)=>aGive(t,aGift(),d),
@@ -3110,6 +3579,7 @@ function nfx(i){return(a,b,t,o,d)=>{const s=gdesc(i),M=r=>{const x=s.match(r);re
  if(T(/[Cc]hặn một đòn|[Hh]ấp thụ một đòn/)){if(T(/hạ gục/))a.lb=1;else a.sh=1;u=1}
  const rd=M(/[Gg]iảm (\d+)% sát thương(?! của đối thủ)/);if(rd){a.ar=tn+1;a.arp=rd;u=1}
  if(T(/không thể né|không bị né/)){a.ig=1;u=1}else if(T(/né/)){const c=M(/(\d+)% (?:khả năng|cơ hội) né/);if(c){a.dgp=c;a.dgt=tn+1}else a.dg=1;u=1}
+ const xp=M(/[Gg]ây thêm (\d+)% sát thương/);if(xp){a.xm=(a.xm||1)*(1+xp/100);u=1}
  let ex=M(/(?:\+|[Gg]ây (?:thêm )?)(\d+) sát thương/);
  if(ex&&T(/[Đđ]ồng hành|[Tt]riệu hồi/)){tmg(t).sm={hits:tn,dm:ex,tn};u=1}
  else if(ex){if(T(/mỗi đòn/))ex*=2;if(T(/khiên, gây thêm/)&&(b.ab||b.ts||b.gs||b.sh))ex+=M(/khiên, gây thêm (\d+)/);a.ex=(a.ex||0)+ex;u=1}
@@ -3264,8 +3734,107 @@ function a7s(i,av){const h=a7s0(i,av),f=G.aoefx;if(!f||f.t!==i)return h;const g=
  const P=g.em,ps=Array.from({length:18},(_,j)=>`<i style="--x:${(j*41+9)%88+3}%;--d:${((j*37)%11)/12}s">${P[j%P.length]}</i>`).join('');
  return h.replace('class="a7s ','class="a7s aoeon ').replace(/<\/div>\s*$/,`<div class="aoefx m-${g.md}" style="--c:${GF[f.gi][5]}">${ps}</div></div>`)}
 /* Quà đã lưu ở phiên bản cũ: các quà tự tạo bị đẩy chỉ số lên, cần dời cấu hình tương ứng (độ hiếm, bật/tắt, thông số) */
-function aoeMig(o){if(!o||o.gv>=3)return;const sh=o.gv>=2?AOE.length-25:AOE.length,b=o.gv>=2?AOE0+25:AOE0;if(o.gf&&sh){const f={};for(const k in o.gf){const x=+k;f[x>=b?x+sh:x]=o.gf[k]}o.gf=f}o.gv=3}
+function aoeMig(o){if(!o)return;if(!(o.gv>=3)){const sh=o.gv>=2?AOE.length-25:AOE.length,b=o.gv>=2?AOE0+25:AOE0;if(o.gf&&sh){const f={};for(const k in o.gf){const x=+k;f[x>=b?x+sh:x]=o.gf[k]}o.gf=f}o.gv=3}
+ if(o.gv<4){const b=NB-NG1N-NG2N-NG3N;if(o.gf){const f={};for(const k in o.gf){const x=+k;f[x>=b?x+NG1N:x]=o.gf[k]}o.gf=f}o.gv=4}
+ if(o.gv<5){const b=NB-NG2N-NG3N;if(o.gf){const f={};for(const k in o.gf){const x=+k;f[x>=b?x+NG2N:x]=o.gf[k]}o.gf=f}o.gv=5}
+ if(o.gv<6){const b=NB-NG3N;if(o.gf){const f={};for(const k in o.gf){const x=+k;f[x>=b?x+NG3N:x]=o.gf[k]}o.gf=f}o.gv=6}}
+/* ===== 15 quà mới: Hồi máu %, Tăng sát thương %, Giáp/Khiên giảm % sát thương nhận vào (Thường → Thần thoại) ===== */
+const NG1=[
+['Hồi phục',`Giọt Sương Chữa Lành|0|Hồi 8% HP tối đa|💧
+Thảo Dược Xanh|1|Hồi 16% HP tối đa|🌿
+Suối Nguồn Sinh Lực|2|Hồi 25% HP tối đa|⛲
+Cam Lồ Thiên Thần|3|Hồi 35% HP tối đa và xóa hiệu ứng bất lợi|🪽
+Mật Hoa Thần Mệnh|4|Hồi 50% HP tối đa và xóa hiệu ứng bất lợi|🌸`],
+['Tấn công',`Móng Vuốt Sắc Bén|0|Đòn đánh tiếp theo gây thêm 15% sát thương|🗡️
+Kiếm Cuồng Nộ|1|Đòn đánh tiếp theo gây thêm 30% sát thương|⚔️
+Rìu Huyết Chiến|2|Đòn đánh tiếp theo gây thêm 50% sát thương|🪓
+Thánh Kiếm Liệt Dương|3|Đòn đánh tiếp theo gây thêm 80% sát thương|☀️
+Thần Khí Diệt Thế|4|Đòn đánh tiếp theo gây thêm 120% sát thương|💥`],
+['Phòng thủ',`Khiên Gỗ Sồi|0|Giảm 10% sát thương nhận vào trong 2 lượt
+Giáp Da Cứng|1|Giảm 20% sát thương nhận vào trong 2 lượt
+Bức Tường Cản Phá|2|Giảm 30% sát thương nhận vào trong 3 lượt
+Giáp Long Lân|3|Giảm 45% sát thương nhận vào trong 3 lượt|🐉
+Khiên Thần Bất Hoại|4|Giảm 60% sát thương nhận vào trong 3 lượt và tạo lá chắn 20 HP`]];
+NG1.forEach(([cat,txt])=>txt.split('\n').forEach(l=>{const[n,r,d,ic]=l.split('|'),i=GF.length,I=NGI[cat];GF0.push(d);GKS.push(kyOf(d));GF.push([n,cat,'',ic||((cat==='Phòng thủ'&&/Giáp/.test(n))?'🪖':/Khiên|Bức Tường/.test(n)?'🛡️':I[0]),I[1],I[2]]);Object.defineProperty(GF[i],2,{get:()=>gdesc(i)});GR.push(+r);
+ GFX.push(nfx(i));if(cat==='Phòng thủ'||cat==='Hồi phục')IMM7.push(i)}));
+const NG1N=15;
+/* ===== 25 quà mới (8 loại): Chí mạng %, Liều mạng, Phản công máu thấp, Giáp gai, Vết thương sâu, Tăng hiệu quả hồi máu, Combo, Loại bỏ đáp án sai ===== */
+Object.assign(GLB,{cr:['Cơ hội chí mạng %',1,100],rk:['Máu hy sinh %',1,90],bd:['Sát thương thêm %',1,500],lw:['Ngưỡng HP %',5,95],th:['Sát thương gai %',1,200],ah:['Giảm hồi máu %',1,100],hb:['Tăng hồi máu %',1,300],cs:['Cộng dồn mỗi đòn %',1,50],cm:['Cộng dồn tối đa %',5,300],rm:['Số đáp án sai bị loại',1,3]});
+const hbF=e=>e&&e.hbT>0?1+(+e.hb||0)/100:1;
+const NG2F={
+ cr:i=>a=>{a.cr=Math.max(a.cr||0,gP(i,'cr'))},
+ rk:i=>(a,b,t)=>{const k=G.gtt===t?G.gtk:null,hp=mhp(t,k),p=gP(i,'rk'),c=Math.min(Math.max(1,Math.round(hp*p/100)),hp-1);
+  if(hp<=1||c<1){G.log.unshift('🎲 Liều Mạng: máu quá thấp, không đủ để đánh đổi');return}
+  aHurt(t,c);const x=gP(i,'bd');a.xm=(a.xm||1)*(1+x/100);G.log.unshift(`🎲 ${AN(t)} liều mạng: mất ${c} HP để đòn kế tiếp gây thêm ${x}% sát thương`)},
+ lw:i=>a=>{a.cbn=Math.max(a.cbn||0,gP(i,'tn'));a.cbl=Math.max(a.cbl||0,gP(i,'lw'));a.cbp=Math.max(a.cbp||0,gP(i,'bd'))},
+ th:i=>a=>{a.thT=Math.max(a.thT||0,gP(i,'tn')+1);a.thn=Math.max(a.thn||0,gP(i,'th'))},
+ ah:i=>(a,b,t,o)=>{const p=gP(i,'ah'),n=gP(i,'tn');ahApply(b,p,n);G.log.unshift(`🚫 ${tmN(o)} bị giảm ${p}% hồi máu nhận vào trong ${n} lượt`)},
+ hb:i=>a=>{a.hbT=Math.max(a.hbT||0,gP(i,'tn'));a.hb=Math.max(a.hb||0,gP(i,'hb'))},
+ cm:i=>a=>{a.cmT=Math.max(a.cmT||0,gP(i,'tn'));a.cms=Math.max(a.cms||0,gP(i,'cs'));a.cmm=Math.max(a.cmm||0,gP(i,'cm'));a.cmv=a.cmv||0},
+ rm:i=>(a,b,t)=>{const m=tmg(t),n=gP(i,'rm');m.cut=Math.max(m.cut||0,n);G.log.unshift(`🔎 ${tmN(t)} được loại bỏ ${n} đáp án sai ở câu hỏi kế tiếp`)}};
+/* tên|độ hiếm (0 Thường → 4 Thần thoại)|mô tả (số theo thứ tự khóa)|icon|khóa chỉnh số|hiệu ứng */
+const NG2=[
+['Tấn công',`Đá Mài Sắc Bén|0|Đòn đánh tiếp theo có 20% cơ hội chí mạng x2 sát thương|🎯|cr|cr
+Phi Tiêu Nhắm Chuẩn|1|Đòn đánh tiếp theo có 35% cơ hội chí mạng x2 sát thương|🏹|cr|cr
+Ánh Mắt Sát Thủ|2|Đòn đánh tiếp theo có 50% cơ hội chí mạng x2 sát thương|👁️|cr|cr
+Lưỡi Hái Định Mệnh|3|Đòn đánh tiếp theo có 65% cơ hội chí mạng x2 sát thương|🌙|cr|cr
+Thần Nhãn Tuyệt Sát|4|Đòn đánh tiếp theo có 80% cơ hội chí mạng x2 sát thương|☄️|cr|cr
+Canh Bạc Máu|1|Mất 10% HP hiện có để đòn kế tiếp gây thêm 35% sát thương|🎲|rk,bd|rk
+Giao Ước Huyết Tế|2|Mất 20% HP hiện có để đòn kế tiếp gây thêm 80% sát thương|🩸|rk,bd|rk
+Khế Ước Quỷ Dữ|3|Mất 30% HP hiện có để đòn kế tiếp gây thêm 150% sát thương|😈|rk,bd|rk
+Chiến Ý Bất Khuất|1|Khi HP dưới 30%, đòn đánh +50% sát thương trong 3 lượt|🔥|lw,bd,tn|lw
+Cơn Thịnh Nộ Tuyệt Vọng|2|Khi HP dưới 35%, đòn đánh +80% sát thương trong 4 lượt|😤|lw,bd,tn|lw
+Lửa Phục Thù|3|Khi HP dưới 40%, đòn đánh +120% sát thương trong 5 lượt|🌋|lw,bd,tn|lw
+Nhịp Chiến Thắng|1|Trong 4 lượt, mỗi đòn đánh liên tiếp +8% sát thương, cộng dồn tối đa +40%|🥁|tn,cs,cm|cm
+Chuỗi Đòn Liên Hoàn|2|Trong 5 lượt, mỗi đòn đánh liên tiếp +10% sát thương, cộng dồn tối đa +50%|⛓️|tn,cs,cm|cm
+Cuồng Phong Liên Kích|3|Trong 6 lượt, mỗi đòn đánh liên tiếp +15% sát thương, cộng dồn tối đa +75%|🌪️|tn,cs,cm|cm`],
+['Phòng thủ',`Áo Gai Sơ Cấp|1|Trong 2 lượt, kẻ đánh trúng bạn chịu 25% sát thương gây ra|🌵|tn,th|th
+Giáp Gai Sắt|2|Trong 3 lượt, kẻ đánh trúng bạn chịu 40% sát thương gây ra|🦔|tn,th|th
+Giáp Gai Địa Ngục|3|Trong 3 lượt, kẻ đánh trúng bạn chịu 60% sát thương gây ra|🥀|tn,th|th`],
+['Khống chế',`Vết Cắt Khó Lành|1|Hồi máu của đối thủ giảm 30% trong 2 lượt|🩹|ah,tn|ah
+Vết Thương Sâu|2|Hồi máu của đối thủ giảm 50% trong 3 lượt|🗡️|ah,tn|ah
+Lời Nguyền Vết Thương|3|Hồi máu của đối thủ giảm 70% trong 3 lượt|☠️|ah,tn|ah`],
+['Hồi phục',`Linh Dược Cộng Hưởng|1|Mọi lần hồi máu nhận thêm 30% trong 2 lượt|🧪|hb,tn|hb
+Phước Lành Sinh Mệnh|2|Mọi lần hồi máu nhận thêm 50% trong 3 lượt|🙏|hb,tn|hb
+Suối Sống Vĩnh Cửu|3|Mọi lần hồi máu nhận thêm 80% trong 4 lượt|🌿|hb,tn|hb`],
+['Hỗ trợ',`Kính Lúp Thông Thái|0|Loại bỏ 1 đáp án sai ở câu hỏi kế tiếp của đội|🔎|rm|rm
+Thấu Kính Trí Tuệ|2|Loại bỏ 2 đáp án sai ở câu hỏi kế tiếp của đội|🧠|rm|rm`]];
+NG2.forEach(([cat,txt])=>txt.split('\n').forEach(l=>{const[n,r,d,ic,ks,fx]=l.split('|'),i=GF.length,I=NGI[cat];GF0.push(d);GKS.push(ks.split(','));GF.push([n,cat,'',ic,I[1],I[2]]);Object.defineProperty(GF[i],2,{get:()=>gdesc(i)});GR.push(+r);
+ GFX.push(NG2F[fx](i));if(cat==='Phòng thủ'||cat==='Hồi phục')IMM7.push(i);if(cat==='Khống chế')AOPP.push(i);if(cat==='Khống chế'||cat==='Hỗ trợ')IMMN.add(i)}));
+const NG2N=NG2.reduce((s,x)=>s+x[1].split('\n').length,0);
+/* ===== 6 quà mới: Ẩn thân (không bị chọn làm mục tiêu) và Hồi máu + khiên theo % cho cả đội ===== */
+Object.assign(GLB,{shp:['Khiên % HP tối đa',1,100]});
+const TEAMX={};
+const NG3F={ut:i=>a=>{a.ut=Math.max(a.ut||0,gP(i,'tn')+1)}};
+const NG3=[
+['Phòng thủ',`Áo Choàng Ẩn Thân|1|Không thể bị đối thủ chọn làm mục tiêu trong 1 lượt|👻|tn|ut
+Màn Đêm Lẩn Khuất|2|Không thể bị đối thủ chọn làm mục tiêu trong 2 lượt|🌫️|tn|ut
+Hư Không Bất Khả Xâm|3|Không thể bị đối thủ chọn làm mục tiêu trong 4 lượt|🌌|tn|ut`],
+['Cả đội',`Mưa Phúc Lành|2|Cả đội hồi 10% HP tối đa và nhận khiên 10% HP tối đa ngay lập tức|🌧️|hpp,shp|ts
+Thánh Quang Hộ Thể|3|Cả đội hồi 20% HP tối đa và nhận khiên 15% HP tối đa ngay lập tức|✨|hpp,shp|ts
+Thiên Đường Giáng Thế|4|Cả đội hồi 30% HP tối đa và nhận khiên 25% HP tối đa ngay lập tức|☁️|hpp,shp|ts`]];
+NG3.forEach(([cat,txt])=>txt.split('\n').forEach(l=>{const[n,r,d,ic,ks,fx]=l.split('|'),i=GF.length,I=NGI[cat];GF0.push(d);GKS.push(ks.split(','));GF.push([n,cat,'',ic,I[1],I[2]]);Object.defineProperty(GF[i],2,{get:()=>gdesc(i)});GR.push(+r);
+ if(fx==='ts'){TEAMX[i]=(t,gi)=>{G.log.unshift(`👥 ${GF[gi][3]} ${GF[gi][0]} phát huy cho toàn đội ${tmN(t)}`);aTeamHeal(t,Math.round(G.s.hp*gP(gi,'hpp')/100));aTeamShield(t,Math.round(G.s.hp*gP(gi,'shp')/100))};GFX.push((a,b,t)=>aTeam(t,i))}
+ else GFX.push(NG3F[fx](i));
+ if(cat==='Phòng thủ')IMM7.push(i)}));
+const NG3N=NG3.reduce((s,x)=>s+x[1].split('\n').length,0);
+/* Ẩn thân: không thể bị chọn làm mục tiêu (nếu cả đội đều ẩn thân thì không ai được bảo vệ) */
+const utSt=(t,k)=>k===G.fi[t]?G.st[t]:G.sd[t][k].st;
+const tgOk=(t,k)=>{const al=G.sd[t].map((m,j)=>m.dead?-1:j).filter(j=>j>=0),ok=al.filter(j=>!(utSt(t,j).ut>0));return !ok.length||ok.includes(k)};
+/* Hiệu ứng tấn công của quà mới: chí mạng %, phản công máu thấp, combo (gọi khi đòn đánh không bị Phong Ấn) */
+function ng2Atk(t,a){let m=1;
+ if(a.cr>0){const c=a.cr;a.cr=0;if(Math.random()*100<c){m*=2;G.log.unshift(`💥 ${AN(t)} tung đòn chí mạng x2 sát thương! (${c}% cơ hội)`);fxq({k:'sm',ic:'💥',tx:'CHÍ MẠNG',sub:'x2 sát thương',c:'#ef4444'})}else G.log.unshift(`🎯 ${AN(t)} không chí mạng (${c}% cơ hội)`)}
+ if(a.cbn>0&&a.cbp>0&&G.sc[t]<G.s.hp*(a.cbl||30)/100){m*=1+a.cbp/100;G.log.unshift(`🔥 Phản Công: HP của ${AN(t)} dưới ${a.cbl}%, đòn đánh +${a.cbp}% sát thương`);fxq({k:'sm',ic:'🔥',tx:'PHẢN CÔNG',sub:'+'+a.cbp+'% sát thương',c:'#f97316'})}
+ if(a.cmT>0&&a.cms>0){a.cmv=Math.min(a.cmm||50,(a.cmv||0)+a.cms);m*=1+a.cmv/100;G.log.unshift(`⛓️ Combo ${AN(t)}: đòn đánh +${a.cmv}% sát thương`)}
+ return m}
+/* Quà gắn với câu hỏi: loại bỏ đáp án sai ở câu hỏi kế tiếp của đội (gọi sau loreHide khi tạo câu hỏi mới) */
+function cutHide(){const m=tmg(G.turn),q=G.q;if(!(m&&m.cut>0)||!q||q.fix||q.o.length<3||q.a<0)return;
+ const w=shuf(q.o.map((_,i)=>i).filter(i=>i!==q.a&&String(q.o[i]).trim()));if(w.length<2)return;
+ const n=Math.min(m.cut,w.length-1),rm=w.slice(0,n),ks=q.o.map((_,i)=>i).filter(i=>!rm.includes(i));m.cut=0;
+ G.q={...q,o:ks.map(i=>q.o[i]),a:ks.indexOf(q.a)};G.log.unshift(`🔎 Kính Lúp: ${AN(G.turn)} được loại bỏ ${n} đáp án sai`)}
 NB=GF.length;IMM0=IMM7.length;AOP0=AOPP.length;AST.push(['dgp','🌫️'],['rg','💚']);
+AST.push(['cr','🎯'],['cbn','🔥'],['cmT','⛓️'],['thn','🌵'],['hb','💞'],['ut','👻']);A7C.push(['ut','👻','Ẩn Thân',e=>`Không thể bị đối thủ chọn làm mục tiêu, còn ${e.ut} lượt`,0]);
+A7C.push(['cr','🎯','Chí Mạng %',e=>`Đòn tới có ${e.cr}% cơ hội chí mạng x2 sát thương`,0],['cbn','🔥','Phản Công',e=>`Khi HP dưới ${e.cbl}%: đòn đánh +${e.cbp}% sát thương, còn ${e.cbn} lượt`,0],['cmT','⛓️','Combo',e=>`Mỗi đòn liên tiếp +${e.cms}% (hiện +${e.cmv||0}%, tối đa +${e.cmm}%), còn ${e.cmT} lượt`,0],['thn','🌵','Giáp Gai',e=>`Kẻ đánh trúng bạn chịu ${e.thn}% sát thương gây ra, còn ${e.thT} lượt`,0],['hb','💞','Tăng Hồi Máu',e=>`Mọi lần hồi máu nhận thêm ${e.hb}%, còn ${e.hbT} lượt`,0]);
 const tmN=t=>G.sd?G.tn[t]:AN(t);
 const aSts=t=>G.sd?G.sd[t].filter(m=>!m.dead).map(m=>m.st):[G.st[t]];
 function aTP(t,k){const m=G.tm&&G.tm[t];if(!m)return 0;let s=0;for(const id in TBD){const d=TBD[id];if(m[id]>0&&d[k]&&!(id==='rag'&&m.ragw))s+=d[k]}return s}
@@ -3283,16 +3852,17 @@ function tmCards(i){const m=G.tm&&G.tm[i];if(!m)return[];const o=[];
   aoeCards(i,o);
  {const mo=G.tm[1-i];if(mo&&mo.mt&&mo.mt.n>0)o.push([1,'🌠','Thiên Thạch Sắp Rơi',`Rơi xuống sau ${mo.mt.n} lượt của đối thủ, gây ${mo.mt.d} sát thương không thể né`]);
   if(m.hex&&m.hex.n>0)o.push([1,'🕸️','Lời Nguyền Phản Tri',`Mỗi lần trả lời đúng mất ${m.hex.d}${m.hex.pc?'% HP đang có':' HP'}, còn ${m.hex.n} lần`]);
+  if(m.cut>0)o.push([2,'🔎','Kính Lúp · cả đội','Câu hỏi kế tiếp của đội được loại bỏ '+m.cut+' đáp án sai']);
   if(m.lore>0)o.push([2,'📜','Trang Sách Soi Sáng · cả đội',m.lore>1?'Câu hỏi của đội được loại bỏ bớt đáp án sai · còn '+m.lore+' lượt':'Câu hỏi kế tiếp được loại bỏ bớt đáp án sai']);
   if(G.cls&&G.cls[i]==='eclipse')o.push([2,m.ec?'🌙':'☀️','Lần kích hoạt tới: '+(m.ec?'Dạng Nguyệt':'Dạng Nhật'),m.ec?'Giảm sát thương nhận và hồi HP':'Đòn đánh cộng thêm sát thương'])}
  return o}
 function aTeamHeal(t,h,pc){const sv=[G.gtt,G.gtk];G.gtt=null;G.gtk=null;
  try{const P=pc?x=>Math.max(1,Math.round(x*h/100)):()=>h;if(!G.sd){if(G.sc[t]>0)aHeal(t,P(G.sc[t]))}
-  else G.sd[t].forEach((m,k)=>{if(m.dead)return;if(k===G.fi[t]){if(G.sc[t]>0)aHeal(t,P(G.sc[t]));return}if(m.hp<=0)return;const b=m.hp;m.hp=Math.min(G.s.hp,b+Math.round(P(b)*ahF(m.st)));if(m.hp>b)G.ev.f.push({t,m:k,s:'+'+(m.hp-b),k:'h'})})}
+  else G.sd[t].forEach((m,k)=>{if(m.dead)return;if(k===G.fi[t]){if(G.sc[t]>0)aHeal(t,P(G.sc[t]));return}if(m.hp<=0)return;const b=m.hp;m.hp=Math.min(G.s.hp,b+Math.round(P(b)*ahF(m.st)*hbF(m.st)));if(m.hp>b)G.ev.f.push({t,m:k,s:'+'+(m.hp-b),k:'h'})})}
  finally{G.gtt=sv[0];G.gtk=sv[1]}
  G.log.unshift(`💚 Toàn đội ${tmN(t)} hồi ${pc?h+'% máu hiện có':h+' HP'}`)}
 function aTeamShield(t,v){aSts(t).forEach(x=>{x.ts=(x.ts||0)+v});G.log.unshift(`🛡️ Toàn đội ${tmN(t)} nhận khiên ${v} HP mỗi người`)}
-function aTeam(t,gi){if(gi>=NB)return aTeamC(t,gi);if(gi>=40)return aTeamN(t,gi);G.tm=G.tm||[{},{}];const m=G.tm[t],j=gi-TG0,set=(k,n)=>{m[k]=Math.max(m[k]||0,n)};
+function aTeam(t,gi){if(TEAMX[gi])return TEAMX[gi](t,gi);if(gi>=NB)return aTeamC(t,gi);if(gi>=40)return aTeamN(t,gi);G.tm=G.tm||[{},{}];const m=G.tm[t],j=gi-TG0,set=(k,n)=>{m[k]=Math.max(m[k]||0,n)};
  G.log.unshift(`👥 ${GF[gi][3]} ${GF[gi][0]} phát huy cho toàn đội ${tmN(t)}`);
  switch(j){
   case 0:set('fl',gP(28,'tn'));break;
@@ -3380,11 +3950,11 @@ function gArenaP(ok){
  if(G.rq&&G.rq.length&&G.sd&&!G.end)return rsOpen(G.rq.shift(),ok);
  if(!ok||!G.sd){G.tk=null;return gArenaB(ok)}
  const o=1-G.turn,al=G.sd[o].map((m,k)=>m.dead?-1:k).filter(k=>k>=0);
- {const tm=G.tm&&G.tm[o];if(tm&&tm.tau>0&&tm.tak!=null&&G.sd[o][tm.tak]&&!G.sd[o][tm.tak].dead){G.tk=tm.tak;G.log.unshift(`📢 ${G.sd[o][tm.tak].nm} khiêu khích: ${AN(G.turn)} buộc phải đánh người này!`);return gArenaB(ok)}}
- if(al.length<2){G.tk=al.length?al[0]:G.fi[o];return gArenaB(ok)}
+ {const tm=G.tm&&G.tm[o];if(tm&&tm.tau>0&&tm.tak!=null&&G.sd[o][tm.tak]&&!G.sd[o][tm.tak].dead&&tgOk(o,tm.tak)){G.tk=tm.tak;G.log.unshift(`📢 ${G.sd[o][tm.tak].nm} khiêu khích: ${AN(G.turn)} buộc phải đánh người này!`);return gArenaB(ok)}}
+ {const tg=al.filter(k=>tgOk(o,k));if(tg.length<2){G.tk=tg.length?tg[0]:G.fi[o];if(al.length>1)G.log.unshift('👻 Ẩn Thân: các thành viên còn lại không thể bị chọn làm mục tiêu');return gArenaB(ok)}}
  G.tsel={t:G.turn,max:10};G.lock=0;if(G.tz)G.tl=G.tsel.max;gDraw()}
-function tgPick(t,k,force){const q=G.tsel;if(!q||G.lock||G.end||G.tpause||t!==1-q.t)return;const m=G.sd[t][k];if(!m||m.dead)return;if(!force){if(q.pre!=null)return;if(G.st[q.t].rt>0){q.pre=k;gDraw();return}}G.tsel=null;G.tk=k;G.lock=1;gArenaB(true)}
-function tgAuto(){const q=G.tsel;if(!q)return;const o=1-q.t,f=G.fi[o];tgPick(o,q.pre!=null?q.pre:(G.sd[o][f]&&!G.sd[o][f].dead?f:G.sd[o].findIndex(m=>!m.dead)),1)}
+function tgPick(t,k,force){const q=G.tsel;if(!q||G.lock||G.end||G.tpause||t!==1-q.t)return;const m=G.sd[t][k];if(!m||m.dead)return;if(!force&&!tgOk(t,k))return;if(!force){if(q.pre!=null)return;if(G.st[q.t].rt>0){q.pre=k;gDraw();return}}G.tsel=null;G.tk=k;G.lock=1;gArenaB(true)}
+function tgAuto(){const q=G.tsel;if(!q)return;const o=1-q.t,f=G.fi[o];tgPick(o,q.pre!=null?q.pre:(G.sd[o][f]&&!G.sd[o][f].dead&&tgOk(o,f)?f:G.sd[o].findIndex((m,j)=>!m.dead&&tgOk(o,j))),1)}
 const tgBanner=q=>q.pre!=null?`<div class="tgb" style="--c:${GC[q.t]}">🎯 <span>${esc(AN(q.t))} chọn <b>${esc(G.sd[1-q.t][q.pre].nm)}</b>. Xác nhận hay chọn lại?</span> <button class="b p" data-gg="tgok">⚔ Tấn công</button> <button class="b g" data-gg="tgre">🔄 Chọn lại (còn ${G.st[q.t].rt})</button></div>`:`<div class="tgb" style="--c:${GC[q.t]}">🎯 <span>${esc(AN(q.t))} chọn đối thủ để tấn công: bấm vào một nhân vật bên đội ${esc(G.tn[1-q.t])}</span></div>`;
 
 /* ===== Animation chiêu nộ riêng của từng class: chạy sau khi chọn đối thủ + banner chiêu nộ ===== */
@@ -3795,24 +4365,24 @@ function gArenaB(ok){
   if(a.nodmg){d=0;G.log.unshift(`⏳ ${AN(t)} bị ngưng đọng, không gây được sát thương`)}
   else{let m=1,add=a.ex||0;a.ex=0;
    if(a.seal>0)G.log.unshift(`🔒 Phong Ấn: buff tấn công của ${AN(t)} bị khóa`);
-   else{if(a.hk){m*=gP(0,'m');a.hk=0}if(a.ch){m*=gP(4,'m');a.ch=0}if(a.xm){m*=a.xm;a.xm=0}if(a.crown>0){m*=2;a.crown--}if(a.lt){add+=gP(1,'add')*a.lt;a.lt=0}}
+   else{if(a.hk){m*=gP(0,'m');a.hk=0}if(a.ch){m*=gP(4,'m');a.ch=0}if(a.xm){m*=a.xm;a.xm=0}if(a.crown>0){m*=2;a.crown--}if(a.lt){add+=gP(1,'add')*a.lt;a.lt=0}m*=ng2Atk(t,a)}
    if(a.chaos){m*=1-(a.chaos>1?a.chaos:50)/100;a.chaos=0}
    d=d*m*cx.m+add+cx.add;d*=evM();{const tp=aTP(t,'dm');if(tp)d*=1+tp/100}{const w=aoeWk(t);if(w)d*=Math.max(0,1-w/100)}{const v=aoeDf(o);if(v)d*=1+v/100}cx.pre=d;const pr=a.pierce;a.pierce=0;
-    const df=d=>{if(!a.ig&&((b.dg&&(Math.random()*100>=(b.dgd||0)||(b.dg=0,false)))||(b.dgp>0&&Math.random()*100<b.dgp-(b.dgd||0)))){b.dg=0;d=0;G.nb='dg';G.log.unshift(`💨 ${tn} né hoàn toàn đòn đánh!`)}else if(!a.ign&&G.tm&&G.tm[o]&&G.tm[o].ill>0){G.tm[o].ill=0;d=0;G.nb='ill';G.log.unshift(`🎭 Ảo ảnh bảo hộ giúp ${tn} né hoàn toàn đòn đánh!`)}else if(!a.ign&&aTP(o,'dg')>0&&Math.random()*100<Math.max(0,Math.min(60,aTP(o,'dg'))-(b.dgd||0))){d=0;G.nb='tdg';G.log.unshift(`🌫 ${tn} né được đòn đánh nhờ hiệu ứng toàn đội!`)}else if(b.sh&&!pr){b.sh=0;d=0;G.nb='sh';G.log.unshift(`🛡 ${tn} chặn hoàn toàn đòn đánh!`)}else{const qq=1-cx.pen;if(!a.ign){const R=Math.min(70,aTP(o,'r')+(G.tm&&G.tm[o]&&G.tm[o].oth>0?(b.ohs||0):0));if(R>0)d*=1-R/100}if(b.ar>0&&!pr)d*=1-(b.arp||50)/100*qq;if(b.ts>0&&!pr){const x=Math.min(b.ts,d*qq);b.ts-=x;d-=x}if(b.gs>0&&!pr){const x=Math.min(b.gs,d*qq);b.gs-=x;d-=x}if(b.sp>0&&!pr)d*=1-b.sp/100*qq;if(b.ab>0&&!pr){const x=Math.min(b.ab,d*qq);b.ab-=x;d-=x}if(b.cp>0&&!pr)d=Math.min(d,b.cp);if(b.tdr>0&&!pr)d*=1-b.tdr/100;if(b.rf){const r=Math.round(d*(b.rf>1?b.rf:50)/100);b.rf=0;d-=r;G.log.unshift(`🪞 ${tn} phản lại ${r} sát thương!`);aHurt(t,r)}if(b.lb&&!a.ign&&mhp(o,tk0)>0&&Math.round(d)>=mhp(o,tk0)){b.lb=0;d=0;G.nb='lb';G.log.unshift(`💠 ${tn} được bảo hộ: đòn đánh có thể hạ gục bị chặn hoàn toàn!`)}}return d};
+    const df=d=>{if(!G.sd&&b.ut>0&&!a.ign){d=0;G.nb='dg';G.log.unshift(`👻 ${tn} đang ẩn thân, không thể bị chọn làm mục tiêu: đòn đánh trượt!`);return d}if(!a.ig&&((b.dg&&(Math.random()*100>=(b.dgd||0)||(b.dg=0,false)))||(b.dgp>0&&Math.random()*100<b.dgp-(b.dgd||0)))){b.dg=0;d=0;G.nb='dg';G.log.unshift(`💨 ${tn} né hoàn toàn đòn đánh!`)}else if(!a.ign&&G.tm&&G.tm[o]&&G.tm[o].ill>0){G.tm[o].ill=0;d=0;G.nb='ill';G.log.unshift(`🎭 Ảo ảnh bảo hộ giúp ${tn} né hoàn toàn đòn đánh!`)}else if(!a.ign&&aTP(o,'dg')>0&&Math.random()*100<Math.max(0,Math.min(60,aTP(o,'dg'))-(b.dgd||0))){d=0;G.nb='tdg';G.log.unshift(`🌫 ${tn} né được đòn đánh nhờ hiệu ứng toàn đội!`)}else if(b.sh&&!pr){b.sh=0;d=0;G.nb='sh';G.log.unshift(`🛡 ${tn} chặn hoàn toàn đòn đánh!`)}else{const qq=1-cx.pen;if(!a.ign){const R=Math.min(70,aTP(o,'r')+(G.tm&&G.tm[o]&&G.tm[o].oth>0?(b.ohs||0):0));if(R>0)d*=1-R/100}if(b.ar>0&&!pr)d*=1-(b.arp||50)/100*qq;if(b.ts>0&&!pr){const x=Math.min(b.ts,d*qq);b.ts-=x;d-=x}if(b.gs>0&&!pr){const x=Math.min(b.gs,d*qq);b.gs-=x;d-=x}if(b.sp>0&&!pr)d*=1-b.sp/100*qq;if(b.ab>0&&!pr){const x=Math.min(b.ab,d*qq);b.ab-=x;d-=x}if(b.cp>0&&!pr)d=Math.min(d,b.cp);if(b.tdr>0&&!pr)d*=1-b.tdr/100;if(b.rf){const r=Math.round(d*(b.rf>1?b.rf:50)/100);b.rf=0;d-=r;G.log.unshift(`🪞 ${tn} phản lại ${r} sát thương!`);aHurt(t,r)}if(b.lb&&!a.ign&&mhp(o,tk0)>0&&Math.round(d)>=mhp(o,tk0)){b.lb=0;d=0;G.nb='lb';G.log.unshift(`💠 ${tn} được bảo hộ: đòn đánh có thể hạ gục bị chặn hoàn toàn!`)}}return d};
     if(cx.hits){const per=d*cx.hm;let tot=0;for(let k=0;k<cx.hits;k++)tot+=df(per);d=tot;G.log.unshift(`🤺 ${AN(t)} tung ${cx.hits} ${cx.hw||'nhát chém'}!`)}else d=df(d)}
    d=Math.round(d);if(cx.trig&&!cx.miss&&d<=0){a.cc=cx.cc0;cx.fz=0;cx.vp=null;cx.fn=null;G.log.unshift(`🔄 Đòn bị vô hiệu, ${clsDef(G.cls[t]).pn} chưa bị tiêu hao`)}
-  if(d>0){G.ld[t]=d;G.ev.atk=t;G.ev.hit=o;G.ev.hm=tk0;if(!bindHit(o,d,tk0))aHurt(o,d,tk0);aOath(o,b);if(b.tfl>0){aHurt(t,b.tfl);G.log.unshift(`📢 ${tn} dội lại ${b.tfl} sát thương cho ${AN(t)}!`)}G.log.unshift(`⚔ ${AN(t)} đánh ${tn} ${d} sát thương`);if(G.en&&G.en.id==='blood')aHeal(t,Math.round(d*.3));if(G.en&&G.en.id==='ice'&&Math.random()<.25){b.fz=(b.fz||0)+1;G.log.unshift(`❄ Bão băng đóng băng ${tn}!`)}if(a.ls){const q=a.ls>1?a.ls:50;a.ls=0;const n0=G.ev.f.length;aHeal(t,Math.round(d*q/100));if(G.ev.f.length===n0)G.ev.f.push({t,s:'+0',k:'h'})}}
+  if(d>0){G.ld[t]=d;G.ev.atk=t;G.ev.hit=o;G.ev.hm=tk0;if(!bindHit(o,d,tk0))aHurt(o,d,tk0);aOath(o,b);if(b.tfl>0){aHurt(t,b.tfl);G.log.unshift(`📢 ${tn} dội lại ${b.tfl} sát thương cho ${AN(t)}!`)}if(b.thn>0&&o!==t){const r=Math.round(d*b.thn/100);if(r>0){aHurt(t,r);G.log.unshift(`🌵 Giáp Gai: ${tn} phản ${r} sát thương cho ${AN(t)}!`)}}G.log.unshift(`⚔ ${AN(t)} đánh ${tn} ${d} sát thương`);if(G.en&&G.en.id==='blood')aHeal(t,Math.round(d*.3));if(G.en&&G.en.id==='ice'&&Math.random()<.25){b.fz=(b.fz||0)+1;G.log.unshift(`❄ Bão băng đóng băng ${tn}!`)}if(a.ls){const q=a.ls>1?a.ls:50;a.ls=0;const n0=G.ev.f.length;aHeal(t,Math.round(d*q/100));if(G.ev.f.length===n0)G.ev.f.push({t,s:'+0',k:'h'})}}
   else if(!a.nodmg){const bk=G.nb||'ab',mk=G.sd&&tk0!=null&&tk0!==G.fi[o]?tk0:null;G.nb=null;G.ev.atk=t;G.ev.hit=o;G.ev.hm=tk0;G.ev.blk=bk;G.ev.f.push(mk!=null?{t:o,m:mk,s:'-0',k:'nb'}:{t:o,s:'-0',k:'nb'})}
   if(a.fzh){const c=a.fzh;a.fzh=0;if(d>0&&Math.random()*100<c){b.fz=(b.fz||0)+1;G.log.unshift(`❄ Đòn đánh trúng ${tn}: bị đóng băng/choáng!`)}}
  cx.dd=d;clsPost(t,a,b,cx,tn)}else{{const cl=clsDef(G.cls[t]);if(cl&&cl.k==='c'&&(a.cc||0)>=clsVal(G.s,cl.id,'need'))G.log.unshift(`🛡 ${AN(t)} trả lời sai nhưng nội tại đã nạp đầy vẫn được giữ`);else{if(a.cc>0)G.log.unshift(`💔 ${AN(t)} trả lời sai, chuỗi nội tại về 0`);a.cc=0}}rgMiss(t);wrongPen(t);G.log.unshift(`✖ ${AN(t)} trả lời sai: không có quà, không gây sát thương`)}
  if(a.vk){if(a.vkw)a.vkw=0;else{a.vk=0;if(ok&&mhp(o,tk0)<=0){G.log.unshift(`👑 ${AN(t)} hạ gục ${tn}: Vương Miện Kẻ Thắng thưởng thêm 1 quà!`);aQueue(t,aGift())}}}
  if(a.bomb){const bd=a.bomb>1?a.bomb:5;a.bomb=0;aHurt(t,bd);G.log.unshift(`💣 Bom nổ! ${AN(t)} mất ${bd} HP`)}
- evTick();a.nodmg=0;a.ig=0;a.ign=0;a.chain=0;if(a.im>0)a.im--;if(a.lkn>0&&--a.lkn<=0)a.lk=0;if(a.pht>0&&--a.pht<=0&&a.ph){a.ph=0;G.log.unshift(`⌛ Hiệu lực hồi sinh của ${AN(t)} đã hết`)}if(a.seal>0)a.seal--;aTick(t);aoeTick(t);exTick(t);(G.sd?G.sd[t].map(m=>m.st):[a]).forEach(x=>{if(x.dgt>0&&--x.dgt<=0)x.dgp=0;if(x.dgdt>0&&--x.dgdt<=0)x.dgd=0;if(x.hc>0&&--x.hc<=0)x.hcv=0;if(x.ahl>0&&--x.ahl<=0)x.ahv=0;if(x.ar>0)x.ar--;if(x.gsT>0&&--x.gsT<=0)x.gs=0;if(x.spT>0&&--x.spT<=0)x.sp=0;if(x.cpT>0&&--x.cpT<=0)x.cp=0;if(x.tdrT>0&&--x.tdrT<=0){x.tdr=0;x.tfl=0}});{const q=G.tm&&G.tm[t];if(q&&q.sm){q.sm.tn--;if(q.sm.tn<=0||q.sm.hits<=0)q.sm=null}const w=G.tm&&G.tm[o];if(w&&w.ill>0)w.ill--;if(q){if(q.sus>0)q.sus--;if(q.sal>0)q.sal--;if(q.lnk>0&&--q.lnk<=0)q.lnkh=0;if(q.tau>0&&--q.tau<=0)q.tak=null}}
- G.log=G.log.slice(0,8);G.lock=1;const ms=ok?2400:(G.ev&&G.ev.f&&G.ev.f.length?2300:900),fin=()=>gT(()=>{G.lock=0;if(aChk())return;const go=()=>{G.lock=0;G.ph=null;if(G.sd)rot7(t);{const tt=G.tm&&G.tm[t];if(tt&&tt.vt){tt.vt=0;G.turn=t;G.log.unshift(`🎫 Vé Ưu Tiên: ${tmN(t)} hành động trước ở lượt kế tiếp`)}else G.turn=o}aStart();if(G.end)return;evRoll();G.q=gQ();loreHide();G.gf=aBox();gDraw()};if(G.sd){const n=nxt7(t,G.fi[t]),el=document.querySelector('#gm .a7s.s'+t+' .arv');if(!(G.rep&&G.rep[t])&&n>=0&&n!==G.fi[t]&&el){el.classList.add('shr');G.lock=1;gT(go,430);return}}go()},ms);if(G.tacP){G.tacP.fin=fin;gDraw();return}gDraw();fin()}
+ evTick();a.nodmg=0;a.ig=0;a.ign=0;a.chain=0;if(a.im>0)a.im--;if(a.lkn>0&&--a.lkn<=0)a.lk=0;if(a.pht>0&&--a.pht<=0&&a.ph){a.ph=0;G.log.unshift(`⌛ Hiệu lực hồi sinh của ${AN(t)} đã hết`)}if(a.seal>0)a.seal--;aTick(t);aoeTick(t);exTick(t);(G.sd?G.sd[t].map(m=>m.st):[a]).forEach(x=>{if(x.dgt>0&&--x.dgt<=0)x.dgp=0;if(x.dgdt>0&&--x.dgdt<=0)x.dgd=0;if(x.hc>0&&--x.hc<=0)x.hcv=0;if(x.ahl>0&&--x.ahl<=0)x.ahv=0;if(x.ar>0)x.ar--;if(x.gsT>0&&--x.gsT<=0)x.gs=0;if(x.spT>0&&--x.spT<=0)x.sp=0;if(x.cpT>0&&--x.cpT<=0)x.cp=0;if(x.tdrT>0&&--x.tdrT<=0){x.tdr=0;x.tfl=0}if(x.thT>0&&--x.thT<=0)x.thn=0;if(x.hbT>0&&--x.hbT<=0)x.hb=0;if(x.ut>0)x.ut--});if(a.cbn>0&&--a.cbn<=0){a.cbp=0;a.cbl=0}if(a.cmT>0&&--a.cmT<=0){a.cms=0;a.cmm=0;a.cmv=0}{const q=G.tm&&G.tm[t];if(q&&q.sm){q.sm.tn--;if(q.sm.tn<=0||q.sm.hits<=0)q.sm=null}const w=G.tm&&G.tm[o];if(w&&w.ill>0)w.ill--;if(q){if(q.sus>0)q.sus--;if(q.sal>0)q.sal--;if(q.lnk>0&&--q.lnk<=0)q.lnkh=0;if(q.tau>0&&--q.tau<=0)q.tak=null}}
+ G.log=G.log.slice(0,8);G.lock=1;const ms=ok?2400:(G.ev&&G.ev.f&&G.ev.f.length?2300:900),fin=()=>gT(()=>{G.lock=0;if(aChk())return;const go=()=>{G.lock=0;G.ph=null;if(G.sd)rot7(t);{const tt=G.tm&&G.tm[t];if(tt&&tt.vt){tt.vt=0;G.turn=t;G.log.unshift(`🎫 Vé Ưu Tiên: ${tmN(t)} hành động trước ở lượt kế tiếp`)}else G.turn=o}aStart();if(G.end)return;evRoll();G.q=gQ();loreHide();cutHide();G.gf=aBox();gDraw()};if(G.sd){const n=nxt7(t,G.fi[t]),el=document.querySelector('#gm .a7s.s'+t+' .arv');if(!(G.rep&&G.rep[t])&&n>=0&&n!==G.fi[t]&&el){el.classList.add('shr');G.lock=1;gT(go,430);return}}go()},ms);if(G.tacP){G.tacP.fin=fin;gDraw();return}gDraw();fin()}
 GV.arena=function(){bloodSync();const ev=G.ev||{f:[]};G.ev=null;const tp=G.tsel&&!G.end?G.tsel:null,gs=G.gsel&&!G.end?G.gsel:null,rs=G.rsel&&!G.end?G.rsel:null,os=G.osel&&!G.end?G.osel:null,ph=G.ph&&!G.end?G.ph:null;G.evf=ev.f;healFx(ev.f);G.aoefx=ev.aoe||null;G.rkfx=ev.rk!=null&&ev.fx>=0&&ev.fxt===G.turn?{t:G.turn,k:ev.rk,fx:ev.fx}:null;G.hitm=ev.hit>=0&&G.sd&&ev.hm!=null&&ev.hm!==G.fi[ev.hit]?{t:ev.hit,k:ev.hm,blk:ev.blk}:null;
  const SW=G.sw||[null,null];G.sw=null;G.swc=SW;
  const tot=G.qs.length,qn=((G.qi-1)%tot)+1;
- const av=i=>{const e=G.st[i],g=ev.fx>=0&&ev.fxt===i&&!(ev.rk!=null&&ev.fxt===G.turn)?GF[ev.fx]:null;return `<div class="arv a${i}${stc(e)}${ev.f.some(x=>x.t===i&&x.m==null&&x.k==='h')?' heal':''}${G.turn===i&&!G.end?' on':''}${SW[i]?' pin':''}${ev.atk===i?' atk':''}${ev.hit===i&&(ev.hm==null||ev.hm===G.fi[i])?(ev.blk?' blk':' hit'):''}${tp&&i===1-tp.t?' pk':''}" style="--c:${GC[i]}"${tp&&i===1-tp.t?` data-gg="tg" data-t="${i}" data-k="${G.fi[i]}"`:''}>${ev.f.filter(x=>x.t===i&&x.m==null).map(x=>`<b class="adm ${x.k}">${x.s}</b>`).join('')}${ev.blk&&ev.hit===i&&(ev.hm==null||ev.hm===G.fi[i])?bfxHTML(ev.blk):''}${g?`<span class="afx ${g[4]}" style="--c:${g[5]}">${g[3]}</span>`:''}<div class="abf">${(e.q||[]).map(gi=>`<span class="pq" title="Chờ kích hoạt ở lượt sau: ${GF[gi][0]}">${GF[gi][3]}</span>`).join('')}${AST.filter(x=>e[x[0]]>0).map(x=>`<span>${x[1]}</span>`).join('')}</div>${clsAv(G.cls[i])}<div class="hp"><i style="width:${Math.max(0,G.sc[i])/G.s.hp*100}%"></i></div>${rgHTML(i)}<div class="anm">${esc(G.nm[i])}</div><small class="ahp">${Math.max(0,G.sc[i])}/${G.s.hp} HP</small><small class="acl" tabindex="0">${clsBadge(i)}<span class="acltip">${clsTip(i)}</span></small></div>`};
+ const av=i=>{const e=G.st[i],g=ev.fx>=0&&ev.fxt===i&&!(ev.rk!=null&&ev.fxt===G.turn)?GF[ev.fx]:null;return `<div class="arv a${i}${stc(e)}${ev.f.some(x=>x.t===i&&x.m==null&&x.k==='h')?' heal':''}${G.turn===i&&!G.end?' on':''}${SW[i]?' pin':''}${ev.atk===i?' atk':''}${ev.hit===i&&(ev.hm==null||ev.hm===G.fi[i])?(ev.blk?' blk':' hit'):''}${tp&&i===1-tp.t&&tgOk(i,G.fi[i])?' pk':''}" style="--c:${GC[i]}"${tp&&i===1-tp.t&&tgOk(i,G.fi[i])?` data-gg="tg" data-t="${i}" data-k="${G.fi[i]}"`:''}>${ev.f.filter(x=>x.t===i&&x.m==null).map(x=>`<b class="adm ${x.k}">${x.s}</b>`).join('')}${ev.blk&&ev.hit===i&&(ev.hm==null||ev.hm===G.fi[i])?bfxHTML(ev.blk):''}${g?`<span class="afx ${g[4]}" style="--c:${g[5]}">${g[3]}</span>`:''}<div class="abf">${(e.q||[]).map(gi=>`<span class="pq" title="Chờ kích hoạt ở lượt sau: ${GF[gi][0]}">${GF[gi][3]}</span>`).join('')}${AST.filter(x=>e[x[0]]>0).map(x=>`<span>${x[1]}</span>`).join('')}</div>${clsAv(G.cls[i])}<div class="hp"><i style="width:${Math.max(0,G.sc[i])/G.s.hp*100}%"></i></div>${rgHTML(i)}<div class="anm">${esc(G.nm[i])}</div><small class="ahp">${Math.max(0,G.sc[i])}/${G.s.hp} HP</small><small class="acl" tabindex="0">${clsBadge(i)}<span class="acltip">${clsTip(i)}</span></small></div>`};
  const oppAll=!!(ev.rv&&ev.rv.length)&&ev.rv.every(x=>AOPP.includes(x)),rv=(ev.rv||[]).map((gi,n)=>{const g=GF[gi],r=RAR[aR(gi)],op=AOPP.includes(gi);return `<div class="rvc rvn" data-ra="${aR(gi)}" data-rt="${op?1-G.turn:G.turn}" data-n="${n}"${op?' data-opp="1"':ev.rk!=null?` data-rk="${ev.rk}"`:''} style="--c:${r[1]}"><span class="rvj">${g[3]}</span>${op?'':`<div class="rvi"><b>${g[0]}</b><em class="rar">${r[0]}</em><small>${esc(g[2])}</small></div>`}</div>`}).join('');
  return `<div class="arn${G.sd?' a7':''}${ev.ult?' ulth':''}${rv?' evd':''}${G.en?' ev-'+G.en.id:''}${ev.f.some(x=>x.k===''&&Math.abs(parseInt(x.s))>=15)?' shk':''}"${oppAll?' style="--rp:.7s"':(rv&&!ev.from?' style="--rp:.45s"':'')}>${a7s(0,av)}<b>VS</b>${a7s(1,av)}${ultCard(tp)}</div>`+(rv?`<div class="rvl">${rv}</div>`:'')+(gs?gsPanel(gs):'')+(os?osPanel(os):'')+(rs?rsPanel(rs):'')+(G.tz&&!gs&&!rs&&!os&&(!ph||tp)?`<div class="acd">${cdBar('acdq','⏱',G.tl,tp?tp.max:G.tz.q,tp?'Chọn mục tiêu':'Thời gian')}<button class="b g acdp" data-gg="tp" title="Tạm dừng / tiếp tục">${G.tpause?'▶':'⏸'}</button></div>`:'')+(G.en?`<div class="evb" style="--c:${EVD[G.en.id][3]}">${EVD[G.en.id][0]} ${EVD[G.en.id][1]} · còn ${G.en.left} lượt: ${EVD[G.en.id][2]}</div>`:'')+fxHTML()+(ph?'':`<div class="gqw${G.gf>=0&&!rv&&!tp&&!gs?'':' nogf'}">${G.gf>=0&&!rv&&!tp&&!gs?'<span class="bgb" aria-hidden="true">🎁</span>':''}${gQH(gTurn()+gNum('Câu '+qn+'/'+tot).replace('class="gnum"','class="gnum qn"')+gNum('Đúng = '+Math.max(1,Math.round(+G.q.p||1))+' điểm'),G.q.q)}</div>`)+(tp?tgBanner(tp):ph?((gs||os||rs)?'':phHTML(ph)):gOpts())+`${G.tacP?tacHTML():''}`};
 /* Thẻ chiêu nộ ở giữa hai nhân vật khi đang chọn mục tiêu mà nộ đã đầy */
@@ -4032,7 +4602,7 @@ function rgPre(t,a,b,o){const R=RGt(),C=CBt(),gain=G.s.rgn==null?25:+G.s.rgn,cid
  if(n===3){aHeal(t,4);fxq({k:'sm',ic:'🔥',tx:'COMBO x3',sub:'Hồi 4 HP',c:'#fb923c'});G.log.unshift(`🔥 ${AN(t)} combo x3: hồi 4 HP`)}
  else if(n===5){a.ab=(a.ab||0)+6;fxq({k:'sm',ic:'🔥',tx:'COMBO x5',sub:'Nhận khiên 6',c:'#f97316'});G.log.unshift(`🔥 ${AN(t)} combo x5: nhận khiên 6`)}
  else if(n===7){C[t]=0;aGive(t,aGift(),1);fxq({k:'sm',ic:'🌟',tx:'COMBO x7',sub:'Nhận thêm 1 quà',c:'#facc15'});G.log.unshift(`🌟 ${AN(t)} combo x7: nhận thêm 1 quà`)}}
-function rgMiss(t){CBt()[t]=0}
+function rgMiss(t){CBt()[t]=0;const e=G.st&&G.st[t];if(e&&e.cmv)e.cmv=0}
 function evM(){return G.en&&G.en.id==='gold'?2:1}
 function evRoll(){const p=G.s.evp==null?20:+G.s.evp;G.ern=(G.ern||0)+1;if(G.en||p<=0||G.ern<3||(G.evcd||0)>0){if(G.evcd>0)G.evcd--;return}
  if(Math.random()*100>=p)return;const id=Object.keys(EVD)[Math.random()*4|0],d=EVD[id];G.en={id,left:2};fxq({k:'ev',ic:d[0],tx:d[1],sub:d[3]?d[2]:d[2],c:d[3]});G.log.unshift(`${d[0]} Sự kiện ${d[1]}: ${d[2]} (2 lượt)`)}
