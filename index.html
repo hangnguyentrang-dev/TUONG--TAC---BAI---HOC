@@ -2843,7 +2843,7 @@ const CLS=[
 {id:'berserker',n:'Cuồng chiến',e:'Berserker',w:'Rìu chiến',pn:'Cuồng Nộ',c:'#b91c1c',ic:'🪓',k:'r',cd:'Mỗi lần bị đánh trúng',ef:'Cộng vĩnh viễn {per} sát thương cho đòn đánh, tối đa {cap} lần; lần thứ {cap}: HP dưới {hlt}% thì hồi {hlp}% HP tối đa, không thì chặn {bp}% sát thương trong {tn} lượt; đánh xong với đủ sát thương thì về 0',p:[['per','Sát thương cộng mỗi lần bị đánh trúng',1,100,1],['cap','Số lần cộng tối đa',1,200,20],['hlt','Ngưỡng HP để được hồi (%)',1,100,50],['hlp','% HP tối đa được hồi',1,100,25],['bp','% sát thương giáp chặn',1,90,30],['tn','Số lượt của giáp',1,10,2]]},
 {id:'paladin',n:'Thánh kỵ sĩ',e:'Paladin',w:'Kiếm thánh',pn:'Thánh Ân',c:'#eab308',ic:'⚜️',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Hồi {hlp}% máu hiện có cho đồng đội có HP thấp nhất. Nếu cả đội đầy HP, hồi cho bản thân',p:[['need','Số câu đúng liên tiếp',1,10,2],['hlp','% máu hiện có được hồi',1,100,25]]},
 {id:'plague',n:'Độc sư',e:'Plague Alchemist',w:'Song đao tẩm độc',pn:'Độc Chú',c:'#65a30d',ic:'🧪',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh ở câu đúng đó gây độc: cứ mỗi {ev} lượt đối thủ mất {pct}% HP đang có, kéo dài {tn} lượt',p:[['need','Số câu đúng liên tiếp',1,10,2],['pct','% HP đang có mất mỗi đợt',1,100,25],['ev','Cứ mỗi … lượt mất HP',1,5,2],['tn','Số lượt độc',1,10,4]]},
-{id:'summoner',n:'Triệu hồi sư',e:'Summoner',w:'Trượng triệu hồi',pn:'Linh Thú Hộ Chiến',c:'#0891b2',ic:'🐾',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Triệu hồi linh thú ban phước: {hits} đòn đánh tiếp theo của cả đội được cộng {dm}% sát thương trong {tn} lượt',p:[['need','Số câu đúng liên tiếp',1,10,2],['dm','Sát thương thêm (%)',1,200,10],['hits','Số đòn đánh',1,10,2],['tn','Số lượt',1,10,2]]},
+{id:'summoner',n:'Thuần Thú Sư',e:'Tamer',w:'Trượng triệu hồi',pn:'Linh Thú Hộ Chiến',c:'#0891b2',ic:'🐾',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Triệu hồi linh thú ban phước: {hits} đòn đánh tiếp theo của cả đội được cộng {dm}% sát thương trong {tn} lượt',p:[['need','Số câu đúng liên tiếp',1,10,2],['dm','Sát thương thêm (%)',1,200,10],['hits','Số đòn đánh',1,10,2],['tn','Số lượt',1,10,2]]},
 {id:'chrono',n:'Thời không sư',e:'Chronomancer',w:'Quyền trượng thời gian',pn:'Dòng Chảy Thời Gian',c:'#4f46e5',ic:'⏳',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Hồi {hlp}% máu hiện có cho đồng đội có HP thấp nhất, không vượt quá HP tối đa',p:[['need','Số câu đúng liên tiếp',1,10,2],['hlp','% máu hiện có được hồi',1,100,25]]}];
 const clsDef=id=>CLS.find(c=>c.id===id);
 const clsVal=(s,id,k)=>{const v=s&&s.cl&&s.cl[id]&&s.cl[id][k];return v==null?(clsDef(id).p.find(p=>p[0]===k)||[0,0,0,0,0])[4]:v};
@@ -3011,7 +3011,7 @@ function clsPost(t,a,b,cx,tn){tn=tn||AN(1-t);const id=cx.mid||G.cls[t],c=clsDef(
    else if(id==='summoner'){smAdd(t,{hits:v('hits'),pc:v('dm'),dm:0,tn:v('tn')+1,sumn:1});L(`🐾 Linh thú ban phước: ${v('hits')} đòn tới của cả đội +${v('dm')}% sát thương trong ${v('tn')} lượt`)}
    else if(id==='blade'){aSts(t).forEach(x=>{x.ib=v('dm')});L(`🤺 ${AN(t)} truyền cảm hứng: đòn đánh kế tiếp của mỗi thành viên +${v('dm')}% sát thương`)}else if(CI[id])CI[id](t,a,b,v,L)}}
 const tmg=t=>(G.tm=G.tm||[{},{}])[t];
-/* Buff sát thương dùng chung của đội (Triệu hồi sư, Hùng Ca, Tiên Dược, quà Đồng hành): luôn cộng dồn, không ghi đè */
+/* Buff sát thương dùng chung của đội (Thuần Thú Sư, Hùng Ca, Tiên Dược, quà Đồng hành): luôn cộng dồn, không ghi đè */
 function smAdd(t,n){const m=tmg(t),q=m.sm;if(q&&q.hits>0){q.hits+=n.hits;q.pc=(q.pc||0)+(n.pc||0);q.dm=(q.dm||0)+(n.dm||0);q.tn=Math.max(q.tn||0,n.tn||0);if(n.sumn)q.sumn=1}else m.sm={hits:n.hits,pc:n.pc||0,dm:n.dm||0,tn:n.tn,sumn:n.sumn?1:0}}
 function smTxt(q){return[q.pc>0?q.pc+'%':'',q.dm>0?String(q.dm):''].filter(Boolean).join(' + ')||'0'}
 function clsHealLow(t,h,pc){if(!G.sd){aHeal(t,pc?Math.max(1,Math.round(G.sc[t]*h/100)):h);return}
@@ -3117,7 +3117,7 @@ const FXD=[
  {k:'cp_sw',get ic(){return (window.ICO&&window.ICO.stoneSkin)||'🗿'},n:'Da Đá Thạch Vệ',c:'#a8a29e',st:{cpx:1},nd:1,d:'Cơ thể phủ một lớp giáp đá xám nâu chia thành nhiều mảng, vết nứt đen chạy giữa các mảng và vài mảnh sáng lấp lánh; lớp đá hít thở chậm, khi vừa phủ lên thì cứng lại với một nhịp bật. Biểu tượng là khối đá nứt có vệt sáng trong vòng tròn xám.',r:''},
  {k:'arb_cd',get ic(){return (window.ICO&&window.ICO.arbCard)||'⚖️'},n:'Thẻ Phạt Chấp Pháp',c:'#ef4444',st:{arbx:1},bn:1,nd:1,d:'Một thẻ vàng và một thẻ đỏ nghiêng chồng lên nhau lơ lửng trên đầu mục tiêu, nhấp nhô nhẹ, kèm bộ đếm số lượt còn lại. Biểu tượng là hai tấm thẻ vàng–đỏ chồng nhau trong vòng tròn xanh sẫm.',r:''},
  {k:'lk_dm',get ic(){return (window.ICO&&window.ICO.lkDemon)||'🔒'},n:'Khóa Nộ Hấp Hồn',c:'#22d3ee',st:{lkx:1},nd:1,d:'Thanh nộ của mục tiêu xám đi và viền xanh ngọc phát sáng; ở đầu thanh có mặt quỷ hai sừng nằm trong hai vòng linh hồn xoay ngược chiều, kèm bộ đếm lượt khóa. Biểu tượng là mặt quỷ trong vòng linh hồn.',r:''},
- {k:'bn_dm',get ic(){return (window.ICO&&window.ICO.bndDm)||'🎼'},n:'Hùng Ca Tăng Lực',c:'#ec4899',st:{bnx:1},nd:1,d:'Năm dòng kẻ khuông nhạc màu hồng của Ca Linh sư uốn sóng, trôi chậm bao quanh người đứng sân và từng avatar dự bị, kèm vài nốt nhạc chạy theo dòng. Khuông nhạc sáng lên khi cả đội được cộng sát thương cho các đòn tới và tắt khi hết đòn hoặc hết lượt. Biểu tượng là khuông năm dòng có nốt nhạc và mũi tên vàng hướng lên.',r:''},
+ {k:'bn_dm',get ic(){return (window.ICO&&window.ICO.bndDm)||'🎼'},n:'Hùng Ca Tăng Lực',c:'#ec4899',st:{bnx:1},nd:1,d:'Năm dòng kẻ khuông nhạc màu hồng của Người Hát Rong uốn sóng, trôi chậm bao quanh người đứng sân và từng avatar dự bị, kèm vài nốt nhạc chạy theo dòng. Khuông nhạc sáng lên khi cả đội được cộng sát thương cho các đòn tới và tắt khi hết đòn hoặc hết lượt. Biểu tượng là khuông năm dòng có nốt nhạc và mũi tên vàng hướng lên.',r:''},
  {k:'bl_dm',get ic(){return (window.ICO&&window.ICO.bldDm)||'⚔️'},n:'Kiếm Vũ Khích Lệ',c:'#0d9488',st:{bldx:1},nd:1,d:'Ba thanh song kiếm ánh bạc viền ngọc lam xoay thành vòng quanh người đứng sân và từng avatar dự bị, mũi kiếm hướng theo chiều xoay, có ánh sáng ngọc lam bám theo. Vòng kiếm hiện khi cả đội đang được tăng sát thương và tan đi khi buff hết. Biểu tượng là ba thanh kiếm xoay quanh mũi tên vàng hướng lên.',r:''},
  {k:'ah_sw',get ic(){return (window.ICO&&window.ICO.ahSw)||'🚫'},n:'Vết Chém Khó Lành',c:'#e5484d',st:{ahsw:1},nd:1,d:'Ba vệt chém cong thon nhọn, đỏ thẫm viền sáng, lần lượt rạch chéo qua người mục tiêu rồi rỉ máu; trên vết chém chính có vài mũi chỉ khâu trắng nhấp nháy như vết thương khâu mãi không liền; mục tiêu ngả sắc đỏ. Biểu tượng là hai vệt chém cong kèm dấu cộng hồi máu bị gạch.',r:''},
  {k:'ah_ar',get ic(){return (window.ICO&&window.ICO.ahAr)||'🚫'},n:'Mũi Tên Cắm Sâu',c:'#16a34a',st:{ahar:1},nd:1,d:'Một mũi tên lông xanh xuyên chéo qua trái tim sẫm màu nứt vỡ nơi ngực mục tiêu, đuôi tên rung nhẹ, tim đập yếu, vòng sáng xanh lá lan ra từ vết xuyên và vài chiếc lá héo rơi xuống. Biểu tượng là mũi tên xuyên qua trái tim kèm dấu cộng hồi máu bị gạch.',r:''},
@@ -3582,12 +3582,12 @@ taunter:mkAv('#dc2626','<path d="M37 50a22 22 0 0 1 44 0v-6H37z" fill="#7f1d1d"/
 hypno:mkAv('#6d28d9','<path d="M35 50a24 24 0 0 1 48 0v-4q-24-18-48 0z" fill="#312e81"/>','<path d="M96 40v40" stroke="#e2e8f0" stroke-width="3"/><circle cx="96" cy="88" r="10" fill="#c084fc" stroke="#fff" stroke-width="2"/>')});
 Object.assign(CTY,{arbiter:['ctl'],leech:['ctl'],thief:['sup'],merchant:['sup'],stonewarden:['def'],binder:['def'],executioner:['atk'],bomber:['atk'],warden:['ctl'],necro:['heal'],taunter:['def'],hypno:['ctl']});
 
-/* ===== 8 class mới: Tinh Thiên Pháp Sư, Huyết Khế Ma Nhân, Valkyrie Hộ Mệnh, Ca Linh Sư, Chú Nguyền Sư, Nhật Nguyệt Thần Sứ, Cổ Thư Hiền Giả, Tử Thần Liêm Sứ ===== */
+/* ===== 8 class mới: Tinh Thiên Pháp Sư, Huyết Khế Ma Nhân, Valkyrie Hộ Mệnh, Người Hát Rong, Chú Nguyền Sư, Nhật Nguyệt Thần Sứ, Cổ Thư Hiền Giả, Tử Thần Liêm Sứ ===== */
 CLS.push(
 {id:'starcaller',n:'Tinh Thiên Pháp Sư',e:'Starcaller',w:'Kính thiên văn cổ',pn:'Sao Rơi Định Mệnh',c:'#6366f1',ic:'🌠',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh ở câu đúng đó gọi thiên thạch: sau {tn} lượt của mình rơi xuống gây {dmg}% HP hiện có của đối thủ, không thể né',p:[['need','Số câu đúng liên tiếp',1,10,2],['tn','Số lượt chờ',1,5,2],['dmg','% HP hiện có đối thủ mất',1,100,30]]},
 {id:'bloodpact',n:'Huyết Khế Ma Nhân',e:'Bloodpact Warlock',w:'Khế ước máu',pn:'Hiến Tế',c:'#9f1239',ic:'🩸',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh ở câu đúng đó hiến tế {cost} HP của bản thân để nhân sát thương lên x{mult} (HP không đủ thì giảm tương ứng)',p:[['need','Số câu đúng liên tiếp',1,10,2],['cost','HP hiến tế',1,50,6],['mult','Hệ số sát thương (x)',2,10,3]]},
 {id:'valk',n:'Valkyrie Hộ Mệnh',e:'Aegis Valkyrie',w:'Giáo thiên sứ',pn:'Cánh Che Chở',c:'#38bdf8',ic:'🪽',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đồng đội thấp máu nhất nhận Lời Thề Hộ Mệnh (chặn một đòn hạ gục) và được hồi {hlp}% máu hiện có',p:[['need','Số câu đúng liên tiếp',1,10,2],['hlp','% máu hiện có được hồi',1,100,25]]},
-{id:'song',n:'Ca Linh Sư',e:'Songweaver',w:'Đàn hạc tinh linh',pn:'Khúc Ca Cổ Vũ',c:'#ec4899',ic:'🎶',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Cộng {rg} tầng nộ cho 1 thành viên ngẫu nhiên trong đội',p:[['need','Số câu đúng liên tiếp',1,10,2],['rg','Số tầng nộ cộng thêm',1,5,1]]},
+{id:'song',n:'Người Hát Rong',e:'Bard',w:'Đàn hạc tinh linh',pn:'Khúc Ca Cổ Vũ',c:'#ec4899',ic:'🎶',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Cộng {rg} tầng nộ cho 1 thành viên ngẫu nhiên trong đội',p:[['need','Số câu đúng liên tiếp',1,10,2],['rg','Số tầng nộ cộng thêm',1,5,1]]},
 {id:'hexer',n:'Chú Nguyền Sư',e:'Hexweaver',w:'Búp bê rối ngải',pn:'Lời Nguyền Phản Tri',c:'#7e22ce',ic:'👁️‍🗨️',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh ở câu đúng đó gieo nguyền: {tn} lần tới đối thủ trả lời đúng sẽ mất {dm}% HP đang có',p:[['need','Số câu đúng liên tiếp',1,10,2],['tn','Số lần nguyền',1,6,2],['dm','% HP đang có mất mỗi lần',1,100,20]]},
 {id:'eclipse',n:'Nhật Nguyệt Thần Sứ',e:'Eclipse Sage',w:'Đôi kiếm Nhật Nguyệt',pn:'Nhật Nguyệt Luân Chuyển',c:'#f59e0b',ic:'🌗',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đổi dạng mỗi lần kích hoạt: Dạng Nhật sát thương x{mult}; Dạng Nguyệt giảm {dr}% sát thương nhận và hồi {hl}% HP hiện có',p:[['need','Số câu đúng liên tiếp',1,10,2],['mult','Hệ số sát thương dạng Nhật (x)',2,10,2],['dr','% giảm sát thương dạng Nguyệt',1,90,40],['hl','% HP hiện có hồi dạng Nguyệt',1,100,25]]},
 {id:'lore',n:'Cổ Thư Hiền Giả',e:'Loremaster',w:'Sách phép cổ',pn:'Trang Sách Soi Sáng',c:'#0891b2',ic:'📜',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Câu hỏi kế tiếp của đội mình chỉ còn đáp án đúng và 1 đáp án sai',p:[['need','Số câu đúng liên tiếp',1,10,2]]},
@@ -3617,7 +3617,7 @@ CLS.push(
  {id:'inverter',n:'Pháp Sư Nghịch Chuyển',e:'Inverter',w:'Quả cầu nghịch chuyển',pn:'Nghịch Chuyển',c:'#7c3aed',ic:'🌀',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Gây {pc}% ST và Nghịch Chuyển trong {tn} lượt: lần hồi máu tiếp theo từ kỹ năng/quà của mục tiêu biến thành mất HP tương ứng',p:[['need','Số câu đúng liên tiếp',1,10,2],['pc','% ST đòn đánh',50,400,125],['tn','Số lượt nghịch chuyển',1,5,2]]},
  {id:'baker',n:'Thợ Làm Bánh',e:'Baker',w:'Xẻng gỗ & bánh mì',pn:'Bánh Mì Nóng Hổi',c:'#f59e0b',ic:'🥖',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Tích 1 Bánh Mì (tối đa {cap}); cuối lượt tiêu 1 bánh hồi {hpp}% HP tối đa cho đồng đội còn sống thấp HP nhất',p:[['need','Số câu đúng liên tiếp',1,10,2],['cap','Số bánh tối đa',1,6,3],['hpp','% HP tối đa hồi mỗi bánh',1,50,12]]},
  {id:'innkeeper',n:'Chủ Quán Trọ',e:'Innkeeper',w:'Vò rượu mật',pn:'Giờ Nghỉ Chân',c:'#d97706',ic:'🍻',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Cả đội hồi {hp7}% máu hiện tại (1v1: {hp1}%) và xóa 1 hiệu ứng Độc/Thiêu Đốt cho mỗi đồng đội',p:[['need','Số câu đúng liên tiếp',1,10,2],['hp7','% máu hiện tại hồi (7v7)',1,50,10],['hp1','% máu hiện tại hồi (1v1)',1,50,18]]},
- {id:'arborist',n:'Người Trồng Cây',e:'Arborist',w:'Gậy mầm xanh',pn:'Cây Sinh Mệnh',c:'#16a34a',ic:'🌱',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Trồng/làm mới Cây Sinh Mệnh {tn} lượt; mỗi lượt cây lớn 1 tầng (tối đa 3), hồi {h1}%/{h2}%/{h3}% HP tối đa cho đồng đội thấp máu nhất',p:[['need','Số câu đúng liên tiếp',1,10,2],['tn','Số lượt tồn tại cây',1,6,3],['h1','% HP tối đa tầng 1',1,30,6],['h2','% HP tối đa tầng 2',1,40,10],['h3','% HP tối đa tầng 3',1,50,16]]},
+ {id:'arborist',n:'Thợ Làm Vườn',e:'Gardener',w:'Gậy mầm xanh',pn:'Cây Sinh Mệnh',c:'#16a34a',ic:'🌱',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Trồng/làm mới Cây Sinh Mệnh {tn} lượt; mỗi lượt cây lớn 1 tầng (tối đa 3), hồi {h1}%/{h2}%/{h3}% HP tối đa cho đồng đội thấp máu nhất',p:[['need','Số câu đúng liên tiếp',1,10,2],['tn','Số lượt tồn tại cây',1,6,3],['h1','% HP tối đa tầng 1',1,30,6],['h2','% HP tối đa tầng 2',1,40,10],['h3','% HP tối đa tầng 3',1,50,16]]},
  {id:'flamekeeper',n:'Người Giữ Lửa',e:'Flamekeeper',w:'Đuốc thánh',pn:'Ngọn Đuốc',c:'#ea580c',ic:'🏮',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Hiến {store}% HP hiện tại vào Đuốc (tối đa {cap}% HP tối đa); khi đồng đội tụt dưới {th}% HP (hoặc Đuốc đầy), tự giải phóng + {bonus}% lượng hồi',p:[['need','Số câu đúng liên tiếp',1,10,2],['store','% HP hiện tại nạp vào Đuốc',5,30,10],['cap','% HP tối đa tích tối đa',10,60,30],['th','Ngưỡng HP tự giải phóng (%)',10,70,35],['bonus','% hồi cộng thêm khi giải phóng',0,100,20]]},
  {id:'shieldbearer',n:'Người Mang Khiên',e:'Shieldbearer',w:'Đại khiên thép',pn:'Che Chở',c:'#0284c7',ic:'🔰',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'7v7: {tn} lượt tới đỡ giùm {cov}% ST (giảm {dr}% trên phần đỡ) cho đồng đội dưới {hpth}% HP; 1v1: nhận khiên {sh1}% HP tối đa',p:[['need','Số câu đúng liên tiếp',1,10,2],['tn','Số lượt che chở',1,5,2],['hpth','Ngưỡng HP được che (%)',10,95,55],['cov','% ST đỡ giùm',10,90,50],['dr','% giảm ST phần đỡ giùm',0,80,35],['sh1','% HP tối đa khiên (1v1)',5,50,15]]},
  {id:'fortress',n:'Pháo Đài',e:'Fortress',w:'Khiên pháo đài',pn:'Giáp Nổ',c:'#64748b',ic:'🏰',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Tạo khiên {shp}% HP tối đa trong {tn} lượt; khi vỡ hoặc hết hạn sẽ phát nổ gây {ref}% giá trị khiên gốc lên đối thủ',p:[['need','Số câu đúng liên tiếp',1,10,2],['shp','% HP tối đa tạo khiên',5,60,20],['tn','Số lượt tồn tại',1,5,2],['ref','% giá trị khiên phát nổ',10,200,60]]},
@@ -9244,7 +9244,7 @@ U.wrap('plague',function(c){
  return 4500;
 });
 
-/* 09. Triệu hồi sư – Bách Thú Triệu Giới */
+/* 09. Thuần Thú Sư – Bách Thú Triệu Giới */
 U.wrap('summoner',function(c){
  const{a,b,sd}=c;
  heroCast(c,'cast');
@@ -10054,7 +10054,7 @@ U.wrap('valk',function(c){
  return 4500;
 });
 
-/* 46. Ca Linh Sư – Giao Hưởng Linh Giới */
+/* 46. Người Hát Rong – Giao Hưởng Linh Giới */
 U.wrap('song',function(c){
  const{a}=c;
  aura(c,'#f472b6','#a78bfa',0,3400);
@@ -11036,7 +11036,7 @@ Object.assign(U.ARENAS,{
    <polygon points="0,368 1200,368 1200,500 0,500" fill="#2e1206"/>
    <path d="M0 368 H1200 M0 408 H1200" stroke="#f59e0b" stroke-width="2.5" opacity=".7"/>`
  },
- /* 15. Người Trồng Cây */
+ /* 15. Thợ Làm Vườn */
  arborist:{
   rim:'rgba(74,222,128,.82)',
   bg:'background:linear-gradient(180deg,#022c22,#065f46 60%,#14532d)',
@@ -13339,7 +13339,7 @@ Object.assign(UFXF,{
   return 4500;
  },
 
- /* 15. Người Trồng Cây – Cổ Thụ Che Trời */
+ /* 15. Thợ Làm Vườn – Cổ Thụ Che Trời */
  arborist(c){
   const{a,b,sd}=c,B=arenaBox(c),sv=backSvg(c);
   heroCast(c,'cast');
@@ -20279,7 +20279,7 @@ window.bfxCls=function(k,c){
 })();
 </script>
 <script id="prp-js">
-/* ===== Vật thể chiến trường của nội tại: Kỹ Sư · Người Trồng Cây · Thợ Làm Bánh · Người Giữ Lửa · Bù Nhìn Rơm ===== */
+/* ===== Vật thể chiến trường của nội tại: Kỹ Sư · Thợ Làm Vườn · Thợ Làm Bánh · Người Giữ Lửa · Bù Nhìn Rơm ===== */
 (function(){'use strict';
 if(window.PRP)return;
 const FRESH=1500,OUT=1100,REAL={},DM={};
@@ -21601,7 +21601,7 @@ if(typeof bindHit==='function'){const _bh=bindHit;bindHit=function(o){const r=_b
 </script>
 
 <script id="bnd-js">
-/* ===== Ca Linh sư: Hùng Ca Tăng Lực (hiệu ứng từ kỹ năng nộ, không đụng animation nội tại/chiêu nộ) ===== */
+/* ===== Người Hát Rong: Hùng Ca Tăng Lực (hiệu ứng từ kỹ năng nộ, không đụng animation nội tại/chiêu nộ) ===== */
 (function(){'use strict';
 const ICO=window.ICO||(window.ICO={});
 ICO.bndDm='<svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.4" fill="#500724" stroke="#ec4899" stroke-width="1.3"/><path d="M3.5 7.5h17M3.5 10.2h17M3.5 12.9h17M3.5 15.6h17M3.5 18.3h17" stroke="#f9a8d4" stroke-width=".9" opacity=".75"/><ellipse cx="8.6" cy="16.4" rx="2.4" ry="1.7" fill="#fdf2f8" transform="rotate(-18 8.6 16.4)"/><path d="M10.7 15.9V6.8l3.3 1.4" fill="none" stroke="#fdf2f8" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M17.2 17V8.2M14.6 10.6l2.6-3 2.6 3" fill="none" stroke="#fbbf24" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>';
