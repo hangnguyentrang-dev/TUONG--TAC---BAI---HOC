@@ -738,6 +738,9 @@ body:has(.ult.big) .arv-rs,body.ult-fx .arv-rs{opacity:0;visibility:hidden}
 .tacb .dc1{top:-8px;left:6px;font-size:68px;transform:rotate(-14deg)}
 .tacb .dc2{bottom:-12px;right:4px;font-size:84px;transform:rotate(12deg)}
 .tacb .dc3{top:34%;right:-10px;font-size:46px;transform:rotate(18deg)}
+.tacb.t-courier{position:relative;overflow:hidden;color:#fff;background:linear-gradient(160deg,#14532d,#16a34a);max-height:88vh;overflow-y:auto}
+.tacb.t-courier>*:not(.dc){position:relative;z-index:1}
+.tacb .crw{margin:10px 0;text-align:left}.tacb .crw>b{display:block;margin-bottom:6px;font-size:14px}.tacb .crw small{opacity:.8;font-weight:400}
 .tacb .dc4{bottom:6px;left:-6px;font-size:52px;transform:rotate(-10deg)}
 .tacb.t-tact{background:linear-gradient(160deg,#0b1a44 0%,#1e3a8a 55%,#1e40af 100%);border:2px solid #60a5fa;box-shadow:0 0 0 4px rgba(96,165,250,.25),0 0 40px rgba(59,130,246,.45),0 30px 60px -20px rgba(30,64,175,.85)}
 .tacb.t-tact h3{color:#93c5fd;text-shadow:0 0 14px rgba(96,165,250,.9);letter-spacing:.5px}
@@ -3027,7 +3030,7 @@ function clsTip(i){const id=G.cls[i],c=clsDef(id),S=G.s,e=G.st[i],cc=e.cc||0,m=t
  else if(id==='maestro')st=`Nhịp Điệu đội: ${m.tempo||0}/${clsVal(S,id,'cap')} tầng (+${(m.tempo||0)*clsVal(S,id,'dm')}% ST & +${(m.tempo||0)*clsVal(S,id,'hl')}% hồi máu)`;
  else if(id==='geomancer')st=`Mảnh Đá: ${e.geo||0}/${clsVal(S,id,'cap')} · Chuỗi đúng: ${cc}/2`;
  else if(id==='reaper')st=`Dấu Hắc Liêm (cả đội): ${m.rpm||0}/${clsVal(S,id,'cap')} (+${(m.rpm||0)*clsVal(S,id,'per')}% ST đòn đánh) · đủ dấu thì đầy nộ`;
- else if(c.k==='x')st='Nội tại tự kích hoạt theo điều kiện';else if(id==='berserker')st=`Đã cộng: ${e.bzd||0}/${clsVal(S,id,'cap')} lần (+${(e.bzd||0)*clsVal(S,id,'per')} sát thương)`;else if(c.k==='r')st=`Chuỗi hiện tại: ${cc} (đòn kế tiếp +${Math.min(clsVal(S,id,'cap'),clsVal(S,id,'per')*cc)}%)`;
+ else if(id==='lycanthrope')st=e.lyW>0?`🐺 Dạng Sói: còn ${e.lyW} lượt hành động (câu đúng gây ${clsVal(S,id,'wm')}% ST, hút ${clsVal(S,id,'wls')}% máu)`:`👤 Dạng Người: chuỗi đúng ${cc}/${clsVal(S,id,'need')}`;else if(c.k==='x')st='Nội tại tự kích hoạt theo điều kiện';else if(id==='berserker')st=`Đã cộng: ${e.bzd||0}/${clsVal(S,id,'cap')} lần (+${(e.bzd||0)*clsVal(S,id,'per')} sát thương)`;else if(c.k==='r')st=`Chuỗi hiện tại: ${cc} (đòn kế tiếp +${Math.min(clsVal(S,id,'cap'),clsVal(S,id,'per')*cc)}%)`;
  else{const n=clsVal(S,id,'need');st=c.k==='c'&&cc>=n?'⚡ Đã sẵn sàng, kích hoạt ở câu đúng kế tiếp':`Chuỗi hiện tại: ${cc}/${n}`;if(id==='executioner'&&e.exq>0)st+=` · ⏳ Hàng chờ x${clsVal(S,id,'mult')}, xả ở đòn đúng kế tiếp khi đối thủ dưới ${clsVal(S,id,'pct')}% HP`}
  if(id==='diver'&&(e.divOn||e.ut>0||e.divSt>0))st+=` · ⚓ Đang lặn (tích ${e.divSt||0} ST)`;
  if(id==='storyteller')st+=` · Chương kế: ${(m.stIdx||0)%3+1}/3`;
@@ -3042,7 +3045,7 @@ function clsTip(i){const id=G.cls[i],c=clsDef(id),S=G.s,e=G.st[i],cc=e.cc||0,m=t
  if(id==='scarecrow'&&m.scarecrow&&m.scarecrow.hp>0)st+=` · 🌾 Bù Nhìn: ${m.scarecrow.hp}/${m.scarecrow.maxHp} HP`;
  if(id==='magnet'&&m.magOn>0)st+=` · 🧲 Từ Trường: -${m.magRed||4}/hit (tích +${m.magStore||0})`;
  if(id==='fogweaver'&&m.fogHud>0)st+=` · 🌫️ Sương Mù active`;
- if(id==='lycanthrope')st+=e.lycanWolf?' · 🐺 Dạng Sói Huyết Nguyệt (Vĩnh viễn)':' · 👤 Dạng Người (<50% HP hóa Sói)';
+ 
  if(id==='kitsune')st+=` · 🦊 Đuôi: ${e.foxTails||0}/${clsVal(S,id,'maxt')}`;
  if(id==='irismessenger'&&m.irisOn>0)st+=` · 🌈 Lăng Kính: ${m.irisEcho||50}% (${m.irisOn}L)`;
  if(e.maxHpBonus>0)st+=` · ☀️ +${e.maxHpBonus} Max HP (${Math.max(1,(e.maxHpBonusT||2)-1)}L)`;
@@ -3057,6 +3060,7 @@ function clsBadge0(i){const curMem=G.sd&&G.sd[i]&&G.sd[i][G.fi[i]];if(curMem&&cu
  else if(id==='maestro')x+=` · 🎻 ${m.tempo||0}/${clsVal(G.s,id,'cap')}`;
  else if(id==='geomancer')x+=` · 🪨 ${e.geo||0}/${clsVal(G.s,id,'cap')} (${cc}/2)`;
  else if(id==='reaper')x+=` · 💀 ${m.rpm||0}/${clsVal(G.s,id,'cap')}`;
+ else if(id==='lycanthrope')x+=e.lyW>0?` · 🐺 Sói ${e.lyW}L`:` · ${cc}/${clsVal(G.s,id,'need')}`;
  else if(c.k==='x'){}else if(id==='berserker'){const bn=e.bzd||0;x+=` · ${c.pn} +${bn*clsVal(G.s,id,'per')} (${bn}/${clsVal(G.s,id,'cap')})`}else if(c.k==='r')x+=` · ${c.pn} +${Math.min(clsVal(G.s,id,'cap'),clsVal(G.s,id,'per')*cc)}`;
  else{const n=clsVal(G.s,id,'need'),sel=!!(G.tsel&&!G.end&&G.tsel.t===i);let pc=cc;
   /* Chờ chọn đối thủ sau câu đúng: hiện trước chuỗi của câu này. Nếu nộ đã đầy thì chiêu nộ thay nội tại nên bộ đếm đứng yên */
@@ -3074,7 +3078,7 @@ function clsBadge0(i){const curMem=G.sd&&G.sd[i]&&G.sd[i][G.fi[i]];if(curMem&&cu
   if(id==='kitsune')x+=` · 🦊${e.foxTails||0}`;
   if(id==='irismessenger'&&m.irisOn>0)x+=` · 🌈${m.irisOn}L`;
   if(pc>=n&&!ultNow&&(c.k==='c'||sel)){if(id==='executioner'&&e.exq>0)return esc(x)+`<span class="rdy"><i>⚡</i>SẴN SÀNG · ⏳x${clsVal(G.s,'executioner','mult')}</span>`;return esc(x)+'<span class="rdy"><i>⚡</i>SẴN SÀNG</span>'}}
- if(id==='lycanthrope'&&e.lycanWolf)x+=` · 🐺Sói`;
+
  return esc(x)}
 
 function modeSeg2(l){const m=(l.gs&&l.gs.mode)||'1v1';return `<div class="seg amd">${[['1v1','1 vs 1'],['7v7','7 vs 7']].map(x=>`<button class="${m===x[0]?'on':''}" data-act="amode" data-id="${l.id}" data-m="${x[0]}">${x[1]}</button>`).join('')}</div>`}
@@ -3096,6 +3100,8 @@ function clsBrowse(){cpF.v='all';cpF.m7=1;const old=document.getElementById('cpk
 const FXD=[
  {k:'mg_fd',get ic(){return (window.ICO&&window.ICO.mgField)||'🧲'},n:'Từ Trường Áp Đảo',c:'#38bdf8',st:{mgx:1},nd:1,d:'Một nam châm móc ngựa đỏ–xanh gắn trên bức tường thép phía sau đội, hai đầu cực quay về phía nhân vật. Khi Từ Trường bật, nam châm phát nhẹ: những đường sức xanh dịu chảy giữa hai cực và vòng sóng từ mỏng lan chậm ra. Mỗi lần hút được sát thương, nam châm phát mạnh: đường sức sáng trắng dày lên, hai cực lóe sáng và tia lửa bị hút vào cực. Huy hiệu trên nam châm hiện số lực hút đã tích, nhảy lên mỗi lần hút và xả về 0 khi tung đòn đánh kế. Biểu tượng là nam châm móc ngựa có đường sức.',r:''},
  {k:'mg_mx',get ic(){return (window.ICO&&window.ICO.mgMax)||'🧲'},n:'Từ Trường Cực Đại',c:'#fde047',st:{mgux:1},nd:1,d:'Khi chiêu nộ bật Từ Trường Cực Đại, nam châm trên tường to hơn, đường sức dày hơn, có tia điện vàng nhảy giữa hai cực và huy hiệu viền vàng; lúc hút mạnh cả hai cực lóe sáng và tia lửa bị hút vào dồn dập. Số lực hút đã tích vẫn hiện trên huy hiệu và được xả ra khi tung chiêu. Biểu tượng là nam châm móc ngựa viền vàng kèm tia chớp.',r:''},
+ {k:'dk_mn',get ic(){return (window.ICO&&window.ICO.dkMoon)||'🌑'},n:'Vầng Trăng Tím',c:'#a855f7',st:{dkmx:1},nd:1,d:'Một vầng trăng tím nhỏ đứng yên phía sau nhân vật. HP càng mất nhiều, trăng càng tím rực, vầng sáng quanh trăng càng mạnh và tỏa rộng, có vành sáng xoay chậm; lúc nội tại cộng thêm sát thương từ HP đã mất, trăng lóe lên một nhịp. Biểu tượng là vầng trăng tím có giọt tím nhỏ xuống.',r:''},
+{k:'dk_mx',get ic(){return (window.ICO&&window.ICO.dkMoonUp)||'🌑'},n:'Huyết Nguyệt Cực Thịnh',c:'#d8b4fe',st:{dkux:1},nd:1,d:'Khi tung chiêu nộ, vầng trăng tím to hơn, vầng sáng trắng tím chói hơn, lóe mạnh lúc nhát chém cộng sát thương từ HP đã mất; độ sáng vẫn tăng dần theo lượng HP đã mất. Biểu tượng là trăng tím viền sáng bị nhát kiếm chém ngang.',r:''},
  {k:'mb_mr',get ic(){return (window.ICO&&window.ICO.mbMirror)||'🪞'},n:'Gương Tích Phản',c:'#38bdf8',st:{mbmx:1},nd:1,d:'Một chiếc gương bầu dục viền bạc lơ lửng cạnh nhân vật, tinh thể xanh trên đỉnh, mặt kính có vệt sáng chéo và bồng bềnh theo nhịp. Số HP nhân vật đã nhận hiện ngay trên mặt gương, mỗi lần bị đánh số nhảy lên một nhịp. Khi nội tại kích hoạt, mặt gương lóe sáng trắng, trả lại toàn bộ HP tích trữ rồi số về 0 và đếm lại. Biểu tượng là chiếc gương bầu dục có tinh thể.',r:''},
  {k:'mb_up',get ic(){return (window.ICO&&window.ICO.mbUp)||'🪞'},n:'Gương Phản Chiếu Tuyệt Đối',c:'#7dd3fc',st:{mbux:1},nd:1,d:'Khi chiêu nộ kích hoạt, gương biến thành gương pha lê lục giác lớn hơn: đôi cánh kính hai bên, vương miện vàng trên đỉnh, vòng mũi tên phản chiếu xoay quanh và mặt kính ánh cầu vồng. Số HP tích trữ vẫn hiện trên mặt gương, được trả lại khi tung chiêu rồi đếm lại; khi đòn phản đã dùng xong gương trở về dạng thường. Biểu tượng là gương lục giác có vương miện vàng và mũi tên phản.',r:''},
  {k:'cs_ck',get ic(){return (window.ICO&&window.ICO.csClock)||'⏱️'},n:'Đồng Hồ Quang Tốc',c:'#22d3ee',st:{csx:1},nd:1,d:'Một chiếc đồng hồ cổ tay xanh điện nổi lên ngay trên đầu nhân vật: vỏ thép có núm vặn, hai ngạnh dây đeo, vòng cung cyan sáng chạy quanh mặt và cạn dần theo thời gian, kim chỉ đúng đầu cung. Vạch vàng ở vị trí sáu giờ đánh dấu nửa thời gian: nửa đầu cung sáng cyan kèm tia chớp tóe quanh vỏ, nửa sau chuyển cam, còn 5 giây cuối đỏ và nhấp nháy. Biểu tượng là chiếc đồng hồ cổ tay có tia chớp.',r:''},
@@ -3283,7 +3289,8 @@ const FXM={
  fogweaver:[['fg_wk','foe','pu','Màn Sương Mù Mịt / Sương Mù Vĩnh Cửu: làn sương xám bạc cuộn phủ lên đội địch, kèm biểu tượng sương mù; chiêu nộ còn làm đội địch giảm sát thương gây ra.']],
  spellbreaker:[['sb_se','foe','u','Phán Quyết Đoạn Pháp: Phong Ấn Xích Đồng khóa mục tiêu bằng xích đồng, hai song đoản kiếm chéo và ổ khóa đoạn pháp; khoá nộ đối thủ.']],
  sinbearer:[['sn_ch','self','pu','Gánh Nợ (nội tại) và Vạn Tội Quy Nhất (chiêu nộ): chuỗi hạt vàng bao quanh cả thân Người Gánh Tội, mỗi lần gánh Nợ Tội thêm hạt đổi sang tím; chạm trần thì cả chuỗi thành tím đen, trả nợ dần thì ngả lại màu vàng.']],
- courier:[['cr_sh','self','p','Thư Chuyển Phước: Người Đưa Thư nhận khiên, các lá thư bay vòng quanh trong kết giới.'],['cr_tm','team','u','Bức Thư Định Mệnh: tạo khiên cho cả đội, mỗi người được kết giới thư bao quanh.']],
+ courier:[['cr_sh','self','p','Thư Tín Chuyển Giao: Người Đưa Thư nhận khiên, các lá thư bay vòng quanh trong kết giới.'],['cr_tm','team','u','Bưu Kiện Định Mệnh: tạo khiên cho cả đội, mỗi người được kết giới thư bao quanh.']],
+ dknight:[['dk_mn','self','p','Vầng trăng tím nhỏ đứng yên phía sau nhân vật, sáng mạnh dần theo lượng HP đã mất; lóe lên khi nội tại cộng sát thương.'],['dk_mx','self','u','Chiêu nộ: trăng tím to hơn, vầng sáng chói hơn, lóe mạnh khi chém cộng sát thương từ HP đã mất.']],
  mirrorblade:[['mb_mr','self','p','Gương luôn đi cùng nhân vật, hiện số HP đã nhận; khi nội tại kích hoạt thì trả lại toàn bộ HP tích trữ và đếm lại từ 0.'],['mb_up','self','u','Chiêu nộ biến gương thành gương pha lê phản đòn: vẫn đếm HP tích trữ, trả lại khi tung chiêu và bật Gương Phản Đòn ở đòn kế tiếp.']],
  gambit:[['gb_sh','team','pu','Lá bài ♦️ Rô tạo Khiên Lá Bài Rô cho cả đội: một viên rô đỏ khổng lồ viền vàng dựng trước mỗi người, bốn quân rô nhỏ xoay quanh.']],
  lunarpriest:[['lp_sh','team','pu','Phần hồi dư chuyển thành Khiên Trăng Bạc (chiêu nộ: cho cả đội): đĩa trăng sáng dựng trước nhân vật, viền trăng lưỡi liềm và sao nhấp nháy.']],
@@ -3818,48 +3825,75 @@ function engMechFire(t){
  try{if(window.PRP)PRP.fire(t,'m')}catch(_){}
  if(tot>0)G.log.unshift(`⚙️ Cỗ Máy Chiến Tranh của ${tmN(t)} bắn phá gây tổng ${tot} sát thương!`)
 }
-const COUR_IMM=new Set(['inv','illu','lb','ut']);
-const COUR_TN=['ar','spT','dgt','sgt','ncbt','thT','hbT','cpT','tdrT','lkn','pht','cbn','cmT','gsT'];
-function courAmp(st,k,pct){
- if(!st||COUR_IMM.has(k)||!(st[k]>0))return;
- const f=1+pct/100;
- if(k==='xm'){st.xm=Math.min(6,+(st.xm*f).toFixed(2))}
- else if(k==='ts'||k==='ab'||k==='gs'){st[k]=Math.min(Math.round(G.s.hp*.6),Math.round(st[k]*f))}
- else if(k==='ib'||k==='runeF'||k==='ncb'||k==='sgp'){st[k]=Math.min(80,Math.round(st[k]*f))}
- else if(k==='arp'||k==='sp'){st[k]=Math.min(75,Math.round(st[k]*f))}
- if(COUR_TN.includes(k))st[k]+=1;
- if(k==='ar')st.arp=Math.min(75,Math.round((st.arp||50)*f));
- if(k==='sp')st.spT=(st.spT||1)+1;
- if(k==='sgh')st.sgp=Math.min(80,Math.round((st.sgp||0)*f));
- if(k==='ncb')st.ncbt=(st.ncbt||1)+1;
+const COUR_OK=['sh','ab','ts','gs','sp','ar','dg','dgp','rf','ls','lt','crown','xm','pierce','ib','ex'];
+const COUR_PREF=['xm','ib','ex','crown','pierce','ls','lt','ts','ab','sh','gs','ar','sp','rf','dg','dgp'];
+const COUR_SH=['ts','ab','sh','gs'];
+const COUR_NM={sh:'Khiên',ab:'Lá chắn hấp thụ',ts:'Khiên tạm thời',gs:'Giáp khiên',sp:'Chặn sát thương',ar:'Giáp giảm sát thương',dg:'Né đòn kế tiếp',dgp:'Cơ hội né tránh',rf:'Phản đòn',ls:'Hút sinh lực',lt:'Lôi điện',crown:'Vương miện thống lĩnh',xm:'Cường hóa đòn đánh',pierce:'Truy sát (xuyên giáp)',ib:'Khích lệ sát thương',ex:'Cộng sát thương'};
+const courHas=(st,k)=>!!st&&(k==='xm'?st.xm>1:st[k]>0);
+function courSnap(st,k){const o={};o[k]=st[k];(BUFC[k]||[]).forEach(c=>{if(st[c]!=null)o[c]=st[c]});return {k,o}}
+/* pc = % khuếch đại chỉ số buff, sp = % khuếch đại khiên / số lượt */
+function courAmpO(o,k,pc,sp){
+ const f=1+pc/100,g=1+sp/100,up=(x,q)=>Math.max(x,Math.ceil(x*q-1e-9)),cap=Math.round(G.s.hp*.6);
+ if(k==='xm')o.xm=Math.min(6,+(1+(o.xm-1)*f).toFixed(2));
+ else if(k==='ib')o.ib=Math.min(80,up(o.ib,f));
+ else if(k==='ex')o.ex=up(o.ex,f);
+ else if(k==='lt')o.lt=up(o.lt,f);
+ else if(k==='rf')o.rf=Math.min(100,up(o.rf>1?o.rf:50,f));
+ else if(k==='ls')o.ls=Math.min(100,up(o.ls>1?o.ls:50,f));
+ else if(k==='ar'){o.ar=up(o.ar,g);o.arp=Math.min(75,up(o.arp||50,f))}
+ else if(k==='sp'){o.sp=Math.min(75,up(o.sp,f));o.spT=up(o.spT||1,g)}
+ else if(k==='dgp'){o.dgp=Math.min(95,up(o.dgp,f));o.dgt=up(o.dgt||1,g)}
+ else if(k==='dg')o.dg=up(o.dg,g);
+ else if(k==='gs'){o.gs=Math.min(cap,up(o.gs,g));o.gsT=up(o.gsT||1,g)}
+ else if(COUR_SH.includes(k))o[k]=Math.min(cap,up(o[k],g));
 }
-function courXfer(t,a,cnt,ampPct,shPct,dmPct,shFb,isUlt,L){
- const capSh=Math.round(G.s.hp*.6);
- const addShield=(st,pct)=>{const cur=st.ts||0,add=Math.round(G.s.hp*pct/100);if(cur<capSh)st.ts=Math.min(capSh,cur+add)};
- if(!G.sd){
-  let ext=0;
-  BUFK.forEach(k=>{if(COUR_IMM.has(k)||!(a[k]>0))return;const bf=a[k];courAmp(a,k,ampPct);if(COUR_TN.includes(k))a[k]+=(isUlt?1:0);if(a[k]!==bf||COUR_TN.includes(k))ext++});
-  if(ext>0){addShield(a,shPct);L(`✉️ ${AN(t)} khuếch đại ${ext} buff (+${ampPct}%) & +${shPct}% khiên!`);return}
-  addShield(a,shFb);a.ib=Math.min(80,(a.ib||0)+dmPct);
-  L(`✉️ ${AN(t)} tiếp tế thư khẩn: +${shFb}% khiên & +${dmPct}% ST đòn kế!`);return;
- }
- const f=G.fi[t],pref=['hk','ch','xm','crown','pierce','ls','ib','bt','ex','runeF','ts','ab','ar','sp','gs'];
- const ordK=[...pref,...BUFK.filter(k=>!pref.includes(k))];
- let got=0;
- G.sd[t].forEach((m,k)=>{
-  if(k===f||m.dead||m.isSpyShadow||m.spyInf||(m.st&&m.st.ghs>0)||got>=cnt)return;
-  const st=m.st;if(!st)return;
-  const fk=ordK.find(z=>!COUR_IMM.has(z)&&st[z]>0);
-  if(fk){stealOneStat(a,st,fk);courAmp(a,fk,ampPct);if(isUlt&&COUR_TN.includes(fk))a[fk]+=1;got++}
- });
- if(got>0){
-  if(isUlt)aTeamShield(t,Math.round(G.s.hp*shPct/100));else addShield(a,shPct);
-  L(`✉️ ${AN(t)} chuyển giao & khuếch đại ${got} buff từ đồng đội (+${ampPct}%)!`);return;
- }
- if(isUlt)aTeamShield(t,Math.round(G.s.hp*shPct/100));else addShield(a,shFb);
- a.ib=Math.min(80,(a.ib||0)+dmPct);
- L(`✉️ Không có buff dự bị, ${AN(t)} nhận +${dmPct}% ST & khiên tiếp tế!`);
-}
+/* Không cộng dồn cùng loại: lấy giá trị cao hơn / thời gian dài hơn */
+function courMerge(dst,o){Object.keys(o).forEach(c=>{dst[c]=Math.max(dst[c]||0,o[c])})}
+function courTxt(o,k){
+ if(k==='xm')return 'x'+o.xm;if(k==='ib')return '+'+o.ib+'% ST';if(k==='ex')return '+'+o.ex+' ST';if(k==='lt')return 'x'+o.lt;
+ if(k==='rf')return (o.rf>1?o.rf:50)+'%';if(k==='ls')return (o.ls>1?o.ls:50)+'%';
+ if(k==='ar')return 'giảm '+(o.arp||50)+'% · '+Math.max(1,o.ar-1)+' lượt';if(k==='sp')return 'chặn '+o.sp+'% · '+(o.spT||1)+' lượt';
+ if(k==='dgp')return o.dgp+'% · '+(o.dgt||1)+' lượt';if(k==='dg')return o.dg+' lần';if(k==='gs')return o.gs+' HP · '+(o.gsT||1)+' lượt';
+ if(k==='crown')return o.crown+' đòn';if(k==='pierce')return 'có';return String(o[k])+' HP'}
+function courCands(t,cnt){
+ const f=G.fi[t],all=[];
+ G.sd[t].forEach((m,k)=>{if(k===f||m.dead||m.isClone||m.isSpyShadow||m.spyInf||!(m.hp>0)||!m.st||m.st.ghs>0)return;
+  COUR_OK.forEach(key=>{if(courHas(m.st,key))all.push({src:k,key,nm:m.nm,sn:courSnap(m.st,key)})})});
+ const best={};all.forEach(x=>{const c=best[x.key];if(!c||x.sn.o[x.key]>c.sn.o[x.key])best[x.key]=x});
+ return Object.values(best).sort((a,b)=>COUR_PREF.indexOf(a.key)-COUR_PREF.indexOf(b.key)).slice(0,cnt)}
+function courRecips(t){
+ return G.sd[t].map((m,k)=>({m,k})).filter(x=>!x.m.dead&&!x.m.isClone&&!x.m.isSpyShadow&&!x.m.spyInf&&x.m.st&&!(x.m.st.ghs>0)&&(x.k===G.fi[t]?G.sc[t]>0:x.m.hp>0))
+  .map(x=>({k:x.k,nm:x.m.nm,front:x.k===G.fi[t],hp:x.k===G.fi[t]?G.sc[t]:x.m.hp,ok:!(x.m.st.fz>0)&&!(x.m.st.stun>0)}))}
+/* 7v7: mở pop-up chọn người nhận (hiện sau khi đòn đánh hoàn tất, trước khi Người Đưa Thư lui về dự bị) */
+function courOpen(t,cnt,amp,shp,isUlt,L){
+ const items=courCands(t,cnt),rc=courRecips(t),okR=rc.filter(r=>r.ok).sort((a,b)=>a.hp-b.hp),def=okR.length?okR[0].k:null;
+ G.tacP={t,mode:'cour',ult:!!isUlt,items,rc,amp,shp,sel:isUlt?items.map(()=>def):[def]};
+ L(items.length?`✉️ ${AN(t)} sao chép ${items.length} buff từ đồng đội dự bị: chọn người nhận!`:`✉️ ${AN(t)} không có buff hợp lệ để sao chép`)}
+function courHTML(){
+ const P=G.tacP,t=P.t,ttl=P.ult?'Bưu Kiện Định Mệnh':'Thư Tín Chuyển Giao';
+ const head=`<i class="dc dc1">✉️</i><i class="dc dc2">📮</i><i class="dc dc3">📬</i><h3>✉️ ${ttl} ✉️</h3>`;
+ if(!P.items.length)return `<div class="tacp"><div class="tacb t-courier">${head}<p>Không có hiệu ứng nào để gửi đi.</p><div class="tacg"><button class="b p" data-gg="tacok">OK</button></div></div></div>`;
+ const chips=(i,cur)=>P.rc.map(r=>`<button class="b ${r.k===cur?'p on':'g'}" data-gg="tac" data-v="${i}_${r.k}" ${r.ok?'':'disabled title="Không thể nhận buff (bị khống chế)"'}>${esc(r.nm)}${r.front?' ★':''}</button>`).join('');
+ const rows=P.items.map((it,i)=>{const o=Object.assign({},it.sn.o);courAmpO(o,it.key,P.amp,P.shp);
+  return `<div class="crw"><b>${COUR_NM[it.key]||it.key}: ${courTxt(it.sn.o,it.key)} → ${courTxt(o,it.key)} <small>(từ ${esc(it.nm)})</small></b>${P.ult?`<div class="tacg">${chips(i,P.sel[i])}</div>`:''}</div>`}).join('');
+ return `<div class="tacp"><div class="tacb t-courier">${head}<p>${esc(AN(t))} ${P.ult?'chọn người nhận cho từng buff:':'chọn <b>1 đồng đội</b> nhận toàn bộ buff:'}</p>${rows}${P.ult?'':`<div class="tacg">${chips(0,P.sel[0])}</div>`}<div class="tacg"><button class="b p" data-gg="tacok" ${P.sel.some(x=>x!=null)?'':'disabled'}>✔ Gửi</button></div></div></div>`}
+function courDo(v,P){
+ if(v!=='__ok'){const m=/^(\d+)_(\d+)$/.exec(v);if(!m)return;const i=+m[1],r=+m[2],R=P.rc.find(x=>x.k===r);if(!R||!R.ok)return;if(P.ult)P.sel[i]=r;else P.sel[0]=r;gDraw();return}
+ G.tacP=null;const t=P.t;G.ev={f:[],atk:-1,hit:-1,fx:-1,fxt:t};let n=0;
+ P.items.forEach((it,i)=>{const r=P.ult?P.sel[i]:P.sel[0];if(r==null)return;const m=G.sd[t][r],alive=m&&!m.dead&&(r===G.fi[t]?G.sc[t]>0:m.hp>0);
+  if(!alive||!m.st||m.st.ghs>0||m.st.fz>0||m.st.stun>0)return;
+  const o=Object.assign({},it.sn.o);courAmpO(o,it.key,P.amp,P.shp);courMerge(m.st,o);
+  if(COUR_SH.includes(it.key)&&window.FXS)try{FXS.set(m.st,'ts','courier')}catch(e){}
+  G.log.unshift(`✉️ ${AN(t)} gửi ${COUR_NM[it.key]} (từ ${it.nm}) cho ${m.nm}: ${courTxt(o,it.key)}!`);n++});
+ G.log=G.log.slice(0,8);gDraw();if(P.fin)P.fin()}
+/* 1v1: gia hạn & khuếch đại buff của bản thân; nếu trống thì nhận khiên + ST đòn kế */
+function courSolo(t,a,pc,sp,dm,shFb,L){
+ let ext=0;
+ COUR_OK.forEach(k=>{if(!courHas(a,k))return;const o=courSnap(a,k).o;courAmpO(o,k,pc,sp);['ar','spT','dgt','gsT'].forEach(c=>{if(o[c]!=null)o[c]+=1});courMerge(a,o);ext++});
+ if(ext>0){L(`✉️ ${AN(t)} gia hạn & khuếch đại ${ext} buff (+${pc}%)!`);return}
+ if(shFb>0){const cap=Math.round(G.s.hp*.6);a.ts=Math.min(cap,(a.ts||0)+Math.round(G.s.hp*shFb/100))}
+ a.ib=Math.min(80,(a.ib||0)+dm);
+ L(`✉️ Không có buff, ${AN(t)} nhận +${dm}% ST đòn kế${shFb>0?` & +${shFb}% khiên`:''}!`)}
 function sinStagger(t,d,k,e0){
  if(aHurt.noSin||!(d>0)||(e0&&(e0.inv>0||e0.ghs>0)))return d;
  const m=G.tm&&G.tm[t]&&G.tm[t].sin;if(!m||!(m.tn>0))return d;
@@ -3891,7 +3925,7 @@ CLS.push(
  {id:'diplomat',n:'Nhà Ngoại Giao',e:'Diplomat',w:'Cờ trắng & bút ký',pn:'Tối Hậu Thư',c:'#0284c7',ic:'🏳️',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đòn đánh gây {pc}% ST và áp Tối Hậu Thư ({tn} lượt) lên địch: nếu địch trả lời đúng để tấn công, đòn đó giảm {wk}% ST và địch tự chịu {dmg}% HP tối đa (còn tối thiểu 1 HP)',p:[['need','Số câu đúng liên tiếp',1,10,2],['pc','% sát thương đòn đánh',50,400,120],['tn','Số lượt hiệu lực',1,5,1],['wk','% giảm ST đòn địch',5,90,20],['dmg','% HP tối đa địch tự chịu khi tấn công',1,60,18]]},
  {id:'riftmage',n:'Kẻ Bẻ Cong Không Gian',e:'Rift Mage',w:'Trượng nứt không gian',pn:'Hoán Đổi Số Phận',c:'#6366f1',ic:'🌌',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Nếu chênh lệch %HP giữa địch cao nhất và đồng đội thấp nhất đạt từ {gap}% trở lên: rút nửa chênh lệch %HP (tối đa {cap}% HP tối đa, tối thiểu còn 1 HP) từ địch đó để hồi cho đồng đội thấp nhất',p:[['need','Số câu đúng liên tiếp',1,10,2],['gap','Chênh lệch %HP tối thiểu',5,80,15],['cap','% HP tối đa rút tối đa',5,50,15]]},
  {id:'engineer',n:'Kỹ Sư',e:'Engineer',w:'Cờ lê & tháp pháo',pn:'Tháp Pháo Tự Động',c:'#ea580c',ic:'⚙️',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Đặt 1 Tháp Pháo (tối đa {cap} tháp; đủ {cap} thì nâng cấp tháp yếu nhất). Đầu mỗi lượt phe mình, mỗi tháp bắn địch ngẫu nhiên gây {dmg}% HP tối đa (xuyên 50% giáp, tổng tối đa {maxp}%/lượt)',p:[['need','Số câu đúng liên tiếp',1,10,2],['cap','Số tháp pháo tối đa',1,5,3],['dmg','% HP tối đa mỗi tháp bắn',1,30,8],['maxp','% HP tối đa tổng ST/lượt',5,60,24]]},
- {id:'courier',n:'Người Đưa Thư',e:'Courier',w:'Gậy giao thư & túi phong bì',pn:'Thư Chuyển Phước',c:'#16a34a',ic:'✉️',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'7v7: chuyển tối đa {cnt} buff từ đồng đội dự bị cho người đứng sân, khuếch đại +{amp}%/+1 lượt & +{sh}% khiên; 1v1: gia hạn +1 lượt & +{amp}% buff hiện có; nếu trống thì nhận +{dm}% ST & +{sh2}% khiên',p:[['need','Số câu đúng liên tiếp',1,10,2],['cnt','Số buff chuyển tối đa (7v7)',1,5,2],['amp','% khuếch đại chỉ số buff',5,100,20],['sh','% HP tối đa khiên tặng kèm',1,50,10],['dm','% ST đòn kế khi không có buff',5,100,20],['sh2','% HP tối đa khiên khi không có buff',1,50,12]]},
+ {id:'courier',n:'Người Đưa Thư',e:'Courier',w:'Gậy giao thư & túi phong bì',pn:'Thư Tín Chuyển Giao',c:'#16a34a',ic:'✉️',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Sao chép tối đa {cnt} buff từ đồng đội dự bị và cho phép lựa chọn một đồng đội nhận toàn bộ buff, khuếch đại +{amp}%/+{shp}% khiên. 1v1 gia hạn & +{amp}%; nếu trống nhận +{dm}% & +{sh2}% khiên',p:[['need','Số câu đúng liên tiếp',1,10,2],['cnt','Số buff sao chép tối đa (7v7)',1,5,2],['amp','% khuếch đại chỉ số buff',5,100,20],['shp','% khuếch đại khiên / số lượt',5,100,10],['dm','% ST đòn kế khi không có buff (1v1)',5,100,20],['sh2','% HP tối đa khiên khi không có buff (1v1)',1,50,12]]},
  {id:'sinbearer',n:'Người Gánh Tội',e:'Sinbearer',w:'Tràng hạt & tạ xích',pn:'Gánh Nợ',c:'#57534e',ic:'📿',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Trong {tn} lượt, gánh thay {pct}% ST mà đồng đội (7v7) hoặc bản thân (1v1) phải chịu thành Nợ Tội (tối đa {cap}% HP tối đa), trả dần 1/3 mỗi đầu lượt phe mình (còn min 1 HP)',p:[['need','Số câu đúng liên tiếp',1,10,2],['tn','Số lượt gánh nợ',1,5,2],['pct','% ST chuyển thành Nợ Tội',10,80,40],['cap','% HP tối đa trần Nợ Tội',20,150,80]]},
  {id:'chronostriker',n:'Tia Chớp Xung Kích',e:'Chrono Striker',w:'Song dao cong & đồng hồ cổ tay',pn:'Gia Tốc Quang Tốc',c:'#2563eb',ic:'⚡',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Trả lời trong nửa đầu thời gian (hoặc đồng hồ riêng 45s nếu tắt đồng hồ phòng): đòn đánh gây {fast}% ST + {add} ST chuẩn; chậm hơn vẫn gây {slow}% ST',p:[['need','Số câu đúng liên tiếp',1,10,2],['fast','% ST khi trả lời ở nửa đầu thời gian',100,400,200],['add','ST chuẩn cộng thêm khi nhanh',0,50,8],['slow','% ST khi trả lời ở nửa sau',100,300,130]]},
  {id:'mirrorblade',n:'Kiếm Sĩ Gương',e:'Mirror Blade',w:'Kiếm pha lê cánh gương',pn:'Kính Phản Chiếu',c:'#38bdf8',ic:'🪞',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Ghi nhớ tổng HP bản thân đã mất từ sau đòn trước: gây {pc}% ST + cộng thêm {pct}% lượng HP đã tích (tối đa +{cap} ST) rồi đặt lại bộ nhớ',p:[['need','Số câu đúng liên tiếp',1,10,2],['pc','% sát thương đòn đánh',50,300,115],['pct','% HP đã mất phản lại',10,150,70],['cap','ST phản cộng thêm tối đa',5,100,35]]},
@@ -3904,7 +3938,7 @@ CLS.push(
  {id:'sunbringer',n:'Sứ Giả Mặt Trời',e:'Sunbringer',w:'Trượng nhật luân rực sáng',pn:'Ban Ngày Bất Tận',c:'#f59e0b',ic:'☀️',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Cả đội tăng tạm thời +{pct}% HP tối đa trong {tn} lượt và hồi ngay {hlp}% HP tối đa',p:[['need','Số câu đúng liên tiếp',1,10,2],['pct','% Max HP tăng tạm thời',10,60,25],['hlp','% Max HP hồi kèm',5,40,15],['tn','Số lượt hiệu lực',1,5,3]]},
  {id:'banshee',n:'Nữ Quỷ Than Khóc',e:'Banshee',w:'Chuỗi linh hồn & vòng nguyệt quế héo',pn:'Tiếng Khóc Ai Oán',c:'#7c3aed',ic:'👻',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Gây {pc}% ST và nguyền Câm Lặng {tn} lượt: mỗi khi mục tiêu nhận hồi máu hoặc quà buff sẽ tự chịu dội ngược {pct}% HP tối đa',p:[['need','Số câu đúng liên tiếp',1,10,2],['pc','% sát thương đòn đánh',50,400,120],['pct','% Max HP dội ngược khi hồi/buff',2,25,8],['tn','Số lượt Câm Lặng',1,5,2]]},
  {id:'gambit',n:'Thần Bài',e:'Gambit Master',w:'Bộ bài ma thuật & xúc xắc vàng',pn:'Bốc Bài Định Mệnh',c:'#eab308',ic:'♠️',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Mở 4 lá bài úp (xáo ngẫu nhiên), trong 5 giây chọn 2 lá rồi lật (hết giờ tự lật): ♠️ Bích (+{dm}% ST), ♥️ Cơ (hồi {hl}% HP), ♦️ Rô (khiên {sh}% HP), ♣️ Chuồn (+1 tầng nộ)',p:[['need','Số câu đúng liên tiếp',1,10,2],['dm','% ST lá Bích (♠️)',10,150,45],['hl','% HP hồi lá Cơ (♥️)',5,50,18],['sh','% HP khiên lá Rô (♦️)',5,50,20]]},
- {id:'lycanthrope',n:'Người Sói Huyết Nguyệt',e:'Bloodmoon Lycan',w:'Móng vuốt bạc & kiếm săn',pn:'Biến Hình Sói Đỏ',c:'#991b1b',ic:'🐺',k:'r',cd:'Mỗi câu trả lời đúng liên tiếp',ef:'Mỗi câu đúng +{per}% ST (tối đa +{cap}%). Khi HP xuống dưới 50% lần đầu trong trận sẽ hóa Sói Huyết Nguyệt (đổi tạo hình): vĩnh viễn +{bon}% ST & hút {ls}% máu mỗi đòn',p:[['per','% ST tăng mỗi câu đúng (dạng Người)',2,30,8],['cap','% ST cộng tối đa',10,120,40],['ls','% hút máu dạng Sói',10,80,35],['bon','% ST cộng thêm dạng Sói',15,150,55]]},
+ {id:'lycanthrope',n:'Người Sói Huyết Nguyệt',e:'Bloodmoon Lycan',w:'Móng vuốt bạc & kiếm săn',pn:'Sói Đỏ',c:'#991b1b',ic:'🐺',k:'x',cd:'Dạng Người: đúng {need} câu liên tiếp · Dạng Sói: mỗi câu đúng',ef:'Dạng Người: đúng {need} câu liên tiếp thì đòn gây +{hm}% ST, hút {hls}% máu, nộ +1. Dạng Sói: mỗi câu đúng gây {wm}% ST, hút {wls}% máu; {wt} câu đúng nộ +1',p:[['need','Số câu đúng liên tiếp (dạng Người)',1,10,2],['hm','% ST cộng thêm khi nội tại dạng Người kích hoạt',5,200,40],['hls','% hút máu dạng Người',5,100,35],['wm','% ST mỗi câu đúng dạng Sói',50,400,150],['wls','% hút máu dạng Sói',5,100,55],['wt','Số lượt hành động (câu đúng) giữ dạng Sói',1,6,2]]},
  {id:'lunarpriest',n:'Nguyệt Thần Sứ',e:'Lunar Priest',w:'Quyền trượng trăng lưỡi liềm',pn:'Ánh Trăng Phản Chiếu',c:'#6366f1',ic:'🌙',k:'x',cd:'Mỗi đòn đánh gây sát thương lên đối thủ',ef:'Chuyển hóa {conv}% ST gây ra thành hồi máu cho bản thân (tối đa {cap}% Max HP/lượt); phần hồi dư chuyển hóa {sh}% thành khiên',p:[['conv','% ST chuyển thành hồi máu',10,100,45],['cap','% Max HP hồi tối đa mỗi lượt',5,50,15],['sh','% lượng hồi dư chuyển thành khiên',0,100,50]]},
  {id:'kitsune',n:'Cửu Vĩ Hồ',e:'Kitsune',w:'Quạt giấy thêu hồ & ngọc cầu',pn:'Đuôi Hồ Bảo Mạng',c:'#f97316',ic:'🦊',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Khởi trận có {start} đuôi (tối đa {maxt}). Đúng {need} câu: +1 đuôi và bắn hồ hỏa. Còn đuôi: chặn sát thương nhận tối đa {cap}% Max HP/hit và tự gãy 1 đuôi xóa Đóng Băng/Choáng/Phong Ấn',p:[['need','Số câu đúng liên tiếp',1,10,2],['start','Số đuôi khởi đầu',1,5,2],['maxt','Số đuôi tối đa',3,9,5],['cap','Trần % Max HP nhận mỗi hit',15,60,30]]},
  {id:'irismessenger',n:'Sứ Giả Cầu Vồng',e:'Iris Messenger',w:'Cầu vồng pha lê & dải lụa 7 sắc',pn:'Lăng Kính Lan Tỏa',c:'#ec4899',ic:'🌈',k:'i',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Bật Hào Quang Cầu Vồng {tn} lượt: hồi ngay cho đồng đội yếu nhất và làm mọi hồi máu/quà buff đơn mục tiêu lan {echo}% hiệu quả sang đồng đội yếu nhất (1v1: +khiên & hồi)',p:[['need','Số câu đúng liên tiếp',1,10,2],['echo','% hiệu quả lan sang đồng đội',20,100,50],['tn','Số lượt Cầu Vồng',1,5,2]]},
@@ -3940,7 +3974,7 @@ Object.assign(CI,{
  zealot:(t,a,b,v,L)=>{const hp=G.sc[t];if(!(a.zlCd>0)&&hp>G.s.hp*v('hp')/100){const sac=Math.min(hp-1,Math.max(1,Math.round(hp*v('cost')/100)));if(sac>0){aHurt.noSin=1;try{aHurt(t,sac)}finally{aHurt.noSin=0}}rgGain(t);a.zlCd=v('cd')+1;a.zlBuff=Math.max(a.zlBuff||0,v('dm'));L(`❤️‍🔥 ${AN(t)} hiến tế ${sac} HP: +1 tầng nộ & +${v('dm')}% ST đòn kế!`)}else{a.zlBuff=Math.max(a.zlBuff||0,v('dm2'));L(`❤️‍🔥 ${AN(t)} khích lệ cuồng nộ (không mất máu): +${v('dm2')}% ST đòn kế!`)}},
  riftmage:(t,a,b,v,L)=>{riftShift(t,v('gap'),v('cap'),L)},
  engineer:(t,a,b,v,L)=>{const m=tmg(t),cap=v('cap'),dmg=v('dmg');m.turrets=m.turrets||[];m.turCap=Math.max(m.turCap||0,v('maxp'));if(m.turrets.length<cap){m.turrets.push({tn:9999,dmg});L(`⚙️ ${AN(t)} đặt Tháp Pháo #${m.turrets.length} (${dmg}% HP/lượt)!`)}else{let wi=0;m.turrets.forEach((tr,idx)=>{if((tr.dmg||0)<(m.turrets[wi].dmg||0))wi=idx});m.turrets[wi].dmg=Math.max(m.turrets[wi].dmg||0,dmg);L(`⚙️ Đã đủ ${cap} Tháp Pháo: nâng cấp tháp yếu nhất!`)}},
- courier:(t,a,b,v,L)=>{courXfer(t,a,v('cnt'),v('amp'),v('sh'),v('dm'),v('sh2'),false,L)},
+ courier:(t,a,b,v,L)=>{if(G.sd)courOpen(t,v('cnt'),v('amp'),v('shp'),false,L);else courSolo(t,a,v('amp'),v('shp'),v('dm'),v('sh2'),L)},
  sinbearer:(t,a,b,v,L)=>{const m=tmg(t);m.sin={tn:Math.max((m.sin&&m.sin.tn)||0,v('tn')+1),pct:Math.max((m.sin&&m.sin.pct)||0,v('pct')),cap:v('cap'),k:G.sd?G.fi[t]:null};L(`📿 ${AN(t)} Gánh Nợ ${v('tn')} lượt: chuyển ${v('pct')}% ST thành Nợ Tội!`)}
 });
 /* ===== Phong cách chibi RPG (viền nâu đậm, đầu to, mắt to bóng, tóc nhiều lớp, trang phục viền vàng) cho 51 nhân vật ===== */
@@ -5012,7 +5046,7 @@ irismessenger:(t,a,b,v,L)=>{const m=tmg(t);m.irisOn=Math.max(m.irisOn||0,v('tn')
 /* Hiệu ứng trạng thái hiển thị trên thẻ nhân vật */
 A7C.push(['sp','🛡️','Lá Chắn',e=>`Chặn ${Math.round(e.sp)}% sát thương nhận`+(e.spT>0?`, còn ${e.spT} lượt`:''),0],['ts','🛡️','Khiên',e=>`Hấp thụ ${Math.round(e.ts)} sát thương của các đòn kế tiếp`,0],['dgp','🌊','Né Đòn',e=>`${e.dgp}% cơ hội né đòn đánh`+(e.dgt>1?`, còn ${e.dgt-1} lượt`:''),0]);AST.push(['dgp','🌊'],['sp','🛡️']);
 AST.push(['mk','💀']);
-A7C.push(['cp','🗿','Da Đá',e=>`Mỗi đòn nhận tối đa ${e.cp} sát thương`+(e.cpT>1?`, còn ${e.cpT-1} lượt`:''),0],['tdr','📢','Khiêu Khích',e=>`Giảm ${e.tdr}% sát thương nhận`+(e.tflp>0?`, phản ${e.tflp}% sát thương (tối đa ${e.tflc||15})`:e.tfl>0?`, dội lại ${e.tfl} sát thương mỗi đòn trúng`:''),0],['xmk','🎯','Dấu Hành Quyết',()=>'Kết Liễu kế tiếp của Đao phủ được tính như đối thủ đã dưới ngưỡng HP (x3 sát thương)',1],['dgc','🥷','Phân Thân Ẩn Nhẫn',e=>`Né ${e.dgc} đòn kế tiếp`+(e.njr>0?` (phản ${e.njr}% sát thương)`:''),0],['sgh','🎶','Hùng Ca',e=>`+${e.sgp}% sát thương cho ${e.sgh} đòn tới (còn ${Math.max(1,(e.sgt||2)-1)} lượt)`,0],['ncb','🕯️','Hồn Lực',e=>`+${e.ncb}% sát thương, còn ${Math.max(1,(e.ncbt||2)-1)} lượt`,0],['ghs','👻','Linh Hồn Triệu Hồi',e=>`Không nhận sát thương, hồi máu, thanh tẩy dưới mọi hình thức và khóa tích nội tại trong 1 lượt${e.ghsdm>0?`; +${e.ghsdm}% sát thương gây ra`:''}; tan biến sau 1 lượt đứng sân`,0],['rgl','🔒','Khóa Nộ',e=>`Không thể tăng nộ trong ${e.rgl} lượt`,1],['illu','🎭','Huyền Ảnh Bất Khả',e=>`Né hoàn toàn mọi đòn tấn công (kể cả xuyên giáp, trừ đòn không thể né), còn ${e.illu} lượt`,0],['dbn','🐲','Rồng Con Thiêu Đốt',e=>`Mất ${e.dbp}% HP hiện có mỗi lượt, còn ${e.dbn} lượt`,1],['wwk','⛓️','Kéo Ra · Giảm Sát Thương',e=>`Sát thương gây ra giảm ${e.wwk}%, còn ${e.wwkt||1} lượt`,1],['wdf','💔','Kéo Ra · Giảm Phòng Ngự',e=>`Phòng ngự giảm ${e.wdf}% (nhận thêm ${e.wdf}% sát thương), còn ${Math.max(1,(e.wdft||2)-1)} lượt`,1],['dmark','😈','Dấu Tà',e=>`Nhận thêm ${e.dmarkP||15}% sát thương từ mọi đòn đánh, còn ${e.dmark} lượt`,1],['mercBuff','🪙','Thưởng Hợp Đồng',e=>`Đòn kế tiếp +${e.mercBuff}% sát thương`,0],['zlBuff','❤️‍🔥','Cuồng Huyết',e=>`Đòn kế tiếp +${e.zlBuff}% sát thương`,0],['sinDebt','📿','Nợ Tội',e=>`Đang gánh ${e.sinDebt} HP Nợ Tội, trả dần 1/3 mỗi đầu lượt phe mình (còn min 1 HP)`,1],['zlCd','⏳','Hồi Chiêu Hiến Máu',e=>`Chờ ${e.zlCd} lượt để hiến máu nhận nộ tiếp`,0],['mbStore','🪞','Kính Tích Trữ',e=>`Đang tích ${e.mbStore} HP mất để phản công`,0],['silenced','👻','Câm Lặng',e=>`Hồi máu hoặc dùng quà buff tự chịu ${e.silPct||8}% Max HP, còn ${e.silenced} lượt`,1],['maxHpBonus','☀️','Tăng Max HP',e=>`Max HP tạm thời +${e.maxHpBonus}, còn ${Math.max(1,(e.maxHpBonusT||2)-1)} lượt`,0],['lycanWolf','🐺','Sói Huyết Nguyệt',()=>'Đã biến hình Sói Huyết Nguyệt vĩnh viễn (+ST & hút máu)',0],['foxTails','🦊','Đuôi Hồ Ly',e=>`Còn ${e.foxTails} đuôi: miễn nhiễm ${e.foxTails} lần khống chế & giới hạn sát thương mỗi đòn`,0]);
+A7C.push(['cp','🗿','Da Đá',e=>`Mỗi đòn nhận tối đa ${e.cp} sát thương`+(e.cpT>1?`, còn ${e.cpT-1} lượt`:''),0],['tdr','📢','Khiêu Khích',e=>`Giảm ${e.tdr}% sát thương nhận`+(e.tflp>0?`, phản ${e.tflp}% sát thương (tối đa ${e.tflc||15})`:e.tfl>0?`, dội lại ${e.tfl} sát thương mỗi đòn trúng`:''),0],['xmk','🎯','Dấu Hành Quyết',()=>'Kết Liễu kế tiếp của Đao phủ được tính như đối thủ đã dưới ngưỡng HP (x3 sát thương)',1],['dgc','🥷','Phân Thân Ẩn Nhẫn',e=>`Né ${e.dgc} đòn kế tiếp`+(e.njr>0?` (phản ${e.njr}% sát thương)`:''),0],['sgh','🎶','Hùng Ca',e=>`+${e.sgp}% sát thương cho ${e.sgh} đòn tới (còn ${Math.max(1,(e.sgt||2)-1)} lượt)`,0],['ncb','🕯️','Hồn Lực',e=>`+${e.ncb}% sát thương, còn ${Math.max(1,(e.ncbt||2)-1)} lượt`,0],['ghs','👻','Linh Hồn Triệu Hồi',e=>`Không nhận sát thương, hồi máu, thanh tẩy dưới mọi hình thức và khóa tích nội tại trong 1 lượt${e.ghsdm>0?`; +${e.ghsdm}% sát thương gây ra`:''}; tan biến sau 1 lượt đứng sân`,0],['rgl','🔒','Khóa Nộ',e=>`Không thể tăng nộ trong ${e.rgl} lượt`,1],['illu','🎭','Huyền Ảnh Bất Khả',e=>`Né hoàn toàn mọi đòn tấn công (kể cả xuyên giáp, trừ đòn không thể né), còn ${e.illu} lượt`,0],['dbn','🐲','Rồng Con Thiêu Đốt',e=>`Mất ${e.dbp}% HP hiện có mỗi lượt, còn ${e.dbn} lượt`,1],['wwk','⛓️','Kéo Ra · Giảm Sát Thương',e=>`Sát thương gây ra giảm ${e.wwk}%, còn ${e.wwkt||1} lượt`,1],['wdf','💔','Kéo Ra · Giảm Phòng Ngự',e=>`Phòng ngự giảm ${e.wdf}% (nhận thêm ${e.wdf}% sát thương), còn ${Math.max(1,(e.wdft||2)-1)} lượt`,1],['dmark','😈','Dấu Tà',e=>`Nhận thêm ${e.dmarkP||15}% sát thương từ mọi đòn đánh, còn ${e.dmark} lượt`,1],['mercBuff','🪙','Thưởng Hợp Đồng',e=>`Đòn kế tiếp +${e.mercBuff}% sát thương`,0],['zlBuff','❤️‍🔥','Cuồng Huyết',e=>`Đòn kế tiếp +${e.zlBuff}% sát thương`,0],['sinDebt','📿','Nợ Tội',e=>`Đang gánh ${e.sinDebt} HP Nợ Tội, trả dần 1/3 mỗi đầu lượt phe mình (còn min 1 HP)`,1],['zlCd','⏳','Hồi Chiêu Hiến Máu',e=>`Chờ ${e.zlCd} lượt để hiến máu nhận nộ tiếp`,0],['mbStore','🪞','Kính Tích Trữ',e=>`Đang tích ${e.mbStore} HP mất để phản công`,0],['silenced','👻','Câm Lặng',e=>`Hồi máu hoặc dùng quà buff tự chịu ${e.silPct||8}% Max HP, còn ${e.silenced} lượt`,1],['maxHpBonus','☀️','Tăng Max HP',e=>`Max HP tạm thời +${e.maxHpBonus}, còn ${Math.max(1,(e.maxHpBonusT||2)-1)} lượt`,0],['lycanWolf','🐺','Sói Đỏ',e=>`Dạng Sói: còn ${e.lyW||0} lượt hành động, mỗi câu đúng gây ${clsVal(G.s,'lycanthrope','wm')}% ST & hút ${clsVal(G.s,'lycanthrope','wls')}% máu (trả lời sai không tính lượt)`,0],['foxTails','🦊','Đuôi Hồ Ly',e=>`Còn ${e.foxTails} đuôi: miễn nhiễm ${e.foxTails} lần khống chế & giới hạn sát thương mỗi đòn`,0]);
 AST.push(['cp','🗿'],['tdr','📢'],['xmk','🎯'],['dgc','🥷'],['sgh','🎶'],['ncb','🕯️'],['ghs','👻'],['rgl','🔒'],['illu','🎭'],['dbn','🐲'],['wwk','⛓️'],['wdf','💔'],['dmark','😈'],['mercBuff','🪙'],['zlBuff','❤️‍🔥'],['sinDebt','📿'],['silenced','👻'],['maxHpBonus','☀️'],['foxTails','🦊'],['lycanWolf','🐺']);
 /* Quà nhận ngay sau khi trả lời đúng ở lượt của chính mình: mốc "câu/lượt kế tiếp" phải bỏ qua lượt hiện tại */
 const gWait=()=>G&&G.ga&&G.gtk==null?1:0;
@@ -5101,8 +5135,8 @@ function aHurt(t,d,k){d=Math.max(0,Math.round(d));if(!d)return;if(k==null&&G.gtt
   d=sinStagger(t,d,k,e0);if(!d)return;
   if(e0&&e0.foxTails>0){const kCap=Math.max(1,Math.round(mMaxHp(t,k)*clsVal(G.s,'kitsune','cap')/100));if(d>kCap){d=kCap;G.log.unshift(`🦊 ${nm0} (${e0.foxTails} đuôi): giới hạn ST còn ${kCap} HP!`)}}
  }
- if(bench){const m=G.sd[t][k],e=m.st;m.hp-=d;e.lost=d;G.ev.f.push({t,m:k,s:'-'+d,k:''});if(m.hp<=0&&e.ph){const rv=e.ph>1?e.ph:10;m.hp=rv;e.ph=0;G.log.unshift(`🦅 Phượng Hoàng hồi sinh ${m.nm} với ${rv} HP!`);G.ev.f.push({t,m:k,s:'+'+rv,k:'h'})}if(m.hp<=0)e.sinDebt=0;if(m.hp>0&&cid0==='mirrorblade'&&!(e.seal>0)&&!aHurt.noSin)e.mbStore=Math.min(mMaxHp(t,k),(e.mbStore||0)+d);if(m.hp>0&&m.hp<mMaxHp(t,k)*.5&&cid0==='lycanthrope'&&!e.lycanWolf&&!e.lycanUsed){e.lycanWolf=1;e.lycanUsed=1;G.log.unshift(`🐺 ${m.nm} xuống dưới 50% HP, hóa Sói Huyết Nguyệt vĩnh viễn!`)}aAng(t,e,m.hp);return}
- const e=G.st[t];G.sc[t]-=d;e.lost=d;G.ev.f.push({t,s:'-'+d,k:''});if(G.sc[t]<=0&&e.ph){const rv=e.ph>1?e.ph:10;G.sc[t]=rv;e.ph=0;G.log.unshift(`🦅 Phượng Hoàng hồi sinh ${AN(t)} với ${rv} HP!`);G.ev.f.push({t,s:'+'+rv,k:'h'})}if(G.sc[t]<=0)e.sinDebt=0;if(G.sc[t]>0&&cid0==='mirrorblade'&&!(e.seal>0)&&!aHurt.noSin)e.mbStore=Math.min(mMaxHp(t,null),(e.mbStore||0)+d);if(G.sc[t]>0&&G.sc[t]<mMaxHp(t,null)*.5&&cid0==='lycanthrope'&&!e.lycanWolf&&!e.lycanUsed){e.lycanWolf=1;e.lycanUsed=1;G.log.unshift(`🐺 ${AN(t)} xuống dưới 50% HP, hóa Sói Huyết Nguyệt vĩnh viễn!`)}aAng(t,e,G.sc[t])}
+ if(bench){const m=G.sd[t][k],e=m.st;m.hp-=d;e.lost=d;G.ev.f.push({t,m:k,s:'-'+d,k:''});if(m.hp<=0&&e.ph){const rv=e.ph>1?e.ph:10;m.hp=rv;e.ph=0;G.log.unshift(`🦅 Phượng Hoàng hồi sinh ${m.nm} với ${rv} HP!`);G.ev.f.push({t,m:k,s:'+'+rv,k:'h'})}if(m.hp<=0)e.sinDebt=0;if(m.hp>0&&cid0==='mirrorblade'&&!(e.seal>0)&&!aHurt.noSin)e.mbStore=Math.min(mMaxHp(t,k),(e.mbStore||0)+d);aAng(t,e,m.hp);return}
+ const e=G.st[t];G.sc[t]-=d;e.lost=d;G.ev.f.push({t,s:'-'+d,k:''});if(G.sc[t]<=0&&e.ph){const rv=e.ph>1?e.ph:10;G.sc[t]=rv;e.ph=0;G.log.unshift(`🦅 Phượng Hoàng hồi sinh ${AN(t)} với ${rv} HP!`);G.ev.f.push({t,s:'+'+rv,k:'h'})}if(G.sc[t]<=0)e.sinDebt=0;if(G.sc[t]>0&&cid0==='mirrorblade'&&!(e.seal>0)&&!aHurt.noSin)e.mbStore=Math.min(mMaxHp(t,null),(e.mbStore||0)+d);aAng(t,e,G.sc[t])}
 const ahF=e=>e&&e.ahl>0?Math.max(0,1-(+e.ahv||0)/100):1;
 const ahApply=(e,pc,n)=>{if(!e||!(+pc>0)||!(+n>0))return;e.ahs='';e.ahl=Math.max(e.ahl||0,+n);e.ahv=Math.max(e.ahv||0,+pc)};
 function aHeal(t,h){const eCur=G.sd&&G.gtt===t&&G.gtk!=null&&G.sd[t][G.gtk]?G.sd[t][G.gtk].st:G.st[t];if(eCur&&eCur.ghs>0)return;if(G.sd&&!aHeal.r&&!aHeal.raw&&h>0&&G.tm&&G.tm[t]&&G.tm[t].lnkh>0){aHeal.r=1;const sv=[G.gtt,G.gtk];try{const ks=G.sd[t].map((m,k)=>(m.dead||m.isSpyShadow||m.spyInf||(m.st&&m.st.ghs>0))?-1:k).filter(k=>k>=0);const pf=Math.min(1,G.tm[t].lnkh),tk=(G.gtt===t&&G.gtk!=null)?G.gtk:G.fi[t];ks.forEach(k=>{const am=Math.round(h*pf/ks.length+(k===tk?h*(1-pf):0));if(am<=0)return;G.gtt=k===G.fi[t]?null:t;G.gtk=k===G.fi[t]?null:k;aHeal(t,am)})}finally{G.gtt=sv[0];G.gtk=sv[1];aHeal.r=0}return}
@@ -5634,6 +5668,7 @@ function aStart(){let tk=-1;for(let g=0;g<3;g++){G.ev={f:[],atk:-1,hit:-1,fx:-1,
  if(e.stun>0){e.stun--;if(e.stun<=0)e.stz=0;dipSkipTick();G.log.unshift(`💫 ${AN(t)} bị choáng, mất lượt`);if(hypSkip()&&aChk())return;if(G.sd&&G.st[t]===e){if(ghsSkip()||cloneSkip()||spySkipTick()){if(aChk())return;if(G.rep)G.rep=[0,0]}else rot7(t)}aoeTick(t);bountyTick(t);G.turn=1-t;continue}
  if(e.q&&e.q.length){const q=e.q;e.q=[];q.forEach(gi=>aGive(t,gi,0));if(aChk())return}G.rep=[0,0];break}}
 const tacHTML=()=>{const P=G.tacP,t=P.t,id=G.cls[t];
+ if(P.mode==='cour')return courHTML();
  if(P.mode==='gambit'){
   if(!P.deck)P.deck=gmbDeck();
   const pk=P.picked||[],rev=!!P.rev,dm=clsVal(G.s,id,'dm'),hl=clsVal(G.s,id,'hl'),sh=clsVal(G.s,id,'sh'),
@@ -5650,6 +5685,7 @@ const tacHTML=()=>{const P=G.tacP,t=P.t,id=G.cls[t];
  }
  const dm=clsVal(G.s,id,'dm'),hl=clsVal(G.s,id,'bp'),hn=clsVal(G.s,id,'tn'),down=0;return `<div class="tacp"><div class="tacb t-tact"><i class="dc dc1">💡</i><i class="dc dc2">🎯</i><i class="dc dc3">🧠</i><i class="dc dc4">📐</i><h3>💡 Thiên Tài Chiến Thuật 🎯</h3><p>${esc(AN(t))} kích hoạt Thiên Tài Chiến Thuật! Chọn một hiệu ứng:</p><div class="tacg"><button class="b p" data-gg="tac" data-v="atk" ${down?'disabled title="Mục tiêu đã bị hạ gục"':''}>⚔ Cả đội +${dm}% sát thương đòn này</button><button class="b y" data-gg="tac" data-v="heal">🛡 Cả đội nhận lá chắn chặn ${hl}% sát thương (${hn} lượt)</button></div></div></div>`};
 function tacDo(v){const P=G.tacP;if(!P)return;
+ if(P.mode==='cour')return courDo(v,P);
  if(P.mode==='gambit'&&v==='__ok'&&!P.rev){P.rev=1;P.deck=P.deck||gmbDeck();gDraw();gT(()=>{if(G.tacP===P)tacDo('__ok')},1500);return}
  if((P.mode==='ult'||P.mode==='gambit')&&v!=='__ok'){
   if(P.rev)return;
@@ -6231,7 +6267,7 @@ function gArenaB(ok){
    if(teamHasCls(t,'maestro')&&!psvLocked(t,a)){const mm=tmg(t),mc=clsVal(G.s,'maestro','cap');if((mm.tempo||0)<mc){mm.tempo=(mm.tempo||0)+1;if(G.cls[t]==='maestro'&&!isUlt)rgGain(t);G.log.unshift(`🎻 Nhịp Điệu ${tmN(t)}: ${mm.tempo}/${mc} tầng!`)}}}}
  else if(!ok){if(qFake&&qFake.includes(pickedIdx)&&qTrick){if(!(a.ghs>0)){const td=Math.min(ultCap(),Math.max(1,Math.round(Math.max(0,G.sc[t])*(qTrick.dmg||15)/100)));aHurt(t,td);a.chaos=Math.max(a.chaos||0,qTrick.wk||30);a.chaosN=Math.max(a.chaosN||0,1);if(window.FXS)FXS.set(a,'chaos','trickster');G.log.unshift(`🃏 Chọn nhầm đáp án giả! ${AN(t)} mất ${td} HP & đòn kế giảm ${qTrick.wk||30}% ST!`)}}
   {const dm=G.tm&&G.tm[t]&&G.tm[t].dip;if(dm&&dm.tn>0&&--dm.tn<=0)delete G.tm[t].dip}
-  {const cl=clsDef(G.cls[t]);if(cl&&cl.id==='berserker'){}else if(cl&&cl.k==='c'&&(a.cc||0)>=clsVal(G.s,cl.id,'need'))G.log.unshift(`🛡 ${AN(t)} trả lời sai nhưng nội tại đã nạp đầy vẫn được giữ`);else{if(a.cc>0)G.log.unshift(`💔 ${AN(t)} trả lời sai, chuỗi nội tại về 0`);a.cc=0}}{const mm=G.tm&&G.tm[t];if(mm&&mm.tempo>0&&!(mm.tempoLk>0)){mm.tempo=0;G.log.unshift(`🎻 ${AN(t)} trả lời sai, Nhịp Điệu về 0!`)}} {const hm=G.tm&&G.tm[t];if(hm&&hm.hyp>0&&hm.hypm>0){const qp=Math.max(1,Math.round(+G.q.p||1)),hd=Math.min(ultCap(),Math.round(qp*hm.hypm));hm.hyp=0;hm.hypm=0;aHurt(t,hd);G.log.unshift(`😵 Loạn Trí: ${AN(t)} trả lời sai, chịu ${hd} sát thương trực tiếp!`)}}rgMiss(t);wrongPen(t);G.log.unshift(`✖ ${AN(t)} trả lời sai: không có quà, không gây sát thương`)}
+  {const cl=clsDef(G.cls[t]);if(cl&&(cl.id==='berserker'||(cl.id==='lycanthrope'&&a.lyW>0))){}else if(cl&&cl.k==='c'&&(a.cc||0)>=clsVal(G.s,cl.id,'need'))G.log.unshift(`🛡 ${AN(t)} trả lời sai nhưng nội tại đã nạp đầy vẫn được giữ`);else{if(a.cc>0)G.log.unshift(`💔 ${AN(t)} trả lời sai, chuỗi nội tại về 0`);a.cc=0}}{const mm=G.tm&&G.tm[t];if(mm&&mm.tempo>0&&!(mm.tempoLk>0)){mm.tempo=0;G.log.unshift(`🎻 ${AN(t)} trả lời sai, Nhịp Điệu về 0!`)}} {const hm=G.tm&&G.tm[t];if(hm&&hm.hyp>0&&hm.hypm>0){const qp=Math.max(1,Math.round(+G.q.p||1)),hd=Math.min(ultCap(),Math.round(qp*hm.hypm));hm.hyp=0;hm.hypm=0;aHurt(t,hd);G.log.unshift(`😵 Loạn Trí: ${AN(t)} trả lời sai, chịu ${hd} sát thương trực tiếp!`)}}rgMiss(t);wrongPen(t);G.log.unshift(`✖ ${AN(t)} trả lời sai: không có quà, không gây sát thương`)}
  bountyChk(t);if(!isSpyTurn&&a.vk){if(a.vkw)a.vkw=0;else{a.vk=0;if(ok2&&mhp(o,tk0)<=0){G.log.unshift(`👑 ${AN(t)} hạ gục ${tn}: Vương Miện Kẻ Thắng thưởng thêm 1 quà!`);aQueue(t,aGift())}}}
  if(a.bomb){const bd=a.bomb>1?a.bomb:5;a.bomb=0;aHurt(t,bd);G.log.unshift(`💣 Bom nổ! ${AN(t)} mất ${bd} HP`)}
  evTick();a.nodmg=0;a.ig=0;a.ign=0;if(a.chain>0)a.chain--;if(a.im>0)a.im--;if(a.lkn>0&&--a.lkn<=0)a.lk=0;if(a.pht>0&&--a.pht<=0&&a.ph){a.ph=0;G.log.unshift(`⌛ Hiệu lực hồi sinh của ${AN(t)} đã hết`)}if(a.seal>0)a.seal--;aTick(t);aoeTick(t);exTick(t);(G.sd?G.sd[t].filter(m=>!m.isSpyShadow&&!(m.spyInf&&m!==spyCur)).map(m=>m.st):[a]).forEach(x=>{if(x.dgt>0&&--x.dgt<=0){x.dgp=0;x.dg1=0}if(x.dgdt>0&&--x.dgdt<=0)x.dgd=0;if(x.hc>0&&--x.hc<=0)x.hcv=0;if(x.ahl>0&&--x.ahl<=0)x.ahv=0;if(x.ar>0)x.ar--;if(x.gsT>0&&--x.gsT<=0)x.gs=0;if(x.spT>0&&--x.spT<=0)x.sp=0;if(x.cpT>0&&--x.cpT<=0)x.cp=0;if(x.inv>0)x.inv--;if(x.illu>0)x.illu--;if(x.tdrT>0&&--x.tdrT<=0){x.tdr=0;x.tfl=0;x.tflp=0;x.tflc=0}if(x.thT>0&&--x.thT<=0)x.thn=0;if(x.hbT>0&&--x.hbT<=0)x.hb=0;if(x.ut>0)x.ut--;if(!(x.ut>0))x.uta=0;if(x.rgl>0)x.rgl--;if(x.psvlk>0)x.psvlk--;if(x.pbIm>0)x.pbIm--;if(x.zlCd>0)x.zlCd--;if(x.dmark>0&&--x.dmark<=0)x.dmarkP=0;if(x.dhx>0)x.dhx--;if(x.invrt>0&&--x.invrt<=0){x.invrtN=0;x.invrtPct=0}if(x.silenced>0&&--x.silenced<=0)x.silPct=0;if(x.maxHpBonusT>0&&--x.maxHpBonusT<=0)x.maxHpBonus=0;if(x.fshT>0&&--x.fshT<=0){const rem=Math.min(x.ts||0,x.fshMax||0);if(rem>0)x.ts-=rem;const ex=x.fshRef>0?Math.min(ultCap(),Math.max(1,Math.round((x.fshMax||0)*x.fshRef/100))):0;x.fshMax=0;x.fshRef=0;if(ex>0){const ot=G.st[o];if(!(ot&&ot.ghs>0)){aHurt(o,ex);G.log.unshift(`🏰 Giáp Nổ hết hạn! Phát nổ ${ex} ST lên ${AN(o)}!`)}}}if(x.sgt>0&&--x.sgt<=0){x.sgh=0;x.sgp=0}if(x.ncbt>0&&--x.ncbt<=0)x.ncb=0;if(x.wwkt>0&&--x.wwkt<=0)x.wwk=0;if(x.wdft>0&&--x.wdft<=0)x.wdf=0});if(G.sc[t]>mMaxHp(t))G.sc[t]=mMaxHp(t);if(G.sd)G.sd[t].forEach((mm,mk)=>{const mx=mMaxHp(t,mk);if(!mm.dead&&mm.hp>mx)mm.hp=mx});if(a.cbn>0&&--a.cbn<=0){a.cbp=0;a.cbl=0}if(a.cmT>0&&--a.cmT<=0){a.cms=0;a.cmm=0;a.cmv=0}{const q=G.tm&&G.tm[t];if(q&&q.sm){q.sm.tn--;if(q.sm.tn<=0||q.sm.hits<=0)q.sm=null}const w=G.tm&&G.tm[o];if(w&&w.illt>0)w.illt--;if(q){if(q.astw)q.astw=0;else if(q.ast>0)q.ast--;if(q.lorl>0)q.lorl--;if(q.sus>0)q.sus--;if(q.sal>0&&--q.sal<=0)q.salu=0;if(q.lorh>0&&--q.lorh<=0)q.lorhv=0;if(q.lnk>0&&--q.lnk<=0)q.lnkh=0;if(q.tau>0&&--q.tau<=0)q.tak=null;if(q.rain>0&&--q.rain<=0){q.rainBrn=0;q.rainHb=0}if(q.shCov>0&&--q.shCov<=0){q.shCovK=null}if(q.tempoLk>0)q.tempoLk--;if(q.dplSync>0)q.dplSync--;if(q.scarecrow&&--q.scarecrow.tn<=0)delete q.scarecrow;if(q.magOn>0&&--q.magOn<=0){q.magRed=0;q.magMx=0}if(q.fogQ>0)q.fogQ--;if(q.fogHud>0)q.fogHud--;if(q.irisOn>0&&--q.irisOn<=0)q.irisEcho=0;if(q.trick&&--q.trick.tn<=0)delete q.trick;if(q.merc){if(!q.merc.done&&--q.merc.tn<=0){const mc=q.merc;delete q.merc;let mk=mc.selfK,mst=null,mnm=AN(t),mhp0=G.sc[t],mBench=false;if(G.sd){if(mk!=null&&G.sd[t][mk]&&!G.sd[t][mk].dead&&G.sd[t][mk].cls==='mercenary'){mBench=(mk!==G.fi[t]);mst=mBench?G.sd[t][mk].st:G.st[t];mhp0=mBench?G.sd[t][mk].hp:G.sc[t];mnm=G.sd[t][mk].nm}else{mk=G.sd[t].findIndex(x=>!x.dead&&x.cls==='mercenary');if(mk>=0){mBench=(mk!==G.fi[t]);mst=mBench?G.sd[t][mk].st:G.st[t];mhp0=mBench?G.sd[t][mk].hp:G.sc[t];mnm=G.sd[t][mk].nm}}}else mst=G.st[t];if(mst&&!(mst.ghs>0)&&mhp0>1){const pen=Math.min(mhp0-1,Math.max(1,Math.round(G.s.hp*(mc.pen||10)/100)));aHurt.noSin=1;try{aHurt(t,pen,mBench?mk:null)}finally{aHurt.noSin=0}G.log.unshift(`🪙 ${mnm} vỡ Hợp Đồng Săn Mồi: mất ${pen} HP!`)}else G.log.unshift(`🪙 Hợp Đồng Săn Mồi của ${tmN(t)} đã hết hạn!`)}else if(q.merc.done&&--q.merc.tn<=0)delete q.merc}if(q.turrets){q.turrets=q.turrets.filter(tr=>--tr.tn>0);if(!q.turrets.length){delete q.turrets;delete q.turCap}}if(q.mech&&--q.mech.tn<=0)delete q.mech;if(q.sin&&--q.sin.tn<=0)delete q.sin;if(q.trap&&--q.trap.tn<=0)delete q.trap;if(q.det&&--q.det.tn<=0)delete q.det;if(q.vnd&&--q.vnd.tn<=0)delete q.vnd;if(q.exam&&--q.exam.tn<=0)delete q.exam}}bountyTick(t);
@@ -6245,7 +6281,8 @@ function arRsHTML(i,e,isClone,isSpyOn){const out=[];try{
   if(oid==='arbiter'&&e._arbMk>0)add('arbiter',`⚖️ Phạt sai: ${e._arbMk}L`,false);
  if(!isClone&&!isSpyOn){const m=tmg(i),cv=k=>clsVal(S,id,k);
   if(id==='maestro'){const n=m.tempo||0,c=cv('cap');if(n>0)add(id,`🎻 ${n}/${c} Nhịp`,n>=c)}
-  else if(id==='reaper'){const n=m.rpm||0,c=cv('cap');if(n>0)add(id,`💀 ${n}/${c} Dấu`,n>=c)}
+  else if(id==='lycanthrope'){if(e.lyW>0)add(id,`🐺 Dạng Sói · còn ${e.lyW} lượt`,true);else if((e.cc||0)>0)add(id,`🐺 ${e.cc||0}/${cv('need')} câu đúng`,false)}
+   else if(id==='reaper'){const n=m.rpm||0,c=cv('cap');if(n>0)add(id,`💀 ${n}/${c} Dấu`,n>=c)}
   else if(id==='flamekeeper'){const n=m.torch||0,c=Math.round(S.hp*cv('cap')/100);if(n>0)add(id,`🔥 Đuốc: ${n}/${c} HP`,n>=c)}
   else if(id==='baker'){const n=m.bread||0,c=cv('cap');if(n>0)add(id,`🥖 ${n}/${c} Bánh`,n>=c)}
   else if(id==='berserker'){const n=e.bzd||0,c=cv('cap');if(n>0)add(id,`🪓 ${n}/${c} Nộ lực`,n>=c)}
@@ -6365,7 +6402,7 @@ zealot:[['u_cost','⚡ Chiêu nộ: % HP hiện có hiến tế',5,50,18],['u_pc
 diplomat:[['u_pc','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,280],['u_tn','⚡ Chiêu nộ: số lượt Hiệp Ước',1,5,2],['u_dmg','⚡ Chiêu nộ: % HP địch mất khi tấn công',5,60,28],['u_lk','⚡ Chiêu nộ: số lượt Khóa Nội Tại khi tấn công',0,3,1]],
 riftmage:[['u_pc','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,240],['u_cap','⚡ Chiêu nộ: % HP tối đa rút tối đa',10,60,30]],
 engineer:[['u_pc','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,240],['u_tn','⚡ Chiêu nộ: số lượt Cỗ Máy Chiến Tranh',1,6,3],['u_dmg','⚡ Chiêu nộ: % HP tối đa mỗi cỗ máy',5,30,10],['u_maxp','% HP tối đa trần ST mỗi lượt',10,60,30]],
-courier:[['u_pc','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,240],['u_cnt','⚡ Chiêu nộ: số buff chuyển tối đa (7v7)',1,6,4],['u_amp','⚡ Chiêu nộ: % khuếch đại buff',10,100,30],['u_sh7','⚡ Chiêu nộ: % HP tối đa khiên cả đội (7v7)',5,50,15],['u_sh1','⚡ Chiêu nộ: % HP tối đa khiên (1v1)',5,60,25],['u_dm1','⚡ Chiêu nộ: % ST khi không có buff',10,150,35]],
+courier:[['u_pc','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,240],['u_sh','⚡ Chiêu nộ: % HP tối đa khiên cả đội',5,50,15],['u_cnt','⚡ Chiêu nộ: số buff sao chép tối đa (7v7)',1,6,4],['u_amp','⚡ Chiêu nộ: % khuếch đại chỉ số buff',10,100,30],['u_shp','⚡ Chiêu nộ: % khuếch đại khiên / số lượt',5,100,20]],
 sinbearer:[['u_pc','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,240],['u_tn','⚡ Chiêu nộ: số lượt Vạn Tội Quy Nhất',1,5,2],['u_pct','⚡ Chiêu nộ: % ST chuyển thành Nợ Tội',10,90,60],['u_clr','⚡ Chiêu nộ: % Nợ Tội được thanh tẩy',10,100,50]],
 chronostriker:[['u_pc','⚡ Chiêu nộ: sát thương nửa đầu (%)',150,1000,380],['u_add','⚡ Chiêu nộ: ST chuẩn cộng thêm khi nhanh',0,150,25],['u_slow','⚡ Chiêu nộ: sát thương nửa sau (%)',100,800,280]],
 mirrorblade:[['u_pc','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,320],['u_pct','⚡ Chiêu nộ: % HP tích trữ phản thêm',20,300,150],['u_rf','⚡ Chiêu nộ: % phản đòn nhận lại',10,150,60]],
@@ -6469,7 +6506,7 @@ zealot:['❤️‍🔥','TRÁI TIM CUỒNG HUYẾT','Hiến {u_cost}% HP hiện 
 diplomat:['🏳️','HIỆP ƯỚC HÒA BÌNH','Gây {u_pc}% ST và áp Hiệp Ước {u_tn} lượt lên địch: khi địch tấn công, giảm ST đòn đó, địch tự chịu {u_dmg}% HP tối đa & Khóa Nội Tại {u_lk} lượt','#0284c7',(a,b,t,o)=>{a.xm=(a.xm||1)*UL('diplomat','u_pc')/100;const mo=tmg(o),d=mo.dip||{tn:0,wk:0,dmg:0,psvlk:0};mo.dip={tn:Math.max(d.tn,UL('diplomat','u_tn')),wk:Math.max(d.wk,clsVal(G.s,'diplomat','wk')),dmg:Math.max(d.dmg,UL('diplomat','u_dmg')),psvlk:Math.max(d.psvlk||0,UL('diplomat','u_lk'))};G.log.unshift(`🏳️ Hiệp Ước Hòa Bình áp lên ${tmN(o)} trong ${UL('diplomat','u_tn')} lượt!`)}],
 riftmage:['🌌','VẾT NỨT THỰC TẠI','Gây {u_pc}% ST, đồng thời rút tối đa {u_cap}% HP tối đa từ địch cao %HP nhất chuyển sang hồi cho đồng đội thấp %HP nhất','#6366f1',a=>{a.xm=(a.xm||1)*UL('riftmage','u_pc')/100;a.upost=(a.upost||[]).concat([(t2)=>riftShift(t2,1,UL('riftmage','u_cap'),x=>G.log.unshift(x))])}],
 engineer:['⚙️','CỖ MÁY CHIẾN TRANH','Gây {u_pc}% sát thương. Triển khai 3 cỗ máy, mỗi cỗ máy {u_dmg}% HP tối đa.','#ea580c',(a,b,t)=>{a.xm=(a.xm||1)*UL('engineer','u_pc')/100;const m=tmg(t),tn=UL('engineer','u_tn')+1,dmg=UL('engineer','u_dmg'),had=(m.turrets&&m.turrets.length)||0;delete m.turrets;delete m.turCap;m.mech={tn,dmg,n:3,cap:UL('engineer','u_maxp'),skip:1,hold:Date.now()+9000};G.log.unshift(`⚙️ Cỗ Máy Chiến Tranh: ${had?'hủy '+had+' Tháp Pháo, ':''}triển khai 3 cỗ máy (${dmg}% HP tối đa/cỗ máy, ${UL('engineer','u_tn')} lượt)!`)}],
-courier:['✉️','BỨC THƯ ĐỊNH MỆNH','Gây {u_pc}% ST; 7v7 gom tối đa {u_cnt} buff dự bị khuếch đại +{u_amp}% & tạo khiên {u_sh7}% HP cả đội; 1v1 gia hạn +2 lượt & +{u_sh1}% khiên/+{u_dm1}% ST','#16a34a',(a,b,t)=>{a.xm=(a.xm||1)*UL('courier','u_pc')/100;a.upost=(a.upost||[]).concat([(t2,a2)=>courXfer(t2,a2,UL('courier','u_cnt'),G.sd?UL('courier','u_amp'):35,G.sd?UL('courier','u_sh7'):UL('courier','u_sh1'),UL('courier','u_dm1'),UL('courier','u_sh1'),true,x=>G.log.unshift(x))])}],
+courier:['✉️','BƯU KIỆN ĐỊNH MỆNH','Gây {u_pc}% ST, tạo khiên bằng {u_sh}% HP tối đa cho toàn đội và sao chép tối đa {u_cnt} buff từ đồng đội dự bị, cho phép lựa chọn phân phối từng buff đến các đồng đội, khuếch đại +{u_amp}%/{u_shp}% khiên.','#16a34a',(a,b,t)=>{a.xm=(a.xm||1)*UL('courier','u_pc')/100;a.upost=(a.upost||[]).concat([(t2,a2)=>{const L=x=>G.log.unshift(x);if(G.sd)courOpen(t2,UL('courier','u_cnt'),UL('courier','u_amp'),UL('courier','u_shp'),true,L);else courSolo(t2,a2,UL('courier','u_amp'),UL('courier','u_shp'),UL('courier','u_amp'),0,L);aTeamShield(t2,Math.max(1,Math.round(G.s.hp*UL('courier','u_sh')/100)))}])}],
 sinbearer:['📿','VẠN TỘI QUY NHẤT','Gây {u_pc}% ST, kích hoạt gánh thay {u_pct}% ST ({u_tn} lượt) và thanh tẩy {u_clr}% Nợ Tội đang tích','#57534e',(a,b,t)=>{a.xm=(a.xm||1)*UL('sinbearer','u_pc')/100;const m=tmg(t);m.sin={tn:Math.max((m.sin&&m.sin.tn)||0,UL('sinbearer','u_tn')+1),pct:Math.max((m.sin&&m.sin.pct)||0,UL('sinbearer','u_pct')),cap:clsVal(G.s,'sinbearer','cap'),k:G.sd?G.fi[t]:null};if(a.sinDebt>0){const clr=Math.round(a.sinDebt*UL('sinbearer','u_clr')/100);a.sinDebt=Math.max(0,a.sinDebt-clr);G.log.unshift(`📿 Vạn Tội Quy Nhất: xóa ${clr} Nợ Tội (còn ${a.sinDebt} HP)!`)}else G.log.unshift(`📿 Vạn Tội Quy Nhất: gánh thay ${UL('sinbearer','u_pct')}% ST trong ${UL('sinbearer','u_tn')} lượt!`)}],
 chronostriker:['⚡','GIA TỐC QUANG TỐC','Trả lời nửa đầu thời gian: gây {u_pc}% ST + {u_add} ST chuẩn (vượt +50% trần); nửa sau gây {u_slow}% ST','#2563eb',(a,b,t)=>{const el=G.qElapsed||0,lim=G.qLimit||(G.tz?G.tz.q:45),fast=el<=lim/2;if(fast){a.xm=(a.xm||1)*UL('chronostriker','u_pc')/100;a.ex=(a.ex||0)+UL('chronostriker','u_add');a._chronoFastUlt=1;G.log.unshift(`⚡ Gia Tốc Quang Tốc (${el.toFixed(1)}s): bùng nổ ${UL('chronostriker','u_pc')}% + ${UL('chronostriker','u_add')} ST chuẩn!`)}else{a.xm=(a.xm||1)*UL('chronostriker','u_slow')/100;G.log.unshift(`⚡ Gia Tốc Quang Tốc: gây ${UL('chronostriker','u_slow')}% ST!`)}}],
 mirrorblade:['🪞','PHẢN CHIẾU TUYỆT ĐỐI','Gây {u_pc}% ST + {u_pct}% lượng HP tích trữ và bật Gương Phản Đòn {u_rf}% ở đòn kế','#38bdf8',(a,b,t)=>{const st=a.mbStore||0;a.mbStore=0;a.xm=(a.xm||1)*UL('mirrorblade','u_pc')/100;if(st>0){const ex=Math.round(st*UL('mirrorblade','u_pct')/100);a.ex=(a.ex||0)+ex;G.log.unshift(`🪞 Phản Chiếu Tuyệt Đối: trả ${ex} ST tích trữ!`)}a.rf=Math.max(a.rf||0,UL('mirrorblade','u_rf'))}],
@@ -6482,7 +6519,7 @@ spellbreaker:['⛓️‍💥','PHÁN QUYẾT ĐOẠN PHÁP','Gây {u_pc}% ST (+{
 sunbringer:['☀️','MẶT TRỜI CHÂN LÝ','Gây {u_pc}% ST, cả đội tăng tạm thời +{u_pct}% Max HP ({u_tn} lượt), hồi {u_hlp}% Max HP và thanh tẩy toàn bộ','#f59e0b',(a,b,t)=>{a.xm=(a.xm||1)*UL('sunbringer','u_pc')/100;const tn=UL('sunbringer','u_tn')+1,pct=UL('sunbringer','u_pct'),hlp=UL('sunbringer','u_hlp');aSts(t).forEach(x=>aCleanse(x,1));aCleanseTeam(t,1);if(!G.sd){const add=Math.max(1,Math.round(G.s.hp*pct/100));a.maxHpBonus=Math.max(a.maxHpBonus||0,add);a.maxHpBonusT=Math.max(a.maxHpBonusT||0,tn)}else{G.sd[t].forEach((m,k)=>{if(m.dead||m.isClone||m.isSpyShadow||m.spyInf||(m.st&&m.st.ghs>0))return;const add=Math.max(1,Math.round((m.maxHp||G.s.hp)*pct/100));m.st.maxHpBonus=Math.max(m.st.maxHpBonus||0,add);m.st.maxHpBonusT=Math.max(m.st.maxHpBonusT||0,tn)})}const hl=Math.max(1,Math.round(G.s.hp*hlp/100));aTeamHeal(t,hl);G.log.unshift(`☀️ Mặt Trời Chân Lý: +${pct}% Max HP, thanh tẩy & hồi ${hl} HP cả đội!`)}],
 banshee:['👻','TIẾNG THÉT LINH HỒN','Gây {u_pc}% ST, áp Câm Lặng toàn đội địch {u_tn} lượt (hồi máu/quà buff tự chịu {u_pct}% Max HP)','#7c3aed',(a,b,t,o)=>{a.xm=(a.xm||1)*UL('banshee','u_pc')/100;const tn=UL('banshee','u_tn'),pct=UL('banshee','u_pct');aSts(o).forEach(x=>{if(x.ghs>0)return;x.silenced=Math.max(x.silenced||0,tn);x.silPct=Math.max(x.silPct||0,pct)});G.log.unshift(`👻 Tiếng Thét Linh Hồn: toàn đội ${tmN(o)} dính Câm Lặng ${tn} lượt (${pct}% Max HP)!`)}],
 gambit:['♠️','VÁN BÀI HOÀNG KIM','Kích hoạt cả 4 chất bài: gây {u_pc}% ST (+{u_dm}% ST), cả đội hồi {u_hl}% Max HP, khiên {u_sh}% Max HP & +1 tầng nộ','#eab308',(a,b,t)=>{a.xm=(a.xm||1)*(UL('gambit','u_pc')+UL('gambit','u_dm'))/100;const hl=Math.max(1,Math.round(G.s.hp*UL('gambit','u_hl')/100)),sh=Math.max(1,Math.round(G.s.hp*UL('gambit','u_sh')/100));aTeamHeal(t,hl);aTeamShield(t,sh);a.upost=(a.upost||[]).concat([t2=>{if(!G.sd){if(!(G.st[t2]&&G.st[t2].ghs>0))rgGain(t2)}else G.sd[t2].forEach((m,k)=>{if(!m.dead&&!m.isClone&&!m.isSpyShadow&&!m.spyInf&&m.hp>0&&!(m.st&&m.st.ghs>0))rgGain(t2,k===G.fi[t2]?null:k)})}]);G.log.unshift(`♠️ Ván Bài Hoàng Kim: tung 4 chất bài, hồi ${hl} HP, +${sh} khiên & +1 tầng nộ cả đội!`)}],
-lycanthrope:['🐺','HUYẾT NGUYỆT CUỒNG SÓI','Gây {u_pc}% ST xuyên giáp, hút {u_ls}% máu; kích hoạt tức thì Sói Huyết Nguyệt vĩnh viễn','#991b1b',(a,b,t)=>{if(!a.lycanWolf){a.lycanWolf=1;a.lycanUsed=1;G.log.unshift(`🐺 ${AN(t)} hóa Sói Huyết Nguyệt vĩnh viễn!`)}a.xm=(a.xm||1)*UL('lycanthrope','u_pc')/100;a.pierce=1;a.ls=Math.max(a.ls||0,UL('lycanthrope','u_ls'))}],
+lycanthrope:['🐺','BIẾN HÌNH SÓI ĐỎ','Biến thành Sói Đỏ: gây {u_pc}% ST, hút {u_ls}% máu; giữ dạng Sói {wt} lượt hành động, hết lượt trở về dạng Người. (thay thế nội tại ở đòn đó)','#991b1b',(a,b,t)=>{a.lycanWolf=1;a.lyW=UL('lycanthrope','wt');a.cc=0;a.xm=(a.xm||1)*UL('lycanthrope','u_pc')/100;a.ls=Math.max(a.ls||0,UL('lycanthrope','u_ls'));G.log.unshift(`🐺 ${AN(t)} biến thành Sói Đỏ trong ${a.lyW} lượt hành động!`)}],
 lunarpriest:['🌙','TRĂNG RẰM BAN PHƯỚC','Gây {u_pc}% ST, chuyển {u_hl}% ST gây ra hồi cho toàn đội (bỏ qua trần lượt) kèm khiên {u_sh}% Max HP','#6366f1',(a,b,t)=>{a.xm=(a.xm||1)*UL('lunarpriest','u_pc')/100;const sh=Math.max(1,Math.round(G.s.hp*UL('lunarpriest','u_sh')/100));aTeamShield(t,sh);if(window.FXS)aSts(t).forEach(x=>FXS.set(x,'ts','lunarpriest'));a.upost=(a.upost||[]).concat([(t2,a2,b2,tn2,cx)=>{const dd=cx&&cx.dd||0;if(!(dd>0))return;const hl=Math.max(1,Math.round(dd*UL('lunarpriest','u_hl')/100));aTeamHeal(t2,hl);G.log.unshift(`🌙 Trăng Rằm Ban Phước: toàn đội hồi ${hl} HP!`)}])}],
 kitsune:['🦊','CỬU VĨ THIÊN HỎA','Tăng thêm {u_tails} đuôi (tối đa 9), phóng hồ hỏa gây {u_pc}% ST (+{u_per}% mỗi đuôi) và thiêu đốt 15% HP hiện có (2 lượt)','#f97316',(a,b)=>{const nt=Math.min(9,(a.foxTails||0)+UL('kitsune','u_tails'));a.foxTails=nt;a.xm=(a.xm||1)*(UL('kitsune','u_pc')+nt*UL('kitsune','u_per'))/100;if(b&&!(b.ghs>0)){b.bn=Math.max(b.bn||0,2);b.bp=Math.max(b.bp||0,15);b.bnKs=1;delete b.bnPy;delete b.bnFk}G.log.unshift(`🦊 Cửu Vĩ Thiên Hỏa (${nt} đuôi): +${nt*UL('kitsune','u_per')}% ST & thiêu đốt!`)}],
 irismessenger:['🌈','CẦU VỒNG BẢY SẮC','Gây {u_pc}% ST, cả đội hồi {u_hl}% Max HP, xóa debuff và kích hoạt Lăng Kính lan tỏa 100% trong {u_tn} lượt','#ec4899',(a,b,t)=>{a.xm=(a.xm||1)*UL('irismessenger','u_pc')/100;aSts(t).forEach(x=>aCleanse(x,1));aCleanseTeam(t,1);const hl=Math.max(1,Math.round(G.s.hp*UL('irismessenger','u_hl')/100));aTeamHeal(t,hl);const m=tmg(t);m.irisOn=Math.max(m.irisOn||0,UL('irismessenger','u_tn')+1);m.irisEcho=100;G.log.unshift(`🌈 Cầu Vồng Bảy Sắc: thanh tẩy, hồi ${hl} HP & Lăng Kính 100% (${UL('irismessenger','u_tn')} lượt)!`)}],
@@ -7315,8 +7352,16 @@ CI.song=function(t,a,b,v,L){const g=G.s.rgn;if(!(g==null||+g>0)){L('🎶 Thanh n
  const sd=(id,k,d)=>{const p=clsDef(id).p.find(x=>x[0]===k);if(p)p[4]=d};
  sd('dragoon','per',5);sd('dragoon','cap',15);sd('dragoon','rn',3);sd('berserker','per',1);sd('berserker','cap',20);sd('berserker','rn',4);sd('arbiter','rn',4);sd('leech','rn',4);
  sd('arbiter','pen',15);sd('reaper','per',5);sd('reaper','rn',1);sd('reaper','u_pc',220);sd('reaper','u_mk',10);
- sd('bountyhunter','rn',3);sd('headhunter','rn',3);sd('geomancer','rn',3);sd('maestro','rn',3);sd('lycanthrope','rn',3);sd('lunarpriest','rn',3);
- clsDef('lycanthrope').xr=(r,a,t,v,L)=>{if(a.lycanWolf&&!(a.seal>0)){const b=v('bon');r.m*=(1+b/100);r.pcx=(r.pcx||0)+b;const ls=v('ls');a.ls=Math.max(a.ls||0,ls);L(`🐺 Dạng Sói Huyết Nguyệt: +${b}% ST & hút ${ls}% máu!`)}};
+ sd('bountyhunter','rn',3);sd('headhunter','rn',3);sd('geomancer','rn',3);sd('maestro','rn',3);sd('lycanthrope','rn',2);sd('lunarpriest','rn',3);
+ XA.lycanthrope=(r,a,t,L,v)=>{const sl=a.seal>0,nm=AN(t),wt=v('wt');
+  if(a.lyW>0){a.lyW--;const k=wt-a.lyW;
+   if(sl)L(`🔒 Phong Ấn khóa ${clsDef('lycanthrope').pn} của ${nm}`);
+   else{r.m=v('wm')/100;a.ls=Math.max(a.ls||0,v('wls'));L(`🐺 ${nm} Dạng Sói (${k}/${wt}): gây ${v('wm')}% ST, hút ${v('wls')}% máu`)}
+   if(a.lyW<=0){a.lyW=0;a.lycanWolf=0;a.cc=0;if(!sl)r.act=1;L(`👤 ${nm} đủ ${wt} lượt hành động, trở về Dạng Người${sl?'':': nộ +1'}`)}
+   return}
+  const nd=v('need');a.cc=(a.cc||0)+1;
+  if(a.cc>=nd){a.cc=0;if(sl)L(`🔒 Phong Ấn khóa ${clsDef('lycanthrope').pn} của ${nm}`);else{r.m=1+v('hm')/100;r.pcx=v('hm');a.ls=Math.max(a.ls||0,v('hls'));r.act=1;L(`🐺 ${nm} kích hoạt ${clsDef('lycanthrope').pn} (Dạng Người): +${v('hm')}% ST, hút ${v('hls')}% máu, nộ +1`)}}
+  else L(`👤 ${nm} Dạng Người: ${a.cc}/${nd} câu đúng liên tiếp`)};
  const ar=clsDef('arbiter');ar.p.splice(ar.p.findIndex(x=>x[0]==='rn'),0,['tn','Số lượt theo dõi đối thủ',1,10,3]);
  ar.cd='Khi đòn đánh thường trúng đối thủ';ar.ef='Đối thủ trả lời sai trong {tn} lượt tới sẽ mất {pen}% HP hiện có · Mỗi lần đánh dấu nhận 1 tầng nộ, đủ {rn} tầng thì đầy nộ'}
 /* Mô tả nội tại / chiêu nộ thống nhất (ds = nội tại, ULT[id][2] = chiêu nộ) */
@@ -7354,7 +7399,7 @@ CI.song=function(t,a,b,v,L){const g=G.s.rgn;if(!(g==null||+g>0)){L('🎶 Thanh n
  "diplomat": "Đúng {need} câu liên tiếp: đòn đánh gây {pc}% ST và áp Tối Hậu Thư ({tn} lượt): địch trả lời đúng để tấn công sẽ giảm {wk}% ST và tự chịu {dmg}% HP tối đa. Nộ +1, đầy ở {rn} tầng.",
  "riftmage": "Đúng {need} câu liên tiếp: nếu chênh lệch %HP giữa địch cao nhất và đồng đội thấp nhất ≥ {gap}%, rút tối đa {cap}% HP tối đa từ địch đó hồi cho đồng đội thấp nhất. Nộ +1, đầy ở {rn} tầng.",
  "engineer": "Đúng {need} câu liên tiếp: đặt Tháp Pháo (tối đa {cap}); đầu lượt mỗi tháp bắn {dmg}% HP tối đa xuyên 50% giáp (tối đa {maxp}%/lượt). Nộ +1, đầy ở {rn} tầng.",
- "courier": "Đúng {need} câu liên tiếp: 7v7 chuyển tối đa {cnt} buff dự bị cho người đứng sân & khuếch đại +{amp}%/+{sh}% khiên; 1v1 gia hạn & +{amp}%; nếu trống nhận +{dm}% ST & +{sh2}% khiên. Nộ +1, đầy ở {rn} tầng.",
+ "courier": "Đúng {need} câu liên tiếp. Sao chép tối đa {cnt} buff từ đồng đội dự bị và cho phép lựa chọn một đồng đội nhận toàn bộ buff, khuếch đại +{amp}%/+{shp}% khiên. 1v1 gia hạn & +{amp}%; nếu trống nhận +{dm}% & +{sh2}% khiên. Nộ +1, đầy ở {rn} tầng.",
  "sinbearer": "Đúng {need} câu liên tiếp: trong {tn} lượt, gánh thay {pct}% ST thành Nợ Tội (tối đa {cap}% HP tối đa), trả dần 1/3 mỗi đầu lượt phe mình. Nộ +1, đầy ở {rn} tầng.",
  "chronostriker": "Đúng {need} câu liên tiếp: trả lời trong nửa đầu thời gian (hoặc đồng hồ riêng 45s nếu tắt đồng hồ phòng) gây {fast}% ST + {add} ST chuẩn; nửa sau gây {slow}% ST. Nộ +1, đầy ở {rn} tầng.",
  "mirrorblade": "Đúng {need} câu liên tiếp: gây {pc}% ST và trả lại {pct}% tổng HP bản thân đã mất kể từ đòn trước (tối đa +{cap} ST) rồi đặt lại bộ nhớ. Nộ +1, đầy ở {rn} tầng.",
@@ -7367,7 +7412,7 @@ CI.song=function(t,a,b,v,L){const g=G.s.rgn;if(!(g==null||+g>0)){L('🎶 Thanh n
  "sunbringer": "Đúng {need} câu liên tiếp: tăng tạm thời +{pct}% Max HP cho cả đội trong {tn} lượt và hồi ngay {hlp}% Max HP. Nộ +1, đầy ở {rn} tầng.",
  "banshee": "Đúng {need} câu liên tiếp: gây {pc}% ST và nguyền Câm Lặng {tn} lượt (hồi máu hoặc dùng quà buff sẽ tự chịu {pct}% Max HP). Nộ +1, đầy ở {rn} tầng.",
  "gambit": "Đúng {need} câu liên tiếp: mở 4 lá bài úp trong 5s chọn 2 lá rồi lật (hết giờ tự lật): ♠️ (+{dm}% ST), ♥️ (hồi {hl}% HP), ♦️ (khiên {sh}% HP), ♣️ (+1 tầng nộ). Nộ +1, đầy ở {rn} tầng.",
- "lycanthrope": "Mỗi câu đúng +{per}% ST (tối đa +{cap}%). Khi HP xuống dưới 50% lần đầu trong trận sẽ hóa Sói Huyết Nguyệt: vĩnh viễn +{bon}% ST & hút {ls}% máu mỗi đòn. Nộ +1, đầy ở {rn} tầng.",
+ "lycanthrope": "Dạng Người: đúng {need} câu liên tiếp thì đòn gây +{hm}% ST, hút {hls}% máu, nộ +1. Dạng Sói: mỗi câu đúng gây {wm}% ST, hút {wls}% máu; {wt} câu đúng nộ +1. Nộ đầy ở {rn} tầng.",
  "lunarpriest": "Mỗi đòn gây sát thương: chuyển hóa {conv}% ST thành hồi máu cho bản thân (tối đa {cap}% Max HP/lượt); phần hồi dư chuyển {sh}% thành khiên. Nộ +1, đầy ở {rn} tầng.",
  "kitsune": "Khởi trận có {start} đuôi (tối đa {maxt}). Đúng {need} câu: +1 đuôi & bắn hồ hỏa. Còn đuôi: giới hạn mỗi hit tối đa {cap}% Max HP và tự gãy 1 đuôi xóa khống chế. Nộ +1, đầy ở {rn} tầng.",
  "irismessenger": "Đúng {need} câu liên tiếp: bật Lăng Kính {tn} lượt, hồi cho đồng đội yếu nhất và lan {echo}% hồi máu/quà buff sang đồng đội yếu nhất (1v1: +khiên & hồi). Nộ +1, đầy ở {rn} tầng.",
@@ -7406,7 +7451,7 @@ CI.song=function(t,a,b,v,L){const g=G.s.rgn;if(!(g==null||+g>0)){L('🎶 Thanh n
  "diplomat": "Gây {u_pc}% sát thương và áp Hiệp Ước ({u_tn} lượt): địch tấn công sẽ bị giảm ST, tự chịu {u_dmg}% HP tối đa và Khóa Nội Tại {u_lk} lượt.",
  "riftmage": "Gây {u_pc}% sát thương, đồng thời rút tối đa {u_cap}% HP tối đa từ địch cao %HP nhất chuyển sang hồi cho đồng đội thấp %HP nhất.",
  "engineer": "Gây {u_pc}% sát thương. Triển khai 3 cỗ máy, mỗi cỗ máy {u_dmg}% HP tối đa.",
- "courier": "Gây {u_pc}% sát thương; 7v7 gom tối đa {u_cnt} buff dự bị khuếch đại +{u_amp}% & tạo khiên {u_sh7}% HP cả đội; 1v1 gia hạn & +{u_sh1}% khiên/+{u_dm1}% ST.",
+ "courier": "Gây {u_pc}% sát thương, tạo khiên bằng {u_sh}% HP tối đa cho toàn đội và sao chép tối đa {u_cnt} buff từ đồng đội dự bị, cho phép lựa chọn phân phối từng buff đến các đồng đội. Khuếch đại +{u_amp}%/{u_shp}% khiên.",
  "sinbearer": "Gây {u_pc}% sát thương, kích hoạt gánh thay {u_pct}% sát thương ({u_tn} lượt) và thanh tẩy {u_clr}% Nợ Tội đang tích.",
  "chronostriker": "Trả lời trong nửa đầu thời gian: gây {u_pc}% ST + {u_add} ST chuẩn (vượt +50% trần chiêu nộ); nửa sau gây {u_slow}% ST.",
  "mirrorblade": "Gây {u_pc}% ST + {u_pct}% lượng HP tích trữ và bật Gương Phản Đòn {u_rf}% ở đòn kế.",
@@ -7419,7 +7464,7 @@ CI.song=function(t,a,b,v,L){const g=G.s.rgn;if(!(g==null||+g>0)){L('🎶 Thanh n
  "sunbringer": "Gây {u_pc}% ST, cả đội tăng tạm thời +{u_pct}% Max HP ({u_tn} lượt), hồi {u_hlp}% Max HP và thanh tẩy toàn bộ.",
  "banshee": "Gây {u_pc}% ST, áp Câm Lặng toàn đội địch {u_tn} lượt (hồi máu hoặc dùng quà buff tự chịu {u_pct}% Max HP).",
  "gambit": "Kích hoạt cả 4 chất bài cùng lúc: gây {u_pc}% ST (+{u_dm}% ST), cả đội hồi {u_hl}% Max HP, nhận khiên {u_sh}% Max HP & +1 tầng nộ.",
- "lycanthrope": "Gây {u_pc}% ST xuyên giáp, hút {u_ls}% máu; kích hoạt tức thì hình dạng Sói Huyết Nguyệt vĩnh viễn nếu chưa biến hình.",
+ "lycanthrope": "Biến thành Sói Đỏ: gây {u_pc}% ST, hút {u_ls}% máu; giữ dạng Sói {wt} lượt hành động, hết lượt trở về dạng Người. (thay thế nội tại ở đòn đó)",
  "lunarpriest": "Gây {u_pc}% ST, chuyển hóa {u_hl}% ST gây ra hồi cho toàn đội (bỏ qua trần lượt) kèm khiên {u_sh}% Max HP.",
  "kitsune": "Tăng thêm {u_tails} đuôi (tối đa 9), phóng hồ hỏa gây {u_pc}% ST (+{u_per}% mỗi đuôi) và thiêu đốt 15% HP hiện có (2 lượt).",
  "irismessenger": "Gây {u_pc}% ST, cả đội hồi {u_hl}% Max HP, xóa debuff và kích hoạt Lăng Kính lan tỏa 100% trong {u_tn} lượt.",
@@ -23700,6 +23745,73 @@ function holdTick(){
    holds.splice(i,1)}}}
 
 setInterval(()=>{try{tick()}catch(e){}try{holdTick()}catch(e){}},140);
+})();
+</script>
+
+<script id="dk-moon-fx-v1">
+/* Kỵ sĩ bóng đêm: Vầng Trăng Tím phía sau nhân vật, sáng dần theo HP đã mất (chỉ thêm hiển thị, không đụng animation nội tại/chiêu nộ) */
+(function(){'use strict';
+const ICO=window.ICO||(window.ICO={});
+const drop='<path d="M12 17.2c1.5 1.9 2.3 3 2.3 4a2.3 2.3 0 0 1-4.6 0c0-1 .8-2.1 2.3-4Z" fill="#c026d3" stroke="#3b0764" stroke-width=".7"/>';
+ICO.dkMoon='<svg class="ico" viewBox="0 0 24 24"><defs><radialGradient id="icoDkA" cx=".36" cy=".32" r=".8"><stop offset="0" stop-color="#fca5a5"/><stop offset=".55" stop-color="#dc2626"/><stop offset="1" stop-color="#7f1d1d"/></radialGradient></defs><circle cx="12" cy="12" r="10.6" fill="#1a0b2e" stroke="#7e22ce" stroke-width="1.3"/><circle cx="12" cy="10.2" r="6.9" fill="#ef4444" opacity=".22"/><circle cx="12" cy="10.2" r="5.6" fill="url(#icoDkA)" stroke="#450a0a" stroke-width=".8"/><circle cx="10.2" cy="8.8" r="1.1" fill="#7f1d1d" opacity=".55"/><circle cx="13.8" cy="11.6" r=".9" fill="#7f1d1d" opacity=".55"/>'+drop+'</svg>';
+ICO.dkMoonUp='<svg class="ico" viewBox="0 0 24 24"><defs><radialGradient id="icoDkB" cx=".36" cy=".32" r=".8"><stop offset="0" stop-color="#fff1f2"/><stop offset=".5" stop-color="#ef4444"/><stop offset="1" stop-color="#7f1d1d"/></radialGradient></defs><circle cx="12" cy="12" r="10.6" fill="#1a0b2e" stroke="#fbbf24" stroke-width="1.4"/><circle cx="12" cy="11" r="7.6" fill="none" stroke="#fbbf24" stroke-width="1" stroke-dasharray="2 2"/><circle cx="12" cy="11" r="6" fill="url(#icoDkB)" stroke="#fde68a" stroke-width=".9"/><path d="M4.6 19.2 19.6 3.8" stroke="#0f172a" stroke-width="3" stroke-linecap="round"/><path d="M4.6 19.2 19.6 3.8" stroke="#e2e8f0" stroke-width="1.5" stroke-linecap="round"/><path d="M3.6 20.2 6 17.8" stroke="#7e22ce" stroke-width="2" stroke-linecap="round"/></svg>';
+const _fs=window.fxStc;if(typeof _fs==='function')window.fxStc=function(e){return _fs(e)+(e&&e.dkmx>0?' dkmx':'')+(e&&e.dkux>0?' dkux':'')};
+const css=document.createElement('style');css.textContent=`
+.arv.dkm>svg:not(.ico){position:relative;z-index:1}
+.a7m.dkm .a7a{position:relative;z-index:1}
+.dkmn{position:absolute;pointer-events:none;z-index:0;width:var(--w);height:var(--w);--r:0;filter:drop-shadow(0 0 calc(6px + var(--r)*22px) rgba(192,132,252,calc(.6 + var(--r)*.4))) drop-shadow(0 0 calc(var(--r)*36px) rgba(147,51,234,calc(var(--r)*.95)));transition:filter .9s ease}
+.dkmn svg,.arv .dkmn svg,.arv.on .dkmn svg{position:absolute;inset:0;width:100%!important;height:100%!important;max-width:none!important;overflow:visible;transform:none!important;animation:none!important;filter:none!important;transition:none!important}
+.dkmn .dkh{opacity:calc(.4 + var(--r)*.6);transition:opacity .9s ease;transform-box:fill-box;transform-origin:center;animation:dkPul 2.2s ease-in-out infinite}
+.dkmn .dkl{opacity:calc(.5 + var(--r)*.5);transition:opacity .9s ease}
+.dkmn.up{filter:drop-shadow(0 0 calc(8px + var(--r)*26px) rgba(233,213,255,calc(.7 + var(--r)*.3))) drop-shadow(0 0 calc(var(--r)*42px) rgba(168,85,247,1))}
+.dkmn .dkr{opacity:calc(var(--r)*.95);transform-box:fill-box;transform-origin:center;animation:dkRot 14s linear infinite}
+.dkmn .dkg{display:none}.dkmn.up .dkg{display:block}
+.dkmn.fl{animation:dkFl .9s ease-out}
+@keyframes dkRot{to{rotate:360deg}}
+@keyframes dkPul{0%,100%{scale:1}50%{scale:1.12}}
+@keyframes dkFl{0%{scale:1;filter:brightness(1)}25%{scale:1.45;filter:brightness(2.2) drop-shadow(0 0 26px #a855f7)}100%{scale:1;filter:brightness(1)}}
+@media (prefers-reduced-motion:reduce){.dkmn,.dkmn .dkh{animation:none!important}}
+`;document.head.appendChild(css);
+let _n=0;
+const moonSvg=()=>{const k='dk'+(++_n);return '<svg viewBox="0 0 100 100"><defs><radialGradient id="'+k+'h"><stop offset="0" stop-color="#e9d5ff" stop-opacity=".95"/><stop offset=".5" stop-color="#a855f7" stop-opacity=".5"/><stop offset="1" stop-color="#7e22ce" stop-opacity="0"/></radialGradient><radialGradient id="'+k+'b" cx=".36" cy=".32" r=".85"><stop offset="0" stop-color="#3b1070"/><stop offset="1" stop-color="#12062a"/></radialGradient><radialGradient id="'+k+'l" cx=".36" cy=".32" r=".85"><stop offset="0" stop-color="#faf5ff"/><stop offset=".4" stop-color="#c084fc"/><stop offset="1" stop-color="#6b21a8"/></radialGradient></defs>'
++'<circle class="dkh" cx="50" cy="50" r="68" fill="url(#'+k+'h)"/><circle class="dkr" cx="50" cy="50" r="52" fill="none" stroke="#e9d5ff" stroke-width="1.8" stroke-dasharray="3 6" stroke-linecap="round"/><circle class="dkg" cx="50" cy="50" r="47" fill="none" stroke="#f5d0fe" stroke-width="2.4" stroke-dasharray="6 5"/>'
++'<circle cx="50" cy="50" r="41" fill="url(#'+k+'b)" stroke="#a855f7" stroke-width="1.8"/><circle class="dkl" cx="50" cy="50" r="41" fill="url(#'+k+'l)"/>'
++'<circle cx="41" cy="43" r="5.5" fill="#4c1d95" opacity=".45"/><circle cx="58" cy="57" r="4.2" fill="#4c1d95" opacity=".45"/><circle cx="55" cy="38" r="2.6" fill="#4c1d95" opacity=".4"/>'
++'<path d="M44 78q-2 6 0 9" stroke="#c026d3" stroke-width="2.4" stroke-linecap="round" fill="none" opacity=".8"/></svg>'};
+const AV=h=>h.querySelector(':scope>.a7a')||h.querySelector(':scope>svg:not(.ico)')||h.querySelector('.a7a')||h.querySelector('svg:not(.ico)');
+function moon(h,on,r,up){let o=h.querySelector(':scope>.dkmn');
+ if(!on){if(o)o.remove();h.classList.remove('dkm');return}
+ const a=AV(h);if(!a)return;
+ const mini=h.classList.contains('a7m');
+ if(!o){o=document.createElement('span');o.className='dkmn';o.dataset.t0=performance.now();o.innerHTML=moonSvg();h.insertBefore(o,h.firstChild)}
+ h.classList.add('dkm');
+ /* Vị trí theo bố cục (không tính transform/animation) nên trăng đứng yên khi nhân vật lao đòn, bồng bềnh hay tung chiêu */
+ let ps=null,aw=0,ah=0;
+ if(a.offsetParent!==undefined&&a.offsetWidth>0){let x=0,y=0,n=a;while(n&&n!==h){x+=n.offsetLeft;y+=n.offsetTop;n=n.offsetParent}if(n===h){ps={x,y};aw=a.offsetWidth;ah=a.offsetHeight}}
+ else{const cs=getComputedStyle(a);aw=parseFloat(cs.width);ah=parseFloat(cs.height);if(aw>0&&ah>0)ps={x:(h.clientWidth-aw)/2,y:parseFloat(getComputedStyle(h).paddingTop)||0}}
+ if(!ps||!(aw>0))return;
+ const W=Math.max(26,Math.min(170,aw*(mini?1:1.12)*(up?1.2:1)));
+ o.style.setProperty('--w',W+'px');o.style.setProperty('--r',Math.max(0,Math.min(1,r)).toFixed(3));
+ o.style.left=(ps.x+aw/2-W/2)+'px';o.style.top=(ps.y+ah*(mini?.06:.2)-W/2)+'px';
+ o.classList.toggle('up',!!up)}
+const maxOf=(s,k)=>{try{if(typeof mMaxHp==='function')return mMaxHp(s,k)}catch(_){}return (typeof G!=='undefined'&&G&&G.s&&G.s.hp)||100};
+function sync(){const g=typeof G!=='undefined'?G:null;
+ document.querySelectorAll('.arn').forEach(arn=>{const demo=!!arn.closest('#ush');
+  if(!demo){if(!g||g.k!=='arena'||!g.st)return;if(window.FXG&&FXG.until>performance.now())return}
+  [0,1].forEach(s=>{arn.querySelectorAll('.arv.a'+s+',.a7s.s'+s+' .a7m').forEach(h=>{
+   const isA=h.classList.contains('arv');let on=false,r=0,up=false;
+   if(demo){if(isA&&(h.classList.contains('dkmx')||h.classList.contains('dkux'))){on=true;up=h.classList.contains('dkux');const mo=h.querySelector(':scope>.dkmn'),t0=mo?+mo.dataset.t0:performance.now();r=Math.min(1,(performance.now()-t0)/3000)}}
+   else if(!h.classList.contains('dead')){let cls=null,hp=0,k=null;
+    if(isA){cls=g.cls&&g.cls[s];hp=g.sc&&g.sc[s]}else{k=+h.dataset.mk;const mm=g.sd&&g.sd[s]&&g.sd[s][k];if(mm&&!mm.dead){cls=mm.cls;hp=mm.hp}}
+    if(cls==='dknight'){const mx=maxOf(s,k),m=h.querySelector(':scope>.dkmn');on=true;r=mx>0?(mx-hp)/mx:0;up=!!(m&&m.classList.contains('up'))&&false}}
+   moon(h,on,r,up)})})})}
+/* Lóe lên khi nội tại / chiêu nộ kích hoạt (chỉ thêm lớp, không sửa animation) */
+function flare(t,tk,delay){setTimeout(()=>{try{const root=document.getElementById('gm');if(!root)return;const g=typeof G!=='undefined'?G:null;
+ let h=root.querySelector('.arv.a'+t);if(g&&g.sd&&tk==null){}
+ const o=h&&h.querySelector(':scope>.dkmn');if(o){o.classList.remove('fl');void o.offsetWidth;o.classList.add('fl');setTimeout(()=>o.classList.remove('fl'),1000)}}catch(_){}},delay)}
+const _pa=window.psvAnim;if(typeof _pa==='function')window.psvAnim=function(cid,t,tk,opts){const d=_pa.apply(this,arguments);try{if(cid==='dknight'&&!(opts&&opts.demo))flare(t,tk,Math.min(900,(+d||1500)*.45))}catch(_){}return d};
+const _ua=window.ultAnim;if(typeof _ua==='function')window.ultAnim=function(cid,t,tk){const d=_ua.apply(this,arguments);try{if(cid==='dknight')flare(t,tk,Math.min(1500,(+d||2500)*.55))}catch(_){}return d};
+setInterval(()=>{try{sync()}catch(e){}},180);
 })();
 </script>
 
