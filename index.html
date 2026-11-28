@@ -3056,11 +3056,11 @@ function clsAtk(t,a){const id=G.cls[t],c=clsDef(id),s=G.s,r={m:1,add:0,pen:0,ins
  if(isClone){const pct=(G.tm&&G.tm[t]&&G.tm[t].dplSync>0)?100:(curMem.cloneDm||75);r.m*=pct/100;L(`👥 ${AN(t)} tấn công (${pct}% ST Phân Thân)!`)}
  else if(isSpyOn){}
  else{
-  if(G.ult0===t){if(id==='dragoon')a.cc=0;G.log.unshift(`⚡ Chiêu tối thượng thay thế ${c.pn} ở đòn này`)}else if(id==='berserker'){if(a.seal>0)L(`🔒 Phong Ấn khóa ${c.pn} của ${AN(t)}`);else{const n=a.bzd||0;if(n>0){r.add=n*v('per');if(n>=v('cap'))a.bzd=0;L(`${c.ic} ${AN(t)} ${c.pn}: +${r.add} sát thương`)}}}
-  else if(id==='geomancer'){const plk=psvLocked(t,a);if(plk)L(`🚫 Khóa Nội Tại: ${AN(t)} không thể tích ${c.pn}`);else{a.cc=(a.cc||0)+1;a.geo=Math.min(v('cap'),(a.geo||0)+1)}if(a.seal>0)L(`🔒 Phong Ấn khóa ${c.pn} của ${AN(t)}`);else if((a.geo||0)>=2&&(a.cc||0)>=2){const shd=a.geo,sh=Math.round(s.hp*v('shp')*shd/100),dmb=v('dm')*shd;a.geo=0;a.cc=0;r.m=1+dmb/100;r.pcx=dmb;r.geoTrig=1;(r.fn=r.fn||[]).push((t2,a2)=>{a2.ts=(a2.ts||0)+sh});L(`${c.ic} ${AN(t)} kích hoạt ${c.pn} (${shd} mảnh): +${sh} khiên & +${dmb}% sát thương!`)}else L(`${c.ic} ${AN(t)} tích Mảnh Đá: ${a.geo||0}/${v('cap')} (chuỗi ${a.cc||0}/2)`)}
+  if(G.ult0===t){if(id==='dragoon')a.cc=0;G.log.unshift(`⚡ Chiêu tối thượng thay thế ${c.pn} ở đòn này`)}else if(id==='berserker'){if(a.seal>0||psvLocked(t,a))L(psvLocked(t,a)?`🚫 Khóa Nội Tại: ${AN(t)} không thể kích hoạt ${c.pn}`:`🔒 Phong Ấn khóa ${c.pn} của ${AN(t)}`);else{const n=a.bzd||0;if(n>0){r.add=n*v('per');if(n>=v('cap'))a.bzd=0;L(`${c.ic} ${AN(t)} ${c.pn}: +${r.add} sát thương`)}}}
+  else if(id==='geomancer'){const plk=psvLocked(t,a);if(plk)L(`🚫 Khóa Nội Tại: ${AN(t)} không thể tích ${c.pn}`);else{a.cc=(a.cc||0)+1;a.geo=Math.min(v('cap'),(a.geo||0)+1)}if(a.seal>0||plk)L(plk?`🚫 Khóa Nội Tại: ${AN(t)} không thể kích hoạt ${c.pn}`:`🔒 Phong Ấn khóa ${c.pn} của ${AN(t)}`);else if((a.geo||0)>=2&&(a.cc||0)>=2){const shd=a.geo,sh=Math.round(s.hp*v('shp')*shd/100),dmb=v('dm')*shd;a.geo=0;a.cc=0;r.m=1+dmb/100;r.pcx=dmb;r.geoTrig=1;(r.fn=r.fn||[]).push((t2,a2)=>{a2.ts=(a2.ts||0)+sh});L(`${c.ic} ${AN(t)} kích hoạt ${c.pn} (${shd} mảnh): +${sh} khiên & +${dmb}% sát thương!`)}else L(`${c.ic} ${AN(t)} tích Mảnh Đá: ${a.geo||0}/${v('cap')} (chuỗi ${a.cc||0}/2)`)}
   else if(c.k==='r'){r.add=0;const plk=psvLocked(t,a);if(plk)L(`🚫 Khóa Nội Tại: ${AN(t)} không thể tích ${c.pn}`);else a.cc=(a.cc||0)+1;{const pc=a.seal>0?0:Math.min(v('cap'),v('per')*(a.cc||0));r.m=1+pc/100;r.pcx=pc}if(a.seal>0&&(a.cc||0)>1)L(`🔒 Phong Ấn khóa ${c.pn} của ${AN(t)}`);if(r.pcx)L(`${c.ic} ${AN(t)} ${c.pn}: +${r.pcx}% sát thương`);if(!plk&&c.xr)c.xr(r,a,t,v,L)}
   else if(c.k==='x'){if(psvLocked(t,a))L(`🚫 Khóa Nội Tại: ${AN(t)} không thể tích ${c.pn}`);else if(XA[id])XA[id](r,a,t,L,v)}
-  else if(c.k==='c'){const nd=v('need'),was=a.cc||0,plk=psvLocked(t,a);if(was<nd){if(plk)L(`🚫 Khóa Nội Tại: ${AN(t)} không thể tích ${c.pn}`);else a.cc=was+1}if(a.cc>=nd&&a.seal>0){L(`🔒 Phong Ấn khóa ${c.pn} của ${AN(t)}, vẫn giữ nguyên nội tại đã nạp`)}
+  else if(c.k==='c'){const nd=v('need'),was=a.cc||0,plk=psvLocked(t,a);if(was<nd){if(plk)L(`🚫 Khóa Nội Tại: ${AN(t)} không thể tích ${c.pn}`);else a.cc=was+1}if(a.cc>=nd&&(a.seal>0||plk)){L(plk?`🚫 Khóa Nội Tại: ${AN(t)} không thể kích hoạt ${c.pn}`:`🔒 Phong Ấn khóa ${c.pn} của ${AN(t)}, vẫn giữ nguyên nội tại đã nạp`)}
    else if(a.cc>=nd&&(!c.cd2||id==='executioner'||c.cd2(t))){r.trig=1;r.cc0=a.cc;a.cc=0;L(`${c.ic} ${AN(t)} kích hoạt ${c.pn}!`);
     if(id==='sword')r.m=v('mult');else if(id==='mage')r.fz=v('fz');else if(id==='archer'){r.m=v('mult');r.pen=v('pen')/100}
     else if(id==='assassin'){if(Math.random()*100<asCh(t,v,L))r.m=v('mult');else{r.miss=1;L(`🗡️ ${AN(t)} Ám Sát trượt, không ra x${v('mult')}`)}}
@@ -3293,7 +3293,7 @@ const FXD=[
  {k:'hh_bn',get ic(){return (window.ICO&&window.ICO.hhBone)||'🦴'},n:'Xương Tụ Lực',c:'#b45309',st:{hhbx:1},nd:1,d:'',r:''},
  {k:'ch_tr',get ic(){return (window.ICO&&window.ICO.trChain)||'⛓️'},n:'Bẫy Kẹp Xiềng Xích',c:'#ca8a04',st:{chain:2,sx:{chain:'trapper'}},nd:1,d:'',r:''},
  {k:'st_tr',get ic(){return (window.ICO&&window.ICO.trStun)||'💫'},n:'Choáng Thùng Bẫy',c:'#b45309',st:{stun:1,stTr:1},nd:1,d:'',r:''},
- {k:'wk_tp',get ic(){return (window.ICO&&window.ICO.tpStorm)||'🌀'},n:'Hỗn Loạn Lốc Xoáy',c:'#0ea5e9',st:{chaos:50,sx:{chaos:'tempest'}},nd:1,d:'',r:''},
+ {k:'wk_tp',get ic(){return (window.ICO&&window.ICO.tpStorm)||'🌪️'},n:'Hỗn Loạn Lốc Xoáy',c:'#0ea5e9',st:{psvlk:2,psvlkTp:1},nd:1,d:'',r:''},
  {k:'vn_mk',get ic(){return (window.ICO&&window.ICO.vnMark)||'🎭'},n:'Dây Rối Lạc Hướng',c:'#a855f7',st:{vndx:1},bn:1,nd:1,d:'',r:''},
  {k:'iv_mk',get ic(){return (window.ICO&&window.ICO.ivMark)||'🌀'},n:'Nghịch Chuyển',c:'#7c3aed',st:{invrt:2,invrtN:1},bn:1,nd:1,d:'',r:''},
  {k:'ar_ab',get ic(){return (window.ICO&&window.ICO.abWreath)||'🌱'},n:'Vòng Hoa Che Chở',c:'#16a34a',st:{arbw:1},nd:1,d:'',r:''},
@@ -3389,7 +3389,7 @@ const FXM={
  eclipse:[['ar_ec','self','pu','Dạng Nguyệt / Nhật Thực: bản thân nhận giáp giảm sát thương nhận.'],['wk_ec','foe','u','Nhật Thực Toàn Phần: đối thủ giảm sát thương gây ra.']],
  diver:[['dv_ut','self','p','Ở 7v7: Lặn Sâu, không thể bị chọn làm mục tiêu khi còn đồng đội.'],['dv_dg','self','p','Ở 1v1: lặn sâu, né các đòn kế tiếp.']],
  trapper:[['ch_tr','foe','pu','Thùng Bẫy: quà kế tiếp của đối thủ bị vô hiệu.'],['st_tr','foe','pu','Thùng Bẫy kích hoạt làm đối thủ choáng.']],
- tempest:[['wk_tp','foe','pu','Lốc Xoáy: đòn kế tiếp của đối thủ bị giảm sát thương.']],
+ tempest:[['wk_tp','foe','u','Cuồng Phong Nổi Dậy: khóa tích và kích hoạt nội tại của mục tiêu chính trong 2 lượt.']],
  detective:[['wk_dt','foe','p','Bắt Bài: Khi đối thủ trả lời sai, kích hoạt Hỗn Loạn Vạch Trần và giành quyền trả lời câu hỏi đó.']],
  flamekeeper:[['fk_bn','foe','u','Ngọn Đuốc Bất Diệt: thiêu đốt mục tiêu mỗi lượt.']],
  sunbringer:[['sun_hp','team','pu','Máu thêm từ Ban Ngày Bất Tận / Mặt Trời Chân Lý hiện thành đoạn vàng ở cuối thanh máu, có móc và mặt trời đánh dấu.']],
@@ -3741,7 +3741,7 @@ CLS.push(
  {id:'bountyhunter',n:'Thợ Săn Tiền Thưởng',e:'Bounty Hunter',w:'Nỏ săn thưởng',pn:'Giá Treo Đầu',c:'#b45309',ic:'🤠',k:'x',cd:'Treo thưởng đầu trận',ef:'Mỗi lượt đội địch còn mục tiêu sống, tiền thưởng +{step}% (tối đa +{cap}%). Đánh trúng mục tiêu treo thưởng cộng toàn bộ % ST đó rồi đặt lại về 0',p:[['step','% ST tăng mỗi lượt mục tiêu sống',1,50,15],['cap','% ST cộng dồn tối đa',10,200,75]]},
  {id:'headhunter',n:'Kẻ Săn Đầu',e:'Headhunter',w:'Rìu săn đầu',pn:'Truy Đuổi',c:'#991b1b',ic:'🦴',k:'x',cd:'Đánh liên tiếp cùng mục tiêu',ef:'Mỗi đòn đội đánh cùng 1 mục tiêu tích 1 tầng Tập Trung (tối đa {cap} tầng); Kẻ Săn Đầu nhận +{per}% ST mỗi tầng. Đổi mục tiêu (7v7) hoặc đủ tầng (1v1) đặt lại về 0',p:[['per','% ST cộng thêm mỗi tầng',1,50,15],['cap','Số tầng tối đa',1,10,3]]},
  {id:'trapper',n:'Người Đặt Bẫy',e:'Trapper',w:'Bẫy chông sa mạc',pn:'Thùng Bẫy',c:'#ca8a04',ic:'🕹️',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Gây {pc}% ST và đặt bẫy {tn} lượt lên đội địch: quà tiếp theo bị vô hiệu, mất {dmg}% HP hiện tại và choáng {st} lượt',p:[['need','Số câu đúng liên tiếp',1,10,2],['pc','% ST đòn đánh',50,400,120],['tn','Số lượt tồn tại bẫy',1,5,3],['dmg','% HP hiện tại mất khi sập bẫy',1,50,15],['st','Số lượt choáng khi sập bẫy',1,3,1]]},
- {id:'tempest',n:'Người Gọi Bão',e:'Tempest',w:'Quyền trượng gió lốc',pn:'Lốc Xoáy',c:'#0ea5e9',ic:'🌪️',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Gây {pc}% ST; 7v7: tráo ngẫu nhiên người đứng sân đối phương với dự bị; 1v1: đòn kế đối thủ giảm {wk}% ST',p:[['need','Số câu đúng liên tiếp',1,10,2],['pc','% ST đòn đánh',50,400,130],['wk','% giảm ST đòn kế (1v1)',5,90,45]]},
+ {id:'tempest',n:'Người Gọi Bão',e:'Tempest',w:'Quyền trượng gió lốc',pn:'Lốc Xoáy',c:'#0ea5e9',ic:'🌪️',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'gây {pc}% ST lên mục tiêu chính và cuốn gió gây {sp}% ST lan sang {cnt} dự bị ngẫu nhiên (1v1: gây thêm 1 đợt gió giật +{sp}% ST sau đòn đánh)',p:[['need','Số câu đúng liên tiếp',1,10,2],['pc','% ST đòn đánh lên mục tiêu chính',50,400,125],['sp','% ST lan (7v7) / gió giật thêm (1v1)',5,150,30],['cnt','Số dự bị chịu sát thương lan (7v7)',1,6,2]]},
  {id:'detective',n:'Thám Tử',e:'Detective',w:'Kính lúp & sổ tay',pn:'Bắt Bài',c:'#475569',ic:'🔍',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'gây {pc}% ST và bắt bài đội địch ({tn} lượt): Giành quyền trả lời câu hỏi sai của đối thủ',p:[['need','Số câu đúng liên tiếp',1,10,2],['pc','% ST đòn đánh',50,400,125],['tn','Số lượt bắt bài',1,6,2]]},
  {id:'ventriloquist',n:'Múa Rối Sư',e:'Puppeteer',w:'Con rối gỗ',pn:'Lạc Hướng',c:'#a855f7',ic:'🪆',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Gây {pc}% ST và gieo Lạc Hướng: 7v7 đổi mục tiêu đòn kế của địch sang đồng đội ngẫu nhiên; 1v1 có {ch}% xác suất trượt tay còn 50% ST',p:[['need','Số câu đúng liên tiếp',1,10,2],['pc','% ST đòn đánh',50,400,125],['ch','% tỉ lệ trượt tay (1v1)',10,100,45]]},
  {id:'inverter',n:'Pháp Sư Nghịch Chuyển',e:'Inverter',w:'Quả cầu nghịch chuyển',pn:'Nghịch Chuyển',c:'#7c3aed',ic:'🌀',k:'c',cd:'Trả lời đúng {need} câu liên tiếp',ef:'Gây {pc}% ST và Nghịch Chuyển trong {tn} lượt: lần hồi máu tiếp theo từ kỹ năng/quà của mục tiêu biến thành mất HP tương ứng',p:[['need','Số câu đúng liên tiếp',1,10,2],['pc','% ST đòn đánh',50,400,125],['tn','Số lượt nghịch chuyển',1,5,2]]},
@@ -3797,7 +3797,7 @@ Object.assign(CX,{
  explorer:(r,v,a,t,L)=>{const o=1-t,ts=tgS(o),hp=Math.max(0,mhp(o,G.lk));if(ts&&['sh','ts','gs','ab','ar','sp'].some(k=>ts[k]>0)){r.m=v('pickpc')/100;a.pierce=1;if(ts.shIm>0){ts.shIm--;L(`🏰 Pháo Đài kháng phá khiên, nhưng Cuốc vẫn xuyên giáp (${v('pickpc')}% ST)!`)}else{['sh','ts','gs','ab','ar','sp'].forEach(k=>{ts[k]=0});delete ts.spT;delete ts.gsT;L(`⛏️ ${AN(t)} dùng Cuốc: phá sạch khiên & giáp và xuyên giáp (${v('pickpc')}% ST)!`)}}else if(ts&&hasNonShieldBuff(ts)){r.m=1.25;const sk=stripOneNonShieldBuff(ts);L(`🪢 ${AN(t)} dùng Dây Thòng Lọng: gỡ buff${sk?' '+sk:''}, gây 125% ST!`)}else if(hp>G.s.hp*v('hpth')/100){r.m=v('axepc')/100;L(`🪓 ${AN(t)} dùng Rìu: mục tiêu trên ${v('hpth')}% HP, gây ${v('axepc')}% ST!`)}else{r.m=v('defpc')/100;L(`🧭 ${AN(t)} tấn công ${v('defpc')}% ST!`)}},
  pirate:(r,v,a,t,L)=>{const o=1-t,bm=G.sd&&G.lk!=null&&G.sd[o][G.lk],ts=tgS(o),tc=clsDef(bm?bm.cls:G.cls[o]);if(tc&&tc.k!=='r'&&tc.k!=='x'&&ts&&(ts.cc||0)>0){r.m=v('pc')/100;(r.fn=r.fn||[]).push((t2,a2,b2,tn2)=>{const bm2=G.sd&&G.lk!=null&&G.sd[1-t2][G.lk],tc2=clsDef(bm2?bm2.cls:G.cls[1-t2]);if(tc2&&tc2.k!=='r'&&tc2.k!=='x'&&b2&&(b2.cc||0)>0){const st=Math.min(v('steal'),b2.cc);b2.cc-=st;const mx=Math.max(0,v('need')-1);a2.cc=Math.min(mx,(a2.cc||0)+st);G.log.unshift(`🏴‍☠️ ${AN(t2)} cướp ${st} điểm chuỗi của ${tn2}!`)}})}else{r.m=v('altpc')/100;L(`🏴‍☠️ ${AN(t)} Cướp Chuỗi: mục tiêu không có chuỗi, tăng thành ${v('altpc')}% ST!`)}},
  trapper:(r,v)=>{r.m=v('pc')/100;r.fn=[(t2)=>{const o2=1-t2,ts=tgS(o2);if(ts&&ts.ghs>0&&!G.sd)return;const mo=tmg(o2);mo.trap={tn:v('tn'),n:(mo.trap?mo.trap.n:0)+1,dmg:v('dmg'),st:v('st')};G.log.unshift(`🕹️ ${AN(t2)} đặt Thùng Bẫy lên ${tmN(o2)} (${v('tn')} lượt)!`)}]},
- tempest:(r,v)=>{r.m=v('pc')/100;r.fn=[(t2,a2,b2,tn2)=>{const o2=1-t2;if(G.sd){if(shuffleTeam7(o2))G.log.unshift(`🌪️ Lốc Xoáy thổi bay ${tmN(o2)}: tráo người đứng sân!`);else G.log.unshift(`🌪️ Lốc Xoáy: ${tmN(o2)} không còn dự bị để tráo`)}else if(!(b2&&b2.ghs>0)){b2.chaos=Math.max(b2.chaos||0,v('wk'));G.log.unshift(`🌪️ Lốc Xoáy: ${tn2} giảm ${v('wk')}% ST đòn kế!`)}}]},
+ tempest:(r,v)=>{r.m=v('pc')/100;r.fn=[(t2,a2,b2,tn2,cx2)=>{const o2=1-t2,baseD=(cx2&&cx2.dd>0)?cx2.dd:((cx2&&cx2.pre>0)?cx2.pre:Math.max(1,Math.round(+G.q.p||1))),sp=v('sp'),sd=Math.max(1,Math.round(baseD*sp/100));if(G.sd){const al=G.sd[o2].map((m,k)=>(!m.dead&&!m.isSpyShadow&&!m.spyInf&&k!==G.lk&&!(m.st&&m.st.ghs>0))?k:-1).filter(k=>k>=0),pk=shuf(al).slice(0,v('cnt'));G._tpSplash=pk.slice();if(pk.length){pk.forEach(k=>aHurt(o2,sd,k));G.log.unshift(`🌪️ Lốc Xoáy cuốn gió gây ${sd} ST lan (${sp}%) sang ${pk.map(k=>G.sd[o2][k].nm).join(', ')}!`)}}else if(G.sc[o2]>0&&!(b2&&b2.ghs>0)){aHurt(o2,sd);G.log.unshift(`🌪️ Lốc Xoáy: gió giật thêm ${sd} ST (+${sp}%) lên ${tn2}!`)}}]},
  detective:(r,v)=>{r.m=v('pc')/100;r.fn=[(t2)=>{detAdd(1-t2,v('tn'),0,0,t2)}]},
  ventriloquist:(r,v)=>{r.m=v('pc')/100;r.fn=[(t2)=>{const mo=tmg(1-t2);mo.vnd={tn:1,n:1,ch:v('ch'),ult:0};G.log.unshift(`🎭 ${AN(t2)} gieo Lạc Hướng lên ${tmN(1-t2)}!`)}]},
  inverter:(r,v)=>{r.m=v('pc')/100;r.fn=[(t2,a2,b2,tn2)=>{if(b2&&!(b2.ghs>0)){b2.invrt=Math.max(b2.invrt||0,v('tn'));b2.invrtN=Math.max(b2.invrtN||0,1);b2.invrtPct=100;G.log.unshift(`🌀 ${tn2} bị Nghịch Chuyển hồi máu (${v('tn')} lượt)!`)}}]}
@@ -6778,7 +6778,7 @@ pirate:[['u_pc','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,400],['u
 bountyhunter:[['u_pc','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,420],['u_min','⚡ Chiêu nộ: % ST thưởng tối thiểu',0,300,100]],
 headhunter:[['u_pc','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,400],['u_stk','⚡ Chiêu nộ: % ST thêm mỗi tầng Tập Trung',5,100,35],['u_lo','⚡ Chiêu nộ: ngưỡng HP chém thêm (%)',1,99,35],['u_ex','⚡ Chiêu nộ: nhát chém thêm (%)',0,500,120]],
 trapper:[['u_pc','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,320],['u_n','⚡ Chiêu nộ: số lớp bẫy đặt',1,5,2],['u_tn','⚡ Chiêu nộ: số lượt tồn tại bẫy',1,6,3],['u_dmg','⚡ Chiêu nộ: % HP hiện tại mất khi sập',1,60,25],['u_st','⚡ Chiêu nộ: số lượt choáng',1,3,1]],
-tempest:[['u_pc','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,320],['u_wk','⚡ Chiêu nộ: % đối thủ yếu đi',5,90,60],['u_tn','⚡ Chiêu nộ: số lượt đối thủ yếu đi',1,5,2]],
+tempest:[['u_pc','⚡ Chiêu nộ: hệ số sát thương lên mục tiêu chính (%)',100,1000,280],['u_sw','⚡ Chiêu nộ: % HP hiện tại càn quét toàn đội địch',5,80,20],['u_lk','⚡ Chiêu nộ: số lượt khóa kích hoạt nội tại mục tiêu chính',1,5,2]],
 detective:[['u_pc','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,320],['u_n','⚡ Chiêu nộ: số lượt bắt bài cộng thêm',1,6,2],['u_dm','⚡ Chiêu nộ: % ST tăng khi trả lời đúng câu thay thế',10,200,40],['u_tn','⚡ Chiêu nộ: số lượt câu hỏi thay thế tăng ST',1,6,2]],
 ventriloquist:[['u_pc','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,310],['u_tn','⚡ Chiêu nộ: số đòn địch bị lạc hướng',1,4,2],['u_ch','⚡ Chiêu nộ: % tỉ lệ trượt tay (1v1)',10,100,75]],
 inverter:[['u_pc','⚡ Chiêu nộ: hệ số sát thương (%)',100,1000,320],['u_n','⚡ Chiêu nộ: số lần nghịch chuyển mỗi người',1,4,2],['u_tn','⚡ Chiêu nộ: số lượt nghịch chuyển',1,6,3],['u_pct','⚡ Chiêu nộ: % lượng hồi chuyển thành ST',50,300,150]],
@@ -6889,7 +6889,7 @@ pirate:['🏴‍☠️','ĐẠI HẢI TẶC','Gây {u_pc}% ST xuyên giáp, xóa
 bountyhunter:['🤠','LỆNH TRUY NÃ TỐI THƯỢNG','Gây {u_pc}% ST; nếu trúng mục tiêu truy nã thì cộng thêm tiền thưởng hiện có (tối thiểu +{u_min}% ST) rồi đổi mục tiêu mới','#b45309',(a,b,t,o)=>{bountyInit();const m=tmg(t),tgt=G.sd?G.sd[o][G.lk!=null?G.lk:G.fi[o]]:1,isTgt=!G.sd||(m.bhRef===tgt);let pc=UL('bountyhunter','u_pc');if(isTgt){const add=Math.max(UL('bountyhunter','u_min'),m.bhPct||0);pc+=add;m.bhPct=0;a.upost=(a.upost||[]).concat([(t2)=>bountyPick(t2)])}a.xm=(a.xm||1)*pc/100}],
 headhunter:['🦴','TRẢM THỦ','Gây {u_pc}% ST +{u_stk}% mỗi tầng Tập Trung rồi đặt lại về 0; nếu mục tiêu dưới {u_lo}% HP chém thêm {u_ex}% ST','#991b1b',(a,b,t,o)=>{const m=tmg(t),stk=m.hhStk||0,pc=UL('headhunter','u_pc')+stk*UL('headhunter','u_stk');m.hhStk=0;const lo=UL('headhunter','u_lo'),ex=UL('headhunter','u_ex'),hp=Math.max(0,mhp(o,G.lk));if(ex>0&&hp>0&&hp<G.s.hp*lo/100){a.uh=[2,pc,'nhát chém'];a.uhmv=[pc,ex];G.log.unshift(`🪓 Trảm Thủ: dưới ${lo}% HP, chém thêm nhát ${ex}%!`)}else a.xm=(a.xm||1)*pc/100}],
 trapper:['🕹️','BÃI MÌN ĐỊA NGỤC','Gây {u_pc}% ST và đặt {u_n} lớp Thùng Bẫy ({u_tn} lượt) lên đội địch: mỗi lần nhận quà bị vô hiệu, mất {u_dmg}% HP hiện tại & choáng {u_st} lượt','#ca8a04',(a,b,t,o)=>{a.xm=(a.xm||1)*UL('trapper','u_pc')/100;const mo=tmg(o);mo.trap={tn:UL('trapper','u_tn'),n:(mo.trap?mo.trap.n:0)+UL('trapper','u_n'),dmg:UL('trapper','u_dmg'),st:UL('trapper','u_st')}}],
-tempest:['🌪️','CUỒNG PHONG NỔI DẬY','Gây {u_pc}% ST, thổi tung đội hình đối thủ (7v7) và làm cả đội địch yếu đi {u_wk}% ST trong {u_tn} lượt','#0ea5e9',(a,b,t,o)=>{a.xm=(a.xm||1)*UL('tempest','u_pc')/100;const wk=UL('tempest','u_wk'),tn=UL('tempest','u_tn');if(G.sd){shuffleTeam7(o);aoT(o).wk.tmp={pc:wk,n:tn,ic:'🌪️',nm:'Cuồng Phong'}}else if(b&&!(b.ghs>0)){b.chaos=Math.max(b.chaos||0,wk);b.chaosN=Math.max(b.chaosN||0,tn)}}],
+tempest:['🌪️','CUỒNG PHONG NỔI DẬY','Gây {u_pc}% ST lên mục tiêu chính, càn quét {u_sw}% HP hiện tại lên toàn bộ đội địch (bỏ qua né tránh) và khóa kích hoạt nội tại của mục tiêu chính trong {u_lk} lượt','#0ea5e9',(a,b,t,o)=>{a.xm=(a.xm||1)*UL('tempest','u_pc')/100;const sw=UL('tempest','u_sw'),lk=UL('tempest','u_lk');a.upost=(a.upost||[]).concat([(t2,a2,b2,tn2)=>{const o2=1-t2;if(G.sd){let hit=0;G.sd[o2].forEach((m,k)=>{if(m.dead||m.isSpyShadow||m.spyInf||(m.st&&m.st.ghs>0))return;const chp=k===G.fi[o2]?G.sc[o2]:m.hp;if(chp>0){const dm=Math.max(1,Math.round(chp*sw/100));aHurt(o2,dm,k===G.fi[o2]?null:k);hit++}});if(hit)G.log.unshift(`🌪️ Cuồng Phong càn quét ${sw}% HP hiện tại lên toàn bộ ${tmN(o2)} (bỏ qua né tránh)!`)}else if(G.sc[o2]>0&&!(b2&&b2.ghs>0)){const dm=Math.max(1,Math.round(G.sc[o2]*sw/100));aHurt(o2,dm);G.log.unshift(`🌪️ Cuồng Phong càn quét ${dm} ST (${sw}% HP hiện tại, bỏ qua né tránh) lên ${tn2}!`)}if(b2&&!(b2.ghs>0)){b2.psvlk=Math.max(b2.psvlk||0,lk);b2.psvlkTp=1;G.log.unshift(`🌪️ Cuồng Phong khóa tích & kích hoạt nội tại của ${tn2} trong ${lk} lượt!`)}}])}],
 detective:['🔍','VẠCH TRẦN BÍ MẬT','Gây {u_pc}% sát thương, bắt bài đội địch thêm {u_n} lượt và tăng {u_dm}% sát thương khi trả lời đúng câu hỏi thay thế trong {u_tn} lượt của câu hỏi','#475569',(a,b,t,o)=>{a.xm=(a.xm||1)*UL('detective','u_pc')/100;detAdd(o,UL('detective','u_n'),UL('detective','u_dm'),UL('detective','u_tn'),t)}],
 ventriloquist:['🪆','RỐI LOẠN ÂM THANH','Gây {u_pc}% ST và gieo Lạc Hướng cho {u_tn} đòn kế (kể cả Chiêu Nộ): 7v7 đổi mục tiêu ngẫu nhiên; 1v1 có {u_ch}% trượt tay còn 50% ST','#a855f7',(a,b,t,o)=>{a.xm=(a.xm||1)*UL('ventriloquist','u_pc')/100;const mo=tmg(o);mo.vnd={tn:3,n:UL('ventriloquist','u_tn'),ch:UL('ventriloquist','u_ch'),ult:1}}],
 inverter:['🌀','ĐẢO NGƯỢC SINH TỬ','Gây {u_pc}% ST và Nghịch Chuyển toàn đội địch ({u_tn} lượt, {u_n} lần/người): biến {u_pct}% lượng hồi máu thành sát thương','#7c3aed',(a,b,t,o)=>{a.xm=(a.xm||1)*UL('inverter','u_pc')/100;const n=UL('inverter','u_n'),tn=UL('inverter','u_tn'),pct=UL('inverter','u_pct');aSts(o).forEach(x=>{if(x.ghs>0)return;x.invrt=Math.max(x.invrt||0,tn);x.invrtN=Math.max(x.invrtN||0,n);x.invrtPct=Math.max(x.invrtPct||0,pct)})}],
@@ -6936,7 +6936,7 @@ voidcleaver:['⚫','NHÁT CHÉM CẮT ĐÔI BẦU TRỜI','Gây {u_pc}% ST xuyê
 /* ===== Trạng thái & hàm hỗ trợ chiêu nộ ===== */
 A7C.push(['inv','✨','Miễn Nhiễm',e=>`Miễn nhiễm mọi sát thương (kể cả xuyên giáp), còn ${e.inv} lượt`,0]);AST.push(['inv','✨']);
 A7C.push(['xbt','💰','Treo Thưởng',e=>`Nếu bị hạ gục trong ${Math.max(1,e.xbt-1)} lượt tới của Đao phủ, Đao phủ nhận 1 quà từ Sử thi trở lên`,1]);AST.push(['xbt','💰']);
-A7C.push(['invrt','🌀','Nghịch Chuyển',e=>`Lần hồi máu tiếp theo (${e.invrtN||1} lần) biến thành sát thương (${e.invrt} lượt)`,1],['clth','🧶','Lớp Vải Giáp',e=>`${e.clth} lớp giảm ${Math.min(75,e.clth*(e.clthP||12))}% ST${Math.min(e.clthU||0,e.clth)>0&&e.clthRf>0?` · ${Math.min(e.clthU,e.clth)} lớp phản ${e.clthRf}% ST`:''}`,0],['fshT','🏰','Giáp Nổ',e=>`Khiên nổ ${e.fshRef||60}% giá trị khi vỡ/hết hạn (${e.fshT} lượt)`,0],['shIm','🏰','Kháng Phá Khiên',()=>'Miễn nhiễm phá khiên 1 lần',0],['geo','🪨','Mảnh Đá',e=>`${e.geo} Mảnh Đá tích trữ`,0],['divOn','⚓','Lặn Sâu',e=>`Đang lặn (tích ${e.divSt||0} ST)`,0],['pbIm','🍻','Kháng Độc/Cháy',e=>`Miễn nhiễm Độc & Thiêu Đốt (${e.pbIm} lượt)`,0],['runeW','🌿','Ấn Mộc',e=>`Bị đánh trúng hồi ${e.runeW}% HP`,0],['runeI','❄️','Ấn Băng',e=>`Giảm ${e.runeI}% ST đòn tới`,0],['runeF','🔥','Ấn Hỏa',e=>`Đòn tới +${e.runeF}% ST`,0],['psvlk','🚫','Khóa Nội Tại',e=>`Khóa tích nội tại (${e.psvlk} lượt)`,1]);
+A7C.push(['invrt','🌀','Nghịch Chuyển',e=>`Lần hồi máu tiếp theo (${e.invrtN||1} lần) biến thành sát thương (${e.invrt} lượt)`,1],['clth','🧶','Lớp Vải Giáp',e=>`${e.clth} lớp giảm ${Math.min(75,e.clth*(e.clthP||12))}% ST${Math.min(e.clthU||0,e.clth)>0&&e.clthRf>0?` · ${Math.min(e.clthU,e.clth)} lớp phản ${e.clthRf}% ST`:''}`,0],['fshT','🏰','Giáp Nổ',e=>`Khiên nổ ${e.fshRef||60}% giá trị khi vỡ/hết hạn (${e.fshT} lượt)`,0],['shIm','🏰','Kháng Phá Khiên',()=>'Miễn nhiễm phá khiên 1 lần',0],['geo','🪨','Mảnh Đá',e=>`${e.geo} Mảnh Đá tích trữ`,0],['divOn','⚓','Lặn Sâu',e=>`Đang lặn (tích ${e.divSt||0} ST)`,0],['pbIm','🍻','Kháng Độc/Cháy',e=>`Miễn nhiễm Độc & Thiêu Đốt (${e.pbIm} lượt)`,0],['runeW','🌿','Ấn Mộc',e=>`Bị đánh trúng hồi ${e.runeW}% HP`,0],['runeI','❄️','Ấn Băng',e=>`Giảm ${e.runeI}% ST đòn tới`,0],['runeF','🔥','Ấn Hỏa',e=>`Đòn tới +${e.runeF}% ST`,0],['psvlk','🚫','Khóa Nội Tại',e=>`${e.psvlkTp?'🌪️ Hỗn Loạn Lốc Xoáy: ':''}Khóa tích & kích hoạt nội tại (${e.psvlk} lượt)`,1]);
 AST.push(['invrt','🌀'],['clth','🧶'],['fshT','🏰'],['shIm','🏰'],['geo','🪨'],['divOn','⚓'],['pbIm','🍻'],['runeW','🌿'],['runeI','❄️'],['runeF','🔥'],['psvlk','🚫']);
 function teamHp(t){if(!G.sd)return[Math.max(0,G.sc[t]),G.s.hp];let c=0,mx=0;G.sd[t].forEach((m,k)=>{if(m.isClone||m.isSpyShadow||m.spyInf)return;mx+=G.s.hp;if(m.dead||(m.st&&m.st.ghs>0))return;c+=Math.max(0,k===G.fi[t]?G.sc[t]:m.hp)});return[c,mx||G.s.hp]}
 function aMem(t){if(!G.sd)return[[G.st[t],Math.max(0,G.sc[t])]];const r=[];G.sd[t].forEach((m,k)=>{if(m.dead||m.isSpyShadow||m.spyInf)return;r.push([m.st,Math.max(0,k===G.fi[t]?G.sc[t]:m.hp)])});return r}
@@ -7116,9 +7116,9 @@ function bloodSync(){const id=(G&&G.k==='arena'&&G.en&&!G.end)?G.en.id:null,el=d
 function evTick(){if(!G.en)return;if(--G.en.left<=0){G.log.unshift(`⌛ Sự kiện ${EVD[G.en.id][1]} đã kết thúc`);G.en=null;G.evcd=2}}
 const rgHTML=i=>{const r=Math.min(100,RGt()[i]),c=CBt()[i],rn=Math.max(1,+clsVal(G.s,G.cls[i],'rn')||2);return `<div class="rgb${r>=100?' full':''}" title="Thanh nộ: mỗi lần kích hoạt nội tại nhận 1 tầng, đầy thì đòn đánh kế tiếp tung chiêu tối thượng"><i style="width:${r}%"></i><span>${r>=100?'⚡ TỐI THƯỢNG SẴN SÀNG':'⚡ '+Math.min(rn,Math.round(r*rn/100))+'/'+rn+' tầng'}</span></div>${c>1?`<div class="cmbb">🔥 Combo x${c}</div>`:''}`};
 const fxHTML=()=>{const q=G.fxq||[];G.fxq=null;return q.map((x,n)=>`<div class="ult ${x.k}" style="--c:${x.c};--n:${n}"><i>${x.ic}</i><b>${x.tx}</b><small>${x.sub}</small></div>`).join('')};
-const stc=e=>{if(!e)return'';const SK=window.FXS?window.FXS.cls(e):'';if(!(e.stun>0))delete e.stMonk;if(!(e.bn>0))delete e.bnPy;if(!(e.bn>0))delete e.bnFk;if(!(e.bn>0))delete e.bnKs;if(!(e.stun>0))delete e.stDrg;if(!(e.stun>0))delete e.stTd;if(!(e.stun>0))delete e.stGb;if(!(e.stun>0))delete e.stGm;if(!(e.stun>0))delete e.stTr;if(!(e.tdr>0))delete e.tauM;if(!(e.ar>0))delete e.arSm;if(!(e.thn>0))delete e.thSm;if(!(e.sp>0))delete e.spAl;if(!(e.dgp>0))delete e.dgTd;const L1=e.fz>0?(e.fzm?'fzm':e.fzc?'fzc':'fz'):e.stun>0?(e.stz?'sz':'st'):e.seal>0?'seal':e.chain?'chain':(e.chaos||e.wwk>0)?'wk':e.nodmg?'nd':'',pw=e.hk||e.ch||e.xm||e.crown>0||e.lt||e.ex>0||e.pierce,
+const stc=e=>{if(!e)return'';const SK=window.FXS?window.FXS.cls(e):'';if(!(e.stun>0))delete e.stMonk;if(!(e.bn>0))delete e.bnPy;if(!(e.bn>0))delete e.bnFk;if(!(e.bn>0))delete e.bnKs;if(!(e.stun>0))delete e.stDrg;if(!(e.stun>0))delete e.stTd;if(!(e.stun>0))delete e.stGb;if(!(e.stun>0))delete e.stGm;if(!(e.stun>0))delete e.stTr;if(!(e.tdr>0))delete e.tauM;if(!(e.ar>0))delete e.arSm;if(!(e.thn>0))delete e.thSm;if(!(e.sp>0))delete e.spAl;if(!(e.dgp>0))delete e.dgTd;if(!(e.psvlk>0))delete e.psvlkTp;const L1=e.fz>0?(e.fzm?'fzm':e.fzc?'fzc':'fz'):e.stun>0?(e.stz?'sz':'st'):e.seal>0?'seal':e.chain?'chain':(e.chaos||e.wwk>0||(e.psvlk>0&&e.psvlkTp))?'wk':e.nodmg?'nd':'',pw=e.hk||e.ch||e.xm||e.crown>0||e.lt||e.ex>0||e.pierce,
  L2=(e.sh||e.ab>0||e.ts>0||e.gs>0||e.sp>0)?'sh':(e.dg||e.dgp>0||e.dgc>0||e.illu>0)?'dg':(e.bn>0||e.dbn>0)?'bn':(e.po>0||(e.vp>0&&!(e.vpz>0&&e.vpp>0)))?'po':e.rf?'rf':e.ar>0?'ar':e.ph?'ph':e.bomb?'bomb':e.rg>0?'rg':pw?'pw':'';
- return SK+(L1?' ov1 ox-'+L1:'')+(L2?' ov2 oy-'+L2:'')+(e.uta>0&&e.ut>0?' utsh':'')+(e.vp>0&&e.vpz>0&&e.vpp>0?' pzx':'')+(e.stun>0&&e.stMonk?' src-monk':'')+(e.bn>0&&e.bnPy?' src-pyro':'')+(e.bn>0&&e.bnFk&&!e.bnPy?' src-fkbn':'')+(e.bn>0&&e.bnKs&&!e.bnPy&&!e.bnFk?' src-ksbn':'')+(e.stun>0&&e.stDrg&&!e.stMonk?' src-drgst':'')+(e.dbn>0&&!(e.bn>0&&e.bnPy)?' src-drgbn':'')+(e.rf?' tx-rf':'')+(e.stun>0&&e.stTd&&!e.stMonk&&!e.stDrg?' src-tdst':'')+(e.stun>0&&e.stGb&&!e.stTd&&!e.stMonk&&!e.stDrg?' src-gbst':'')+(e.stun>0&&e.stTr&&!e.stGb&&!e.stTd&&!e.stMonk&&!e.stDrg?' src-trst':'')+(e.wwk>0&&!(e.chaos>0)?' src-wdwk':'')+(window.hypOn&&window.hypOn(e)?' src-hyp':'')+(e.hypB?' src-hypb':'')+(e.ar>0&&e.arSm?' src-smar':'')+(e.thn>0&&e.thSm?' src-smth':'')+(e.sp>0&&e.spAl?' src-alsp':'')+(e.dgp>0&&e.dgTd?' src-tddg':'')+(e.stun>0&&e.stGm&&!e.stGb&&!e.stTd&&!e.stMonk&&!e.stDrg?' src-gmst':'')};
+ return SK+(e.psvlk>0&&e.psvlkTp&&!SK.includes('sk-tempest-storm')?' sk-tempest-storm':'')+(L1?' ov1 ox-'+L1:'')+(L2?' ov2 oy-'+L2:'')+(e.uta>0&&e.ut>0?' utsh':'')+(e.vp>0&&e.vpz>0&&e.vpp>0?' pzx':'')+(e.stun>0&&e.stMonk?' src-monk':'')+(e.bn>0&&e.bnPy?' src-pyro':'')+(e.bn>0&&e.bnFk&&!e.bnPy?' src-fkbn':'')+(e.bn>0&&e.bnKs&&!e.bnPy&&!e.bnFk?' src-ksbn':'')+(e.stun>0&&e.stDrg&&!e.stMonk?' src-drgst':'')+(e.dbn>0&&!(e.bn>0&&e.bnPy)?' src-drgbn':'')+(e.rf?' tx-rf':'')+(e.stun>0&&e.stTd&&!e.stMonk&&!e.stDrg?' src-tdst':'')+(e.stun>0&&e.stGb&&!e.stTd&&!e.stMonk&&!e.stDrg?' src-gbst':'')+(e.stun>0&&e.stTr&&!e.stGb&&!e.stTd&&!e.stMonk&&!e.stDrg?' src-trst':'')+(e.wwk>0&&!(e.chaos>0)?' src-wdwk':'')+(window.hypOn&&window.hypOn(e)?' src-hyp':'')+(e.hypB?' src-hypb':'')+(e.ar>0&&e.arSm?' src-smar':'')+(e.thn>0&&e.thSm?' src-smth':'')+(e.sp>0&&e.spAl?' src-alsp':'')+(e.dgp>0&&e.dgTd?' src-tddg':'')+(e.stun>0&&e.stGm&&!e.stGb&&!e.stTd&&!e.stMonk&&!e.stDrg?' src-gmst':'')};
 function stBrk(){const m=document.getElementById('gm');if(!m||!G||G.k!=='arena')return;const cur={};m.querySelectorAll('.arv').forEach(e=>{cur[e.classList.contains('a0')?0:1]=e.classList.contains('ox-fz')?'fz':e.classList.contains('ox-fzm')?'fzm':e.classList.contains('oy-sh')?'sh':''});const pv=G.stp||{};
  [0,1].forEach(i=>{if(pv[i]&&!cur[i]){const e=m.querySelector('.arv.a'+i);if(e)for(let k=0;k<9;k++)e.insertAdjacentHTML('beforeend',`<i class="shd" style="--x:${(Math.random()*120-60)|0}px;--y:${(Math.random()*-70-10)|0}px;--r:${(Math.random()*540-270)|0}deg">${pv[i]==='fzm'?iceShard():pv[i]==='fz'?'🧊':'✨'}</i>`)}});G.stp=cur}
 {const o=GV.arena;GV.arena=function(){const h=o.apply(this,arguments);setTimeout(stBrk,0);return h}}
@@ -7783,7 +7783,7 @@ CI.song=function(t,a,b,v,L){const g=G.s.rgn;if(!(g==null||+g>0)){L('🎶 Thanh n
  "bountyhunter": "Treo thưởng đầu trận: mỗi lượt đội địch còn mục tiêu sống, thưởng +{step}% (tối đa +{cap}%). Đánh trúng mục tiêu truy nã cộng toàn bộ % ST đó rồi đổi mục tiêu. Nộ +1, đầy ở {rn} tầng.",
  "headhunter": "Mỗi đòn đội đánh cùng 1 mục tiêu tích 1 tầng Tập Trung (tối đa {cap} tầng), cộng +{per}% ST/tầng cho Kẻ Săn Đầu. Đổi mục tiêu đặt lại về 0. Nộ +1, đầy ở {rn} tầng.",
  "trapper": "Đúng {need} câu liên tiếp: gây {pc}% ST và đặt Thùng Bẫy ({tn} lượt) lên đội địch: quà kế bị vô hiệu, mất {dmg}% HP hiện tại và choáng {st} lượt. Nộ +1, đầy ở {rn} tầng.",
- "tempest": "Đúng {need} câu liên tiếp: gây {pc}% ST; 7v7 tráo ngẫu nhiên người đứng sân đối phương với dự bị; 1v1 giảm {wk}% ST đòn kế đối thủ. Nộ +1, đầy ở {rn} tầng.",
+ "tempest": "Đúng {need} câu liên tiếp: gây {pc}% ST lên mục tiêu chính và cuốn gió gây {sp}% ST lan sang {cnt} dự bị ngẫu nhiên (1v1: gây thêm 1 đợt gió giật +{sp}% ST sau đòn đánh). Nộ +1, đầy ở {rn} tầng.",
  "detective": "Đúng {need} câu liên tiếp: gây {pc}% ST và bắt bài đội địch ({tn} lượt): Giành quyền trả lời câu hỏi sai của đối thủ, Nộ +1, đầy ở {rn} tầng.",
  "ventriloquist": "Đúng {need} câu liên tiếp: gây {pc}% ST và gieo Lạc Hướng: 7v7 đổi mục tiêu đòn kế địch sang đồng đội ngẫu nhiên; 1v1 có {ch}% trượt tay còn 50% ST. Nộ +1, đầy ở {rn} tầng.",
  "inverter": "Đúng {need} câu liên tiếp: gây {pc}% ST và Nghịch Chuyển ({tn} lượt): lần hồi máu tiếp theo của đối thủ biến thành sát thương tương ứng. Nộ +1, đầy ở {rn} tầng.",
@@ -7839,7 +7839,7 @@ CI.song=function(t,a,b,v,L){const g=G.s.rgn;if(!(g==null||+g>0)){L('🎶 Thanh n
  "bountyhunter": "Gây {u_pc}% sát thương; nếu nhắm trúng mục tiêu truy nã thì cộng thêm tiền thưởng (tối thiểu +{u_min}% ST) rồi đổi mục tiêu mới.",
  "headhunter": "Gây {u_pc}% sát thương +{u_stk}% mỗi tầng Tập Trung rồi đặt lại về 0; nếu đối thủ dưới {u_lo}% HP chém thêm {u_ex}% sát thương.",
  "trapper": "Gây {u_pc}% sát thương và đặt {u_n} lớp Thùng Bẫy ({u_tn} lượt): quà tiếp theo bị vô hiệu, mất {u_dmg}% HP hiện tại và choáng {u_st} lượt.",
- "tempest": "Gây {u_pc}% sát thương, thổi tung đội hình đối thủ (7v7) và giảm {u_wk}% sát thương của đối thủ ({u_tn} lượt).",
+ "tempest": "Gây {u_pc}% sát thương lên mục tiêu chính, càn quét {u_sw}% HP hiện tại lên toàn bộ đội địch (bỏ qua né tránh) và khóa kích hoạt nội tại của mục tiêu chính trong {u_lk} lượt.",
  "detective": "Gây {u_pc}% sát thương, bắt bài đội địch thêm {u_n} lượt và tăng {u_dm}% sát thương khi trả lời đúng câu hỏi thay thế trong {u_tn} lượt của câu hỏi.",
  "ventriloquist": "Gây {u_pc}% sát thương và gieo Lạc Hướng cho {u_tn} đòn kế (kể cả Chiêu Nộ): 7v7 đổi mục tiêu ngẫu nhiên; 1v1 có {u_ch}% trượt tay còn 50% sát thương.",
  "inverter": "Gây {u_pc}% sát thương và Nghịch Chuyển toàn đội địch ({u_tn} lượt, {u_n} lần/người): biến {u_pct}% lượng hồi máu thành sát thương.",
@@ -14080,7 +14080,50 @@ Object.assign(UFXF,{
   impact(c,b.x,b.y,'#38bdf8',T_HIT,{chars:['⚡','💨','✦'],n:18,rad:175,amp:16});
   (window.ULTIMP_L||(window.ULTIMP_L=[])).push(T_HIT);
 
-  /* ===== GIAI ĐOẠN 4: kết thúc – lốc tan, vệt gió lưu trên sàn ===== */
+  /* ===== GIAI ĐOẠN 3B: sóng cuồng phong càn quét toàn đội địch (khớp đúng nhịp T_HIT) ===== */
+  const oMates=c.arn?[...c.arn.querySelectorAll('.a7s.s'+(1-c.t)+' .a7m:not(.dead):not(.bio-dc-m)')].map(m=>m.querySelector('.a7a')||m):[];
+  if(oMates.length){
+   const bList=oMates.map(el=>({el,r:ufR(el)})).sort((u,v)=>Math.hypot(u.r.x-b.x,u.r.y-b.y)-Math.hypot(v.r.x-b.x,v.r.y-b.y));
+   const xs=bList.map(m=>m.r.x),ys=bList.map(m=>m.r.y);
+   const cx0=(Math.min(...xs)+Math.max(...xs))/2,cy0=(Math.min(...ys)+Math.max(...ys))/2;
+   const spW=Math.max(180,Math.max(...xs)-Math.min(...xs)+120);
+   const GALE='<path d="M8 34 Q68 6 140 28 T272 24" fill="none" stroke="#e0f2fe" stroke-width="5.5" stroke-linecap="round"/><path d="M18 52 Q96 22 172 46 T264 40" fill="none" stroke="#38bdf8" stroke-width="4" stroke-linecap="round" opacity=".9"/><path d="M36 66 Q120 44 200 62 T256 56" fill="none" stroke="#7dd3fc" stroke-width="2.6" stroke-linecap="round" opacity=".8"/>';
+   svgObj(280,82,GALE,fitFront(c,280,82,[
+    ufK(b.x,b.y,.35,0,0,0),
+    ufK((b.x+cx0)/2,(b.y+cy0)/2,Math.min(1.35,spW/230),0,.96,.25),
+    ufK(cx0,cy0,Math.min(1.5,spW/210),0,.9,.65),
+    ufK(cx0+sd*26,cy0-10,Math.min(1.65,spW/195),0,0,1)
+   ]),760,T_HIT,'filter:drop-shadow(0 0 12px #38bdf8)','cubic-bezier(.2,.8,.2,1)');
+   bList.forEach((m,idx)=>{
+    const r=m.r,dl=T_HIT+90+idx*65,sM=Math.max(.26,Math.min(.42,(r.h*1.35)/201));
+    svgObj(200,264,S.tornado(.65),fitFront(c,200,264,[
+     ufK(r.x,gy(r.b+2,sM*.4),sM*.4,0,0,0),
+     ufK(r.x,gy(r.b+2,sM),sM,0,.92,.24),
+     ufK(r.x+sd*3,gy(r.b+2,sM*1.08),sM*1.08,0,.85,.74),
+     ufK(r.x,gy(r.b+2,sM*1.18),sM*1.18,0,0,1)
+    ]),820,dl,'filter:drop-shadow(0 0 10px #38bdf8)','ease-out');
+    ufBurst(r.x,r.y,['💨','🍃','⚡'],4,40,dl+40,14,520);
+    if(m.el&&m.el.animate){
+     m.el.animate([
+      {transform:'none',filter:'none',offset:0},
+      {transform:`translate(${sd*5}px,-5px) rotate(${sd*8}deg)`,filter:'brightness(1.65) drop-shadow(0 0 10px #38bdf8)',offset:.25},
+      {transform:`translate(${-sd*4}px,-2px) rotate(${-sd*6}deg)`,filter:'brightness(1.25) drop-shadow(0 0 6px #7dd3fc)',offset:.6},
+      {transform:'none',filter:'none',offset:1}
+     ],{duration:540,delay:dl,easing:'ease-out'});
+    }
+   });
+  }
+
+  /* ===== GIAI ĐOẠN 4: kết thúc – lốc tan + vòng phong ấn gió khóa nội tại mục tiêu chính ===== */
+  const T_SEAL=T_END-320;
+  const SEAL_SVG='<circle cx="60" cy="60" r="46" fill="none" stroke="#38bdf8" stroke-width="3.5" stroke-dasharray="16 10" stroke-linecap="round"/><circle cx="60" cy="60" r="32" fill="rgba(14,165,233,.14)" stroke="#bae6fd" stroke-width="2.4" stroke-dasharray="9 7"/><path d="M24 60 A36 36 0 0 1 96 60" fill="none" stroke="#e0f2fe" stroke-width="2.5" stroke-linecap="round"/><path d="M96 60 A36 36 0 0 1 24 60" fill="none" stroke="#7dd3fc" stroke-width="2.5" stroke-linecap="round"/><circle cx="60" cy="60" r="16" fill="rgba(15,23,42,.72)" stroke="#38bdf8" stroke-width="2"/><line x1="49" y1="49" x2="71" y2="71" stroke="#f8fafc" stroke-width="3.2" stroke-linecap="round"/>';
+  const sealSc=Math.max(.85,Math.min(1.25,b.w/96));
+  svgObj(120,120,SEAL_SVG,fitFront(c,120,120,[
+   ufK(b.x,b.y,sealSc*1.55,-140,0,0),
+   ufK(b.x,b.y,sealSc*1.02,-15,.98,.32),
+   ufK(b.x,b.y,sealSc*.95,35,.95,.72),
+   ufK(b.x,b.y,sealSc*.82,95,0,1)
+  ]),1080,T_SEAL,'filter:drop-shadow(0 0 14px #38bdf8)','cubic-bezier(.2,.85,.25,1)');
   ufBurst(b.x,b.b-10,['💨','🍃','✦'],10,110,T_END-200,22,800);
   residue(c,b.x,b.b-4,'#0ea5e9',['💨','⚡'],T_END-100,850);
   return D;
@@ -15844,12 +15887,56 @@ Object.assign(UFXF,{
    u.spark(b.x,b.b-14,'#f59e0b',8,40,920,560);return 2500;
   },
   tempest(c){
-   const u=P(c,2550),{a,b}=c;u.label();u.footRing(c.cls.c,a.x,a.b-3,a.w,2320);u.aura('#06b6d4',72,620);
-   /* Lốc xoáy vẽ lại: phễu xoay vòng bao quanh đối thủ */
+   const u=P(c,2750),{a,b,sd}=c;u.label();u.footRing(c.cls.c,a.x,a.b-3,a.w,2480);u.aura('#06b6d4',72,620);
+   /* Lốc xoáy chính: phễu xoay vòng bao quanh mục tiêu chính */
    const th=Math.max(130,b.h*1.6),tw=Math.round(th*200/264),cy=b.b+8-th/2;
    const cyc=u.Svg(tw,Math.round(th),'0 0 200 264',U.svg.tornado(.5),'filter:drop-shadow(0 0 12px #38bdf8)');
-   u.A(cyc,[u.K(b.x,cy+14,.4,0,0),u.K(b.x,cy+4,1,0,.97,.26),u.K(b.x,cy,1.04,0,.97,.8),u.K(b.x,cy-8,1.1,0,0)],1700,340);
-   u.wave(b.x,b.y,'#22d3ee',18,86,780,580);u.spark(b.x,b.y,'#67e8f9',12,68,780,740);u.hit(780,'#06b6d4',10);return 2550;
+   u.A(cyc,[u.K(b.x,cy+14,.4,0,0),u.K(b.x,cy+4,1,0,.97,.24),u.K(b.x,cy,1.04,0,.97,.78),u.K(b.x,cy-8,1.1,0,0)],1750,340);
+   u.wave(b.x,b.y,'#22d3ee',18,86,780,580);u.spark(b.x,b.y,'#67e8f9',12,68,780,740);u.hit(780,'#06b6d4',10);
+   /* 7v7: tách 2 luồng gió lan sang 2 dự bị bị trúng; 1v1: gió giật thêm 1 đợt (+30% ST) */
+   let spEls=[];
+   if(c.oppMates&&c.oppMates.length){
+    if(!c.demo&&typeof G!=='undefined'&&G&&Array.isArray(G._tpSplash)&&G._tpSplash.length&&c.arn){
+     spEls=G._tpSplash.map(k=>{const m=c.arn.querySelector('.a7s.s'+c.o+' .a7m[data-mk="'+k+'"]');return m&&(m.querySelector('.a7a')||m)}).filter(Boolean);
+     G._tpSplash=null;
+    }
+    if(!spEls.length)spEls=c.oppMates.slice(0,2);
+   }
+   const BLADE='<path d="M4 16 Q22 2 46 10 Q30 14 14 22 Z" fill="#e0f2fe" stroke="#38bdf8" stroke-width="1.6"/><path d="M8 22 Q24 14 40 16" fill="none" stroke="#7dd3fc" stroke-width="2" stroke-linecap="round"/>';
+   if(spEls.length){
+    spEls.forEach((el,i)=>{
+     const r=ufR(el),t0=840+i*120,arr=t0+300,ang=Math.atan2(r.y-b.y,r.x-b.x)*180/Math.PI;
+     const wb=u.Svg(52,28,'0 0 52 28',BLADE,'filter:drop-shadow(0 0 8px #38bdf8)');
+     u.A(wb,[u.K(b.x,b.y,.5,ang,0),u.K((b.x+r.x)/2,(b.y+r.y)/2-14,1.05,ang,1,.45),u.K(r.x,r.y,.9,ang,1,.92),u.K(r.x,r.y,.5,ang,0)],320,t0,'cubic-bezier(.2,.8,.25,1)');
+     const mh=Math.max(58,r.h*1.35),mw=Math.round(mh*200/264),mcy=r.b+4-mh/2;
+     const mt=u.Svg(mw,Math.round(mh),'0 0 200 264',U.svg.tornado(.45),'filter:drop-shadow(0 0 8px #38bdf8)');
+     u.A(mt,[u.K(r.x,mcy+8,.35,0,0),u.K(r.x,mcy,1,0,.92,.26),u.K(r.x,mcy-2,1.06,0,.88,.76),u.K(r.x,mcy-8,1.12,0,0)],920,arr);
+     u.wave(r.x,r.y,'#38bdf8',10,Math.max(44,r.w*1.15),540,arr);
+     u.spark(r.x,r.y,'#bae6fd',7,38,520,arr+30);
+     if(el.animate)el.animate([
+      {transform:'none',filter:'none',offset:0},
+      {transform:`translate(${sd*5}px,-4px) rotate(${sd*7}deg)`,filter:'brightness(1.55) drop-shadow(0 0 10px #38bdf8)',offset:.3},
+      {transform:`translate(${-sd*3}px,0) rotate(${-sd*4}deg)`,filter:'brightness(1.2)',offset:.65},
+      {transform:'none',filter:'none',offset:1}
+     ],{duration:480,delay:arr,easing:'ease-out'});
+    });
+   }else{
+    /* 1v1: đợt gió giật thứ 2 sau đòn chính */
+    const t2=1220;
+    [1,-1].forEach((dir,i)=>{
+     const wb=u.Svg(64,34,'0 0 52 28',BLADE,'filter:drop-shadow(0 0 10px #38bdf8)');
+     const ang=dir>0?-18:162;
+     u.A(wb,[u.K(b.x-dir*72,b.y+12*dir,.6,ang,0),u.K(b.x,b.y,1.25,ang,1,.45),u.K(b.x+dir*78,b.y-14*dir,.9,ang,0)],420,t2+i*55,'ease-out');
+    });
+    u.wave(b.x,b.y,'#38bdf8',20,96,640,t2+40);
+    u.spark(b.x,b.y,'#e0f2fe',10,74,600,t2+70);
+    if(c.tv&&c.tv.animate)c.tv.animate([
+     {transform:'none',filter:'none',offset:0},
+     {transform:`translate(${sd*9}px,-6px)`,filter:'brightness(1.65) drop-shadow(0 0 12px #38bdf8)',offset:.3},
+     {transform:'none',filter:'none',offset:1}
+    ],{duration:360,delay:t2+60,easing:'ease-out'});
+   }
+   return 2750;
   },
   detective(c){
    const u=P(c,2500),{a,b}=c;u.label();u.footRing(c.cls.c,a.x,a.b-3,a.w,2280);u.aura('#2563eb',66,620);
@@ -21830,7 +21917,7 @@ window.lbBrk=function(){const m=document.getElementById('gm');if(!m||!G||G.k!=='
 /* ===== Hiệu ứng riêng: Thánh kỵ sĩ (vầng sáng vàng), Hộ vệ (đại khiên), Cuồng chiến (giáp cuồng huyết), Ảo thuật gia (bóng ảo dịch chuyển) ===== */
 const CI={paladin:{sh:ICO.palSh,ab:ICO.palSh,ts:ICO.palSh,gs:ICO.palSh},guardian:{sp:ICO.gdSp},berserker:{ar:ICO.bzAr},illus:{dg:ICO.ilDg}};
 CI.tact={sh:ICO.tcSh,ab:ICO.tcSh,ts:ICO.tcSh,gs:ICO.tcSh,sp:ICO.tcSh,rf:ICO.tcRf};
-window.clsIc=function(c,k,d,e){if(e){if(k==='stun'&&e.stMonk)return ICO.mkSt;if(k==='bn'&&e.bnPy)return ICO.pyBn}return (CI[c]&&CI[c][k])||d};
+window.clsIc=function(c,k,d,e){if(e){if(k==='stun'&&e.stMonk)return ICO.mkSt;if(k==='bn'&&e.bnPy)return ICO.pyBn;if(k==='psvlk'&&e.psvlkTp)return ICO.tpStorm}return (CI[c]&&CI[c][k])||d};
 window.bfxCls=function(k,c){const ok={paladin:{sh:1,ab:1},guardian:{sh:1},illus:{dg:1,ill:1}};if(!(ok[c]&&ok[c][k]))return '';
  const o={paladin:[ICO.palSh,k==='ab'?'HẤP THỤ!':'KẾT GIỚI!','pal'],guardian:[ICO.gdSp,'CHẶN ĐÒN!','gd'],illus:[ICO.ilDg,'DỊCH CHUYỂN!','il']}[c];
  return '<span class="bfx k-'+o[2]+'"><i>'+o[0]+'</i><em>'+o[1]+'</em></span>'};
